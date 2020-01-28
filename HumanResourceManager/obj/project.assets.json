@@ -12942,11 +12942,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\MyDirectory\\GitRepositories\\private.github.io\\HumanResourceManager\\HumanResourceManager\\HumanResourceManager.csproj",
+      "projectUniqueName": "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HumanResourceManager\\HumanResourceManager.csproj",
       "projectName": "HumanResourceManager",
-      "projectPath": "D:\\MyDirectory\\GitRepositories\\private.github.io\\HumanResourceManager\\HumanResourceManager\\HumanResourceManager.csproj",
+      "projectPath": "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HumanResourceManager\\HumanResourceManager.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "D:\\MyDirectory\\GitRepositories\\private.github.io\\HumanResourceManager\\HumanResourceManager\\obj\\",
+      "outputPath": "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HumanResourceManager\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
