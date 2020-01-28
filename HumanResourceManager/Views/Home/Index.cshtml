@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Главная страница";
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="jumbotron">
+            <h1>Управление сотрудниками</h1>
+            <p>
+                Для просмотра, удаления, изменения и создания новых сотрудников, нажмите
+                <a class="btn btn-primary" asp-controller="Employee" asp-action="Employees">
+                    Просмотреть сотрудников
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="jumbotron">
+            <h1>Управление компаниями</h1>
+            <p>
+                Для просмотра, удаления, изменения и создания новых команий, нажмите
+                <a class="btn btn-primary" asp-controller="Company" asp-action="Companies">
+                    Просмотреть комании
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="jumbotron">
+            <h1>Управление должностями сотрудников</h1>
+            <p>
+                Для просмотра, удаления, изменения и создания новых должностей, нажмите
+                <a class="btn btn-primary" asp-controller="Position" asp-action="Positions">
+                    Просмотреть должности сотрудников
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="jumbotron">
+            <h1>Управление видами деятельности компаний</h1>
+            <p>
+                Для просмотра, удаления, изменения и создания новых видов деятельности, нажмите
+                <a class="btn btn-primary" asp-controller="ActivityType" asp-action="ActivityTypes">
+                    Просмотреть виды деятельности компаний
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="jumbotron">
+            <h1>Управление организационно-правовыми формами</h1>
+            <p>
+                Для просмотра, удаления, изменения и создания новых организационно-правовых форм, нажмите
+                <br />
+                <br />
+                <a class="btn btn-primary" asp-controller="OrganizationalType" asp-action="OrganizationalTypes">
+                    Просмотреть организационно-правовые формы
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

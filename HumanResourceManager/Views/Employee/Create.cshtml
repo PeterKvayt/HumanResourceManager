@@ -1,0 +1,82 @@
+﻿@model HumanResourceManager.ViewModels.EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Добавить нового сотрудника";
+
+    string[] dateParts = System.DateTime.Now.ToShortDateString().Replace(".", "-").Split('-');
+
+    string minYear = (Convert.ToInt32(dateParts[2]) - 99).ToString();
+
+    string maxDate = $"{dateParts[2]}-{dateParts[1]}-{dateParts[0]}";
+
+    string minDate = $"{minYear}-{dateParts[1]}-{dateParts[0]}";
+}
+
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-1"></div>
+    <div class="col-lg-6 col-md-6 col-sm-10">
+        <h5><strong>Создание нового сотрудника</strong></h5>
+        <form method="post" asp-controller="Employee" asp-action="Create">
+            <div class="form-group">
+                <label asp-for="Employee.Surname" class="control-label">Фамилия</label>
+                <input maxlength="50" required asp-for="Employee.Surname" class="form-control input-form select-form" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Name" class="control-label">Имя</label>
+                <input maxlength="20" required asp-for="Employee.Name" class="form-control input-form select-form" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.MiddleName" class="control-label">Отчество</label>
+                <input maxlength="20" required asp-for="Employee.MiddleName" class="form-control input-form select-form" />
+            </div>
+            <div class="form-group">
+                <label asp-for="positionParams" class="control-label">Должность</label>
+                <select required asp-for="positionParams" class="form-control select-form">
+                    <option selected="selected" disabled="disabled" value="default">Выберите должность</option>
+                    @foreach (Position item in Model.Positions)
+                    {
+                        <option value="@item.SerializeToString()">@item.Name</option>
+                    }
+                </select>
+                <br />
+                <a asp-action="Create" asp-controller="Position" class="btn btn-info">Создать новую должность</a>
+                <span asp-validation-for="Employee.Position" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="companyParams" class="control-label">Место работы</label>
+                <select required asp-for="companyParams" class="form-control select-form">
+                    <option selected="selected" disabled="disabled" value="default" >Выберите место работы</option>
+                    @foreach (Company item in Model.Companies)
+                    {
+                        <option value="@item.SerializeToString()">@item.Name</option>
+                    }
+                </select>
+                <br />
+                <a asp-action="Create" asp-controller="Company" class="btn btn-info">Создать новую компанию</a>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.DateOfEmployment" class="control-label">Дата найма сотрудника</label>
+                <input asp-for="Employee.DateOfEmployment" type="date" max="@maxDate" min="@minDate" value="@maxDate" class="form-control select-form" />
+            </div>
+            <div class="form-group">
+                <input id="submit-btn" type="submit" style="display:none;" />
+            </div>
+        </form>
+
+        <button id="ok-btn" class="btn btn-primary">Создать</button>
+        <a asp-controller="Employee" asp-action="Employees" class="btn btn-danger">Отмена</a>
+        <br />
+        <br />
+        <div id="warning-alert" class="alert alert-warning .alert-dismissible" role="alert" style="display: none;">
+            <button id="close-warning" type="button" class="close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Заполните все поля!</strong>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/js/alerts.js"></script>
+}

@@ -1,0 +1,76 @@
+﻿@model HumanResourceManager.ViewModels.CompanyViewModel
+
+@{
+    ViewData["Title"] = "Изменить компанию";
+}
+
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-1"></div>
+    <div class="col-lg-6 col-md-6 col-sm-10">
+        <h5><strong>Изменение компании:</strong> @Model.Company.Name</h5>
+        <form method="post" asp-controller="Company" asp-action="Update">
+            <div class="form-group">
+                <label asp-for="Company.Name" class="control-label">Название компании</label>
+                <input maxlength="50" required asp-for="Company.Name" value="@Model.Company.Name" class="form-control input-form select-form" />
+                <input required asp-for="Company.Id" value="@Model.Company.Id" style="display:none;" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityTypeParams" class="control-label">Вид деятельности компании</label>
+                <select required asp-for="ActivityTypeParams" class="form-control select-form">
+                    <option disabled="disabled" value="default">Выберите деятельность</option>
+                    @foreach (ActivityType item in Model.ActivityTypes)
+                    {
+                        if (item.Id == Model.Company.ActivityType.Id)
+                        {
+                            <option selected="selected" value="@item.SerializeToString()">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.SerializeToString()">@item.Name</option>
+                        }
+                    }
+                </select>
+                <br />
+                <a asp-action="Create" asp-controller="ActivityType" class="btn btn-info">Создать новый вид деятельности</a>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrganizationalTypeParams" class="control-label">Тип организации</label>
+                <select required asp-for="OrganizationalTypeParams" class="form-control select-form">
+                    <option disabled="disabled" value="default">Выберите тип организации</option>
+                    @foreach (OrganizationalType item in Model.OrganizationalTypes)
+                    {
+                        if (item.Id == Model.Company.OrganizationalType.Id)
+                        {
+                            <option selected="selected" value="@item.SerializeToString()">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.SerializeToString()">@item.Name</option>
+                        }
+                    }
+                </select>
+                <br />
+                <a asp-action="Create" asp-controller="OrganizationalType" class="btn btn-info">Создать новый тип организации</a>
+            </div>
+            <div class="form-group">
+                <input id="submit-btn" type="submit" style="display:none;" />
+            </div>
+        </form>
+
+        <button id="ok-btn" class="btn btn-primary">Изменить</button>
+        <a asp-controller="Company" asp-action="Companies" class="btn btn-danger">Отмена</a>
+        <br />
+        <br />
+        <div id="warning-alert" class="alert alert-warning .alert-dismissible" role="alert" style="display: none;">
+            <button id="close-warning" type="button" class="close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Заполните все поля!</strong>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/js/alerts.js"></script>
+}
