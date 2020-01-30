@@ -14,11 +14,18 @@ namespace HumanResourceManager
 {
     public class Startup
     {
-        public static string ConnectionString = "Server = PETERKVAYTPC\\SQLEXPRESS1;Database=HumanResourceManagerDB;Trusted_Connection=True;";
+        //public static string ConnectionString = "Server = PETERKVAYTPC\\SQLEXPRESS1;Database=HumanResourceManagerDB;Trusted_Connection=True;";
+        public static string ConnectionString;
+
+
 
         public Startup(IConfiguration configuration)
         {
+            //var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+            //Configuration = builder.Build();
             Configuration = configuration;
+
+            ConnectionString = Configuration.GetConnectionString("DefaultConnection");
         }
 
         public IConfiguration Configuration { get; }
@@ -35,6 +42,8 @@ namespace HumanResourceManager
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
