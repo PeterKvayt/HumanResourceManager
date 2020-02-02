@@ -14,15 +14,10 @@ namespace HumanResourceManager
 {
     public class Startup
     {
-        //public static string ConnectionString = "Server = PETERKVAYTPC\\SQLEXPRESS1;Database=HumanResourceManagerDB;Trusted_Connection=True;";
         public static string ConnectionString;
-
-
 
         public Startup(IConfiguration configuration)
         {
-            //var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
-            //Configuration = builder.Build();
             Configuration = configuration;
 
             ConnectionString = Configuration.GetConnectionString("DefaultConnection");
