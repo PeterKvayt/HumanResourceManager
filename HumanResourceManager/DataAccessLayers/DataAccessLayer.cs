@@ -9,7 +9,7 @@ namespace HumanResourceManager.DataAccessLayers
     public class DataAccessLayer
     {
         //Получение строки подключения к бд
-        protected string ConnectionString { get; } = Startup.ConnectionString;
+        protected string ConnectionString { get; } = Startup.DataBaseConnectionString;
 
         //Возвращает конкретный экземпляр из бд
         protected CommonStructure GetParticularData(int id, string storedProcedure)

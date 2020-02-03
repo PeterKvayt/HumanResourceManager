@@ -14,13 +14,14 @@ namespace HumanResourceManager
 {
     public class Startup
     {
-        public static string ConnectionString;
+        public static string DataBaseConnectionString;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
 
-            ConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            // Строка подключения к базе данных берется из файла appsettings.json
+            DataBaseConnectionString = Configuration.GetConnectionString("DefaultConnection");
         }
 
         public IConfiguration Configuration { get; }
