@@ -11,7 +11,18 @@ namespace HumanResourceManager.DataAccessLayers
         /// <summary>
         /// Имя хранимой процедуры
         /// </summary>
-        public string Name { get; }
+        private string m_name { get; }
+
+        /// <summary>
+        /// Возвращает название хранимой процедуры
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return m_name;
+            }
+        }
 
         /// <summary>
         /// Параметры хранимой процедуры
@@ -40,6 +51,21 @@ namespace HumanResourceManager.DataAccessLayers
             //}
         }
 
+        /// <summary>
+        /// Минимальное количество sql параметров для хранимой процедуры
+        /// </summary>
+        private const int m_sqlParametersCountMin = 1;
+
+        /// <summary>
+        /// Возвращает минимальное количество sql параметров для хранимой процедуры
+        /// </summary>
+        public static int SqlParametersCountMin
+        {
+            get
+            {
+                return m_sqlParametersCountMin;
+            }
+        }
 
         /// <summary>
         /// Создает экземпляр класса StoredProcedure
@@ -50,20 +76,19 @@ namespace HumanResourceManager.DataAccessLayers
         {
             if (!string.IsNullOrEmpty(storedProcedureName) && !string.IsNullOrWhiteSpace(storedProcedureName))
             {
-                Name = storedProcedureName;
+                if (sqlParameters.Count >= SqlParametersCountMin)
+                {
+                    m_name = storedProcedureName;
+                    m_sqlParameters = sqlParameters;
+                }
+                else
+                {
+                    // ToDo: обработать неподходящее количество параметров хранимой процедуры
+                }
             }
             else
             {
                 // ToDo: обработать отсутствие названия процедуры
-            }
-
-            if (sqlParameters.Count >= 1)
-            {
-                m_sqlParameters = sqlParameters;
-            }
-            else
-            {
-                // ToDo: обработать отсутствие параметров хранимой процедуры
             }
         }
 

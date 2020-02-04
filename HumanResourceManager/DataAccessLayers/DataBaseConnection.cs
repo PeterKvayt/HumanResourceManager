@@ -5,16 +5,26 @@ using System.Data.SqlClient;
 
 namespace HumanResourceManager.DataAccessLayers
 {
-    public class DataBaseConnection
+    /// <summary>
+    /// Выполняет запросы к базе данных
+    /// </summary>
+    public class DataBaseQueriesExecutor
     {
         private SqlConnection m_sqlConnection;
 
         /// <summary>
         /// Создание экземпляра подключения к базе данных. 
         /// </summary>
-        public DataBaseConnection()
+        public DataBaseQueriesExecutor()
         {
-            m_sqlConnection = new SqlConnection(Startup.DataBaseConnectionString);
+            if (!string.IsNullOrEmpty(Startup.DataBaseConnectionString) && !string.IsNullOrWhiteSpace(Startup.DataBaseConnectionString))
+            {
+                m_sqlConnection = new SqlConnection(Startup.DataBaseConnectionString);
+            }
+            else
+            {
+                // ToDo: Обработать отсутствие строки подключения к базе данных
+            }
         }
 
         /// <summary>
@@ -25,6 +35,10 @@ namespace HumanResourceManager.DataAccessLayers
             if (m_sqlConnection.State == ConnectionState.Closed || m_sqlConnection.State == ConnectionState.Broken)
             {
                 m_sqlConnection.Open();
+            }
+            else
+            {
+                // ToDo: Обработать ошибку открытия подключения к бд
             }
         }
 
@@ -78,7 +92,7 @@ namespace HumanResourceManager.DataAccessLayers
                     CommandType = sqlCommandType
                 };
 
-                if (sqlCommandParameters.Count >= 1)
+                if (sqlCommandParameters.Count >= StoredProcedure.SqlParametersCountMin)
                 {
                     foreach (var sqlParameter in sqlCommandParameters)
                     {
