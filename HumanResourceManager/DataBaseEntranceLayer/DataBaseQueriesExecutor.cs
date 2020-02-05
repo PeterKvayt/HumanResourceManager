@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace HumanResourceManager.DataAccessLayers
+namespace HumanResourceManager.DataBaseEntranceLayer
 {
     /// <summary>
     /// Выполняет запросы к базе данных
@@ -45,9 +45,9 @@ namespace HumanResourceManager.DataAccessLayers
         /// <summary>
         /// Выполняет хранимую процедуру
         /// </summary>
-        /// <param name="storedProcedure"></param>
+        /// <param name="inputStoredProcedure"></param>
         /// <returns>Возвращает результат выполнения хранимой процедуры в виде DataTable</returns>
-        public DataTable ExecuteStoredProcedure(StoredProcedure storedProcedure)
+        public DataTable ExecuteStoredProcedure(StoredProcedure inputStoredProcedure)
         {
             DataTable storedProcedureExecutingResult = null;
 
@@ -55,7 +55,7 @@ namespace HumanResourceManager.DataAccessLayers
             {
                 OpenDataBaseConnection();
 
-                SqlCommand storedProcedureCommand = GetSqlCommand(storedProcedure.Name, storedProcedure.SqlParameters, CommandType.StoredProcedure);
+                SqlCommand storedProcedureCommand = GetStoredProcedureCommand(inputStoredProcedure);
 
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(storedProcedureCommand);
 
@@ -67,7 +67,7 @@ namespace HumanResourceManager.DataAccessLayers
                 }
                 catch (Exception)
                 {
-                    // ToDo: Обработать исключения выполнения 
+                    // ToDo: Обработать исключения выполнения запроса на заполнение dataset
                 }
 
                 storedProcedureExecutingResult  = dataSet.Tables[0];
@@ -77,42 +77,24 @@ namespace HumanResourceManager.DataAccessLayers
         }
 
         /// <summary>
-        /// Возвращает sql команду
+        /// Получает хранимую процедуру и преобразует ее в sql-команду
         /// </summary>
-        /// <param name="sqlCommandExpression">sql выражение для команды</param>
-        /// <param name="sqlCommandType">Тип sql команды</param>
-        /// <param name="sqlCommandParameters">Параметры sql команды</param>
-        /// <returns></returns>
-        private SqlCommand GetSqlCommand(string sqlCommandExpression, List<SqlParameter> sqlCommandParameters, CommandType sqlCommandType)
+        /// <param name="inputStoredProcedure">Хранимая процедура для преобразования в sql-команду</param>
+        /// <returns>Возвращает sql-команду</returns>
+        private SqlCommand GetStoredProcedureCommand(StoredProcedure inputStoredProcedure)
         {
-            if (!string.IsNullOrEmpty(sqlCommandExpression) && !string.IsNullOrWhiteSpace(sqlCommandExpression))
+            SqlCommand storedProcedureCommand = new SqlCommand
             {
-                SqlCommand sqlCommand = new SqlCommand(sqlCommandExpression)
-                {
-                    CommandType = sqlCommandType
-                };
+                CommandText = inputStoredProcedure.Name,
+                CommandType = StoredProcedure.GetCommandType()
+            };
 
-                if (sqlCommandParameters.Count >= StoredProcedure.SqlParametersCountMin)
-                {
-                    foreach (var sqlParameter in sqlCommandParameters)
-                    {
-                        sqlCommand.Parameters.Add(sqlParameter);
-                    }
-
-                    return sqlCommand;
-                }
-                else
-                {
-                    return null;
-                    // ToDo: Обработать отсутствие параметров для создания sql-команды
-                }
-            }
-            else
+            foreach (var sqlParameter in inputStoredProcedure.SqlParameters)
             {
-                return null;
-                // ToDo: Обработать отсутствие sql-выражения для создания sql-команды
+                storedProcedureCommand.Parameters.Add(sqlParameter);
             }
 
+            return storedProcedureCommand;
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HumanResourceManager.DataAccessLayers
+namespace HumanResourceManager.DataBaseEntranceLayer
 {
     public class StoredProcedure
     {
@@ -52,22 +53,6 @@ namespace HumanResourceManager.DataAccessLayers
         }
 
         /// <summary>
-        /// Минимальное количество sql параметров для хранимой процедуры
-        /// </summary>
-        private const int m_sqlParametersCountMin = 1;
-
-        /// <summary>
-        /// Возвращает минимальное количество sql параметров для хранимой процедуры
-        /// </summary>
-        public static int SqlParametersCountMin
-        {
-            get
-            {
-                return m_sqlParametersCountMin;
-            }
-        }
-
-        /// <summary>
         /// Создает экземпляр класса StoredProcedure
         /// </summary>
         /// <param name="storedProcedureName">Имя хранимой процедуры</param>
@@ -76,7 +61,7 @@ namespace HumanResourceManager.DataAccessLayers
         {
             if (!string.IsNullOrEmpty(storedProcedureName) && !string.IsNullOrWhiteSpace(storedProcedureName))
             {
-                if (sqlParameters.Count >= SqlParametersCountMin)
+                if (sqlParameters.Count >= GetSqlParametersCountMin())
                 {
                     m_name = storedProcedureName;
                     m_sqlParameters = sqlParameters;
@@ -90,6 +75,32 @@ namespace HumanResourceManager.DataAccessLayers
             {
                 // ToDo: обработать отсутствие названия процедуры
             }
+        }
+
+        /// <summary>
+        /// Минимальное количество sql параметров для хранимой процедуры
+        /// </summary>
+        private const int m_SQL_PARAMETERS_COUNT_MIN = 1;
+
+        /// <summary>
+        /// Возвращает минимальное количество sql параметров для хранимой процедуры
+        /// </summary>
+        public static int GetSqlParametersCountMin()
+        {
+            return m_SQL_PARAMETERS_COUNT_MIN;
+        }
+
+        /// <summary>
+        /// Константа тип команды для создания sql-команд
+        /// </summary>
+        private const CommandType m_COMMAND_TYPE = CommandType.StoredProcedure;
+
+        /// <summary>
+        /// Возвращает константу тип команды для создания sql-команд
+        /// </summary>
+        public static CommandType GetCommandType()
+        {
+            return m_COMMAND_TYPE;
         }
 
     }
