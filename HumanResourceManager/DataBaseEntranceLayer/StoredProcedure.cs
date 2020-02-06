@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HumanResourceManager.DataBaseEntranceLayer
 {
@@ -59,7 +57,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <param name="sqlParameters">Параметры хранимой процедуры</param>
         public StoredProcedure(string storedProcedureName, List<SqlParameter> sqlParameters)
         {
-            if (!string.IsNullOrEmpty(storedProcedureName) && !string.IsNullOrWhiteSpace(storedProcedureName))
+            if ( !(string.IsNullOrEmpty(storedProcedureName) && string.IsNullOrWhiteSpace(storedProcedureName)) )
             {
                 if (sqlParameters.Count >= GetSqlParametersCountMin())
                 {

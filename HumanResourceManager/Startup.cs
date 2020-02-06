@@ -14,6 +14,9 @@ namespace HumanResourceManager
 {
     public class Startup
     {
+        /// <summary>
+        /// Строка подключения к базе данных
+        /// </summary>
         public static string DataBaseConnectionString;
 
         public Startup(IConfiguration configuration)

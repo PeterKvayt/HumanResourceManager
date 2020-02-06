@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -10,37 +9,12 @@ namespace HumanResourceManager.DataBaseEntranceLayer
     /// </summary>
     public class DataBaseQueriesExecutor
     {
-        private SqlConnection m_sqlConnection;
+        private readonly DataBaseConnection m_dataBaseConnection = new DataBaseConnection();
 
         /// <summary>
         /// Создание экземпляра подключения к базе данных. 
         /// </summary>
-        public DataBaseQueriesExecutor()
-        {
-            if (!string.IsNullOrEmpty(Startup.DataBaseConnectionString) && !string.IsNullOrWhiteSpace(Startup.DataBaseConnectionString))
-            {
-                m_sqlConnection = new SqlConnection(Startup.DataBaseConnectionString);
-            }
-            else
-            {
-                // ToDo: Обработать отсутствие строки подключения к базе данных
-            }
-        }
-
-        /// <summary>
-        /// Открывает подключение к базе данных
-        /// </summary>
-        private void OpenDataBaseConnection()
-        {
-            if (m_sqlConnection.State == ConnectionState.Closed || m_sqlConnection.State == ConnectionState.Broken)
-            {
-                m_sqlConnection.Open();
-            }
-            else
-            {
-                // ToDo: Обработать ошибку открытия подключения к бд
-            }
-        }
+        public DataBaseQueriesExecutor() { }
 
         /// <summary>
         /// Выполняет хранимую процедуру
@@ -51,10 +25,8 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         {
             DataTable storedProcedureExecutingResult = null;
 
-            using (SqlConnection sqlDataBaseConnection = m_sqlConnection)
+            using (SqlConnection sqlDataBaseConnection = m_dataBaseConnection.GetOpenedSqlConnection())
             {
-                OpenDataBaseConnection();
-
                 SqlCommand storedProcedureCommand = GetStoredProcedureCommand(inputStoredProcedure);
 
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(storedProcedureCommand);
