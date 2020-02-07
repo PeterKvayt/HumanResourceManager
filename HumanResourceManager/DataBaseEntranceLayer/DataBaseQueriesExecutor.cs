@@ -23,8 +23,6 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <returns>Возвращает результат выполнения хранимой процедуры в виде DataTable</returns>
         public DataTable ExecuteStoredProcedure(StoredProcedure inputStoredProcedure)
         {
-            DataTable storedProcedureExecutingResult = null;
-
             using (SqlConnection sqlDataBaseConnection = m_dataBaseConnection.GetOpenedSqlConnection())
             {
                 SqlCommand storedProcedureCommand = GetStoredProcedureCommand(inputStoredProcedure);
@@ -36,16 +34,15 @@ namespace HumanResourceManager.DataBaseEntranceLayer
                 try
                 {
                     dataAdapter.Fill(dataSet);
+
+                    return dataSet.Tables[0];
                 }
                 catch (Exception)
                 {
+                    return null;
                     // ToDo: Обработать исключения выполнения запроса на заполнение dataset
                 }
-
-                storedProcedureExecutingResult  = dataSet.Tables[0];
             }
-
-            return storedProcedureExecutingResult ;
         }
 
         /// <summary>

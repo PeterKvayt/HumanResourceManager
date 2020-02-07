@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HumanResourceManager.DataBaseEntranceLayer
 {
-    public class DataBaseConnection
+    class DataBaseConnection
     {
         /// <summary>
         /// Соединение с базой данных 

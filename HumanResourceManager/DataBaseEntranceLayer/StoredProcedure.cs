@@ -10,7 +10,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <summary>
         /// Имя хранимой процедуры
         /// </summary>
-        private string m_name { get; }
+        private readonly string m_name;
 
         /// <summary>
         /// Возвращает название хранимой процедуры
@@ -26,7 +26,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <summary>
         /// Параметры хранимой процедуры
         /// </summary>
-        private List<SqlParameter> m_sqlParameters;
+        private readonly List<SqlParameter> m_sqlParameters;
 
         /// <summary>
         /// Возвращает список параметров хранимой процедуры
