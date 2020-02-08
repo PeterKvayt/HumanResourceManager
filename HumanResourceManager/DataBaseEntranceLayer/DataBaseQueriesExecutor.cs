@@ -12,11 +12,6 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         private readonly DataBaseConnection m_dataBaseConnection = new DataBaseConnection();
 
         /// <summary>
-        /// Создание экземпляра подключения к базе данных. 
-        /// </summary>
-        public DataBaseQueriesExecutor() { }
-
-        /// <summary>
         /// Выполняет хранимую процедуру
         /// </summary>
         /// <param name="inputStoredProcedure"></param>
@@ -27,8 +22,10 @@ namespace HumanResourceManager.DataBaseEntranceLayer
             {
                 SqlCommand storedProcedureCommand = GetStoredProcedureCommand(inputStoredProcedure);
 
+                // ToDo: Переименовать DataAdapter
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(storedProcedureCommand);
 
+                // ToDo: Переименовать DataSet
                 DataSet dataSet = null;
 
                 try
