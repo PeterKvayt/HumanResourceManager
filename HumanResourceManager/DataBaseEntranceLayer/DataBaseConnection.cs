@@ -8,7 +8,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <summary>
         /// Соединение с базой данных 
         /// </summary>
-        private readonly SqlConnection m_sqlConnection;
+        private readonly SqlConnection m_SqlConnection;
 
         /// <summary>
         /// Открывает соединение с базой данных и возвращает его
@@ -17,7 +17,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         {
             OpenDataBaseConnection();
 
-            return m_sqlConnection;
+            return m_SqlConnection;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
 
             if ( !(string.IsNullOrEmpty(dataBaseСonnectionString) && string.IsNullOrWhiteSpace(dataBaseСonnectionString)) )
             {
-                m_sqlConnection = new SqlConnection(dataBaseСonnectionString);
+                m_SqlConnection = new SqlConnection(dataBaseСonnectionString);
             }
             else
             {
@@ -42,9 +42,9 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// </summary>
         private void OpenDataBaseConnection()
         {
-            if (m_sqlConnection.State == ConnectionState.Closed || m_sqlConnection.State == ConnectionState.Broken)
+            if (m_SqlConnection.State == ConnectionState.Closed || m_SqlConnection.State == ConnectionState.Broken)
             {
-                m_sqlConnection.Open();
+                m_SqlConnection.Open();
             }
             else
             {

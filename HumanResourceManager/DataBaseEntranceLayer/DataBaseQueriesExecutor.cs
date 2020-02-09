@@ -9,35 +9,51 @@ namespace HumanResourceManager.DataBaseEntranceLayer
     /// </summary>
     public class DataBaseQueriesExecutor
     {
-        private readonly DataBaseConnection m_dataBaseConnection = new DataBaseConnection();
+        private readonly DataBaseConnection m_DataBaseConnection = new DataBaseConnection();
 
         /// <summary>
         /// Выполняет хранимую процедуру
         /// </summary>
         /// <param name="inputStoredProcedure"></param>
-        /// <returns>Возвращает результат выполнения хранимой процедуры в виде DataTable</returns>
-        public DataTable ExecuteStoredProcedure(StoredProcedure inputStoredProcedure)
+        /// <returns>Возвращает SqlDataReader</returns>
+        public SqlDataReader ExecuteReaderStoredProcedure(StoredProcedure inputStoredProcedure)
         {
-            using (SqlConnection sqlDataBaseConnection = m_dataBaseConnection.GetOpenedSqlConnection())
+            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.GetOpenedSqlConnection())
             {
                 SqlCommand storedProcedureCommand = GetStoredProcedureCommand(inputStoredProcedure);
 
-                // ToDo: Переименовать DataAdapter
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(storedProcedureCommand);
-
-                // ToDo: Переименовать DataSet
-                DataSet dataSet = null;
-
                 try
                 {
-                    dataAdapter.Fill(dataSet);
+                    SqlDataReader reader = storedProcedureCommand.ExecuteReader();
 
-                    return dataSet.Tables[0];
+                    return reader;
                 }
                 catch (Exception)
                 {
-                    return null;
                     // ToDo: Обработать исключения выполнения запроса на заполнение dataset
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inputStoredProcedure"></param>
+        public void ExecuteNonQueryStoredProcedure(StoredProcedure inputStoredProcedure)
+        {
+            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.GetOpenedSqlConnection())
+            {
+                SqlCommand storedProcedureCommand = GetStoredProcedureCommand(inputStoredProcedure);
+
+                try
+                {
+                    storedProcedureCommand.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    // ToDo: Обработать исключения выполнения запроса на заполнение dataset
+                    throw;
                 }
             }
         }
@@ -52,7 +68,8 @@ namespace HumanResourceManager.DataBaseEntranceLayer
             SqlCommand storedProcedureCommand = new SqlCommand
             {
                 CommandText = inputStoredProcedure.Name,
-                CommandType = StoredProcedure.GetCommandType()
+                CommandType = StoredProcedure.GetCommandType(),
+                Connection = m_DataBaseConnection.GetOpenedSqlConnection()
             };
 
             foreach (var sqlParameter in inputStoredProcedure.SqlParameters)

@@ -9,7 +9,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <summary>
         /// Имя хранимой процедуры
         /// </summary>
-        private readonly string m_name;
+        private readonly string m_Name;
 
         /// <summary>
         /// Возвращает название хранимой процедуры
@@ -18,14 +18,14 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         {
             get
             {
-                return m_name;
+                return m_Name;
             }
         }
 
         /// <summary>
         /// Параметры хранимой процедуры
         /// </summary>
-        private readonly List<SqlParameter> m_sqlParameters;
+        private readonly List<SqlParameter> m_SqlParameters;
 
         /// <summary>
         /// Возвращает список параметров хранимой процедуры
@@ -34,7 +34,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         {
             get
             {
-                return m_sqlParameters;
+                return m_SqlParameters;
             }
             //set
             //{
@@ -60,8 +60,8 @@ namespace HumanResourceManager.DataBaseEntranceLayer
             {
                 if (sqlParameters.Count >= GetSqlParametersCountMin())
                 {
-                    m_name = storedProcedureName;
-                    m_sqlParameters = sqlParameters;
+                    m_Name = storedProcedureName;
+                    m_SqlParameters = sqlParameters;
                 }
                 else
                 {
@@ -77,7 +77,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <summary>
         /// Минимальное количество sql параметров для хранимой процедуры
         /// </summary>
-        private const int m_SQL_PARAMETERS_COUNT_MIN = 1;
+        private const int m_SQL_PARAMETERS_COUNT_MIN = 0;
 
         /// <summary>
         /// Возвращает минимальное количество sql параметров для хранимой процедуры
