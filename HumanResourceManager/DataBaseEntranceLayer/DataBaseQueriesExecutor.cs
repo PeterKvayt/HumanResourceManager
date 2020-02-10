@@ -18,8 +18,10 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <returns>Возвращает SqlDataReader</returns>
         public SqlDataReader ExecuteReaderStoredProcedure(StoredProcedure inputStoredProcedure)
         {
-            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.GetOpenedSqlConnection())
+            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.Connection)
             {
+                sqlDataBaseConnection.Open();
+
                 SqlCommand storedProcedureCommand = GetStoredProcedureCommand(inputStoredProcedure);
 
                 try
@@ -42,7 +44,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <param name="inputStoredProcedure"></param>
         public void ExecuteNonQueryStoredProcedure(StoredProcedure inputStoredProcedure)
         {
-            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.GetOpenedSqlConnection())
+            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.GetDataBaseConnection())
             {
                 SqlCommand storedProcedureCommand = GetStoredProcedureCommand(inputStoredProcedure);
 
@@ -69,7 +71,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
             {
                 CommandText = inputStoredProcedure.Name,
                 CommandType = StoredProcedure.GetCommandType(),
-                Connection = m_DataBaseConnection.GetOpenedSqlConnection()
+                Connection = m_DataBaseConnection.Connection
             };
 
             foreach (var sqlParameter in inputStoredProcedure.SqlParameters)

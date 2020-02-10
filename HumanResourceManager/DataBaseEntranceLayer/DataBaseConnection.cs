@@ -6,19 +6,9 @@ namespace HumanResourceManager.DataBaseEntranceLayer
     class DataBaseConnection
     {
         /// <summary>
-        /// Соединение с базой данных 
+        /// Возвращает соединение с базой данных
         /// </summary>
-        private readonly SqlConnection m_SqlConnection;
-
-        /// <summary>
-        /// Открывает соединение с базой данных и возвращает его
-        /// </summary>
-        public SqlConnection GetOpenedSqlConnection()
-        {
-            OpenDataBaseConnection();
-
-            return m_SqlConnection;
-        }
+        public SqlConnection Connection { get; }
 
         /// <summary>
         /// Создает экземпляр класса DataBaseConnection
@@ -29,7 +19,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
 
             if ( !(string.IsNullOrEmpty(dataBaseСonnectionString) && string.IsNullOrWhiteSpace(dataBaseСonnectionString)) )
             {
-                m_SqlConnection = new SqlConnection(dataBaseСonnectionString);
+                Connection = new SqlConnection(dataBaseСonnectionString);
             }
             else
             {
@@ -40,16 +30,16 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <summary>
         /// Открывает подключение к базе данных
         /// </summary>
-        private void OpenDataBaseConnection()
-        {
-            if (m_SqlConnection.State == ConnectionState.Closed || m_SqlConnection.State == ConnectionState.Broken)
-            {
-                m_SqlConnection.Open();
-            }
-            else
-            {
-                // ToDo: Обработать ошибку открытия подключения к бд
-            }
-        }
+        //private void OpenDataBaseConnection()
+        //{
+        //    if (Connection.State == ConnectionState.Closed || Connection.State == ConnectionState.Broken)
+        //    {
+        //        Connection.Open();
+        //    }
+        //    else
+        //    {
+        //        // ToDo: Обработать ошибку открытия подключения к бд
+        //    }
+        //}
     }
 }

@@ -24,25 +24,28 @@ namespace HumanResourceManager.DataAccessLayers
 
             StoredProcedure storedProcedure = new StoredProcedure(inputStoredProcedureName, storedProcedureParameters);
 
-            SqlDataReader reader = m_QueriesExecutor.ExecuteReaderStoredProcedure(storedProcedure);
+            DataSet resultDataSet = storedProcedure.Execute();
 
             CommonStructure commonStructure = null;
 
-            try
+            if (resultDataSet != null)
             {
-                while (reader.Read())
-                {
-                    commonStructure = new CommonStructure(
 
-                        Convert.ToInt32(reader["Id"]),
-                        reader["Name"].ToString()
-
-                        );
-                }
             }
-            catch (Exception)
+
+            DataRowCollection rows = resultDataTable.Rows;
+
+            foreach (DataRow row in rows)
             {
-                throw;
+                object[] cell = row.ItemArray;
+
+                int id = 0;
+                string name = "";
+
+                foreach (var item in cell)
+                {
+                    
+                }
             }
 
             return commonStructure;
