@@ -30,24 +30,9 @@ namespace HumanResourceManager.DataAccessLayers
 
             if (resultDataSet != null)
             {
-
+                commonStructure = DataTableConverter.CreateObjectFromTable<CommonStructure>(resultDataSet.Tables[0]);
             }
-
-            DataRowCollection rows = resultDataTable.Rows;
-
-            foreach (DataRow row in rows)
-            {
-                object[] cell = row.ItemArray;
-
-                int id = 0;
-                string name = "";
-
-                foreach (var item in cell)
-                {
-                    
-                }
-            }
-
+ 
             return commonStructure;
 
             //foreach (DataRow row in dataTable.Rows)
@@ -159,11 +144,10 @@ namespace HumanResourceManager.DataAccessLayers
 
             try
             {
-                m_QueriesExecutor.ExecuteNonQueryStoredProcedure(storedProcedure);
+                storedProcedure.ExecuteNonQuery();
             }
             catch (Exception)
             {
-
                 throw;
             }
 
@@ -192,7 +176,7 @@ namespace HumanResourceManager.DataAccessLayers
 
             try
             {
-                m_QueriesExecutor.ExecuteNonQueryStoredProcedure(storedProcedure);
+                storedProcedure.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -234,7 +218,7 @@ namespace HumanResourceManager.DataAccessLayers
 
             try
             {
-                m_QueriesExecutor.ExecuteNonQueryStoredProcedure(storedProcedure);
+                storedProcedure.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -266,32 +250,15 @@ namespace HumanResourceManager.DataAccessLayers
         //Возвращает все записи экземпляра класса, наследованного от CommonStructure
         protected List<CommonStructure> GetAll(string inputStoredProcedureName)
         {
+            StoredProcedure storedProcedure = new StoredProcedure(inputStoredProcedureName, new List<SqlParameter> { });
+
+            DataSet resultDataSet = storedProcedure.Execute();
+
             List<CommonStructure> commonStructureList = new List<CommonStructure>();
 
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter> { };
-
-            StoredProcedure storedProcedure = new StoredProcedure(inputStoredProcedureName, storedProcedureParameters);
-
-            SqlDataReader reader = m_QueriesExecutor.ExecuteReaderStoredProcedure(storedProcedure);
-
-            try
+            if (resultDataSet != null)
             {
-                while (reader.Read())
-                {
-                    CommonStructure entity = new CommonStructure(
-
-                        Convert.ToInt32(reader["Id"]),
-                        reader["Name"].ToString()
-
-                        );
-
-                    commonStructureList.Add(entity);
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
+                commonStructureList = DataTableConverter.CreateListFromTable<CommonStructure>(resultDataSet.Tables[0]);
             }
 
             return commonStructureList;

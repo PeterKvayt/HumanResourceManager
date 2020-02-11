@@ -101,6 +101,24 @@ namespace HumanResourceManager.DataBaseEntranceLayer
             }
         }
 
+        public void ExecuteNonQuery()
+        {
+            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.Connection)
+            {
+                SqlCommand storedProcedureCommand = ToSqlCommand();
+
+                try
+                {
+                    storedProcedureCommand.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    // ToDo: Обработать исключения выполнения запроса на заполнение dataset
+                    throw;
+                }
+            }
+        }
+
         /// <summary>
         /// Получает хранимую процедуру и преобразует ее в sql-команду
         /// </summary>

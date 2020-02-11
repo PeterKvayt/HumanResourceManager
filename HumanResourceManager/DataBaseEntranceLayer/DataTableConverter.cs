@@ -62,11 +62,14 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         {
             foreach (DataColumn column in inputRow.Table.Columns)
             {
-                PropertyInfo property = inputItem.GetType().GetProperty(column.ColumnName);
+                Type type = inputItem.GetType();
+
+                PropertyInfo property = type.GetProperty(column.ColumnName);
 
                 if (property != null && inputRow[column] != DBNull.Value)
                 {
-                    property.SetValue(inputItem, inputRow[column], null);
+                    //property.SetValue(inputItem, inputRow[column], null);
+                    property.SetValue(inputItem, inputRow[column]);
                 }
             }
         }

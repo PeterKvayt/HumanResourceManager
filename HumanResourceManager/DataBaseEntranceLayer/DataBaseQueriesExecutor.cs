@@ -44,8 +44,10 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         /// <param name="inputStoredProcedure"></param>
         public void ExecuteNonQueryStoredProcedure(StoredProcedure inputStoredProcedure)
         {
-            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.GetDataBaseConnection())
+            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.Connection)
             {
+                sqlDataBaseConnection.Open();
+
                 SqlCommand storedProcedureCommand = GetStoredProcedureCommand(inputStoredProcedure);
 
                 try
