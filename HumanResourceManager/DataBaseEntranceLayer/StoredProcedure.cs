@@ -26,14 +26,14 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         {
             if ( !(string.IsNullOrEmpty(storedProcedureName) && string.IsNullOrWhiteSpace(storedProcedureName)) )
             {
-                if (sqlParameters.Count >= GetSqlParametersCountMin())
+                if (sqlParameters != null)
                 {
                     Name = storedProcedureName;
                     SqlParameters = sqlParameters;
                 }
                 else
                 {
-                    // ToDo: обработать неподходящее количество параметров хранимой процедуры
+                    // ToDo: обработать nullException
                 }
             }
             else
@@ -42,39 +42,12 @@ namespace HumanResourceManager.DataBaseEntranceLayer
             }
         }
 
-        /// <summary>
-        /// Минимальное количество sql параметров для хранимой процедуры
-        /// </summary>
-        private const int m_SQL_PARAMETERS_COUNT_MIN = 0;
-
-        /// <summary>
-        /// Возвращает минимальное количество sql параметров для хранимой процедуры
-        /// </summary>
-        public static int GetSqlParametersCountMin()
-        {
-            return m_SQL_PARAMETERS_COUNT_MIN;
-        }
-
-        /// <summary>
-        /// Константа тип команды для создания sql-команд
-        /// </summary>
-        private const CommandType m_COMMAND_TYPE = CommandType.StoredProcedure;
-
-        /// <summary>
-        /// Возвращает константу тип команды для создания sql-команд
-        /// </summary>
-        public static CommandType GetCommandType()
-        {
-            return m_COMMAND_TYPE;
-        }
-
         private readonly DataBaseConnection m_DataBaseConnection = new DataBaseConnection();
 
         /// <summary>
         /// Выполняет хранимую процедуру
         /// </summary>
-        /// <param name="inputStoredProcedure"></param>
-        /// <returns>Возвращает SqlDataReader</returns>
+        /// <returns>Возвращает DataSet</returns>
         public DataSet Execute()
         {
             using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.Connection)
@@ -101,10 +74,15 @@ namespace HumanResourceManager.DataBaseEntranceLayer
             }
         }
 
+        /// <summary>
+        /// Выполняет хранимую процедуру NonQuery
+        /// </summary>
         public void ExecuteNonQuery()
         {
             using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection.Connection)
             {
+                sqlDataBaseConnection.Open();
+
                 SqlCommand storedProcedureCommand = ToSqlCommand();
 
                 try
@@ -120,6 +98,11 @@ namespace HumanResourceManager.DataBaseEntranceLayer
         }
 
         /// <summary>
+        /// Константа тип команды для создания sql-команд
+        /// </summary>
+        private const CommandType m_COMMAND_TYPE = CommandType.StoredProcedure;
+
+        /// <summary>
         /// Получает хранимую процедуру и преобразует ее в sql-команду
         /// </summary>
         /// <param name="inputStoredProcedure">Хранимая процедура для преобразования в sql-команду</param>
@@ -129,7 +112,7 @@ namespace HumanResourceManager.DataBaseEntranceLayer
             SqlCommand storedProcedureCommand = new SqlCommand
             {
                 CommandText = Name,
-                CommandType = GetCommandType(),
+                CommandType = m_COMMAND_TYPE,
                 Connection = m_DataBaseConnection.Connection
             };
 

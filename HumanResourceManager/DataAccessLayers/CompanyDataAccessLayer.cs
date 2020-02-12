@@ -12,42 +12,17 @@ namespace HumanResourceManager.DataAccessLayers
         // Возвращает всю информацию о всех компаниях
         public List<Company> GetAllCompanies()
         {
-            List<Company> companies = new List<Company>();
-
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter> { };
 
             StoredProcedure storedProcedure = new StoredProcedure("spGetAllCompanies", storedProcedureParameters);
 
-            SqlDataReader reader = m_QueriesExecutor.ExecuteReaderStoredProcedure(storedProcedure);
-            try
+            DataSet resultDataSet = storedProcedure.Execute();
+            
+            List<Company> companies = new List<Company>();
+
+            if (resultDataSet != null)
             {
-                while (reader.Read())
-                {
-                    Company company = new Company(
-
-                        Convert.ToInt32(reader["Id"]),
-
-                        new OrganizationalType(
-                            Convert.ToInt32(reader["OrganizationalTypeId"]),
-                            reader["OrganizationalTypeName"].ToString()
-                            ),
-
-                        new ActivityType(
-                            Convert.ToInt32(reader["ActivityTypeId"]),
-                            reader["ActivityTypeName"].ToString()
-                            ),
-                        reader["Name"].ToString(),
-                        Convert.ToInt32(reader["Size"])
-
-                        );
-
-                    companies.Add(company);
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
+                companies = DataTableConverter.CreateListFromTable<Company>(resultDataSet.Tables[0]);
             }
 
             return companies;
@@ -102,7 +77,7 @@ namespace HumanResourceManager.DataAccessLayers
 
             try
             {
-                m_QueriesExecutor.ExecuteNonQueryStoredProcedure(storedProcedure);
+                storedProcedure.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -147,7 +122,7 @@ namespace HumanResourceManager.DataAccessLayers
 
             try
             {
-                m_QueriesExecutor.ExecuteNonQueryStoredProcedure(storedProcedure);
+                storedProcedure.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -194,42 +169,16 @@ namespace HumanResourceManager.DataAccessLayers
 
             StoredProcedure storedProcedure = new StoredProcedure("spGetCompany", storedProcedureParameters);
 
-            SqlDataReader reader = m_QueriesExecutor.ExecuteReaderStoredProcedure(storedProcedure);
+            DataSet resultDataSet = storedProcedure.Execute();
 
             Company company = new Company();
 
-            try
+            if (resultDataSet != null)
             {
-                while (reader.Read())
-                {
-                    company = new Company(
-                        Convert.ToInt32(reader["Id"]),
-
-                                new OrganizationalType(
-                                        Convert.ToInt32(reader["OrganizationalTypeId"]),
-                                        reader["OrganizationalTypeName"].ToString()
-                                        ),
-
-                                new ActivityType(
-                                        Convert.ToInt32(reader["ActivitiTypeId"]),
-                                        reader["ActivityTypeName"].ToString()
-                                        ),
-
-                                reader["Name"].ToString(),
-                                Convert.ToInt32(reader[6])
-
-                                );
-                }
-
-                return company;
-            }
-            catch (Exception)
-            {
-
-                throw;
+                company = DataTableConverter.CreateObjectFromTable<Company>(resultDataSet.Tables[0]);
             }
 
-
+            return company;
 
             //Company company = new Company();
 

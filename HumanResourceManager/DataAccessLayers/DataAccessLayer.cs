@@ -9,11 +9,6 @@ namespace HumanResourceManager.DataAccessLayers
 {
     public class DataAccessLayer
     {
-        /// <summary>
-        /// Инициализирует объект, который будет выполнять запросы к базе данных
-        /// </summary>
-        protected DataBaseQueriesExecutor m_QueriesExecutor { get; } = new DataBaseQueriesExecutor();
-
         //Возвращает конкретный экземпляр из базы данных
         protected CommonStructure GetParticularData(int inputId, string inputStoredProcedureName)
         {
@@ -316,7 +311,7 @@ namespace HumanResourceManager.DataAccessLayers
 
             StoredProcedure storedProcedure = new StoredProcedure(inputStoredProcedureName, storedProcedureParameters);
 
-            m_QueriesExecutor.ExecuteNonQueryStoredProcedure(storedProcedure);
+            //m_QueriesExecutor.ExecuteNonQueryStoredProcedure(storedProcedure);
 
             try
             {

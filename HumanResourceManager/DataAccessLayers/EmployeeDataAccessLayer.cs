@@ -12,55 +12,17 @@ namespace HumanResourceManager.DataAccessLayers
         // Возвращает всю информацию о всех сотрудниках
         public List<Employee> GetAllEmployees()
         {
-            List<Employee> employees = new List<Employee>();
-
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter> { };
 
             StoredProcedure storedProcedure = new StoredProcedure("spGetAllEmployees", storedProcedureParameters);
 
-            SqlDataReader reader = m_QueriesExecutor.ExecuteReaderStoredProcedure(storedProcedure);
+            DataSet resultDataSet = storedProcedure.Execute();
 
-            try
+            List<Employee> employees = new List<Employee>();
+
+            if (resultDataSet != null)
             {
-                while (reader.Read())
-                {
-                    Employee employee = new Employee(
-
-                            Convert.ToInt32(reader["Id"]),
-
-                            new Position(
-                                Convert.ToInt32(reader["PositionId"]),
-                                reader["PositionName"].ToString()
-                                ),
-
-                            new Company(
-                                Convert.ToInt32(reader["CompanyId"]),
-
-                                new OrganizationalType(
-                                    Convert.ToInt32(reader["OrganizationalTypeId"]),
-                                    reader["OrganizationalTypeName"].ToString()
-                                    ),
-
-                                new ActivityType(
-                                    Convert.ToInt32(reader["ActivitiTypeId"]),
-                                    reader["ActivityTypeName"].ToString()
-                                    ),
-                                reader["CompanyName"].ToString(),
-                                Convert.ToInt32(reader["Size"])
-                                ),
-                            reader["Name"].ToString(),
-                            reader["Surname"].ToString(),
-                            reader["MiddleName"].ToString(),
-                            Convert.ToDateTime(reader["DateOfEmployment"])
-
-                            );
-
-                    employees.Add(employee);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                employees = DataTableConverter.CreateListFromTable<Employee>(resultDataSet.Tables[0]);
             }
 
             return employees;
@@ -131,7 +93,7 @@ namespace HumanResourceManager.DataAccessLayers
 
             try
             {
-                m_QueriesExecutor.ExecuteNonQueryStoredProcedure(storedProcedure);
+                storedProcedure.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -182,11 +144,10 @@ namespace HumanResourceManager.DataAccessLayers
 
             try
             {
-                m_QueriesExecutor.ExecuteNonQueryStoredProcedure(storedProcedure);
+                storedProcedure.ExecuteNonQuery();
             }
             catch (Exception)
             {
-
                 throw;
             }
 
@@ -231,48 +192,13 @@ namespace HumanResourceManager.DataAccessLayers
 
             StoredProcedure storedProcedure = new StoredProcedure("spGetEmployee", storedProcedureParameters);
 
-            SqlDataReader reader = m_QueriesExecutor.ExecuteReaderStoredProcedure(storedProcedure);
+            DataSet resultDataSet = storedProcedure.Execute();
 
             Employee employee = null;
 
-            try
+            if (resultDataSet != null)
             {
-                while (reader.Read())
-                {
-                    employee = new Employee(
-                        Convert.ToInt32(reader["Id"]),
-
-                            new Position(
-                                Convert.ToInt32(reader["PositionId"]),
-                                reader["PositionName"].ToString()
-                                ),
-
-                            new Company(
-                                Convert.ToInt32(reader["CompanyId"]),
-
-                                new OrganizationalType(
-                                    Convert.ToInt32(reader["OrganizationalTypeId"]),
-                                    reader["OrganizationalTypeName"].ToString()
-                                    ),
-
-                                new ActivityType(
-                                    Convert.ToInt32(reader["ActivitiTypeId"]),
-                                    reader["ActivityTypeName"].ToString()
-                                    ),
-                                reader["CompanyName"].ToString(),
-                                Convert.ToInt32(reader["Size"])
-                                ),
-                            reader["Name"].ToString(),
-                            reader["Surname"].ToString(),
-                            reader["MiddleName"].ToString(),
-                            Convert.ToDateTime(reader["DateOfEmployment"])
-                            );
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
+                employee = DataTableConverter.CreateObjectFromTable<Employee>(resultDataSet.Tables[0]);
             }
 
             return employee;
