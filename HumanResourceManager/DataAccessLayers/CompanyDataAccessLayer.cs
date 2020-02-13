@@ -18,11 +18,26 @@ namespace HumanResourceManager.DataAccessLayers
 
             DataSet resultDataSet = storedProcedure.Execute();
             
-            List<Company> companies = new List<Company>();
+            List<CompanyData> companyDataCollection = new List<CompanyData>();
 
             if (resultDataSet != null)
             {
-                companies = DataTableConverter.CreateListFromTable<Company>(resultDataSet.Tables[0]);
+                companyDataCollection = DataTableConverter.CreateListFromTable<CompanyData>(resultDataSet.Tables[0]);
+            }
+
+            List<Company> companies = new List<Company>();
+            ActivityTypeDataAccessLayer activityTypeDataAccessLayer = new ActivityTypeDataAccessLayer();
+            OrganizationalTypeDataAccessLayer organizationalTypeDataAccessLayer = new OrganizationalTypeDataAccessLayer();
+
+            foreach (CompanyData company in companyDataCollection)
+            {
+                ActivityType companyActivityType = activityTypeDataAccessLayer.GetActivityTypeData(company.ActivityTypeId);
+
+                OrganizationalType companyOrganizationalType = organizationalTypeDataAccessLayer.GetOrganizationalTypeData(company.OrganizationalTypeId);
+
+                Company newCompany = new Company(company, companyOrganizationalType, companyActivityType);
+
+                companies.Add(newCompany);
             }
 
             return companies;
@@ -70,7 +85,7 @@ namespace HumanResourceManager.DataAccessLayers
             {
                 new SqlParameter("@ActivityTypeId", company.ActivityType.Id),
                 new SqlParameter("@OrganizationalTypeId", company.OrganizationalType.Id),
-                new SqlParameter("@Name", company.Name)
+                new SqlParameter("@Name", company.GetName())
             };
 
             StoredProcedure storedProcedure = new StoredProcedure("spAddCompany", storedProcedureParameters);
@@ -112,10 +127,10 @@ namespace HumanResourceManager.DataAccessLayers
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
-                new SqlParameter("@Id", company.Id),
+                new SqlParameter("@Id", company.GetId()),
                 new SqlParameter("@ActivityTypeId", company.ActivityType.Id),
                 new SqlParameter("@OrganizationalTypeId", company.OrganizationalType.Id),
-                new SqlParameter("@Name", company.Name)
+                new SqlParameter("@Name", company.GetName())
             };
 
             StoredProcedure storedProcedure = new StoredProcedure("spUpdateCompany", storedProcedureParameters);
@@ -154,9 +169,9 @@ namespace HumanResourceManager.DataAccessLayers
         }
 
         // Удаляет компанию из бд  
-        public void DeleteEmployee(int id)
+        public void DeleteEmployee(Company inputCompany)
         {
-            Delete(id, "spDeleteCompany");
+            Delete(inputCompany.GetId(), "spDeleteCompany");
         }
 
         // Возвращает сотрудника по ID  
@@ -171,12 +186,21 @@ namespace HumanResourceManager.DataAccessLayers
 
             DataSet resultDataSet = storedProcedure.Execute();
 
-            Company company = new Company();
+            CompanyData companyData = new CompanyData();
 
             if (resultDataSet != null)
             {
-                company = DataTableConverter.CreateObjectFromTable<Company>(resultDataSet.Tables[0]);
+                companyData = DataTableConverter.CreateObjectFromTable<CompanyData>(resultDataSet.Tables[0]);
             }
+
+            ActivityTypeDataAccessLayer activityTypeDataAccessLayer = new ActivityTypeDataAccessLayer();
+            ActivityType companyActivityType = activityTypeDataAccessLayer.GetActivityTypeData(companyData.ActivityTypeId);
+
+            OrganizationalTypeDataAccessLayer organizationalTypeDataAccessLayer = new OrganizationalTypeDataAccessLayer();
+            OrganizationalType companyOrganizationalType = organizationalTypeDataAccessLayer.GetOrganizationalTypeData(companyData.OrganizationalTypeId);
+
+
+            Company company = new Company(companyData, companyOrganizationalType, companyActivityType);
 
             return company;
 

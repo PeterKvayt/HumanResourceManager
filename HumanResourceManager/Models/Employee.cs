@@ -1,41 +1,48 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HumanResourceManager.Models
 {
     public class Employee
     {
-        public int Id { get; set; }
-        public Position Position { get; set; }
+        private EmployeeData m_EmployeeData;
+
         public Company Company { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string MiddleName { get; set; }
-        public DateTime DateOfEmployment { get; set; }
 
-        public Employee(int id, Position position, Company company, string name, string surname, string middleName, DateTime date)
+        public Position Position { get; set; }
+
+        public Employee(EmployeeData employeeData, Company company, Position position)
         {
-            Id = id;
-            Position = position;
+            m_EmployeeData = employeeData;
             Company = company;
-            Name = name;
-            Surname = surname;
-            MiddleName = middleName;
-            DateOfEmployment = date;
+            Position = position;
         }
 
-        public Employee(Position position, Company company, string name, string surname, string middleName, DateTime date)
+        public int GetId()
         {
-            Position = position;
-            Company = company;
-            Name = name;
-            Surname = surname;
-            MiddleName = middleName;
-            DateOfEmployment = date;
+            return m_EmployeeData.Id;
         }
 
-        public Employee():base()
+        public string GetName()
         {
+            return m_EmployeeData.Name;
+        }
 
+        public string GetSurname()
+        {
+            return m_EmployeeData.Surname;
+        }
+
+        public string GetMiddlename()
+        {
+            return m_EmployeeData.Middlename;
+        }
+
+        public DateTime GetDateOfEmployment()
+        {
+            return m_EmployeeData.DateOfEmployment;
         }
     }
 }

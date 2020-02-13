@@ -18,14 +18,29 @@ namespace HumanResourceManager.DataAccessLayers
 
             DataSet resultDataSet = storedProcedure.Execute();
 
-            List<Employee> employees = new List<Employee>();
+            List<EmployeeData> employeeDataCollection = new List<EmployeeData>();
 
             if (resultDataSet != null)
             {
-                employees = DataTableConverter.CreateListFromTable<Employee>(resultDataSet.Tables[0]);
+                employeeDataCollection = DataTableConverter.CreateListFromTable<EmployeeData>(resultDataSet.Tables[0]);
             }
 
-            return employees;
+            List<Employee> resultEmployees = new List<Employee>();
+            PositionDataAccessLayer positionDataAccessLayer = new PositionDataAccessLayer();
+            CompanyDataAccessLayer companyDataAccessLayer = new CompanyDataAccessLayer();
+
+            foreach (EmployeeData employee in employeeDataCollection)
+            {
+                Position employeePosition = positionDataAccessLayer.GetPositionData(employee.PositionId);
+
+                Company employeeCompany = companyDataAccessLayer.GetCompanyData(employee.CompanyId);
+
+                Employee newEmployee = new Employee(employee, employeeCompany, employeePosition);
+
+                resultEmployees.Add(newEmployee);
+            }
+
+            return resultEmployees;
 
             //using (SqlConnection connection = new SqlConnection(ConnectionString))
             //{
@@ -82,11 +97,11 @@ namespace HumanResourceManager.DataAccessLayers
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@PositionId", employee.Position.Id),
-                new SqlParameter("@CompanyId", employee.Company.Id),
-                new SqlParameter("@Surname", employee.Surname),
-                new SqlParameter("@MiddleName", employee.MiddleName),
-                new SqlParameter("@DateOfEmployment", employee.DateOfEmployment),
-                new SqlParameter("@Name", employee.Name)
+                new SqlParameter("@CompanyId", employee.Company.GetId()),
+                new SqlParameter("@Surname", employee.GetSurname()),
+                new SqlParameter("@MiddleName", employee.GetMiddlename()),
+                new SqlParameter("@DateOfEmployment", employee.GetDateOfEmployment()),
+                new SqlParameter("@Name", employee.GetName())
             };
 
             StoredProcedure storedProcedure = new StoredProcedure("spAddEmployee", storedProcedureParameters);
@@ -131,13 +146,13 @@ namespace HumanResourceManager.DataAccessLayers
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
-                new SqlParameter("@Id", employee.Id),
+                new SqlParameter("@Id", employee.GetId()),
                 new SqlParameter("@PositionId", employee.Position.Id),
-                new SqlParameter("@CompanyId", employee.Company.Id),
-                new SqlParameter("@Surname", employee.Surname),
-                new SqlParameter("@MiddleName", employee.MiddleName),
-                new SqlParameter("@DateOfEmployment", employee.DateOfEmployment),
-                new SqlParameter("@Name", employee.Name)
+                new SqlParameter("@CompanyId", employee.Company.GetId()),
+                new SqlParameter("@Surname", employee.GetSurname()),
+                new SqlParameter("@MiddleName", employee.GetMiddlename()),
+                new SqlParameter("@DateOfEmployment", employee.GetDateOfEmployment()),
+                new SqlParameter("@Name", employee.GetName())
             };
 
             StoredProcedure storedProcedure = new StoredProcedure("spUpdateEmployee", storedProcedureParameters);
@@ -177,9 +192,9 @@ namespace HumanResourceManager.DataAccessLayers
         }
 
         // Удаляет запись о сотруднике  
-        public void DeleteEmployee(int id)
+        public void DeleteEmployee(Employee inputEmployee)
         {
-            Delete(id, "spDeleteEmployee");
+            Delete(inputEmployee.GetId(), "spDeleteEmployee");
         }
 
         // Возвращает сотрудника по ID  
@@ -194,15 +209,23 @@ namespace HumanResourceManager.DataAccessLayers
 
             DataSet resultDataSet = storedProcedure.Execute();
 
-            Employee employee = null;
+            EmployeeData employeeData = new EmployeeData();
 
             if (resultDataSet != null)
             {
-                employee = DataTableConverter.CreateObjectFromTable<Employee>(resultDataSet.Tables[0]);
+                employeeData = DataTableConverter.CreateObjectFromTable<EmployeeData>(resultDataSet.Tables[0]);
             }
 
-            return employee;
+            PositionDataAccessLayer positionDataAccessLayer = new PositionDataAccessLayer();
+            Position employeePosition = positionDataAccessLayer.GetPositionData(employeeData.PositionId);
 
+            CompanyDataAccessLayer companyDataAccessLayer = new CompanyDataAccessLayer();
+            Company employeeCompany = companyDataAccessLayer.GetCompanyData(employeeData.CompanyId);
+
+            Employee employee = new Employee(employeeData, employeeCompany, employeePosition);
+
+            return employee;
+            
             //using (SqlConnection connection = new SqlConnection(ConnectionString))
             //{
             //    SqlCommand command = new SqlCommand("spGetEmployee", connection);

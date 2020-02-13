@@ -1,70 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HumanResourceManager.Models
 {
     public class Company
     {
-        public int Id { get; set; }
+        private CompanyData m_CompanyData;
+
         public OrganizationalType OrganizationalType { get; set; }
+
         public ActivityType ActivityType { get; set; }
-        public string Name { get; set; }
-        public int? Size { get; set; }
 
-        public Company(int id, OrganizationalType organizationalType, ActivityType activityType, string name, int? size)
+        public Company(CompanyData companyData, OrganizationalType organizationalType, ActivityType activityType)
         {
-            Id = id;
+            m_CompanyData = companyData;
+
             OrganizationalType = organizationalType;
+
             ActivityType = activityType;
-            Name = name;
-            Size = size == null ? 0 : size;
         }
 
-        public Company(OrganizationalType organizationalType, ActivityType activityType, string name, int? size)
+        public Company() { }
+
+        public int GetId()
         {
-            OrganizationalType = organizationalType;
-            ActivityType = activityType;
-            Name = name;
-            Size = size == null ? 0 : size;
+            return m_CompanyData.Id;
         }
 
-        public Company()
+        public string GetName()
         {
+            return m_CompanyData.Name;
         }
 
-        // Возвращает объект в виде строки с параметрами
-        public string SerializeToString()
+        public int? GetSize()
         {
-            string result = $"{Id.ToString()}~{OrganizationalType.Id}~{OrganizationalType.Name}~{ActivityType.Id}~{ActivityType.Name}~{Name}~{Size}";
-
-            return result;
-        }
-
-        // Собирает объект из параметров
-        public static Company DesirializeToCompany(string value)
-        {
-            string[] parameters = value.Split('~');
-
-            return new Company(
-            
-                Convert.ToInt32(parameters[0]),
-
-                new OrganizationalType(
-
-                    Convert.ToInt32(parameters[1]),
-                    parameters[2]
-                    ),
-
-                new ActivityType(
-
-                    Convert.ToInt32(parameters[3]),
-                    parameters[4]
-                    ),
-
-                parameters[5],
-
-                Convert.ToInt32(parameters[6])
-
-            );
+            return m_CompanyData.Size;
         }
     }
 }
