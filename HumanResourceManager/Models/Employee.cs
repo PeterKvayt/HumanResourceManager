@@ -20,6 +20,8 @@ namespace HumanResourceManager.Models
             Position = position;
         }
 
+        public Employee() { }
+
         public int GetId()
         {
             return m_EmployeeData.Id;

@@ -192,9 +192,9 @@ namespace HumanResourceManager.DataAccessLayers
         }
 
         // Удаляет запись о сотруднике  
-        public void DeleteEmployee(Employee inputEmployee)
+        public void DeleteEmployee(int employeeId)
         {
-            Delete(inputEmployee.GetId(), "spDeleteEmployee");
+            Delete(employeeId, "spDeleteEmployee");
         }
 
         // Возвращает сотрудника по ID  

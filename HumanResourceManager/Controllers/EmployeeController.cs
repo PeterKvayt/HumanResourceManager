@@ -42,31 +42,31 @@ namespace HumanResourceManager.Controllers
         [HttpPost]
         public ActionResult Create([Bind]Employee employee, string positionParams, string companyParams)
         {
-            if (!string.IsNullOrEmpty(employee.Name) && !string.IsNullOrWhiteSpace(employee.Name) &&
-                !string.IsNullOrEmpty(employee.Surname) && !string.IsNullOrWhiteSpace(employee.Surname) &&
-                !string.IsNullOrEmpty(employee.MiddleName) && !string.IsNullOrWhiteSpace(employee.MiddleName) &&
+            if (!string.IsNullOrEmpty(employee.GetName()) && !string.IsNullOrWhiteSpace(employee.GetName()) &&
+                !string.IsNullOrEmpty(employee.GetSurname()) && !string.IsNullOrWhiteSpace(employee.GetSurname()) &&
+                !string.IsNullOrEmpty(employee.GetMiddlename()) && !string.IsNullOrWhiteSpace(employee.GetMiddlename()) &&
                 !string.IsNullOrEmpty(positionParams) && !string.IsNullOrWhiteSpace(positionParams) &&
                 !string.IsNullOrEmpty(companyParams) && !string.IsNullOrWhiteSpace(companyParams)
                 )
             {
                 Position position = Position.DesirializeToPosition(positionParams);
 
-                Company company = Company.DesirializeToCompany(companyParams);
+                //Company company = Company.DesirializeToCompany(companyParams);
 
-                employee.Name = employee.Name;
-                employee.Surname = employee.Surname;
-                employee.MiddleName = employee.MiddleName;
-                employee.Position = position;
-                employee.Company = company;
+                //employee.GetName() = employee.GetName();
+                //employee.Surname = employee.Surname;
+                //employee.MiddleName = employee.MiddleName;
+                //employee.Position = position;
+                //employee.Company = company;
 
-                if (employee.DateOfEmployment == new DateTime())
-                {
-                    employee.DateOfEmployment = DateTime.Now;
-                }
-                else
-                {
-                    employee.DateOfEmployment = employee.DateOfEmployment;
-                }
+                //if (employee.DateOfEmployment == new DateTime())
+                //{
+                //    employee.DateOfEmployment = DateTime.Now;
+                //}
+                //else
+                //{
+                //    employee.DateOfEmployment = employee.DateOfEmployment;
+                //}
 
                 employeeContext.AddEmployee(employee);
 
@@ -107,30 +107,30 @@ namespace HumanResourceManager.Controllers
         [HttpPost]
         public ActionResult Update([Bind]Employee employee, string positionParams, string companyParams)
         {
-            if (!string.IsNullOrEmpty(employee.Name) && !string.IsNullOrWhiteSpace(employee.Name) &&
-                !string.IsNullOrEmpty(employee.Surname) && !string.IsNullOrWhiteSpace(employee.Surname) &&
-                !string.IsNullOrEmpty(employee.MiddleName) && !string.IsNullOrWhiteSpace(employee.MiddleName) &&
+            if (!string.IsNullOrEmpty(employee.GetName()) && !string.IsNullOrWhiteSpace(employee.GetName()) &&
+                !string.IsNullOrEmpty(employee.GetSurname()) && !string.IsNullOrWhiteSpace(employee.GetSurname()) &&
+                !string.IsNullOrEmpty(employee.GetMiddlename()) && !string.IsNullOrWhiteSpace(employee.GetMiddlename()) &&
                 !string.IsNullOrEmpty(positionParams) && !string.IsNullOrWhiteSpace(positionParams) &&
                 !string.IsNullOrEmpty(companyParams) && !string.IsNullOrWhiteSpace(companyParams)
                 )
             {
                 Position position = Position.DesirializeToPosition(positionParams);
-                Company company = Company.DesirializeToCompany(companyParams);
+                //Company company = Company.DesirializeToCompany(companyParams);
 
-                employee.Name = employee.Name;
-                employee.Surname = employee.Surname;
-                employee.MiddleName = employee.MiddleName;
-                employee.Position = position;
-                employee.Company = company;
+                //employee.GetName() = employee.GetName();
+                //employee.Surname = employee.Surname;
+                //employee.MiddleName = employee.MiddleName;
+                //employee.Position = position;
+                //employee.Company = company;
 
-                if (employee.DateOfEmployment == new DateTime())
-                {
-                    employee.DateOfEmployment = DateTime.Now;
-                }
-                else
-                {
-                    employee.DateOfEmployment = employee.DateOfEmployment;
-                }
+                //if (employee.DateOfEmployment == new DateTime())
+                //{
+                //    employee.DateOfEmployment = DateTime.Now;
+                //}
+                //else
+                //{
+                //    employee.DateOfEmployment = employee.DateOfEmployment;
+                //}
 
                 employeeContext.UpdateEmployee(employee);
 

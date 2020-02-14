@@ -169,9 +169,9 @@ namespace HumanResourceManager.DataAccessLayers
         }
 
         // Удаляет компанию из бд  
-        public void DeleteEmployee(Company inputCompany)
+        public void DeleteEmployee(int companyId)
         {
-            Delete(inputCompany.GetId(), "spDeleteCompany");
+            Delete(companyId, "spDeleteCompany");
         }
 
         // Возвращает сотрудника по ID  

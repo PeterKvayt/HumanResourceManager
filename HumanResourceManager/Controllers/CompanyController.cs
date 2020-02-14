@@ -38,7 +38,7 @@ namespace HumanResourceManager.Controllers
         [HttpPost]
         public ActionResult Create(Company company, string OrganizationalTypeParams, string ActivityTypeParams)
         {
-            if (!string.IsNullOrEmpty(company.Name) && !string.IsNullOrWhiteSpace(company.Name) &&
+            if (!string.IsNullOrEmpty(company.GetName()) && !string.IsNullOrWhiteSpace(company.GetName()) &&
                 !string.IsNullOrEmpty(OrganizationalTypeParams) && !string.IsNullOrWhiteSpace(OrganizationalTypeParams) &&
                 !string.IsNullOrEmpty(ActivityTypeParams) && !string.IsNullOrWhiteSpace(ActivityTypeParams) 
                 )
@@ -85,7 +85,7 @@ namespace HumanResourceManager.Controllers
         [HttpPost]
         public ActionResult Update(Company company, string OrganizationalTypeParams, string ActivityTypeParams)
         {
-            if (!string.IsNullOrEmpty(company.Name) && !string.IsNullOrWhiteSpace(company.Name) &&
+            if (!string.IsNullOrEmpty(company.GetName()) && !string.IsNullOrWhiteSpace(company.GetName()) &&
                 !string.IsNullOrEmpty(OrganizationalTypeParams) && !string.IsNullOrWhiteSpace(OrganizationalTypeParams) &&
                 !string.IsNullOrEmpty(ActivityTypeParams) && !string.IsNullOrWhiteSpace(ActivityTypeParams)
                 )

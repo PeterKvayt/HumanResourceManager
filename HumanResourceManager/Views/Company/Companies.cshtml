@@ -34,10 +34,10 @@
             {
             <tr>
                 <td>
-                    @item.Name
+                    @item.GetName()
                 </td>
                 <td>
-                    @item.Size
+                    @item.GetSize()
                 </td>
                 <td>
                     @item.OrganizationalType.Name
@@ -46,13 +46,13 @@
                     @item.ActivityType.Name
                 </td>
                 <td style="text-align:end;">
-                    <a href="~/Company/Update/@item.Id" class="btn btn-info">
+                    <a href="~/Company/Update/@item.GetId()" class="btn btn-info">
                         Изменить
                     </a>
                 </td>
                 <td style="text-align:end;">
                     <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
-                    <a href="~/Company/Delete/@item.Id" style="display:none;">
+                    <a href="~/Company/Delete/@item.GetId()" style="display:none;">
                         Удалить
                     </a>
                 </td>
