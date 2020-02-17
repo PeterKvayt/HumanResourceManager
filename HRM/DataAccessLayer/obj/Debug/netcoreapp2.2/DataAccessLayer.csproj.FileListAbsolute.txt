@@ -1,0 +1,12 @@
+D:\MyDirectory\GitRepositories\private.github.io\HRM\DataAccessLayer\bin\Debug\netcoreapp2.2\DataAccessLayer.deps.json
+D:\MyDirectory\GitRepositories\private.github.io\HRM\DataAccessLayer\bin\Debug\netcoreapp2.2\DataAccessLayer.dll
+D:\MyDirectory\GitRepositories\private.github.io\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.csprojAssemblyReference.cache
+D:\MyDirectory\GitRepositories\private.github.io\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\MyDirectory\GitRepositories\private.github.io\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.AssemblyInfoInputs.cache
+D:\MyDirectory\GitRepositories\private.github.io\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.AssemblyInfo.cs
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Debug\netcoreapp2.2\DataAccessLayer.deps.json
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Debug\netcoreapp2.2\DataAccessLayer.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.csprojAssemblyReference.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.AssemblyInfoInputs.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.AssemblyInfo.cs
