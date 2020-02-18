@@ -8,8 +8,8 @@ namespace DataAccessLayer.Entities
     class Employee
     {
         public IdType Id { get; set; }
-        public FullName WholeName { get; set; }
-        public Company Firm { get; set; }
-        public Position WorkPosition { get; set; }
+        public FullName BigName { get; set; }
+        public IdType CompanyId { get; set; }
+        public IdType PositionId { get; set; }
     }
 }

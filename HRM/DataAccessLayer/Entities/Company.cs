@@ -6,7 +6,7 @@ namespace DataAccessLayer.Entities
     {
         public IdType Id { get; set; }
         public string Name { get; set; }
-        public ActivityType Activity { get; set; }
-        public LegalForm Form { get; set; }
+        public IdType ActivityId { get; set; }
+        public IdType FormId { get; set; }
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using DataAccessLayer.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataAccess
 {
-    class StoredProcedure
+    class StoredProcedure : IDataAccess
     {
         /// <summary>
         /// Возвращает название хранимой процедуры
@@ -43,16 +43,13 @@ namespace DataAccessLayer.DataAccess
             }
         }
 
-        private static readonly string connectionString = ConfigurationManager.ConnectionStrings["defaultConnectionString"].ConnectionString;
-        private readonly SqlConnection m_DataBaseConnection = new SqlConnection(connectionString);
-
         /// <summary>
         /// Выполняет хранимую процедуру
         /// </summary>
-        /// <returns>Возвращает DataSet</returns>
+        /// <returns>Возвращает данные из бд</returns>
         public DataSet Execute()
         {
-            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection)
+            using (SqlConnection sqlDataBaseConnection = DataBaseConnection.GetConnection())
             {
                 sqlDataBaseConnection.Open();
 
@@ -81,7 +78,7 @@ namespace DataAccessLayer.DataAccess
         /// </summary>
         public void ExecuteNonQuery()
         {
-            using (SqlConnection sqlDataBaseConnection = m_DataBaseConnection)
+            using (SqlConnection sqlDataBaseConnection = DataBaseConnection.GetConnection())
             {
                 sqlDataBaseConnection.Open();
 
@@ -100,11 +97,6 @@ namespace DataAccessLayer.DataAccess
         }
 
         /// <summary>
-        /// Константа тип команды для создания sql-команд
-        /// </summary>
-        private const CommandType m_COMMAND_TYPE = CommandType.StoredProcedure;
-
-        /// <summary>
         /// Получает хранимую процедуру и преобразует ее в sql-команду
         /// </summary>
         /// <param name="inputStoredProcedure">Хранимая процедура для преобразования в sql-команду</param>
@@ -114,8 +106,8 @@ namespace DataAccessLayer.DataAccess
             SqlCommand storedProcedureCommand = new SqlCommand
             {
                 CommandText = Name,
-                CommandType = m_COMMAND_TYPE,
-                Connection = m_DataBaseConnection
+                CommandType = CommandType.StoredProcedure,
+                Connection = DataBaseConnection.GetConnection()
             };
 
             foreach (var sqlParameter in SqlParameters)
