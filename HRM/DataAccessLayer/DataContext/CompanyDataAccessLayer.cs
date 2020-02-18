@@ -12,17 +12,17 @@ namespace DataAccessLayer.DataContext
 {
     class CompanyDataAccessLayer : IDataAccessLayer<Company>
     {
-        private const string CREATE_STORED_PROCEDURE = "spAddCompany";
+        private const string CREATE_STORED_PROCEDURE_NAME = "spAddCompany";
         public void Create(Company newCompany)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
-                new SqlParameter("@ActivityTypeId", newCompany.Activity.Id),
-                new SqlParameter("@OrganizationalTypeId", newCompany.Form.Id),
+                new SqlParameter("@ActivityTypeId", newCompany.ActivityId),
+                new SqlParameter("@OrganizationalTypeId", newCompany.FormId),
                 new SqlParameter("@Name", newCompany.Name)
             };
 
-            StoredProcedure storedProcedure = new StoredProcedure(CREATE_STORED_PROCEDURE, storedProcedureParameters);
+            StoredProcedure storedProcedure = new StoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -30,11 +30,12 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
+                // ToDo: exception
                 throw;
             }
         }
 
-        private const string DELETE_STORED_PROCEDURE = "spDeleteCompany";
+        private const string DELETE_STORED_PROCEDURE_NAME = "spDeleteCompany";
         public void Delete(IdType id)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
@@ -42,7 +43,7 @@ namespace DataAccessLayer.DataContext
                 new SqlParameter("@Id", id.Identificator)
             };
 
-            StoredProcedure storedProcedure = new StoredProcedure(DELETE_STORED_PROCEDURE, storedProcedureParameters);
+            StoredProcedure storedProcedure = new StoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -50,11 +51,12 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
+                // ToDo: exception
                 throw;
             }
         }
 
-        private const string GET_STORED_PROCEDURE = "spGetCompany";
+        private const string GET_STORED_PROCEDURE_NAME = "spGetCompany";
         public Company Get(IdType id)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
@@ -62,7 +64,7 @@ namespace DataAccessLayer.DataContext
                 new SqlParameter("@Id", id.Identificator)
             };
 
-            StoredProcedure storedProcedure = new StoredProcedure(GET_STORED_PROCEDURE, storedProcedureParameters);
+            StoredProcedure storedProcedure = new StoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             DataSet resultDataSet = storedProcedure.Execute();
 
@@ -79,10 +81,10 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        private const string GET_ALL_STORED_PROCEDURE = "spGetAllCompanies";
+        private const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllCompanies";
         public IEnumerable<Company> GetAll()
         {
-            StoredProcedure storedProcedure = new StoredProcedure(GET_ALL_STORED_PROCEDURE, new List<SqlParameter> { });
+            StoredProcedure storedProcedure = new StoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
 
             DataSet resultDataSet = storedProcedure.Execute();
 
@@ -94,12 +96,12 @@ namespace DataAccessLayer.DataContext
             }
             else
             {
-                // ToDo: exp
+                // ToDo: exception
                 throw new ArgumentNullException();
             }
         }
 
-        private const string UPDATE_STORED_PROCEDURE = "spUpdateCompany";
+        private const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateCompany";
         public void Update(Company company)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
@@ -110,7 +112,7 @@ namespace DataAccessLayer.DataContext
                 new SqlParameter("@Name", company.Name)
             };
 
-            StoredProcedure storedProcedure = new StoredProcedure(UPDATE_STORED_PROCEDURE, storedProcedureParameters);
+            StoredProcedure storedProcedure = new StoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -118,7 +120,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                // ToDo: exp
+                // ToDo: exception
                 throw;
             }
         }
@@ -128,7 +130,5 @@ namespace DataAccessLayer.DataContext
             // ToDo: find
             throw new NotImplementedException();
         }
-
-
     }
 }
