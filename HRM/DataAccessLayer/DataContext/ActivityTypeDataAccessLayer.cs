@@ -103,7 +103,7 @@ namespace DataAccessLayer.DataContext
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
-                new SqlParameter("@Id", activityType.Id),
+                new SqlParameter("@Id", activityType.Id.Identificator),
                 new SqlParameter("@Name", activityType.Name)
             };
 

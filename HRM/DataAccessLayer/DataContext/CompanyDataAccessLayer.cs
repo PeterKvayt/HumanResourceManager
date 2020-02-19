@@ -17,8 +17,8 @@ namespace DataAccessLayer.DataContext
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
-                new SqlParameter("@ActivityTypeId", newCompany.ActivityId),
-                new SqlParameter("@OrganizationalTypeId", newCompany.FormId),
+                new SqlParameter("@ActivityTypeId", newCompany.ActivityId.Identificator),
+                new SqlParameter("@OrganizationalTypeId", newCompany.FormId.Identificator),
                 new SqlParameter("@Name", newCompany.Name)
             };
 
@@ -106,9 +106,9 @@ namespace DataAccessLayer.DataContext
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
-                new SqlParameter("@Id", company.Id),
-                new SqlParameter("@ActivityTypeId", company.ActivityId),
-                new SqlParameter("@OrganizationalTypeId", company.FormId),
+                new SqlParameter("@Id", company.Id.Identificator),
+                new SqlParameter("@ActivityTypeId", company.ActivityId.Identificator),
+                new SqlParameter("@OrganizationalTypeId", company.FormId.Identificator),
                 new SqlParameter("@Name", company.Name)
             };
 

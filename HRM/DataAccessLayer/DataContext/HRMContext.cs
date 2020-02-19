@@ -30,7 +30,17 @@ namespace DataAccessLayer.DataContext
         }
 
         private EmployeeDataAccessLayer employeeContext;
-        public IDataAccessLayer<Employee> EmployeeContext => throw new NotImplementedException();
+        public IDataAccessLayer<Employee> EmployeeContext
+        {
+            get
+            {
+                if (employeeContext == null)
+                {
+                    employeeContext = new EmployeeDataAccessLayer();
+                }
+                return employeeContext;
+            }
+        }
 
         private LegalForm legalFormContext;
         public IDataAccessLayer<LegalForm> LegalFormContext => throw new NotImplementedException();

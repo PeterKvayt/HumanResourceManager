@@ -11,5 +11,6 @@ namespace DataAccessLayer.Entities
         public FullName BigName { get; set; }
         public IdType CompanyId { get; set; }
         public IdType PositionId { get; set; }
+        public DateTime DateOfEmployment { get; set; }
     }
 }
