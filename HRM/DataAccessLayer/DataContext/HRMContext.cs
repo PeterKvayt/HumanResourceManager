@@ -42,8 +42,18 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        private LegalForm legalFormContext;
-        public IDataAccessLayer<LegalForm> LegalFormContext => throw new NotImplementedException();
+        private LegalFormDataAccessLayer legalFormContext;
+        public IDataAccessLayer<LegalForm> LegalFormContext
+        {
+            get
+            {
+                if (legalFormContext == null)
+                {
+                    legalFormContext = new LegalFormDataAccessLayer();
+                }
+                return legalFormContext;
+            }
+        }
 
         private PositionDataAccessLayer positionContext;
         public IDataAccessLayer<Position> PositionContext => throw new NotImplementedException();
