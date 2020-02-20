@@ -56,7 +56,17 @@ namespace DataAccessLayer.DataContext
         }
 
         private PositionDataAccessLayer positionContext;
-        public IDataAccessLayer<Position> PositionContext => throw new NotImplementedException();
+        public IDataAccessLayer<Position> PositionContext
+        {
+            get
+            {
+                if (positionContext == null)
+                {
+                    positionContext = new PositionDataAccessLayer();
+                }
+                return positionContext;
+            }
+        }
 
         private ActivityTypeDataAccessLayer activityTypeContext;
         public IDataAccessLayer<ActivityType> ActivityTypeContext
