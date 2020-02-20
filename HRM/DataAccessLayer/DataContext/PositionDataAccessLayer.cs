@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Classes;
+﻿using DataAccessLayer.AssistantClasses;
 using DataAccessLayer.DataAccess;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
@@ -9,10 +9,10 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataContext
 {
-    class PositionDataAccessLayer : IDataAccessLayer<Position>
+    class PositionDataAccessLayer : GeneralDataAccessLayer<Position>
     {
         private const string CREATE_STORED_PROCEDURE_NAME = "spAddPosition";
-        public void Create(Position newPosition)
+        public override void Create(Position newPosition)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -32,74 +32,8 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        private const string DELETE_STORED_PROCEDURE_NAME = "spDeletePosition";
-        public void Delete(IdType id)
-        {
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
-            {
-                new SqlParameter("@Id", id.Identificator)
-            };
-
-            StoredProcedure storedProcedure = new StoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters);
-
-            try
-            {
-                storedProcedure.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
-        }
-
-        private const string GET_STORED_PROCEDURE_NAME = "spGetPosition";
-        public Position Get(IdType id)
-        {
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
-            {
-                new SqlParameter("@Id", id.Identificator)
-            };
-
-            StoredProcedure storedProcedure = new StoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
-
-            DataSet resultDataSet = storedProcedure.Execute();
-
-            if (resultDataSet != null)
-            {
-                Position resultPosition = DataTableMapper.CreateObjectFromTable<Position>(resultDataSet.Tables[0]);
-
-                return resultPosition;
-            }
-            else
-            {
-                // ToDo: exception
-                throw new ArgumentNullException();
-            }
-        }
-
-        private const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllPositions";
-        public IEnumerable<Position> GetAll()
-        {
-            StoredProcedure storedProcedure = new StoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
-
-            DataSet resultDataSet = storedProcedure.Execute();
-
-            if (resultDataSet != null)
-            {
-                List<Position> positionCollection = DataTableMapper.CreateListFromTable<Position>(resultDataSet.Tables[0]);
-
-                return positionCollection;
-            }
-            else
-            {
-                // ToDo: exception
-                throw new ArgumentNullException();
-            }
-        }
-
         private const string UPDATE_STORED_PROCEDURE_NAME = "spUpdatePosition";
-        public void Update(Position position)
+        public override void Update(Position position)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -120,7 +54,29 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        public IEnumerable<Position> Find(Func<Position, bool> predicate)
+        public void Delete(IdType id)
+        {
+            const string DELETE_STORED_PROCEDURE_NAME = "spDeletePosition";
+
+            Delete(id, DELETE_STORED_PROCEDURE_NAME);
+        }
+
+        public Position Get(IdType id)
+        {
+            const string GET_STORED_PROCEDURE_NAME = "spGetPosition";
+
+            return Get(id, GET_STORED_PROCEDURE_NAME);
+            
+        }
+
+        public IEnumerable<Position> GetAll()
+        {
+            const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllPositions";
+
+            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+        }
+
+        public override IEnumerable<Position> Find(Func<Position, bool> predicate)
         {
             // ToDo: find
             throw new NotImplementedException();

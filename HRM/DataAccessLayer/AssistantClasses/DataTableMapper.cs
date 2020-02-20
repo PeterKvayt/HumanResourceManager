@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 
-namespace DataAccessLayer.Classes
+namespace DataAccessLayer.AssistantClasses
 {
     static class DataTableMapper
     {
-        public static T CreateObjectFromTable<T>(DataTable inputDataTable) where T : new()
+        public static T CreateObjectFromTable<T>(DataTable inputDataTable) where T : class, new()
         {
             T resultObject = new T();
 

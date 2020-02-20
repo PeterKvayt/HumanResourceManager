@@ -1,23 +1,22 @@
-﻿using DataAccessLayer.Classes;
+﻿using DataAccessLayer.AssistantClasses;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccessLayer.Interfaces
 {
     interface IDataAccessLayer<T> where T : class
     {
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string storedProcedureName);
 
-        T Get(IdType id);
+        T Get(IdType id, string storedProcedureName);
 
         void Create(T item);
 
         void Update(T item);
 
-        void Delete(IdType id);
+        void Delete(IdType id, string storedProcedureName);
 
         IEnumerable<T> Find(Func<T, Boolean> predicate);
     }
 }
-}
+

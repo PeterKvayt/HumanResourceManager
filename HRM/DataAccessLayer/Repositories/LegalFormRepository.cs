@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Classes;
+﻿using DataAccessLayer.AssistantClasses;
 using DataAccessLayer.DataContext;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
