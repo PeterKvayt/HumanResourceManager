@@ -10,40 +10,41 @@ namespace DataAccessLayer.Repositories
 {
     class LegalFormRepository : IRepository<LegalForm>
     {
-        private readonly HRMContext context;
+        private readonly IDataAccessLayer<LegalForm> context;
 
         public LegalFormRepository(HRMContext inputСontext)
         {
-            context = inputСontext;
+            context = inputСontext.LegalFormContext;
         }
 
-        public void Create(LegalForm item)
+        public void Create(LegalForm newLegalForm)
         {
-            throw new NotImplementedException();
+            context.Create(newLegalForm);
         }
 
         public void Delete(IdType id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<LegalForm> Find(Func<LegalForm, bool> predicate)
-        {
-            throw new NotImplementedException();
+            context.Delete(id);
         }
 
         public LegalForm Get(IdType id)
         {
-            throw new NotImplementedException();
+            return context.Get(id);
         }
 
         public IEnumerable<LegalForm> GetAll()
         {
-            throw new NotImplementedException();
+            return context.GetAll();
         }
 
         public void Update(LegalForm item)
         {
+            context.Update(item);
+        }
+
+        public IEnumerable<LegalForm> Find(Func<LegalForm, bool> predicate)
+        {
+            // ToDo: find
             throw new NotImplementedException();
         }
     }
