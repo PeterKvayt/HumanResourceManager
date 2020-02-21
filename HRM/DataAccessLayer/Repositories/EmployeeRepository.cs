@@ -10,40 +10,41 @@ namespace DataAccessLayer.Repositories
 {
     class EmployeeRepository : IRepository<Employee>
     {
-        private readonly HRMContext context;
+        private readonly IDataAccessLayer<Employee> context;
 
         public EmployeeRepository(HRMContext inputСontext)
         {
-            context = inputСontext;
+            context = inputСontext.EmployeeContext;
         }
         
-        public void Create(Employee item)
+        public void Create(Employee newEmployee)
         {
-            throw new NotImplementedException();
+            context.Create(newEmployee);
         }
 
         public void Delete(IdType id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Employee> Find(Func<Employee, bool> predicate)
-        {
-            throw new NotImplementedException();
+            context.Delete(id);
         }
 
         public Employee Get(IdType id)
         {
-            throw new NotImplementedException();
+            return context.Get(id);
         }
 
         public IEnumerable<Employee> GetAll()
         {
-            throw new NotImplementedException();
+            return context.GetAll();
         }
 
         public void Update(Employee item)
         {
+            context.Update(item);
+        }
+
+        public IEnumerable<Employee> Find(Func<Employee, bool> predicate)
+        {
+            // ToDo : find
             throw new NotImplementedException();
         }
     }
