@@ -10,39 +10,41 @@ namespace DataAccessLayer.Repositories
 {
     class ActivityTypeRepository : IRepository<ActivityType>
     {
-        private readonly HRMContext context;
+        private readonly IDataAccessLayer<ActivityType> context;
 
         public ActivityTypeRepository(HRMContext inputСontext)
         {
-            context = inputСontext;
+            context = inputСontext.ActivityTypeContext;
         }
 
         public void Create(ActivityType newActivityType)
         {
-            context.ActivityTypeContext.Create(newActivityType);
+            context.Create(newActivityType);
         }
 
         public void Delete(IdType id)
         {
+            context.Delete(id);
         }
 
         public ActivityType Get(IdType id)
         {
-            throw new NotImplementedException();
+            return context.Get(id);
         }
 
         public IEnumerable<ActivityType> GetAll()
         {
-            throw new NotImplementedException();
+            return context.GetAll();
         }
 
         public void Update(ActivityType item)
         {
-            throw new NotImplementedException();
+            context.Update(item);
         }
 
         public IEnumerable<ActivityType> Find(Func<ActivityType, bool> predicate)
         {
+            // ToDo: find
             throw new NotImplementedException();
         }
     }
