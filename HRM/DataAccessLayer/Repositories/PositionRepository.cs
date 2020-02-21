@@ -10,40 +10,41 @@ namespace DataAccessLayer.Repositories
 {
     class PositionRepository : IRepository<Position>
     {
-        private readonly HRMContext context;
+        private readonly IDataAccessLayer<Position> context;
 
         public PositionRepository(HRMContext inputСontext)
         {
-            context = inputСontext;
+            context = inputСontext.PositionContext;
         }
 
-        public void Create(Position item)
+        public void Create(Position newPosition)
         {
-            throw new NotImplementedException();
+            context.Create(newPosition);
         }
 
         public void Delete(IdType id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Position> Find(Func<Position, bool> predicate)
-        {
-            throw new NotImplementedException();
+            context.Delete(id);
         }
 
         public Position Get(IdType id)
         {
-            throw new NotImplementedException();
+            return context.Get(id);
         }
 
         public IEnumerable<Position> GetAll()
         {
-            throw new NotImplementedException();
+            return context.GetAll();
         }
 
         public void Update(Position item)
         {
+            context.Update(item);
+        }
+
+        public IEnumerable<Position> Find(Func<Position, bool> predicate)
+        {
+            // ToDo: find
             throw new NotImplementedException();
         }
     }
