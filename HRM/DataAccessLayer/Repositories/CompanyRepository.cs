@@ -10,40 +10,41 @@ namespace DataAccessLayer.Repositories
 {
     class CompanyRepository : IRepository<Company>
     {
-        private readonly HRMContext context;
+        private readonly IDataAccessLayer<Company> context;
 
         public CompanyRepository(HRMContext inputСontext)
         {
-            context = inputСontext;
+            context = inputСontext.CompanyContext;
         }
 
-        public void Create(Company item)
+        public void Create(Company newCompany)
         {
-            throw new NotImplementedException();
+            context.Create(newCompany);
         }
 
         public void Delete(IdType id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Company> Find(Func<Company, bool> predicate)
-        {
-            throw new NotImplementedException();
+            context.Delete(id);
         }
 
         public Company Get(IdType id)
         {
-            throw new NotImplementedException();
+            return context.Get(id);
         }
 
         public IEnumerable<Company> GetAll()
         {
-            throw new NotImplementedException();
+            return context.GetAll();
         }
 
         public void Update(Company item)
         {
+            context.Update(item);
+        }
+
+        public IEnumerable<Company> Find(Func<Company, bool> predicate)
+        {
+            // ToDo: find
             throw new NotImplementedException();
         }
     }
