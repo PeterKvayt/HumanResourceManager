@@ -9,16 +9,16 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataContext
 {
-    class PositionDataAccessLayer : GeneralDataAccessLayer<Position>
+    class PositionDataAccessLayer : IDataAccessLayer<Position>
     {
-        private const string CREATE_STORED_PROCEDURE_NAME = "spAddPosition";
-        public override void Create(Position newPosition)
+        public void Create(Position newPosition)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Name", newPosition.Name)
             };
 
+            const string CREATE_STORED_PROCEDURE_NAME = "spAddPosition";
             StoredProcedure storedProcedure = new StoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
@@ -32,8 +32,7 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        private const string UPDATE_STORED_PROCEDURE_NAME = "spUpdatePosition";
-        public override void Update(Position position)
+        public void Update(Position position)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -41,6 +40,7 @@ namespace DataAccessLayer.DataContext
                 new SqlParameter("@Name", position.Name)
             };
 
+            const string UPDATE_STORED_PROCEDURE_NAME = "spUpdatePosition";
             StoredProcedure storedProcedure = new StoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
@@ -57,26 +57,22 @@ namespace DataAccessLayer.DataContext
         public void Delete(IdType id)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeletePosition";
-
-            Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            GeneralDataAccessLayer<Position>.Delete(id, DELETE_STORED_PROCEDURE_NAME);
         }
 
         public Position Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetPosition";
-
-            return Get(id, GET_STORED_PROCEDURE_NAME);
-            
+            return GeneralDataAccessLayer<Position>.Get(id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<Position> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllPositions";
-
-            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+            return GeneralDataAccessLayer<Position>.GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public override IEnumerable<Position> Find(Func<Position, bool> predicate)
+        public IEnumerable<Position> Find(Func<Position, bool> predicate)
         {
             // ToDo: find
             throw new NotImplementedException();

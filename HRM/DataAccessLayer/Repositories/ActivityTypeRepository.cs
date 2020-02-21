@@ -17,19 +17,13 @@ namespace DataAccessLayer.Repositories
             context = inputСontext;
         }
 
-        public void Create(ActivityType item)
+        public void Create(ActivityType newActivityType)
         {
-            throw new NotImplementedException();
+            context.ActivityTypeContext.Create(newActivityType);
         }
 
         public void Delete(IdType id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<ActivityType> Find(Func<ActivityType, bool> predicate)
-        {
-            throw new NotImplementedException();
         }
 
         public ActivityType Get(IdType id)
@@ -43,6 +37,11 @@ namespace DataAccessLayer.Repositories
         }
 
         public void Update(ActivityType item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ActivityType> Find(Func<ActivityType, bool> predicate)
         {
             throw new NotImplementedException();
         }

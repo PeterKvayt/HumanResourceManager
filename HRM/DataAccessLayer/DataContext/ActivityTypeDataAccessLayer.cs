@@ -9,16 +9,16 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataContext
 {
-    class ActivityTypeDataAccessLayer : GeneralDataAccessLayer<ActivityType>
+    class ActivityTypeDataAccessLayer : IDataAccessLayer<ActivityType>
     {
-        private const string CREATE_STORED_PROCEDURE_NAME = "spAddActivityType";
-        public override void Create(ActivityType newActivity)
+        public void Create(ActivityType newActivity)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Name", newActivity.Name)
             };
 
+            const string CREATE_STORED_PROCEDURE_NAME = "spAddActivityType";
             StoredProcedure storedProcedure = new StoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
@@ -32,8 +32,7 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        private const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateActivityType";
-        public override void Update(ActivityType activityType)
+        public void Update(ActivityType activityType)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -41,6 +40,7 @@ namespace DataAccessLayer.DataContext
                 new SqlParameter("@Name", activityType.Name)
             };
 
+            const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateActivityType";
             StoredProcedure storedProcedure = new StoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
@@ -57,25 +57,22 @@ namespace DataAccessLayer.DataContext
         public void Delete(IdType id)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeleteActivityType";
-
-            Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            GeneralDataAccessLayer<ActivityType>.Delete(id, DELETE_STORED_PROCEDURE_NAME);
         }
 
         public ActivityType Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetActivityType";
-
-            return Get(id, GET_STORED_PROCEDURE_NAME);
+            return GeneralDataAccessLayer<ActivityType>.Get(id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<ActivityType> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllActivityTypes";
-
-            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+            return GeneralDataAccessLayer<ActivityType>.GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public override IEnumerable<ActivityType> Find(Func<ActivityType, bool> predicate)
+        public IEnumerable<ActivityType> Find(Func<ActivityType, bool> predicate)
         {
             // ToDo: find
             throw new NotImplementedException();

@@ -6,15 +6,15 @@ namespace DataAccessLayer.Interfaces
 {
     interface IDataAccessLayer<T> where T : class
     {
-        IEnumerable<T> GetAll(string storedProcedureName);
+        IEnumerable<T> GetAll();
 
-        T Get(IdType id, string storedProcedureName);
+        T Get(IdType id);
 
         void Create(T item);
 
         void Update(T item);
 
-        void Delete(IdType id, string storedProcedureName);
+        void Delete(IdType id);
 
         IEnumerable<T> Find(Func<T, Boolean> predicate);
     }

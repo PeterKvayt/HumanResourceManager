@@ -10,10 +10,9 @@ using System.Text;
 
 namespace DataAccessLayer.DataContext
 {
-    class EmployeeDataAccessLayer : GeneralDataAccessLayer<Employee>
+    class EmployeeDataAccessLayer : IDataAccessLayer<Employee>
     {
-        private const string CREATE_STORED_PROCEDURE_NAME = "spAddEmployee";
-        public override void Create(Employee newEmployee)
+        public void Create(Employee newEmployee)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -25,6 +24,7 @@ namespace DataAccessLayer.DataContext
                 new SqlParameter("@DateOfEmployment", newEmployee.DateOfEmployment)
             };
 
+            const string CREATE_STORED_PROCEDURE_NAME = "spAddEmployee";
             StoredProcedure storedProcedure = new StoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
@@ -38,8 +38,7 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        private const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateEmployee";
-        public override void Update(Employee newEmployee)
+        public void Update(Employee newEmployee)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -52,6 +51,7 @@ namespace DataAccessLayer.DataContext
                 new SqlParameter("@DateOfEmployment", newEmployee.DateOfEmployment)
             };
 
+            const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateEmployee";
             StoredProcedure storedProcedure = new StoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
@@ -68,25 +68,22 @@ namespace DataAccessLayer.DataContext
         public void Delete(IdType id)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeleteEmployee";
-
-            Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            GeneralDataAccessLayer<Employee>.Delete(id, DELETE_STORED_PROCEDURE_NAME);
         }
 
         public Employee Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetEmployee";
-
-            return Get(id, GET_STORED_PROCEDURE_NAME);
+            return GeneralDataAccessLayer<Employee>.Get(id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<Employee> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllEmployees";
-
-            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+            return GeneralDataAccessLayer<Employee>.GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public override IEnumerable<Employee> Find(Func<Employee, bool> predicate)
+        public IEnumerable<Employee> Find(Func<Employee, bool> predicate)
         {
             // ToDo: find
             throw new NotImplementedException();

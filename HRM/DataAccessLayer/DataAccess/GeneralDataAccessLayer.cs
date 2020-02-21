@@ -8,11 +8,9 @@ using System.Text;
 
 namespace DataAccessLayer.DataAccess
 {
-    abstract class GeneralDataAccessLayer<T> : IDataAccessLayer<T> where T : class, new()
+    static class GeneralDataAccessLayer<T> where T : class, new()
     {
-        public abstract void Create(T item);
-
-        public virtual void Delete(IdType id, string DELETE_STORED_PROCEDURE_NAME)
+        public static void Delete(IdType id, string DELETE_STORED_PROCEDURE_NAME)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -32,7 +30,7 @@ namespace DataAccessLayer.DataAccess
             }
         }
 
-        public virtual T Get(IdType id, string GET_STORED_PROCEDURE_NAME)
+        public static T Get(IdType id, string GET_STORED_PROCEDURE_NAME)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -56,7 +54,7 @@ namespace DataAccessLayer.DataAccess
             }
         }
 
-        public virtual IEnumerable<T> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
+        public static IEnumerable<T> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
         {
             StoredProcedure storedProcedure = new StoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
 
@@ -74,9 +72,5 @@ namespace DataAccessLayer.DataAccess
                 throw new ArgumentNullException();
             }
         }
-
-        public abstract void Update(T item);
-
-        public abstract IEnumerable<T> Find(Func<T, bool> predicate);
     }
 }

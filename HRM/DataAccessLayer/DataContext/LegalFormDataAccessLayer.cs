@@ -10,16 +10,16 @@ using System.Text;
 
 namespace DataAccessLayer.DataContext
 {
-    class LegalFormDataAccessLayer : GeneralDataAccessLayer<LegalForm>
+    class LegalFormDataAccessLayer : IDataAccessLayer<LegalForm>
     {
-        private const string CREATE_STORED_PROCEDURE_NAME = "spAddOrganizationalType";
-        public override void Create(LegalForm newLegalForm)
+        public void Create(LegalForm newLegalForm)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Name", newLegalForm.Name)
             };
 
+            const string CREATE_STORED_PROCEDURE_NAME = "spAddOrganizationalType";
             StoredProcedure storedProcedure = new StoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
@@ -33,8 +33,7 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        private const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateOrganizationalType";
-        public override void Update(LegalForm legalForm)
+        public void Update(LegalForm legalForm)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -42,6 +41,7 @@ namespace DataAccessLayer.DataContext
                 new SqlParameter("@Name", legalForm.Name)
             };
 
+            const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateOrganizationalType";
             StoredProcedure storedProcedure = new StoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
@@ -58,25 +58,22 @@ namespace DataAccessLayer.DataContext
         public void Delete(IdType id)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeleteOrganizationalType";
-
-            Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            GeneralDataAccessLayer<LegalForm>.Delete(id, DELETE_STORED_PROCEDURE_NAME);
         }
 
         public LegalForm Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetOrganizationalType";
-
-            return Get(id, GET_STORED_PROCEDURE_NAME);
+            return GeneralDataAccessLayer<LegalForm>.Get(id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<LegalForm> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllOrganizationalTypes";
-
-            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+            return GeneralDataAccessLayer<LegalForm>.GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public override IEnumerable<LegalForm> Find(Func<LegalForm, bool> predicate)
+        public IEnumerable<LegalForm> Find(Func<LegalForm, bool> predicate)
         {
             // ToDo: find
             throw new NotImplementedException();
