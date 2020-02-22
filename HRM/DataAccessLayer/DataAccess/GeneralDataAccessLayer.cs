@@ -14,7 +14,7 @@ namespace DataAccessLayer.DataAccess
 
         public abstract void Update(T item);
 
-        public virtual void Delete(IdType id, string DELETE_STORED_PROCEDURE_NAME)
+        protected virtual void Delete(IdType id, string DELETE_STORED_PROCEDURE_NAME)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -34,7 +34,7 @@ namespace DataAccessLayer.DataAccess
             }
         }
 
-        public virtual T Get(IdType id, string GET_STORED_PROCEDURE_NAME)
+        protected virtual T Get(IdType id, string GET_STORED_PROCEDURE_NAME)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -58,7 +58,7 @@ namespace DataAccessLayer.DataAccess
             }
         }
 
-        public virtual IEnumerable<T> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
+        protected virtual IEnumerable<T> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
         {
             IDataAccess storedProcedure = new StoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
 

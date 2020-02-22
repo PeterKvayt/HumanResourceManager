@@ -9,11 +9,11 @@ namespace DataAccessLayer.Repositories
 {
     class DataBaseUnitOfWork : IUnitOfWork
     {
-        private readonly HRMContext context;
+        private readonly IHrmContext context;
 
         public DataBaseUnitOfWork()
         {
-            context = new HRMContext();
+            context = new HrmContext();
         }
 
         private EmployeeRepository employeeRepository;

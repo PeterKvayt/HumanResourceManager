@@ -10,7 +10,7 @@ namespace DataAccessLayer.Repositories
 {
     class LegalFormRepository : GeneralRepository<LegalForm>, IRepository<LegalForm>
     {
-        public LegalFormRepository(IHRMContext inputСontext)
+        public LegalFormRepository(IHrmContext inputСontext)
         {
             context = inputСontext.LegalFormContext;
         }

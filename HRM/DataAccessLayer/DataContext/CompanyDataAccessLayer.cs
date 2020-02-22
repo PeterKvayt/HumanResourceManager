@@ -12,7 +12,7 @@ namespace DataAccessLayer.DataContext
     {
         public override void Create(Company newCompany)
         {
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@ActivityTypeId", newCompany.ActivityId.Identificator),
                 new SqlParameter("@OrganizationalTypeId", newCompany.FormId.Identificator),
@@ -35,7 +35,7 @@ namespace DataAccessLayer.DataContext
 
         public override void Update(Company company)
         {
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Id", company.Id.Identificator),
                 new SqlParameter("@ActivityTypeId", company.ActivityId.Identificator),

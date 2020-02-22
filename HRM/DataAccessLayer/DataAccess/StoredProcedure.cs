@@ -16,14 +16,14 @@ namespace DataAccessLayer.DataAccess
         /// <summary>
         /// Возвращает список параметров хранимой процедуры
         /// </summary>
-        public List<SqlParameter> SqlParameters { get; }
+        public IEnumerable<SqlParameter> SqlParameters { get; }
 
         /// <summary>
         /// Создает экземпляр класса StoredProcedure
         /// </summary>
         /// <param name="storedProcedureName">Имя хранимой процедуры</param>
         /// <param name="sqlParameters">Параметры хранимой процедуры</param>
-        public StoredProcedure(string storedProcedureName, List<SqlParameter> sqlParameters)
+        public StoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters)
         {
             if (!(string.IsNullOrEmpty(storedProcedureName) && string.IsNullOrWhiteSpace(storedProcedureName)))
             {

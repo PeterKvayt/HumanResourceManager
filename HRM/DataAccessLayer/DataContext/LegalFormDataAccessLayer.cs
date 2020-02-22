@@ -14,7 +14,7 @@ namespace DataAccessLayer.DataContext
     {
         public override void Create(LegalForm newLegalForm)
         {
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Name", newLegalForm.Name)
             };
@@ -35,7 +35,7 @@ namespace DataAccessLayer.DataContext
 
         public override void Update(LegalForm legalForm)
         {
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Id", legalForm.Id.Identificator),
                 new SqlParameter("@Name", legalForm.Name)

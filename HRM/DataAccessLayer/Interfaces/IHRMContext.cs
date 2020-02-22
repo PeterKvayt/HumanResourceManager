@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataAccessLayer.Interfaces
 {
-    interface IHRMContext
+    interface IHrmContext
     {
         IDataAccessLayer<Company> CompanyContext { get; }
 

@@ -10,7 +10,7 @@ namespace DataAccessLayer.Repositories
 {
     class CompanyRepository : GeneralRepository<Company>, IRepository<Company>
     {
-        public CompanyRepository(IHRMContext inputСontext)
+        public CompanyRepository(IHrmContext inputСontext)
         {
             context = inputСontext.CompanyContext;
         }

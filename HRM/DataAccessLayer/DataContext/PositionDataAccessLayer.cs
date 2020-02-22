@@ -13,7 +13,7 @@ namespace DataAccessLayer.DataContext
     {
         public override void Create(Position newPosition)
         {
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Name", newPosition.Name)
             };
@@ -34,7 +34,7 @@ namespace DataAccessLayer.DataContext
 
         public override void Update(Position position)
         {
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Id", position.Id.Identificator),
                 new SqlParameter("@Name", position.Name)

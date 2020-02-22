@@ -7,11 +7,11 @@ using System.Text;
 
 namespace DataAccessLayer.DataContext
 {
-    class HRMContext : IHRMContext
+    class HrmContext : IHrmContext
     {
         private readonly SqlConnection connection;
 
-        public HRMContext()
+        public HrmContext()
         {
             connection = new SqlConnection();
         }

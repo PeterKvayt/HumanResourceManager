@@ -10,7 +10,7 @@ namespace DataAccessLayer.Repositories
 {
     class PositionRepository : GeneralRepository<Position>, IRepository<Position>
     {
-        public PositionRepository(IHRMContext inputСontext)
+        public PositionRepository(IHrmContext inputСontext)
         {
             context = inputСontext.PositionContext;
         }

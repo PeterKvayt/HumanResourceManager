@@ -10,7 +10,7 @@ namespace DataAccessLayer.Repositories
 {
     class ActivityTypeRepository : GeneralRepository<ActivityType>, IRepository<ActivityType>
     {
-        public ActivityTypeRepository(IHRMContext inputСontext)
+        public ActivityTypeRepository(IHrmContext inputСontext)
         {
             context = inputСontext.ActivityTypeContext;
         }

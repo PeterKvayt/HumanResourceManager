@@ -19,7 +19,7 @@ namespace DataAccessLayer.DataAccess
             }
             else
             {
-                // ToDo: обработать исключение
+                // ToDo: exception
                 throw new ArgumentNullException();
             }
         }
