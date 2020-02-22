@@ -10,9 +10,9 @@ using System.Text;
 
 namespace DataAccessLayer.DataContext
 {
-    class EmployeeDataAccessLayer : IDataAccessLayer<Employee>
+    class EmployeeDataAccessLayer : GeneralDataAccessLayer<Employee>, IDataAccessLayer<Employee>
     {
-        public void Create(Employee newEmployee)
+        public override void Create(Employee newEmployee)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -38,7 +38,7 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        public void Update(Employee newEmployee)
+        public override void Update(Employee newEmployee)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -68,22 +68,22 @@ namespace DataAccessLayer.DataContext
         public void Delete(IdType id)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeleteEmployee";
-            GeneralDataAccessLayer<Employee>.Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            Delete(id, DELETE_STORED_PROCEDURE_NAME);
         }
 
         public Employee Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetEmployee";
-            return GeneralDataAccessLayer<Employee>.Get(id, GET_STORED_PROCEDURE_NAME);
+            return Get(id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<Employee> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllEmployees";
-            return GeneralDataAccessLayer<Employee>.GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public IEnumerable<Employee> Find(Func<Employee, bool> predicate)
+        public override IEnumerable<Employee> Find(Func<Employee, bool> predicate)
         {
             // ToDo: find
             throw new NotImplementedException();

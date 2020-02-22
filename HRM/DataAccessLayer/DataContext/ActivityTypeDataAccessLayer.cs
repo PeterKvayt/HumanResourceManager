@@ -9,9 +9,9 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataContext
 {
-    class ActivityTypeDataAccessLayer : IDataAccessLayer<ActivityType>
+    class ActivityTypeDataAccessLayer : GeneralDataAccessLayer<ActivityType>, IDataAccessLayer<ActivityType>
     {
-        public void Create(ActivityType newActivity)
+        public override void Create(ActivityType newActivity)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -32,7 +32,7 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        public void Update(ActivityType activityType)
+        public override void Update(ActivityType activityType)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -57,22 +57,22 @@ namespace DataAccessLayer.DataContext
         public void Delete(IdType id)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeleteActivityType";
-            GeneralDataAccessLayer<ActivityType>.Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            Delete(id, DELETE_STORED_PROCEDURE_NAME);
         }
 
         public ActivityType Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetActivityType";
-            return GeneralDataAccessLayer<ActivityType>.Get(id, GET_STORED_PROCEDURE_NAME);
+            return Get(id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<ActivityType> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllActivityTypes";
-            return GeneralDataAccessLayer<ActivityType>.GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public IEnumerable<ActivityType> Find(Func<ActivityType, bool> predicate)
+        public override IEnumerable<ActivityType> Find(Func<ActivityType, bool> predicate)
         {
             // ToDo: find
             throw new NotImplementedException();

@@ -8,9 +8,9 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataContext
 {
-    class CompanyDataAccessLayer : IDataAccessLayer<Company>
+    class CompanyDataAccessLayer : GeneralDataAccessLayer<Company>, IDataAccessLayer<Company>
     {
-        public void Create(Company newCompany)
+        public override void Create(Company newCompany)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -33,7 +33,7 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        public void Update(Company company)
+        public override void Update(Company company)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -60,22 +60,22 @@ namespace DataAccessLayer.DataContext
         public void Delete(IdType id)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeleteCompany";
-            GeneralDataAccessLayer<Company>.Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            Delete(id, DELETE_STORED_PROCEDURE_NAME);
         }
 
         public Company Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetCompany";
-            return GeneralDataAccessLayer<Company>.Get(id, GET_STORED_PROCEDURE_NAME);
+            return Get(id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<Company> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllCompanies";
-            return GeneralDataAccessLayer<Company>.GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public IEnumerable<Company> Find(Func<Company, bool> predicate)
+        public override IEnumerable<Company> Find(Func<Company, bool> predicate)
         {
             // ToDo: find
             throw new NotImplementedException();

@@ -10,9 +10,9 @@ using System.Text;
 
 namespace DataAccessLayer.DataContext
 {
-    class LegalFormDataAccessLayer : IDataAccessLayer<LegalForm>
+    class LegalFormDataAccessLayer : GeneralDataAccessLayer<LegalForm>, IDataAccessLayer<LegalForm>
     {
-        public void Create(LegalForm newLegalForm)
+        public override void Create(LegalForm newLegalForm)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -33,7 +33,7 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        public void Update(LegalForm legalForm)
+        public override void Update(LegalForm legalForm)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
@@ -58,22 +58,22 @@ namespace DataAccessLayer.DataContext
         public void Delete(IdType id)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeleteOrganizationalType";
-            GeneralDataAccessLayer<LegalForm>.Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            Delete(id, DELETE_STORED_PROCEDURE_NAME);
         }
 
         public LegalForm Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetOrganizationalType";
-            return GeneralDataAccessLayer<LegalForm>.Get(id, GET_STORED_PROCEDURE_NAME);
+            return Get(id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<LegalForm> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllOrganizationalTypes";
-            return GeneralDataAccessLayer<LegalForm>.GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public IEnumerable<LegalForm> Find(Func<LegalForm, bool> predicate)
+        public override IEnumerable<LegalForm> Find(Func<LegalForm, bool> predicate)
         {
             // ToDo: find
             throw new NotImplementedException();

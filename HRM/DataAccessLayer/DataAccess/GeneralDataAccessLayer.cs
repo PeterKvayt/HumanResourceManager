@@ -8,16 +8,20 @@ using System.Text;
 
 namespace DataAccessLayer.DataAccess
 {
-    static class GeneralDataAccessLayer<T> where T : class, new()
+    abstract class GeneralDataAccessLayer<T> where T : class, new()
     {
-        public static void Delete(IdType id, string DELETE_STORED_PROCEDURE_NAME)
+        public abstract void Create(T newItem);
+
+        public abstract void Update(T item);
+
+        public virtual void Delete(IdType id, string DELETE_STORED_PROCEDURE_NAME)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Id", id.Identificator)
             };
 
-            StoredProcedure storedProcedure = new StoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+            IDataAccess storedProcedure = new StoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -30,14 +34,14 @@ namespace DataAccessLayer.DataAccess
             }
         }
 
-        public static T Get(IdType id, string GET_STORED_PROCEDURE_NAME)
+        public virtual T Get(IdType id, string GET_STORED_PROCEDURE_NAME)
         {
             List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Id", id.Identificator)
             };
 
-            StoredProcedure storedProcedure = new StoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
+            IDataAccess storedProcedure = new StoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             DataSet resultDataSet = storedProcedure.Execute();
 
@@ -54,9 +58,9 @@ namespace DataAccessLayer.DataAccess
             }
         }
 
-        public static IEnumerable<T> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
+        public virtual IEnumerable<T> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
         {
-            StoredProcedure storedProcedure = new StoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
+            IDataAccess storedProcedure = new StoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
 
             DataSet resultDataSet = storedProcedure.Execute();
 
@@ -72,5 +76,7 @@ namespace DataAccessLayer.DataAccess
                 throw new ArgumentNullException();
             }
         }
+
+        public abstract IEnumerable<T> Find(Func<T, bool> predicate);
     }
 }
