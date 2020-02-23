@@ -82,11 +82,5 @@ namespace DataAccessLayer.DataContext
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllEmployees";
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
-
-        public override IEnumerable<Employee> Find(Func<Employee, bool> predicate)
-        {
-            // ToDo: find
-            throw new NotImplementedException();
-        }
     }
 }

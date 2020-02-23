@@ -71,11 +71,5 @@ namespace DataAccessLayer.DataContext
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllActivityTypes";
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
-
-        public override IEnumerable<ActivityType> Find(Func<ActivityType, bool> predicate)
-        {
-            // ToDo: find
-            throw new NotImplementedException();
-        }
     }
 }

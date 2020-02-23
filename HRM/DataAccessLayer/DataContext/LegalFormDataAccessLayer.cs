@@ -72,11 +72,5 @@ namespace DataAccessLayer.DataContext
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllOrganizationalTypes";
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
-
-        public override IEnumerable<LegalForm> Find(Func<LegalForm, bool> predicate)
-        {
-            // ToDo: find
-            throw new NotImplementedException();
-        }
     }
 }

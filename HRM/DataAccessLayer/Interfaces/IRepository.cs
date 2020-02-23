@@ -16,7 +16,5 @@ namespace DataAccessLayer.Interfaces
         void Update(T item);
 
         void Delete(IdType id);
-
-        IEnumerable<T> Find(Func<T, Boolean> predicate);
     }
 }

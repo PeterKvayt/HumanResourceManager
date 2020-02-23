@@ -34,11 +34,5 @@ namespace DataAccessLayer.Repositories
         {
             context.Update(item);
         }
-
-        public virtual IEnumerable<T> Find(Func<T, bool> predicate)
-        {
-            // ToDo: find
-            throw new NotImplementedException();
-        }
     }
 }

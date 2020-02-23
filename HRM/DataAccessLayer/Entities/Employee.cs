@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataAccessLayer.Entities
 {
-    class Employee
+    internal class Employee
     {
         public IdType Id { get; set; }
 

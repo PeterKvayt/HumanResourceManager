@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataAccess
 {
-    static class DataBaseConnection
+    internal static class DataBaseConnection
     {
         /// <summary>
         /// Строка подключения.

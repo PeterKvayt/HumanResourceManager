@@ -76,7 +76,5 @@ namespace DataAccessLayer.DataAccess
                 throw new ArgumentNullException();
             }
         }
-
-        public abstract IEnumerable<T> Find(Func<T, bool> predicate);
     }
 }

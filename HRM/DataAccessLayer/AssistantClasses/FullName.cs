@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessLayer.AssistantClasses
 {
-    class FullName
+    internal class FullName
     {
         public string Name { get; set; }
         public string Surname { get; set; }
