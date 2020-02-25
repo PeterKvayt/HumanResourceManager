@@ -2,82 +2,83 @@
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccessLayer.Repositories
 {
+    /// <summary>
+    /// Класс инкапсулирующий взаимодействие с уровнем доступа к базе данных
+    /// </summary>
     class DataBaseUnitOfWork : IUnitOfWork
     {
-        private readonly IHrmContext context;
+        private readonly IHrmContext _context;
 
         public DataBaseUnitOfWork()
         {
-            context = new HrmContext();
+            _context = new HrmContext();
         }
 
-        private EmployeeRepository employeeRepository;
+        private EmployeeRepository _employeeRepository;
         public IRepository<Employee> Employees
         {
             get
             {
-                if (employeeRepository == null)
+                if (_employeeRepository == null)
                 {
-                    employeeRepository = new EmployeeRepository(context);
+                    _employeeRepository = new EmployeeRepository(_context);
                 }
-                return employeeRepository;
+                return _employeeRepository;
             }
         }
 
-        private CompanyRepository companyRepository;
+        private CompanyRepository _companyRepository;
         public IRepository<Company> Companies
         {
             get
             {
-                if (companyRepository == null)
+                if (_companyRepository == null)
                 {
-                    companyRepository = new CompanyRepository(context);
+                    _companyRepository = new CompanyRepository(_context);
                 }
-                return companyRepository;
+                return _companyRepository;
             }
         }
 
-        private PositionRepository positionRepository;
+        private PositionRepository _positionRepository;
         public IRepository<Position> Positions
         {
             get
             {
-                if (positionRepository == null)
+                if (_positionRepository == null)
                 {
-                    positionRepository = new PositionRepository(context);
+                    _positionRepository = new PositionRepository(_context);
                 }
-                return positionRepository;
+                return _positionRepository;
             }
         }
 
-        private LegalFormRepository legalFormRepository;
+        private LegalFormRepository _legalFormRepository;
         public IRepository<LegalForm> LegalForms
         {
             get
             {
-                if (legalFormRepository == null)
+                if (_legalFormRepository == null)
                 {
-                    legalFormRepository = new LegalFormRepository(context);
+                    _legalFormRepository = new LegalFormRepository(_context);
                 }
-                return legalFormRepository;
+                return _legalFormRepository;
             }
         }
 
-        private ActivityTypeRepository activityTypeRepository;
+        private ActivityTypeRepository _activityTypeRepository;
         public IRepository<ActivityType> ActivityTypes
         {
             get
             {
-                if (activityTypeRepository == null)
+                if (_activityTypeRepository == null)
                 {
-                    activityTypeRepository = new ActivityTypeRepository(context);
+                    _activityTypeRepository = new ActivityTypeRepository(_context);
                 }
-                return activityTypeRepository;
+                return _activityTypeRepository;
             }
         }
 

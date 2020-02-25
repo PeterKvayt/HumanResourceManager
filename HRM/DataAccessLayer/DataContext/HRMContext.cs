@@ -1,83 +1,83 @@
 ﻿using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace DataAccessLayer.DataContext
 {
+    /// <summary>
+    /// Класс отвечает за контекст данных
+    /// </summary>
     class HrmContext : IHrmContext
     {
-        private readonly SqlConnection connection;
+        private readonly SqlConnection _connection;
 
         public HrmContext()
         {
-            connection = new SqlConnection();
+            _connection = new SqlConnection();
         }
 
-        private CompanyDataAccessLayer companyContext;
+        private CompanyDataAccessLayer _companyContext;
         public IDataAccessLayer<Company> CompanyContext
         {
             get
             {
-                if (companyContext == null)
+                if (_companyContext == null)
                 {
-                    companyContext = new CompanyDataAccessLayer();
+                    _companyContext = new CompanyDataAccessLayer();
                 }
-                return companyContext;
+                return _companyContext;
             }
         }
 
-        private EmployeeDataAccessLayer employeeContext;
+        private EmployeeDataAccessLayer _employeeContext;
         public IDataAccessLayer<Employee> EmployeeContext
         {
             get
             {
-                if (employeeContext == null)
+                if (_employeeContext == null)
                 {
-                    employeeContext = new EmployeeDataAccessLayer();
+                    _employeeContext = new EmployeeDataAccessLayer();
                 }
-                return employeeContext;
+                return _employeeContext;
             }
         }
 
-        private LegalFormDataAccessLayer legalFormContext;
+        private LegalFormDataAccessLayer _legalFormContext;
         public IDataAccessLayer<LegalForm> LegalFormContext
         {
             get
             {
-                if (legalFormContext == null)
+                if (_legalFormContext == null)
                 {
-                    legalFormContext = new LegalFormDataAccessLayer();
+                    _legalFormContext = new LegalFormDataAccessLayer();
                 }
-                return legalFormContext;
+                return _legalFormContext;
             }
         }
 
-        private PositionDataAccessLayer positionContext;
+        private PositionDataAccessLayer _positionContext;
         public IDataAccessLayer<Position> PositionContext
         {
             get
             {
-                if (positionContext == null)
+                if (_positionContext == null)
                 {
-                    positionContext = new PositionDataAccessLayer();
+                    _positionContext = new PositionDataAccessLayer();
                 }
-                return positionContext;
+                return _positionContext;
             }
         }
 
-        private ActivityTypeDataAccessLayer activityTypeContext;
+        private ActivityTypeDataAccessLayer _activityTypeContext;
         public IDataAccessLayer<ActivityType> ActivityTypeContext
         {
             get
             {
-                if (activityTypeContext == null)
+                if (_activityTypeContext == null)
                 {
-                    activityTypeContext = new ActivityTypeDataAccessLayer();
+                    _activityTypeContext = new ActivityTypeDataAccessLayer();
                 }
-                return activityTypeContext;
+                return _activityTypeContext;
             }
         }
     }

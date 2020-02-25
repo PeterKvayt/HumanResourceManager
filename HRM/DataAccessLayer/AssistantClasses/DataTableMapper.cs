@@ -5,16 +5,25 @@ using System.Reflection;
 
 namespace DataAccessLayer.AssistantClasses
 {
+    /// <summary>
+    /// Класс, автоматизирующий создание объектов из контекста данных 
+    /// </summary>
     internal static class DataTableMapper
     {
-        public static T CreateObjectFromTable<T>(DataTable inputDataTable) where T : class, new()
+        /// <summary>
+        /// Создает из DataTable один объект
+        /// </summary>
+        /// <typeparam name="T">Тип возвращаемого объекта</typeparam>
+        /// <param name="dataTable">Контекст данных, из которого будет создаваться объект</param>
+        /// <returns>Возвращает созданный объект передаваемого типа T</returns>
+        public static T CreateObjectFromTable<T>(DataTable dataTable) where T : class, new()
         {
             T resultObject = new T();
 
-            foreach (DataRow row in inputDataTable.Rows)
-            {
-                resultObject = CreateItemFromRow<T>(row);
-            }
+            DataRow  row = dataTable.Rows[0];
+
+            SetItemFromRow(resultObject, row);
+
             return resultObject;
         }
 
@@ -22,26 +31,26 @@ namespace DataAccessLayer.AssistantClasses
         /// Создает из DataTable список объектов
         /// </summary>
         /// <typeparam name="T">Тип возвращаемого списка объектов</typeparam>
-        /// <param name="inputDataTable"></param>
-        /// <returns></returns>
-        public static List<T> CreateListFromTable<T>(DataTable inputDataTable) where T : new()
+        /// <param name="dataTable">Контекст данных, из которого будет создаваться список объектов</param>
+        /// <returns>Возвращает список созданных объектов передаваемого типа T</returns>
+        public static IEnumerable<T> CreateListFromTable<T>(DataTable dataTable) where T : new()
         {
             List<T> resultListWithObjects = new List<T>();
 
-            foreach (DataRow row in inputDataTable.Rows)
+            foreach (DataRow row in dataTable.Rows)
             {
-                resultListWithObjects.Add(CreateItemFromRow<T>(row));
+                resultListWithObjects.Add(GetItemFromRow<T>(row));
             }
             return resultListWithObjects;
         }
 
         /// <summary>
-        /// 
+        /// Возвращает объект из строки DataRow
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="row"></param>
-        /// <returns></returns>
-        private static T CreateItemFromRow<T>(DataRow row) where T : new()
+        /// <typeparam name="T">Тип объекта</typeparam>
+        /// <param name="row">Строка DataRow</param>
+        /// <returns>Объект передаваемого типа</returns>
+        private static T GetItemFromRow<T>(DataRow row) where T : new()
         {
             T item = new T();
 
@@ -51,23 +60,27 @@ namespace DataAccessLayer.AssistantClasses
         }
 
         /// <summary>
-        /// Задает значения свойствам объекта
+        /// Создает объект из строки DataRow
         /// </summary>
         /// <typeparam name="T">Тип объекта</typeparam>
         /// <param name="inputItem">Экземпляр объекта</param>
-        /// <param name="inputRow">Строка DataRow</param>
-        private static void SetItemFromRow<T>(T inputItem, DataRow inputRow) where T : new()
+        /// <param name="row">Строка DataRow</param>
+        private static void SetItemFromRow<T>(T inputItem, DataRow row) where T : new()
         {
-            foreach (DataColumn column in inputRow.Table.Columns)
+            foreach (DataColumn column in row.Table.Columns)
             {
                 Type type = inputItem.GetType();
 
                 PropertyInfo property = type.GetProperty(column.ColumnName);
 
-                if (property != null && inputRow[column] != DBNull.Value)
+                if (property != null && row[column] != DBNull.Value)
                 {
                     //property.SetValue(inputItem, inputRow[column], null);
-                    property.SetValue(inputItem, inputRow[column]);
+                    property.SetValue(inputItem, row[column]);
+                }
+                else
+                {
+                    // ToDo: exception
                 }
             }
         }

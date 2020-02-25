@@ -15,7 +15,7 @@ namespace DataAccessLayer.DataContext
             IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@ActivityTypeId", newCompany.ActivityId.Identificator),
-                new SqlParameter("@OrganizationalTypeId", newCompany.FormId.Identificator),
+                new SqlParameter("@OrganizationalTypeId", newCompany.LegalFormId.Identificator),
                 new SqlParameter("@Name", newCompany.Name)
             };
 
@@ -39,7 +39,7 @@ namespace DataAccessLayer.DataContext
             {
                 new SqlParameter("@Id", company.Id.Identificator),
                 new SqlParameter("@ActivityTypeId", company.ActivityId.Identificator),
-                new SqlParameter("@OrganizationalTypeId", company.FormId.Identificator),
+                new SqlParameter("@OrganizationalTypeId", company.LegalFormId.Identificator),
                 new SqlParameter("@Name", company.Name)
             };
 

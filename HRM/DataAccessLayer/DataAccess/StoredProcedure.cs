@@ -6,22 +6,25 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataAccess
 {
-    class StoredProcedure : IDataAccess
+    /// <summary>
+    /// Класс отвечает за хранимые процедуры
+    /// </summary>
+    class StoredProcedure : IDataBaseExecutor
     {
         /// <summary>
-        /// Возвращает название хранимой процедуры
+        /// Название хранимой процедуры
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        /// Возвращает список параметров хранимой процедуры
+        /// Список параметров хранимой процедуры
         /// </summary>
         public IEnumerable<SqlParameter> SqlParameters { get; }
 
         /// <summary>
-        /// Создает экземпляр класса StoredProcedure
+        /// Конструктор
         /// </summary>
-        /// <param name="storedProcedureName">Имя хранимой процедуры</param>
+        /// <param name="storedProcedureName">Название хранимой процедуры</param>
         /// <param name="sqlParameters">Параметры хранимой процедуры</param>
         public StoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters)
         {
@@ -46,7 +49,7 @@ namespace DataAccessLayer.DataAccess
         /// <summary>
         /// Выполняет хранимую процедуру
         /// </summary>
-        /// <returns>Возвращает данные из бд</returns>
+        /// <returns>Возвращает данные из базы данных</returns>
         public DataSet Execute()
         {
             using (SqlConnection sqlDataBaseConnection = DataBaseConnection.GetConnection())

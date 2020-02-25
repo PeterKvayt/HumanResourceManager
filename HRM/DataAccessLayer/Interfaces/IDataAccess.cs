@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
+﻿using System.Data;
 
 namespace DataAccessLayer.Interfaces
 {
-    interface IDataAccess
+    interface IDataBaseExecutor
     {
+        /// <summary>
+        /// Выполняет запрос к базе данных
+        /// </summary>
+        /// <returns>Возвращает результат запроса</returns>
         DataSet Execute();
 
+        /// <summary>
+        /// Выполняет запрос NonQuery
+        /// </summary>
         void ExecuteNonQuery();
     }
 }

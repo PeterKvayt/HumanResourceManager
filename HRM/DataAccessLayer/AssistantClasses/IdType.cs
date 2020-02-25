@@ -1,23 +1,11 @@
-﻿using DataAccessLayer.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace DataAccessLayer.AssistantClasses
 {
+    /// <summary>
+    /// Класс отвечает за идентификатор
+    /// </summary>
     public class IdType
     {
         public uint Identificator { get; set; }
-
-        //internal ActivityTypeRepository ActivityTypeRepository
-        //{
-        //    get
-        //    {
-        //        return default(ActivityTypeRepository);
-        //    }
-        //    set
-        //    {
-        //    }
-        //}
     }
 }

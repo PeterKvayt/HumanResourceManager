@@ -4,10 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace DataAccessLayer.DataAccess
 {
+    /// <summary>
+    /// Общая реализация классов DataAccessLayer
+    /// </summary>
+    /// <typeparam name="T">Конкретный тип класса</typeparam>
     abstract class GeneralDataAccessLayer<T> where T : class, new()
     {
         public abstract void Create(T newItem);
@@ -21,7 +24,7 @@ namespace DataAccessLayer.DataAccess
                 new SqlParameter("@Id", id.Identificator)
             };
 
-            IDataAccess storedProcedure = new StoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+            IDataBaseExecutor storedProcedure = new StoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -41,7 +44,7 @@ namespace DataAccessLayer.DataAccess
                 new SqlParameter("@Id", id.Identificator)
             };
 
-            IDataAccess storedProcedure = new StoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
+            IDataBaseExecutor storedProcedure = new StoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             DataSet resultDataSet = storedProcedure.Execute();
 
@@ -60,7 +63,7 @@ namespace DataAccessLayer.DataAccess
 
         protected virtual IEnumerable<T> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
         {
-            IDataAccess storedProcedure = new StoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
+            IDataBaseExecutor storedProcedure = new StoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
 
             DataSet resultDataSet = storedProcedure.Execute();
 

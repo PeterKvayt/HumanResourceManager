@@ -1,19 +1,22 @@
 ﻿using System;
-//using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataAccess
 {
+    /// <summary>
+    /// Класс отвечает за подключение к базе данных
+    /// </summary>
     internal static class DataBaseConnection
     {
         /// <summary>
-        /// Строка подключения.
+        /// Создает подключение
         /// </summary>
-        private static readonly string connectionString = GetConnectionString();
-
+        /// <returns>Возвращает подключение к базе данных</returns>
         public static SqlConnection GetConnection()
         {
+            string connectionString = GetConnectionString();
+
             if ( !(string.IsNullOrEmpty(connectionString) && string.IsNullOrWhiteSpace(connectionString)) )
             {
                 return new SqlConnection(connectionString);
@@ -25,18 +28,24 @@ namespace DataAccessLayer.DataAccess
             }
         }
 
+        /// <summary>
+        /// Создает строку подключения
+        /// </summary>
+        /// <returns>Возвращает строку подключения</returns>
         private static string GetConnectionString()
         {
-            const string CONNECTION_FILE_NAME = "connectionStrings.json";
+            const string CONNECTION_NAME = "DefaultConnection";
 
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            const string CONNECTION_SETTINGS_FILE_NAME = "connectionStrings.json";
+
+            string filePath = AppDomain.CurrentDomain.BaseDirectory;
 
             IConfigurationRoot configurationRoot = new ConfigurationBuilder()
-                .SetBasePath(basePath)
-                .AddJsonFile(CONNECTION_FILE_NAME)
+                .SetBasePath(filePath)
+                .AddJsonFile(CONNECTION_SETTINGS_FILE_NAME)
                 .Build();
 
-            string resultConnectionString = configurationRoot.GetConnectionString("DefaultConnection");
+            string resultConnectionString = configurationRoot.GetConnectionString(CONNECTION_NAME);
 
             return resultConnectionString;
         }
