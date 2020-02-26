@@ -39,7 +39,7 @@ namespace DataAccessLayer.DataAccess
 
         protected virtual T Get(IdType id, string GET_STORED_PROCEDURE_NAME)
         {
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
             {
                 new SqlParameter("@Id", id.Identificator)
             };
@@ -50,7 +50,9 @@ namespace DataAccessLayer.DataAccess
 
             if (resultDataSet != null)
             {
-                T result = DataTableMapper.CreateObjectFromTable<T>(resultDataSet.Tables[0]);
+                DataTableMapper mapper = new DataTableMapper(resultDataSet.Tables[0]);
+
+                T result = mapper.CreateObjectFromTable<T>();
 
                 return result;
             }
@@ -69,7 +71,9 @@ namespace DataAccessLayer.DataAccess
 
             if (resultDataSet != null)
             {
-                List<T> resultCollection = DataTableMapper.CreateListFromTable<T>(resultDataSet.Tables[0]);
+                DataTableMapper mapper = new DataTableMapper(resultDataSet.Tables[0]);
+
+                IEnumerable<T> resultCollection = mapper.CreateListFromTable<T>();
 
                 return resultCollection;
             }

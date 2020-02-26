@@ -8,19 +8,36 @@ namespace DataAccessLayer.AssistantClasses
     /// <summary>
     /// Класс, автоматизирующий создание объектов из контекста данных 
     /// </summary>
-    internal static class DataTableMapper
+    internal class DataTableMapper
     {
+        /// <summary>
+        /// Контекст данных, из которого создаются объекты
+        /// </summary>
+        private readonly DataTable _dataContext;
+
+        public DataTableMapper(DataTable dataTable)
+        {
+            if (dataTable != null)
+            {
+                _dataContext = dataTable;
+            }
+            else
+            {
+                // ToDo: exception
+            }
+        }
+
         /// <summary>
         /// Создает из DataTable один объект
         /// </summary>
         /// <typeparam name="T">Тип возвращаемого объекта</typeparam>
         /// <param name="dataTable">Контекст данных, из которого будет создаваться объект</param>
         /// <returns>Возвращает созданный объект передаваемого типа T</returns>
-        public static T CreateObjectFromTable<T>(DataTable dataTable) where T : class, new()
+        public T CreateObjectFromTable<T>() where T : class, new()
         {
             T resultObject = new T();
 
-            DataRow  row = dataTable.Rows[0];
+            DataRow  row = _dataContext.Rows[0];
 
             SetItemFromRow(resultObject, row);
 
@@ -33,11 +50,11 @@ namespace DataAccessLayer.AssistantClasses
         /// <typeparam name="T">Тип возвращаемого списка объектов</typeparam>
         /// <param name="dataTable">Контекст данных, из которого будет создаваться список объектов</param>
         /// <returns>Возвращает список созданных объектов передаваемого типа T</returns>
-        public static IEnumerable<T> CreateListFromTable<T>(DataTable dataTable) where T : new()
+        public IEnumerable<T> CreateListFromTable<T>() where T : new()
         {
             List<T> resultListWithObjects = new List<T>();
 
-            foreach (DataRow row in dataTable.Rows)
+            foreach (DataRow row in _dataContext.Rows)
             {
                 resultListWithObjects.Add(GetItemFromRow<T>(row));
             }
@@ -50,7 +67,7 @@ namespace DataAccessLayer.AssistantClasses
         /// <typeparam name="T">Тип объекта</typeparam>
         /// <param name="row">Строка DataRow</param>
         /// <returns>Объект передаваемого типа</returns>
-        private static T GetItemFromRow<T>(DataRow row) where T : new()
+        private T GetItemFromRow<T>(DataRow row) where T : new()
         {
             T item = new T();
 
@@ -65,7 +82,7 @@ namespace DataAccessLayer.AssistantClasses
         /// <typeparam name="T">Тип объекта</typeparam>
         /// <param name="inputItem">Экземпляр объекта</param>
         /// <param name="row">Строка DataRow</param>
-        private static void SetItemFromRow<T>(T inputItem, DataRow row) where T : new()
+        private void SetItemFromRow<T>(T inputItem, DataRow row) where T : new()
         {
             foreach (DataColumn column in row.Table.Columns)
             {
