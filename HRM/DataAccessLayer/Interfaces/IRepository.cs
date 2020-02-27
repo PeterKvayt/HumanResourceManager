@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.AssistantClasses;
+﻿using CommonClasses;
 using System.Collections.Generic;
 
 namespace DataAccessLayer.Interfaces

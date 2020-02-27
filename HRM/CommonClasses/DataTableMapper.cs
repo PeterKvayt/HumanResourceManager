@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 
-namespace DataAccessLayer.AssistantClasses
+namespace CommonClasses
 {
     /// <summary>
     /// Класс, автоматизирующий создание объектов из контекста данных 
     /// </summary>
-    internal class DataTableMapper
+    public class DataTableMapper
     {
         /// <summary>
         /// Контекст данных, из которого создаются объекты
@@ -23,7 +23,7 @@ namespace DataAccessLayer.AssistantClasses
             }
             else
             {
-                // ToDo: exception
+                //throw new 
             }
         }
 

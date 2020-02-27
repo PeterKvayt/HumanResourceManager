@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.AssistantClasses;
+﻿using CommonClasses;
 
 namespace DataAccessLayer.Entities
 {

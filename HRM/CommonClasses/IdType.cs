@@ -1,5 +1,5 @@
 ﻿
-namespace DataAccessLayer.AssistantClasses
+namespace CommonClasses
 {
     /// <summary>
     /// Класс отвечает за идентификатор
