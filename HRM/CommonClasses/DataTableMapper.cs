@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
+using ExceptionClasses.Handlers;
+using ExceptionClasses.Interfaces;
 
 namespace CommonClasses
 {
@@ -23,7 +25,10 @@ namespace CommonClasses
             }
             else
             {
-                //throw new 
+                const string EXCEPTION_MESSAGE = "Отсутствует контекст данных DataTable (dataTable = null)!";
+
+                IExceptionHandler argumentExceptionHandler = new ArgumentExceptionHandler(EXCEPTION_MESSAGE);
+                argumentExceptionHandler.ThrowException();
             }
         }
 
@@ -90,14 +95,27 @@ namespace CommonClasses
 
                 PropertyInfo property = type.GetProperty(column.ColumnName);
 
-                if (property != null && row[column] != DBNull.Value)
+                if (property != null )
                 {
-                    //property.SetValue(inputItem, inputRow[column], null);
-                    property.SetValue(inputItem, row[column]);
+                    if (row[column] != DBNull.Value)
+                    {
+                        //property.SetValue(inputItem, inputRow[column], null);
+                        property.SetValue(inputItem, row[column]);
+                    }
+                    else
+                    {
+                        const string EXCEPTION_MESSAGE = "Значение ячейки в строке DataTable = DBNull.Value!";
+
+                        IExceptionHandler argumentExceptionHandler = new ArgumentExceptionHandler(EXCEPTION_MESSAGE);
+                        argumentExceptionHandler.ThrowException();
+                    }
                 }
                 else
                 {
-                    // ToDo: exception
+                    const string EXCEPTION_MESSAGE = "Отсутствует свойство (property = null)!";
+
+                    IExceptionHandler argumentExceptionHandler = new ArgumentExceptionHandler(EXCEPTION_MESSAGE);
+                    argumentExceptionHandler.ThrowException();
                 }
             }
         }

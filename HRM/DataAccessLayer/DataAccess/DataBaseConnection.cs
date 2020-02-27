@@ -24,7 +24,7 @@ namespace DataAccessLayer.DataAccess
             else
             {
                 // ToDo: exception
-                throw new ArgumentNullException();
+                throw new ArgumentException();
             }
         }
 

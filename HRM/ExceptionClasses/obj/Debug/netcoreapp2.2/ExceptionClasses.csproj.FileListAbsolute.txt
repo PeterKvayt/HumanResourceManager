@@ -1,0 +1,6 @@
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\ExceptionClasses\bin\Debug\netcoreapp2.2\ExceptionClasses.deps.json
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\ExceptionClasses\bin\Debug\netcoreapp2.2\ExceptionClasses.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\ExceptionClasses\obj\Debug\netcoreapp2.2\ExceptionClasses.csprojAssemblyReference.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\ExceptionClasses\obj\Debug\netcoreapp2.2\ExceptionClasses.csproj.CoreCompileInputs.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\ExceptionClasses\obj\Debug\netcoreapp2.2\ExceptionClasses.AssemblyInfoInputs.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\ExceptionClasses\obj\Debug\netcoreapp2.2\ExceptionClasses.AssemblyInfo.cs
