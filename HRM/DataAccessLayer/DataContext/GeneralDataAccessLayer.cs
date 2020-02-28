@@ -33,7 +33,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка при выполнении операции удаления!";
+                string EXCEPTION_MESSAGE = $"Ошибка при удалении экземпляра класса {typeof(T).ToString()}!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -61,7 +61,7 @@ namespace DataAccessLayer.DataContext
             }
             else
             {
-                const string EXCEPTION_MESSAGE = "Ошибка получения экземпляра класса из базы данных!";
+                string EXCEPTION_MESSAGE = $"Ошибка получения экземпляра класса {typeof(T).ToString()} из базы данных!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -80,7 +80,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка выполнения хранимой процедуры для получения всех записей из базы данных!";
+                string EXCEPTION_MESSAGE = $"Ошибка выполнения хранимой процедуры для получения всех записей класса {typeof(T).ToString()} из базы данных!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -96,7 +96,7 @@ namespace DataAccessLayer.DataContext
             }
             else
             {
-                const string EXCEPTION_MESSAGE = "Результат выполнения хранимой процедуры для получения всех записей из базы данных вернул Null!";
+                string EXCEPTION_MESSAGE = $"Результат выполнения хранимой процедуры для получения всех записей класса {typeof(T).ToString()} из базы данных вернул Null!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -118,7 +118,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка создания хранимой процедуры!";
+                string EXCEPTION_MESSAGE = $"Ошибка создания хранимой процедуры в классе {typeof(T).ToString()}DataAccessLayer!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -139,7 +139,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка создания экземпляра класса DataTableMapper!";
+                string EXCEPTION_MESSAGE = $"Ошибка создания экземпляра класса DataTableMapper в классе {typeof(T).ToString()}DataAccessLayer!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
