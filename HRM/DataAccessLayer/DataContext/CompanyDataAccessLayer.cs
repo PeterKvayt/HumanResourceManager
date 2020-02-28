@@ -20,7 +20,7 @@ namespace DataAccessLayer.DataContext
             };
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddCompany";
-            IDataBaseExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -47,7 +47,7 @@ namespace DataAccessLayer.DataContext
             };
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateCompany";
-            IDataBaseExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {

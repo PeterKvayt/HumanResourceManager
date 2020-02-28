@@ -10,7 +10,7 @@ namespace DataAccessLayer.DataContext
     /// <summary>
     /// Класс отвечает за хранимые процедуры
     /// </summary>
-    class StoredProcedure : IDataBaseExecutor
+    class StoredProcedure : IDataBaseCommandExecutor
     {
         /// <summary>
         /// Название хранимой процедуры

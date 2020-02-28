@@ -1,6 +1,7 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
+using ExceptionClasses.Loggers;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace DataAccessLayer.DataContext
             };
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddEmployee";
-            StoredProcedure storedProcedure = new StoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -30,7 +31,10 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                // ToDo: exception
+                const string EXCEPTION_MESSAGE = "Ошибка создания экземпляра класса Employee в классе EmployeeDataAccessLayer!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
         }
@@ -49,7 +53,7 @@ namespace DataAccessLayer.DataContext
             };
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateEmployee";
-            StoredProcedure storedProcedure = new StoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -57,7 +61,10 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                // ToDo: exception
+                const string EXCEPTION_MESSAGE = "Ошибка обновления экземпляра класса Employee в классе EmployeeDataAccessLayer!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
         }

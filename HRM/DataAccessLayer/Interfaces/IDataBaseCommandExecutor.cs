@@ -2,7 +2,7 @@
 
 namespace DataAccessLayer.Interfaces
 {
-    interface IDataBaseExecutor
+    interface IDataBaseCommandExecutor
     {
         /// <summary>
         /// Выполняет запрос к базе данных

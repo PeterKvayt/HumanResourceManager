@@ -4,7 +4,7 @@ namespace CommonClasses
     /// <summary>
     /// Класс отвечает за полное имя 
     /// </summary>
-    internal class FullName
+    public class FullName
     {
         public string Name { get; set; }
 

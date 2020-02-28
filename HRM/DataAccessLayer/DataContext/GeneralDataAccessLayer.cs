@@ -25,7 +25,7 @@ namespace DataAccessLayer.DataContext
                 new SqlParameter("@Id", id.Identificator)
             };
 
-            IDataBaseExecutor storedProcedure = TryGetStoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -48,7 +48,7 @@ namespace DataAccessLayer.DataContext
                 new SqlParameter("@Id", id.Identificator)
             };
 
-            IDataBaseExecutor storedProcedure = TryGetStoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             DataSet resultDataSet = storedProcedure.Execute();
 
@@ -71,7 +71,7 @@ namespace DataAccessLayer.DataContext
 
         protected virtual IEnumerable<T> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
         {
-            IDataBaseExecutor storedProcedure = TryGetStoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
 
             DataSet resultDataSet = null;
             try
@@ -110,7 +110,7 @@ namespace DataAccessLayer.DataContext
         /// <param name="storedProcedureName">Название хранимой процедуры</param>
         /// <param name="sqlParameters">Sql параметры хранимой процедуры</param>
         /// <returns>Хранимая процедура</returns>
-        protected IDataBaseExecutor TryGetStoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters)
+        protected IDataBaseCommandExecutor TryGetStoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters)
         {
             try
             {
