@@ -6,6 +6,6 @@ namespace CommonClasses
     /// </summary>
     public class IdType
     {
-        public uint Identifcator { get; set; }
+        public uint Identificator { get; set; }
     }
 }

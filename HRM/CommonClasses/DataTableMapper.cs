@@ -4,6 +4,7 @@ using System.Data;
 using System.Reflection;
 using ExceptionClasses.Handlers;
 using ExceptionClasses.Interfaces;
+using ExceptionClasses.Loggers;
 
 namespace CommonClasses
 {
@@ -27,8 +28,9 @@ namespace CommonClasses
             {
                 const string EXCEPTION_MESSAGE = "Отсутствует контекст данных DataTable (dataTable = null)!";
 
-                IExceptionHandler argumentExceptionHandler = new ArgumentExceptionHandler(EXCEPTION_MESSAGE);
-                argumentExceptionHandler.ThrowException();
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw new Exception();
             }
         }
 
@@ -106,16 +108,18 @@ namespace CommonClasses
                     {
                         const string EXCEPTION_MESSAGE = "Значение ячейки в строке DataTable = DBNull.Value!";
 
-                        IExceptionHandler argumentExceptionHandler = new ArgumentExceptionHandler(EXCEPTION_MESSAGE);
-                        argumentExceptionHandler.ThrowException();
+                        ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                        throw new Exception();
                     }
                 }
                 else
                 {
                     const string EXCEPTION_MESSAGE = "Отсутствует свойство (property = null)!";
 
-                    IExceptionHandler argumentExceptionHandler = new ArgumentExceptionHandler(EXCEPTION_MESSAGE);
-                    argumentExceptionHandler.ThrowException();
+                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                    throw new Exception();
                 }
             }
         }

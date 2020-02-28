@@ -1,10 +1,11 @@
 ﻿using DataAccessLayer.Interfaces;
+using ExceptionClasses.Loggers;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DataAccessLayer.DataAccess
+namespace DataAccessLayer.DataContext
 {
     /// <summary>
     /// Класс отвечает за хранимые процедуры
@@ -14,12 +15,12 @@ namespace DataAccessLayer.DataAccess
         /// <summary>
         /// Название хранимой процедуры
         /// </summary>
-        public string Name { get; }
+        private string _name;
 
         /// <summary>
         /// Список параметров хранимой процедуры
         /// </summary>
-        public IEnumerable<SqlParameter> SqlParameters { get; }
+        private IEnumerable<SqlParameter> _sqlParameters;
 
         /// <summary>
         /// Конструктор
@@ -28,21 +29,29 @@ namespace DataAccessLayer.DataAccess
         /// <param name="sqlParameters">Параметры хранимой процедуры</param>
         public StoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters)
         {
-            if (!(string.IsNullOrEmpty(storedProcedureName) && string.IsNullOrWhiteSpace(storedProcedureName)))
+            if ( !(string.IsNullOrEmpty(storedProcedureName) && string.IsNullOrWhiteSpace(storedProcedureName)) )
             {
                 if (sqlParameters != null)
                 {
-                    Name = storedProcedureName;
-                    SqlParameters = sqlParameters;
+                    _name = storedProcedureName;
+                    _sqlParameters = sqlParameters;
                 }
                 else
                 {
-                    // ToDo: обработать nullException
+                    const string EXCEPTION_MESSAGE = "Sql параметры = null!";
+
+                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                    throw new Exception();
                 }
             }
             else
             {
-                // ToDo: обработать отсутствие названия процедуры
+                const string EXCEPTION_MESSAGE = "Некорректное (пустое) имя хранимой процедуры!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw new Exception();
             }
         }
 
@@ -52,7 +61,7 @@ namespace DataAccessLayer.DataAccess
         /// <returns>Возвращает данные из базы данных</returns>
         public DataSet Execute()
         {
-            using (SqlConnection sqlDataBaseConnection = DataBaseConnection.GetConnection())
+            using (SqlConnection sqlDataBaseConnection = TryGetConnection())
             {
                 sqlDataBaseConnection.Open();
 
@@ -70,7 +79,10 @@ namespace DataAccessLayer.DataAccess
                 }
                 catch (Exception)
                 {
-                    // ToDo: Обработать исключения выполнения запроса на заполнение dataset
+                    const string EXCEPTION_MESSAGE = "Ошибка заполнения адаптера!";
+
+                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                     throw;
                 }
             }
@@ -81,7 +93,7 @@ namespace DataAccessLayer.DataAccess
         /// </summary>
         public void ExecuteNonQuery()
         {
-            using (SqlConnection sqlDataBaseConnection = DataBaseConnection.GetConnection())
+            using (SqlConnection sqlDataBaseConnection = TryGetConnection())
             {
                 sqlDataBaseConnection.Open();
 
@@ -93,7 +105,10 @@ namespace DataAccessLayer.DataAccess
                 }
                 catch (Exception)
                 {
-                    // ToDo: Обработать исключения выполнения запроса на заполнение dataset
+                    const string EXCEPTION_MESSAGE = "Ошибка выполнения хранимой процедуры ExecuteNonQuery!";
+
+                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                     throw;
                 }
             }
@@ -108,17 +123,37 @@ namespace DataAccessLayer.DataAccess
         {
             SqlCommand storedProcedureCommand = new SqlCommand
             {
-                CommandText = Name,
+                CommandText = _name,
                 CommandType = CommandType.StoredProcedure,
                 Connection = DataBaseConnection.GetConnection()
             };
 
-            foreach (var sqlParameter in SqlParameters)
+            foreach (var sqlParameter in _sqlParameters)
             {
                 storedProcedureCommand.Parameters.Add(sqlParameter);
             }
 
             return storedProcedureCommand;
+        }
+
+        /// <summary>
+        /// Безопасно возвращает подключение к базе данных
+        /// </summary>
+        /// <returns>Подключение к базе данных</returns>
+        private SqlConnection TryGetConnection()
+        {
+            try
+            {
+                return DataBaseConnection.GetConnection();
+            }
+            catch (Exception)
+            {
+                const string EXCEPTION_MESSAGE = "Отсутствует подключение к базе данных!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw;
+            }
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
+using ExceptionClasses.Handlers;
+using ExceptionClasses.Interfaces;
+using ExceptionClasses.Loggers;
 
-namespace DataAccessLayer.DataAccess
+namespace DataAccessLayer.DataContext
 {
     /// <summary>
     /// Класс отвечает за подключение к базе данных
@@ -23,8 +26,11 @@ namespace DataAccessLayer.DataAccess
             }
             else
             {
-                // ToDo: exception
-                throw new ArgumentException();
+                const string EXCEPTION_MESSAGE = "Отсутствует строка подключения к базе данных!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw new Exception();
             }
         }
 
