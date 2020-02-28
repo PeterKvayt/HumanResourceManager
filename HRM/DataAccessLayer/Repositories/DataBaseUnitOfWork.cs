@@ -6,7 +6,7 @@ using System;
 namespace DataAccessLayer.Repositories
 {
     /// <summary>
-    /// Класс инкапсулирующий взаимодействие с уровнем доступа к базе данных
+    /// Класс, инкапсулирующий взаимодействие с уровнем доступа к базе данных
     /// </summary>
     class DataBaseUnitOfWork : IUnitOfWork
     {

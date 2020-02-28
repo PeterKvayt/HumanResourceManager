@@ -1,5 +1,6 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Interfaces;
+using ExceptionClasses.Loggers;
 using System.Collections.Generic;
 
 namespace DataAccessLayer.Repositories
@@ -14,27 +15,82 @@ namespace DataAccessLayer.Repositories
 
         public virtual void Create(T item)
         {
-            context.Create(item);
+            try
+            {
+                context.Create(item);
+            }
+            catch (System.Exception)
+            {
+                string EXCEPTION_MESSAGE = $"Ошибка создания экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw;
+            }
         }
 
         public virtual void Delete(IdType id)
         {
-            context.Delete(id);
+            try
+            {
+                context.Delete(id);
+            }
+            catch (System.Exception)
+            {
+                string EXCEPTION_MESSAGE = $"Ошибка удаления экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw;
+            }
         }
 
         public virtual T Get(IdType id)
         {
-            return context.Get(id);
+            try
+            {
+                return context.Get(id);
+            }
+            catch (System.Exception)
+            {
+                string EXCEPTION_MESSAGE = $"Ошибка получения экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw;
+            }
         }
 
         public virtual IEnumerable<T> GetAll()
         {
-            return context.GetAll();
+            try
+            {
+                return context.GetAll();
+            }
+            catch (System.Exception)
+            {
+                string EXCEPTION_MESSAGE = $"Ошибка получения всех экземпляров класса {typeof(T).ToString()} в классе GeneralRepository!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw;
+            }
         }
 
         public virtual void Update(T item)
         {
-            context.Update(item);
+            try
+            {
+                context.Update(item);
+            }
+            catch (System.Exception)
+            {
+                string EXCEPTION_MESSAGE = $"Ошибка обновления экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw;
+            }
         }
     }
 }
