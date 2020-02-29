@@ -10,15 +10,28 @@ namespace DataAccessLayer.DataContext
 {
     class PositionDataAccessLayer : GeneralDataAccessLayer<Position>, IDataAccessLayer<Position>
     {
-        public override void Create(Position newPosition)
+        /// <summary>
+        /// Инициализирует параметры для создания записи в базе данных
+        /// </summary>
+        /// <param name="item">Экземпляр класса, который необходимо создать в базе данных</param>
+        /// <returns>Список sql параметров для выполнения хранимой процедуры</returns>
+        private List<SqlParameter> GetParametersForCreate(Position item)
         {
-            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            List<SqlParameter> parameters = new List<SqlParameter>
             {
-                new SqlParameter("@Name", newPosition.Name)
+                 new SqlParameter("@Name", item.Name)
             };
 
+            return parameters;
+        }
+
+        public override void Create(Position newPosition)
+        {
+            IEnumerable<SqlParameter> parameters = GetParametersForCreate(newPosition);
+
             const string CREATE_STORED_PROCEDURE_NAME = "spAddPosition";
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {
@@ -34,16 +47,28 @@ namespace DataAccessLayer.DataContext
             }
         }
 
+        /// <summary>
+        /// Инициализирует параметры для обновления записи в базе данных
+        /// </summary>
+        /// <param name="item">Экземпляр класса, который необходимо обновить в базе данных</param>
+        /// <returns>Список sql параметров для выполнения хранимой процедуры</returns>
+        private List<SqlParameter> GetParametersForUpdate(Position item)
+        {
+            SqlParameter idParameter = new SqlParameter("@Id", item.Id.Identificator);
+
+            List<SqlParameter> parameters = GetParametersForCreate(item);
+            parameters.Add(idParameter);
+
+            return parameters;
+        }
+
         public override void Update(Position position)
         {
-            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
-            {
-                new SqlParameter("@Id", position.Id.Identificator),
-                new SqlParameter("@Name", position.Name)
-            };
+            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(position);
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdatePosition";
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {
