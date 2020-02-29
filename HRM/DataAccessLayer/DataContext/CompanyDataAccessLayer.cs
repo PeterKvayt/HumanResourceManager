@@ -10,17 +10,31 @@ namespace DataAccessLayer.DataContext
 {
     class CompanyDataAccessLayer : GeneralDataAccessLayer<Company>, IDataAccessLayer<Company>
     {
-        public override void Create(Company newCompany)
+
+        /// <summary>
+        /// Инициализирует параметры для создания записи в базе данных
+        /// </summary>
+        /// <param name="item">Экземпляр класса, который необходимо создать в базе данных</param>
+        /// <returns>Список sql параметров для выполнения хранимой процедуры</returns>
+        private List<SqlParameter> GetParametersForCreate(Company item)
         {
-            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            List<SqlParameter> parameters = new List<SqlParameter>
             {
-                new SqlParameter("@ActivityTypeId", newCompany.ActivityId.Identificator),
-                new SqlParameter("@OrganizationalTypeId", newCompany.LegalFormId.Identificator),
-                new SqlParameter("@Name", newCompany.Name)
+                new SqlParameter("@ActivityTypeId", item.ActivityId.Identificator),
+                new SqlParameter("@OrganizationalTypeId", item.LegalFormId.Identificator),
+                new SqlParameter("@Name", item.Name)
             };
 
+            return parameters;
+        }
+
+        public override void Create(Company newCompany)
+        {
+            IEnumerable<SqlParameter> parameters = GetParametersForCreate(newCompany);
+
             const string CREATE_STORED_PROCEDURE_NAME = "spAddCompany";
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {
@@ -36,18 +50,28 @@ namespace DataAccessLayer.DataContext
             }
         }
 
+        /// <summary>
+        /// Инициализирует параметры для обновления записи в базе данных
+        /// </summary>
+        /// <param name="item">Экземпляр класса, который необходимо обновить в базе данных</param>
+        /// <returns>Список sql параметров для выполнения хранимой процедуры</returns>
+        private List<SqlParameter> GetParametersForUpdate(Company item)
+        {
+            SqlParameter idParameter = new SqlParameter("@Id", item.Id.Identificator);
+
+            List<SqlParameter> parameters = GetParametersForCreate(item);
+            parameters.Add(idParameter);
+
+            return parameters;
+        }
+
         public override void Update(Company company)
         {
-            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
-            {
-                new SqlParameter("@Id", company.Id.Identificator),
-                new SqlParameter("@ActivityTypeId", company.ActivityId.Identificator),
-                new SqlParameter("@OrganizationalTypeId", company.LegalFormId.Identificator),
-                new SqlParameter("@Name", company.Name)
-            };
+            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(company);
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateCompany";
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {
@@ -80,5 +104,6 @@ namespace DataAccessLayer.DataContext
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllCompanies";
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
+
     }
 }
