@@ -10,20 +10,33 @@ namespace DataAccessLayer.DataContext
 {
     class EmployeeDataAccessLayer : GeneralDataAccessLayer<Employee>, IDataAccessLayer<Employee>
     {
-        public override void Create(Employee newEmployee)
+        /// <summary>
+        /// Инициализирует параметры для создания записи в базе данных
+        /// </summary>
+        /// <param name="item">Экземпляр класса, который необходимо создать в базе данных</param>
+        /// <returns>Список sql параметров для выполнения хранимой процедуры</returns>
+        private List<SqlParameter> GetParametersForCreate(Employee item)
         {
-            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            List<SqlParameter> parameters = new List<SqlParameter>
             {
-                new SqlParameter("@PositionId", newEmployee.PositionId.Identificator),
-                new SqlParameter("@CompanyId", newEmployee.CompanyId.Identificator),
-                new SqlParameter("@Surname", newEmployee.BigName.Surname),
-                new SqlParameter("@MiddleName", newEmployee.BigName.Middlename),
-                new SqlParameter("@Name", newEmployee.BigName.Name),
-                new SqlParameter("@DateOfEmployment", newEmployee.DateOfEmployment)
+                new SqlParameter("@PositionId", item.PositionId.Identificator),
+                new SqlParameter("@CompanyId", item.CompanyId.Identificator),
+                new SqlParameter("@Surname", item.BigName.Surname),
+                new SqlParameter("@MiddleName", item.BigName.Middlename),
+                new SqlParameter("@Name", item.BigName.Name),
+                new SqlParameter("@DateOfEmployment", item.DateOfEmployment)
             };
 
+            return parameters;
+        }
+
+        public override void Create(Employee newEmployee)
+        {
+            IEnumerable<SqlParameter> parameters = GetParametersForCreate(newEmployee);
+
             const string CREATE_STORED_PROCEDURE_NAME = "spAddEmployee";
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {
@@ -39,21 +52,28 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        public override void Update(Employee newEmployee)
+        /// <summary>
+        /// Инициализирует параметры для обновления записи в базе данных
+        /// </summary>
+        /// <param name="item">Экземпляр класса, который необходимо обновить в базе данных</param>
+        /// <returns>Список sql параметров для выполнения хранимой процедуры</returns>
+        private List<SqlParameter> GetParametersForUpdate(Employee item)
         {
-            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
-            {
-                new SqlParameter("@Id", newEmployee.Id.Identificator),
-                new SqlParameter("@PositionId", newEmployee.PositionId.Identificator),
-                new SqlParameter("@CompanyId", newEmployee.CompanyId.Identificator),
-                new SqlParameter("@Surname", newEmployee.BigName.Surname),
-                new SqlParameter("@MiddleName", newEmployee.BigName.Middlename),
-                new SqlParameter("@Name", newEmployee.BigName.Name),
-                new SqlParameter("@DateOfEmployment", newEmployee.DateOfEmployment)
-            };
+            SqlParameter idParameter = new SqlParameter("@Id", item.Id.Identificator);
+
+            List<SqlParameter> parameters = GetParametersForCreate(item);
+            parameters.Add(idParameter);
+
+            return parameters;
+        }
+
+        public override void Update(Employee employee)
+        {
+            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(employee);
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateEmployee";
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, storedProcedureParameters);
+
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {
