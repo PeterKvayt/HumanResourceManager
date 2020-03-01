@@ -29,7 +29,7 @@ namespace DataAccessLayer.DataContext
         {
             IEnumerable<SqlParameter> parameters = GetParametersForCreate(newLegalForm);
 
-            const string CREATE_STORED_PROCEDURE_NAME = "spAddOrganizationalType";
+            const string CREATE_STORED_PROCEDURE_NAME = "spAddLegalForm";
 
             IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
 
@@ -66,7 +66,7 @@ namespace DataAccessLayer.DataContext
         {
             IEnumerable<SqlParameter> parameters = GetParametersForUpdate(legalForm);
 
-            const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateOrganizationalType";
+            const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateLegalForm";
 
             IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
 
@@ -86,25 +86,25 @@ namespace DataAccessLayer.DataContext
 
         public void Delete(IdType id)
         {
-            const string DELETE_STORED_PROCEDURE_NAME = "spDeleteOrganizationalType";
+            const string DELETE_STORED_PROCEDURE_NAME = "spDeleteLegalForm";
             Delete(id, DELETE_STORED_PROCEDURE_NAME);
         }
 
         public LegalForm Get(IdType id)
         {
-            const string GET_STORED_PROCEDURE_NAME = "spGetOrganizationalType";
+            const string GET_STORED_PROCEDURE_NAME = "spGetLegalForm";
             return Get(id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<LegalForm> GetAll()
         {
-            const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllOrganizationalTypes";
+            const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllLegalForms";
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
         public bool Exists(IdType id)
         {
-            const string EXISTS_STORED_PROCEDURE_NAME = "spIsLegalFormExist";
+            const string EXISTS_STORED_PROCEDURE_NAME = "spExistsLegalForm";
             return Exists(id, EXISTS_STORED_PROCEDURE_NAME);
         }
     }

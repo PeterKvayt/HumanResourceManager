@@ -21,7 +21,7 @@ namespace DataAccessLayer.DataContext
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@ActivityTypeId", item.ActivityId.Identificator),
-                new SqlParameter("@OrganizationalTypeId", item.LegalFormId.Identificator),
+                new SqlParameter("@LegalFormId", item.LegalFormId.Identificator),
                 new SqlParameter("@Name", item.Name)
             };
 
@@ -107,7 +107,7 @@ namespace DataAccessLayer.DataContext
 
         public bool Exists(IdType id)
         {
-            const string EXISTS_STORED_PROCEDURE_NAME = "spIsCompanyExist";
+            const string EXISTS_STORED_PROCEDURE_NAME = "spExistsCompany";
             return Exists(id, EXISTS_STORED_PROCEDURE_NAME);
         }
     }

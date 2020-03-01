@@ -104,7 +104,7 @@ namespace DataAccessLayer.DataContext
 
         public bool Exists(IdType id)
         {
-            const string EXISTS_STORED_PROCEDURE_NAME = "spIsPositionExist";
+            const string EXISTS_STORED_PROCEDURE_NAME = "spExistsPosition";
             return Exists(id, EXISTS_STORED_PROCEDURE_NAME);
         }
     }
