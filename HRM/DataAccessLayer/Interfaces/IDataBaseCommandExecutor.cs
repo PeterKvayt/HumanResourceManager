@@ -14,5 +14,11 @@ namespace DataAccessLayer.Interfaces
         /// Выполняет запрос NonQuery
         /// </summary>
         void ExecuteNonQuery();
+
+        /// <summary>
+        /// Выполняет скалярный запрос 
+        /// </summary>
+        /// <returns>Скалярное значение</returns>
+        object ExecuteScalar();
     }
 }

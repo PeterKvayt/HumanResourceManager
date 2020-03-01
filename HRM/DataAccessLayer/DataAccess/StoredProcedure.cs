@@ -65,7 +65,7 @@ namespace DataAccessLayer.DataContext
             {
                 sqlDataBaseConnection.Open();
 
-                SqlCommand storedProcedureCommand = ToSqlCommand();
+                SqlCommand storedProcedureCommand = GetSqlCommand();
 
                 SqlDataAdapter adapter = new SqlDataAdapter(storedProcedureCommand);
 
@@ -97,7 +97,7 @@ namespace DataAccessLayer.DataContext
             {
                 sqlDataBaseConnection.Open();
 
-                SqlCommand storedProcedureCommand = ToSqlCommand();
+                SqlCommand storedProcedureCommand = GetSqlCommand();
 
                 try
                 {
@@ -115,11 +115,38 @@ namespace DataAccessLayer.DataContext
         }
 
         /// <summary>
+        /// Выполнение скалярного запроса
+        /// </summary>
+        /// <returns>Результат выполнения запроса</returns>
+        public object ExecuteScalar()
+        {
+            using (SqlConnection sqlDataBaseConnection = TryGetConnection())
+            {
+                sqlDataBaseConnection.Open();
+
+                SqlCommand storedProcedureCommand = GetSqlCommand();
+
+                try
+                {
+                    return storedProcedureCommand.ExecuteScalar();
+                }
+                catch (Exception)
+                {
+                    const string EXCEPTION_MESSAGE = "Ошибка выполнения скалярного запроса ExecuteScalar!";
+
+                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
         /// Получает хранимую процедуру и преобразует ее в sql-команду
         /// </summary>
         /// <param name="inputStoredProcedure">Хранимая процедура для преобразования в sql-команду</param>
         /// <returns>Возвращает sql-команду</returns>
-        private SqlCommand ToSqlCommand()
+        private SqlCommand GetSqlCommand()
         {
             SqlCommand storedProcedureCommand = new SqlCommand
             {
