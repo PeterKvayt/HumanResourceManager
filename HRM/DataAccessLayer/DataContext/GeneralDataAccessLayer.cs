@@ -20,10 +20,7 @@ namespace DataAccessLayer.DataContext
 
         protected virtual void Delete(IdType id, string DELETE_STORED_PROCEDURE_NAME)
         {
-            List<SqlParameter> storedProcedureParameters = new List<SqlParameter>
-            {
-                new SqlParameter("@Id", id.Identificator)
-            };
+            IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
 
             IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
@@ -43,10 +40,7 @@ namespace DataAccessLayer.DataContext
 
         protected virtual T Get(IdType id, string GET_STORED_PROCEDURE_NAME)
         {
-            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
-            {
-                new SqlParameter("@Id", id.Identificator)
-            };
+            IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
 
             IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
@@ -106,10 +100,7 @@ namespace DataAccessLayer.DataContext
 
         protected virtual bool Exists(IdType id, string EXISTS_STORED_PROCEDURE_NAME)
         {
-            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
-            {
-                new SqlParameter("@Id", id.Identificator)
-            };
+            IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
 
             IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(EXISTS_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
@@ -170,6 +161,20 @@ namespace DataAccessLayer.DataContext
 
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Создает идентифицирующие sql параметры
+        /// </summary>
+        /// <returns>Идентифицирующие параметры</returns>
+        protected virtual List<SqlParameter> GetIdParameters(IdType id)
+        {
+            List<SqlParameter> idParameters = new List<SqlParameter>
+            {
+                new SqlParameter("@Id", id.Identificator)
+            };
+
+            return idParameters;
         }
     }
 }

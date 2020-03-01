@@ -4,7 +4,7 @@ namespace DataAccessLayer.Interfaces
 {
     interface IHrmContext
     {
-        IDataAccessLayer<Company> CompanyContext { get; }
+        ICompanyDataAccessLayer<Company> CompanyContext { get; }
 
         IDataAccessLayer<Employee> EmployeeContext { get; }
 

@@ -17,7 +17,7 @@ namespace DataAccessLayer.DataContext
         }
 
         private CompanyDataAccessLayer _companyContext;
-        public IDataAccessLayer<Company> CompanyContext
+        public ICompanyDataAccessLayer<Company> CompanyContext
         {
             get
             {

@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataContext
 {
-    class CompanyDataAccessLayer : GeneralDataAccessLayer<Company>, IDataAccessLayer<Company>
+    class CompanyDataAccessLayer : GeneralDataAccessLayer<Company>, ICompanyDataAccessLayer<Company>
     {
 
         /// <summary>
@@ -80,6 +80,33 @@ namespace DataAccessLayer.DataContext
             catch (Exception)
             {
                 const string EXCEPTION_MESSAGE = "Ошибка обновления экземпляра класса Company в классе CompanyDataAccessLayer!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Запрашивает размер компании из базы данных
+        /// </summary>
+        /// <param name="company">Компания, для которой ищем размер</param>
+        /// <returns>Размер компании</returns>
+        public int GetSize(Company company)
+        {
+            IEnumerable<SqlParameter> parameters = GetIdParameters(company.Id);
+
+            const string GET_SIZE_PROCEDURE_NAME = "spGetCompanySize";
+
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_SIZE_PROCEDURE_NAME, parameters);
+
+            try
+            {
+                return Convert.ToInt32( storedProcedure.ExecuteScalar() );
+            }
+            catch (Exception)
+            {
+                const string EXCEPTION_MESSAGE = "Ошибка запроса размера компании в классе CompanyDataAccessLayer!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 

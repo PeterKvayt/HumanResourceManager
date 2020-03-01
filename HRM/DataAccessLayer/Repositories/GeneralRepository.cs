@@ -2,6 +2,7 @@
 using DataAccessLayer.Interfaces;
 using ExceptionClasses.Loggers;
 using System.Collections.Generic;
+using System;
 
 namespace DataAccessLayer.Repositories
 {
@@ -11,15 +12,15 @@ namespace DataAccessLayer.Repositories
     /// <typeparam name="T">Конкретный тип реализуемого класса</typeparam>
     abstract class GeneralRepository<T> where T: class
     {
-        protected IDataAccessLayer<T> context;
+        protected ICompanyDataAccessLayer<T> _context;
 
         public virtual void Create(T item)
         {
             try
             {
-                context.Create(item);
+                _context.Create(item);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка создания экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
 
@@ -33,9 +34,9 @@ namespace DataAccessLayer.Repositories
         {
             try
             {
-                context.Delete(id);
+                _context.Delete(id);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка удаления экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
 
@@ -49,9 +50,9 @@ namespace DataAccessLayer.Repositories
         {
             try
             {
-                return context.Get(id);
+                return _context.Get(id);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка получения экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
 
@@ -65,9 +66,9 @@ namespace DataAccessLayer.Repositories
         {
             try
             {
-                return context.GetAll();
+                return _context.GetAll();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка получения всех экземпляров класса {typeof(T).ToString()} в классе GeneralRepository!";
 
@@ -81,9 +82,9 @@ namespace DataAccessLayer.Repositories
         {
             try
             {
-                context.Update(item);
+                _context.Update(item);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка обновления экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
 
@@ -97,9 +98,9 @@ namespace DataAccessLayer.Repositories
         {
             try
             {
-                return context.Exists(id);
+                return _context.Exists(id);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи об экземпляре класса {typeof(T).ToString()} в классе GeneralRepository!";
 

@@ -7,7 +7,7 @@ namespace DataAccessLayer.Repositories
     {
         public EmployeeRepository(IHrmContext inputСontext)
         {
-            context = inputСontext.EmployeeContext;
+            _context = inputСontext.EmployeeContext;
         }
     }
 }

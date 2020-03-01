@@ -7,7 +7,7 @@ namespace DataAccessLayer.Repositories
     {
         public PositionRepository(IHrmContext inputСontext)
         {
-            context = inputСontext.PositionContext;
+            _context = inputСontext.PositionContext;
         }
     }
 }
