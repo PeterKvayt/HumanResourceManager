@@ -101,5 +101,11 @@ namespace DataAccessLayer.DataContext
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllOrganizationalTypes";
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
+
+        public bool Exists(IdType id)
+        {
+            const string EXISTS_STORED_PROCEDURE_NAME = "spIsLegalFormExist";
+            return Exists(id, EXISTS_STORED_PROCEDURE_NAME);
+        }
     }
 }

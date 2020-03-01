@@ -104,6 +104,31 @@ namespace DataAccessLayer.DataContext
             }
         }
 
+        protected virtual bool Exists(IdType id, string EXISTS_STORED_PROCEDURE_NAME)
+        {
+            IEnumerable<SqlParameter> storedProcedureParameters = new List<SqlParameter>
+            {
+                new SqlParameter("@Id", id.Identificator)
+            };
+
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(EXISTS_STORED_PROCEDURE_NAME, storedProcedureParameters);
+
+            try
+            {
+                int result = (int)storedProcedure.ExecuteScalar();
+
+                return result == 1 ? true : false;
+            }
+            catch (Exception)
+            {
+                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи экземпляра класса {typeof(T).ToString()} в базе данных!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw new Exception();
+            }
+        }
+
         /// <summary>
         /// Безопасно создает экземпляр хранимой процедуры
         /// </summary>

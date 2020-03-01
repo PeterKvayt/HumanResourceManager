@@ -92,5 +92,21 @@ namespace DataAccessLayer.Repositories
                 throw;
             }
         }
+
+        public virtual bool Exists(IdType id)
+        {
+            try
+            {
+                return context.Exists(id);
+            }
+            catch (System.Exception)
+            {
+                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи об экземпляре класса {typeof(T).ToString()} в классе GeneralRepository!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw;
+            }
+        }
     }
 }

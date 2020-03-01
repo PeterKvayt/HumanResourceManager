@@ -105,5 +105,10 @@ namespace DataAccessLayer.DataContext
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
+        public bool Exists(IdType id)
+        {
+            const string EXISTS_STORED_PROCEDURE_NAME = "spIsCompanyExist";
+            return Exists(id, EXISTS_STORED_PROCEDURE_NAME);
+        }
     }
 }

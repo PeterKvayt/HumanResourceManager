@@ -35,5 +35,12 @@ namespace DataAccessLayer.Interfaces
         /// </summary>
         /// <param name="id">Параметр, по которому ведется удаление</param>
         void Delete(IdType id);
+
+        /// <summary>
+        /// Проверяет существование записи в базе данных
+        /// </summary>
+        /// <param name="id">Параметр, по которому осуществляется поиск</param>
+        /// <returns>Результат поиска</returns>
+        bool Exists(IdType id);
     }
 }
