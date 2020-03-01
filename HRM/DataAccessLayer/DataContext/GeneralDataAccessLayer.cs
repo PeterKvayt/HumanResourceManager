@@ -44,7 +44,20 @@ namespace DataAccessLayer.DataContext
 
             IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
-            DataSet resultDataSet = storedProcedure.Execute();
+            DataSet resultDataSet = null;
+
+            try
+            {
+                resultDataSet = storedProcedure.Execute();
+            }
+            catch (Exception)
+            {
+                string EXCEPTION_MESSAGE = $"Ошибка выполнения хранимой процедуры получения экземпляра класса {typeof(T).ToString()} из базы данных!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw;
+            }
 
             if (resultDataSet != null)
             {
