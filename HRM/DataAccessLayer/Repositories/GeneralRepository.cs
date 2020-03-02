@@ -12,13 +12,11 @@ namespace DataAccessLayer.Repositories
     /// <typeparam name="T">Конкретный тип реализуемого класса</typeparam>
     abstract class GeneralRepository<T> where T: class
     {
-        protected ICompanyDataAccessLayer<T> _context;
-
-        public virtual void Create(T item)
+        public virtual void Create(T item, IDataAccessLayer<T> context)
         {
             try
             {
-                _context.Create(item);
+                context.Create(item);
             }
             catch (Exception)
             {
@@ -30,11 +28,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual void Delete(IdType id)
+        public virtual void Delete(IdType id, IDataAccessLayer<T> context)
         {
             try
             {
-                _context.Delete(id);
+                context.Delete(id);
             }
             catch (Exception)
             {
@@ -46,11 +44,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual T Get(IdType id)
+        public virtual T Get(IdType id, IDataAccessLayer<T> context)
         {
             try
             {
-                return _context.Get(id);
+                return context.Get(id);
             }
             catch (Exception)
             {
@@ -62,11 +60,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll(IDataAccessLayer<T> context)
         {
             try
             {
-                return _context.GetAll();
+                return context.GetAll();
             }
             catch (Exception)
             {
@@ -78,11 +76,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual void Update(T item)
+        public virtual void Update(T item, IDataAccessLayer<T> context)
         {
             try
             {
-                _context.Update(item);
+                context.Update(item);
             }
             catch (Exception)
             {
@@ -94,11 +92,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual bool Exists(IdType id)
+        public virtual bool Exists(IdType id, IDataAccessLayer<T> context)
         {
             try
             {
-                return _context.Exists(id);
+                return context.Exists(id);
             }
             catch (Exception)
             {
