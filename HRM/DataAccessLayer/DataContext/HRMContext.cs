@@ -9,12 +9,12 @@ namespace DataAccessLayer.DataContext
     /// </summary>
     class HrmContext : IHrmContext
     {
-        private readonly SqlConnection _connection;
+        //private readonly SqlConnection _connection;
 
-        public HrmContext()
-        {
-            _connection = new SqlConnection();
-        }
+        //public HrmContext()
+        //{
+        //    //_connection = new SqlConnection();
+        //}
 
         private CompanyDataAccessLayer _companyContext;
         public ICompanyDataAccessLayer<Company> CompanyContext

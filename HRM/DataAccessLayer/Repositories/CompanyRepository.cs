@@ -9,6 +9,7 @@ namespace DataAccessLayer.Repositories
 {
     class CompanyRepository : GeneralRepository<Company>, ICompanyRepository<Company>
     {
+        private ICompanyDataAccessLayer<Company> _context;
 
         public CompanyRepository(IHrmContext inputСontext)
         {
@@ -30,8 +31,6 @@ namespace DataAccessLayer.Repositories
                 throw;
             }
         }
-
-        private ICompanyDataAccessLayer<Company> _context;
 
         public void Create(Company item)
         {
