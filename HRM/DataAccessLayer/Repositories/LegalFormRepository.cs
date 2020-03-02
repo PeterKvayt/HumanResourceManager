@@ -19,19 +19,19 @@ namespace DataAccessLayer.Repositories
             Create(item, _context);
         }
 
-        public void Delete(LegalForm item)
+        public void Delete(IdType id)
         {
-            Delete(item, _context);
+            Delete(id, _context);
         }
 
-        public bool Exists(LegalForm item)
+        public bool Exists(IdType id)
         {
-            return Exists(item, _context);
+            return Exists(id, _context);
         }
 
-        public LegalForm Get(LegalForm item)
+        public LegalForm Get(IdType id)
         {
-            return Get(item, _context);
+            return Get(id, _context);
         }
 
         public IEnumerable<LegalForm> GetAll()

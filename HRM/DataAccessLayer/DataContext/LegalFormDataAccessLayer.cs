@@ -25,9 +25,9 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
-        public override void Create(LegalForm item)
+        public override void Create(LegalForm newLegalForm)
         {
-            IEnumerable<SqlParameter> parameters = GetParametersForCreate(item);
+            IEnumerable<SqlParameter> parameters = GetParametersForCreate(newLegalForm);
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddLegalForm";
 
@@ -62,9 +62,9 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
-        public override void Update(LegalForm item)
+        public override void Update(LegalForm legalForm)
         {
-            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(item);
+            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(legalForm);
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateLegalForm";
 
@@ -84,16 +84,16 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        public void Delete(LegalForm item)
+        public void Delete(IdType id)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeleteLegalForm";
-            Delete(item.Id, DELETE_STORED_PROCEDURE_NAME);
+            Delete(id, DELETE_STORED_PROCEDURE_NAME);
         }
 
-        public LegalForm Get(LegalForm item)
+        public LegalForm Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetLegalForm";
-            return Get(item.Id, GET_STORED_PROCEDURE_NAME);
+            return Get(id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<LegalForm> GetAll()
@@ -102,10 +102,10 @@ namespace DataAccessLayer.DataContext
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public bool Exists(LegalForm item)
+        public bool Exists(IdType id)
         {
             const string EXISTS_STORED_PROCEDURE_NAME = "spExistsLegalForm";
-            return Exists(item.Id, EXISTS_STORED_PROCEDURE_NAME);
+            return Exists(id, EXISTS_STORED_PROCEDURE_NAME);
         }
     }
 }

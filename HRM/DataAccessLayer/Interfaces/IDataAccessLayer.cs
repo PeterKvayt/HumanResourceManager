@@ -16,7 +16,7 @@ namespace DataAccessLayer.Interfaces
         /// </summary>
         /// <param name="id">Параметр, по которому ведется поиск</param>
         /// <returns></returns>
-        T Get(T id);
+        T Get(IdType id);
 
         /// <summary>
         /// Создает объект в базе данных
@@ -34,14 +34,14 @@ namespace DataAccessLayer.Interfaces
         /// Удаляет объект, соответствующий параметру id
         /// </summary>
         /// <param name="id">Параметр, по которому ведется удаление</param>
-        void Delete(T id);
+        void Delete(IdType id);
 
         /// <summary>
         /// Проверяет существование записи в базе данных
         /// </summary>
         /// <param name="id">Параметр, по которому осуществляется поиск</param>
         /// <returns>Результат поиска</returns>
-        bool Exists(T id);
+        bool Exists(IdType id);
     }
 }
 
