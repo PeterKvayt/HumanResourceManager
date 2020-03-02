@@ -25,9 +25,9 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
-        public override void Create(ActivityType newActivity)
+        public override void Create(ActivityType item)
         {
-            IEnumerable<SqlParameter> parameters = GetParametersForCreate(newActivity);
+            IEnumerable<SqlParameter> parameters = GetParametersForCreate(item);
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddActivityType";
 
@@ -62,9 +62,9 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
-        public override void Update(ActivityType activityType)
+        public override void Update(ActivityType item)
         {
-            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(activityType);
+            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(item);
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateActivityType";
 
@@ -84,16 +84,16 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        public void Delete(IdType id)
+        public void Delete(ActivityType item)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeleteActivityType";
-            Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            Delete(item.Id, DELETE_STORED_PROCEDURE_NAME);
         }
 
-        public ActivityType Get(IdType id)
+        public ActivityType Get(ActivityType item)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetActivityType";
-            return Get(id, GET_STORED_PROCEDURE_NAME);
+            return Get(item.Id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<ActivityType> GetAll()
@@ -102,10 +102,10 @@ namespace DataAccessLayer.DataContext
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public bool Exists(IdType id)
+        public bool Exists(ActivityType item)
         {
             const string EXISTS_STORED_PROCEDURE_NAME = "spExistsActicvityType";
-            return Exists(id, EXISTS_STORED_PROCEDURE_NAME);
+            return Exists(item.Id, EXISTS_STORED_PROCEDURE_NAME);
         }
     }
 }

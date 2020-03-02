@@ -28,11 +28,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual void Delete(IdType id, IDataAccessLayer<T> context)
+        public virtual void Delete(T item, IDataAccessLayer<T> context)
         {
             try
             {
-                context.Delete(id);
+                context.Delete(item);
             }
             catch (Exception)
             {
@@ -44,11 +44,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual T Get(IdType id, IDataAccessLayer<T> context)
+        public virtual T Get(T item, IDataAccessLayer<T> context)
         {
             try
             {
-                return context.Get(id);
+                return context.Get(item);
             }
             catch (Exception)
             {
@@ -92,11 +92,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual bool Exists(IdType id, IDataAccessLayer<T> context)
+        public virtual bool Exists(T item, IDataAccessLayer<T> context)
         {
             try
             {
-                return context.Exists(id);
+                return context.Exists(item);
             }
             catch (Exception)
             {

@@ -38,19 +38,19 @@ namespace DataAccessLayer.Repositories
             Create(item, _context);
         }
 
-        public void Delete(IdType id)
+        public void Delete(Company item)
         {
-            Delete(id, _context);
+            Delete(item, _context);
         }
 
-        public bool Exists(IdType id)
+        public bool Exists(Company item)
         {
-            return Exists(id, _context);
+            return Exists(item, _context);
         }
 
-        public Company Get(IdType id)
+        public Company Get(Company item)
         {
-            return Get(id, _context);
+            return Get(item, _context);
         }
 
         public IEnumerable<Company> GetAll()

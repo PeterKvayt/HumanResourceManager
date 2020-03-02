@@ -19,19 +19,19 @@ namespace DataAccessLayer.Repositories
             Create(item, _context);
         }
 
-        public void Delete(IdType id)
+        public void Delete(ActivityType item)
         {
-            Delete(id, _context);
+            Delete(item, _context);
         }
 
-        public bool Exists(IdType id)
+        public bool Exists(ActivityType item)
         {
-            return Exists(id, _context);
+            return Exists(item, _context);
         }
 
-        public ActivityType Get(IdType id)
+        public ActivityType Get(ActivityType item)
         {
-            return Get(id, _context);
+            return Get(item, _context);
         }
 
         public IEnumerable<ActivityType> GetAll()

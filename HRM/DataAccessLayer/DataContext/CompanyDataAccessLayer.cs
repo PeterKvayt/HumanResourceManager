@@ -28,9 +28,9 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
-        public override void Create(Company newCompany)
+        public override void Create(Company item)
         {
-            IEnumerable<SqlParameter> parameters = GetParametersForCreate(newCompany);
+            IEnumerable<SqlParameter> parameters = GetParametersForCreate(item);
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddCompany";
 
@@ -65,9 +65,9 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
-        public override void Update(Company company)
+        public override void Update(Company item)
         {
-            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(company);
+            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(item);
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateCompany";
 
@@ -90,11 +90,11 @@ namespace DataAccessLayer.DataContext
         /// <summary>
         /// Запрашивает размер компании из базы данных
         /// </summary>
-        /// <param name="company">Компания, для которой ищем размер</param>
+        /// <param name="item">Компания, для которой ищем размер</param>
         /// <returns>Размер компании</returns>
-        public int GetSize(Company company)
+        public int GetSize(Company item)
         {
-            IEnumerable<SqlParameter> parameters = GetIdParameters(company.Id);
+            IEnumerable<SqlParameter> parameters = GetIdParameters(item.Id);
 
             const string GET_SIZE_PROCEDURE_NAME = "spGetCompanySize";
 
@@ -114,16 +114,16 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        public void Delete(IdType id)
+        public void Delete(Company item)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeleteCompany";
-            Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            Delete(item.Id, DELETE_STORED_PROCEDURE_NAME);
         }
 
-        public Company Get(IdType id)
+        public Company Get(Company item)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetCompany";
-            return Get(id, GET_STORED_PROCEDURE_NAME);
+            return Get(item.Id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<Company> GetAll()
@@ -132,10 +132,10 @@ namespace DataAccessLayer.DataContext
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public bool Exists(IdType id)
+        public bool Exists(Company item)
         {
             const string EXISTS_STORED_PROCEDURE_NAME = "spExistsCompany";
-            return Exists(id, EXISTS_STORED_PROCEDURE_NAME);
+            return Exists(item.Id, EXISTS_STORED_PROCEDURE_NAME);
         }
     }
 }

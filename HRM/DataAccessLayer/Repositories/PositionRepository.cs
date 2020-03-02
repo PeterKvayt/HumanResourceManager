@@ -19,19 +19,19 @@ namespace DataAccessLayer.Repositories
             Create(item, _context);
         }
 
-        public void Delete(IdType id)
+        public void Delete(Position item)
         {
-            Delete(id, _context);
+            Delete(item, _context);
         }
 
-        public bool Exists(IdType id)
+        public bool Exists(Position item)
         {
-            return Exists(id, _context);
+            return Exists(item, _context);
         }
 
-        public Position Get(IdType id)
+        public Position Get(Position item)
         {
-            return Get(id, _context);
+            return Get(item, _context);
         }
 
         public IEnumerable<Position> GetAll()

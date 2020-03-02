@@ -25,9 +25,9 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
-        public override void Create(Position newPosition)
+        public override void Create(Position item)
         {
-            IEnumerable<SqlParameter> parameters = GetParametersForCreate(newPosition);
+            IEnumerable<SqlParameter> parameters = GetParametersForCreate(item);
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddPosition";
 
@@ -62,9 +62,9 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
-        public override void Update(Position position)
+        public override void Update(Position item)
         {
-            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(position);
+            IEnumerable<SqlParameter> parameters = GetParametersForUpdate(item);
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdatePosition";
 
@@ -84,16 +84,16 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        public void Delete(IdType id)
+        public void Delete(Position item)
         {
             const string DELETE_STORED_PROCEDURE_NAME = "spDeletePosition";
-            Delete(id, DELETE_STORED_PROCEDURE_NAME);
+            Delete(item.Id, DELETE_STORED_PROCEDURE_NAME);
         }
 
-        public Position Get(IdType id)
+        public Position Get(Position item)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetPosition";
-            return Get(id, GET_STORED_PROCEDURE_NAME);
+            return Get(item.Id, GET_STORED_PROCEDURE_NAME);
         }
 
         public IEnumerable<Position> GetAll()
@@ -102,10 +102,10 @@ namespace DataAccessLayer.DataContext
             return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
         }
 
-        public bool Exists(IdType id)
+        public bool Exists(Position item)
         {
             const string EXISTS_STORED_PROCEDURE_NAME = "spExistsPosition";
-            return Exists(id, EXISTS_STORED_PROCEDURE_NAME);
+            return Exists(item.Id, EXISTS_STORED_PROCEDURE_NAME);
         }
     }
 }
