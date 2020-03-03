@@ -10,6 +10,10 @@ namespace DataAccessLayer.DataContext
 {
     class CompanyDataAccessLayer : GeneralDataAccessLayer<Company>, ICompanyDataAccessLayer<Company>
     {
+        public CompanyDataAccessLayer(SqlConnection connection)
+        {
+            _connection = connection;
+        }
 
         /// <summary>
         /// Инициализирует параметры для создания записи в базе данных
@@ -34,7 +38,7 @@ namespace DataAccessLayer.DataContext
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddCompany";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters, _connection);
 
             try
             {
@@ -71,7 +75,7 @@ namespace DataAccessLayer.DataContext
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateCompany";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters, _connection);
 
             try
             {
@@ -98,7 +102,7 @@ namespace DataAccessLayer.DataContext
 
             const string GET_SIZE_PROCEDURE_NAME = "spGetCompanySize";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_SIZE_PROCEDURE_NAME, parameters);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_SIZE_PROCEDURE_NAME, parameters, _connection);
 
             try
             {

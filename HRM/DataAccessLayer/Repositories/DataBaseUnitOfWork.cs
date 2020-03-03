@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.DataContext;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
+using ExceptionClasses.Loggers;
 using System;
 
 namespace DataAccessLayer.Repositories
@@ -12,9 +13,20 @@ namespace DataAccessLayer.Repositories
     {
         private readonly IHrmContext _context;
 
-        public DataBaseUnitOfWork()
+        public DataBaseUnitOfWork(string connectionString)
         {
-            _context = new HrmContext();
+            if ( !(string.IsNullOrEmpty(connectionString) && string.IsNullOrWhiteSpace(connectionString)) ) 
+            {
+                    _context = new HrmContext(connectionString);
+            }
+            else
+            {
+                const string EXCEPTION_MESSAGE = "Пустая строка подключения к базе данных в классе DataBaseUnitOfWork";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw new Exception();
+            }
         }
 
         private EmployeeRepository _employeeRepository;

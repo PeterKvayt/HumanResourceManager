@@ -23,31 +23,50 @@ namespace DataAccessLayer.DataContext
         private IEnumerable<SqlParameter> _sqlParameters;
 
         /// <summary>
+        /// Подключение к базе данных
+        /// </summary>
+        private SqlConnection _connection;
+
+        /// <summary>
         /// Конструктор
         /// </summary>
         /// <param name="storedProcedureName">Название хранимой процедуры</param>
         /// <param name="sqlParameters">Параметры хранимой процедуры</param>
-        public StoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters)
+        public StoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters, SqlConnection connection)
         {
             if ( !(string.IsNullOrEmpty(storedProcedureName) && string.IsNullOrWhiteSpace(storedProcedureName)) )
             {
-                if (sqlParameters != null)
-                {
-                    _name = storedProcedureName;
-                    _sqlParameters = sqlParameters;
-                }
-                else
-                {
-                    const string EXCEPTION_MESSAGE = "Sql параметры = null!";
-
-                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
-
-                    throw new Exception();
-                }
+                _name = storedProcedureName;
             }
             else
             {
                 const string EXCEPTION_MESSAGE = "Некорректное (пустое) имя хранимой процедуры!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw new Exception();
+            }
+
+            if (sqlParameters != null)
+            {
+                _sqlParameters = sqlParameters;
+            }
+            else
+            {
+                const string EXCEPTION_MESSAGE = "Sql параметры = null!";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+                throw new Exception();
+            }
+
+            if (connection != null)
+            {
+                _connection = connection;
+            }
+            else
+            {
+                const string EXCEPTION_MESSAGE = "Подключение к базе данных = null!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -61,7 +80,7 @@ namespace DataAccessLayer.DataContext
         /// <returns>Возвращает данные из базы данных</returns>
         public DataSet Execute()
         {
-            using (SqlConnection sqlDataBaseConnection = TryGetConnection())
+            using (SqlConnection sqlDataBaseConnection = _connection)
             {
                 sqlDataBaseConnection.Open();
 
@@ -93,7 +112,7 @@ namespace DataAccessLayer.DataContext
         /// </summary>
         public void ExecuteNonQuery()
         {
-            using (SqlConnection sqlDataBaseConnection = TryGetConnection())
+            using (SqlConnection sqlDataBaseConnection = _connection)
             {
                 sqlDataBaseConnection.Open();
 
@@ -120,7 +139,7 @@ namespace DataAccessLayer.DataContext
         /// <returns>Результат выполнения запроса</returns>
         public object ExecuteScalar()
         {
-            using (SqlConnection sqlDataBaseConnection = TryGetConnection())
+            using (SqlConnection sqlDataBaseConnection = _connection)
             {
                 sqlDataBaseConnection.Open();
 
@@ -152,7 +171,7 @@ namespace DataAccessLayer.DataContext
             {
                 CommandText = _name,
                 CommandType = CommandType.StoredProcedure,
-                Connection = DataBaseConnection.GetConnection()
+                Connection = _connection
             };
 
             foreach (var sqlParameter in _sqlParameters)
@@ -161,26 +180,6 @@ namespace DataAccessLayer.DataContext
             }
 
             return storedProcedureCommand;
-        }
-
-        /// <summary>
-        /// Безопасно возвращает подключение к базе данных
-        /// </summary>
-        /// <returns>Подключение к базе данных</returns>
-        private SqlConnection TryGetConnection()
-        {
-            try
-            {
-                return DataBaseConnection.GetConnection();
-            }
-            catch (Exception)
-            {
-                const string EXCEPTION_MESSAGE = "Отсутствует подключение к базе данных!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
-
-                throw;
-            }
         }
     }
 }
