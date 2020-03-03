@@ -18,11 +18,7 @@ namespace BusinessLogicLayer.Services
 
         public void Create(ActivityTypeDTO item)
         {
-            ActivityType activityType = new ActivityType
-            {
-                Id = item.Id,
-                Name = item.Name
-            };
+            ActivityType activityType = ConvertToActivityType(item);
 
             try
             {
@@ -67,11 +63,7 @@ namespace BusinessLogicLayer.Services
             {
                 ActivityType activityType = _dataBase.ActivityTypes.Get(id);
 
-                ActivityTypeDTO resultActivityTypeDTO = new ActivityTypeDTO
-                {
-                    Id = activityType.Id,
-                    Name = activityType.Name
-                };
+                ActivityTypeDTO resultActivityTypeDTO = ConvertToActivityTypeDTO(activityType);
 
                 return resultActivityTypeDTO;
             }
@@ -92,11 +84,7 @@ namespace BusinessLogicLayer.Services
 
                 foreach (var item in activityTypesCollection)
                 {
-                    ActivityTypeDTO activityType = new ActivityTypeDTO
-                    {
-                        Id = item.Id,
-                        Name = item.Name
-                    };
+                    ActivityTypeDTO activityType = ConvertToActivityTypeDTO(item);
 
                     resultActivityTypes.Add(activityType);
                 }
@@ -112,11 +100,7 @@ namespace BusinessLogicLayer.Services
 
         public void Update(ActivityTypeDTO item)
         {
-            ActivityType activityType = new ActivityType
-            {
-                Id = item.Id,
-                Name = item.Name
-            };
+            ActivityType activityType = ConvertToActivityType(item);
 
             try
             {
@@ -127,6 +111,38 @@ namespace BusinessLogicLayer.Services
                 // ToDo: exception
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Сопостовляет ActivityTypeDTO c ActivityType
+        /// </summary>
+        /// <param name="item">Экземпляр ActivityTypeDTO</param>
+        /// <returns>Экземпляр ActivityType</returns>
+        private ActivityType ConvertToActivityType(ActivityTypeDTO item)
+        {
+            ActivityType activityType = new ActivityType
+            {
+                Id = item.Id,
+                Name = item.Name
+            };
+
+            return activityType;
+        }
+
+        /// <summary>
+        /// Сопостовляет ActivityType c ActivityTypeDTO
+        /// </summary>
+        /// <param name="item">Экземпляр ActivityTypeDTO</param>
+        /// <returns>Экземпляр ActivityType</returns>
+        private ActivityTypeDTO ConvertToActivityTypeDTO(ActivityType item)
+        {
+            ActivityTypeDTO activityTypeDto = new ActivityTypeDTO
+            {
+                Id = item.Id,
+                Name = item.Name
+            };
+
+            return activityTypeDto;
         }
     }
 }
