@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.2": {
-      "ExceptionClasses/1.0.0": {
+      "CommonClasses/1.0.0": {
         "dependencies": {
-          "NLog.Web.AspNetCore": "4.9.0"
+          "ExceptionClasses": "1.0.0"
         },
         "runtime": {
-          "ExceptionClasses.dll": {}
+          "CommonClasses.dll": {}
         }
       },
       "Microsoft.AspNetCore.Hosting.Abstractions/2.1.1": {
@@ -283,11 +283,19 @@
             "fileVersion": "4.6.26515.6"
           }
         }
+      },
+      "ExceptionClasses/1.0.0": {
+        "dependencies": {
+          "NLog.Web.AspNetCore": "4.9.0"
+        },
+        "runtime": {
+          "ExceptionClasses.dll": {}
+        }
       }
     }
   },
   "libraries": {
-    "ExceptionClasses/1.0.0": {
+    "CommonClasses/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -473,6 +481,11 @@
       "sha512": "sha512-Xg4G4Indi4dqP1iuAiMSwpiWS54ZghzR644OtsRCm/m/lBMG8dUBhLVN7hLm8NNrNTR+iGbshCPTwrvxZPlm4g==",
       "path": "system.text.encodings.web/4.5.0",
       "hashPath": "system.text.encodings.web.4.5.0.nupkg.sha512"
+    },
+    "ExceptionClasses/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

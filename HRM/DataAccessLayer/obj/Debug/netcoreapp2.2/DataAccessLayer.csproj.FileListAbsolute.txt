@@ -12,3 +12,9 @@ D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Debu
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Debug\netcoreapp2.2\DataAccessLayer.pdb
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.dll
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Debug\netcoreapp2.2\CommonClasses.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Debug\netcoreapp2.2\ExceptionClasses.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Debug\netcoreapp2.2\CommonClasses.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Debug\netcoreapp2.2\ExceptionClasses.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.csprojAssemblyReference.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Debug\netcoreapp2.2\DataAccessLayer.csproj.CopyComplete

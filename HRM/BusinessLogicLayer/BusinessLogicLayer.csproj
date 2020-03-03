@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CommonClasses\CommonClasses.csproj" />
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
   </ItemGroup>
 

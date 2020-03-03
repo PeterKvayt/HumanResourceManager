@@ -2217,6 +2217,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
+      "CommonClasses >= 1.0.0",
       "DataAccessLayer >= 1.0.0",
       "Microsoft.NETCore.App >= 2.2.0"
     ]
@@ -2251,6 +2252,9 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
+            "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HRM\\CommonClasses\\CommonClasses.csproj": {
+              "projectPath": "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HRM\\CommonClasses\\CommonClasses.csproj"
+            },
             "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HRM\\DataAccessLayer\\DataAccessLayer.csproj": {
               "projectPath": "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HRM\\DataAccessLayer\\DataAccessLayer.csproj"
             }
