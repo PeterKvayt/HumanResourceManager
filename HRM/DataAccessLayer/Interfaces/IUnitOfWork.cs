@@ -3,7 +3,7 @@ using System;
 
 namespace DataAccessLayer.Interfaces
 {
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         IRepository<Employee> Employees { get; }
 

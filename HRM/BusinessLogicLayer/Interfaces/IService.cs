@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BusinessLogicLayer.Interfaces
 {
-    interface IService<T>
+    public interface IService<T>
     {
         /// <summary>
         /// Возвращает все объекты 

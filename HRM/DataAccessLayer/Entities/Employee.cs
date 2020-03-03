@@ -6,7 +6,7 @@ namespace DataAccessLayer.Entities
     /// <summary>
     /// Класс отвечает за сущность базы данных "Сотрудник"
     /// </summary>
-    internal class Employee
+    public class Employee
     {
         public IdType Id { get; set; }
 
