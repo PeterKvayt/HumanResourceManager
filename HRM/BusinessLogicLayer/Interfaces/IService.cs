@@ -36,7 +36,7 @@ namespace BusinessLogicLayer.Interfaces
         /// Удаляет объект, соответствующий параметру id
         /// </summary>
         /// <param name="id">Параметр, по которому ведется удаление</param>
-        void Delete(IdType id);
+        void Delete(T item);
 
         /// <summary>
         /// Проверяет существование записи в базе данных
