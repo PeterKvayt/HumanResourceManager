@@ -1,6 +1,7 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Services
 {
@@ -10,7 +11,22 @@ namespace BusinessLogicLayer.Services
     {
         protected IUnitOfWork _dataBase;
 
-        protected void Delete(IdType id, IRepository<T> repository)
+        protected virtual void Create(TDto item, IRepository<T> repository)
+        {
+            T entity = ConvertToEntity(item);
+
+            try
+            {
+                repository.Create(entity);
+            }
+            catch (Exception)
+            {
+                // ToDo: exception
+                throw;
+            }
+        }
+
+        protected virtual void Delete(IdType id, IRepository<T> repository)
         {
             try
             {
@@ -23,11 +39,67 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        public bool Exists(IdType id, IRepository<T> repository)
+        protected virtual bool Exists(IdType id, IRepository<T> repository)
         {
             try
             {
                 return repository.Exists(id);
+            }
+            catch (Exception)
+            {
+                // ToDo: exception
+                throw;
+            }
+        }
+
+        protected virtual TDto Get(IdType id, IRepository<T> repository)
+        {
+            try
+            {
+                T entity = repository.Get(id);
+
+                TDto resultDTO = ConvertToDTO(entity);
+
+                return resultDTO;
+            }
+            catch (Exception)
+            {
+                // ToDo: exception
+                throw;
+            }
+        }
+
+        protected virtual IEnumerable<TDto> GetAll(IRepository<T> repository)
+        {
+            try
+            {
+                IEnumerable<T> entityCollection = repository.GetAll();
+
+                List<TDto> resultDtoCollection = new List<TDto> { };
+
+                foreach (var item in entityCollection)
+                {
+                    TDto dto = ConvertToDTO(item);
+
+                    resultDtoCollection.Add(dto);
+                }
+
+                return resultDtoCollection;
+            }
+            catch (Exception)
+            {
+                // ToDo: exception
+                throw;
+            }
+        }
+
+        protected virtual void Update(TDto item, IRepository<T> repository)
+        {
+            T entity = ConvertToEntity(item);
+
+            try
+            {
+                repository.Update(entity);
             }
             catch (Exception)
             {

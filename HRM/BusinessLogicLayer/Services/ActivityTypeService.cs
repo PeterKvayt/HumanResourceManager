@@ -18,17 +18,7 @@ namespace BusinessLogicLayer.Services
 
         public void Create(ActivityTypeDTO item)
         {
-            ActivityType activityType = ConvertToEntity(item);
-
-            try
-            {
-                _dataBase.ActivityTypes.Create(activityType);
-            }
-            catch (Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
+            Create(item, _dataBase.ActivityTypes);
         }
 
         public void Delete(IdType id)
@@ -43,58 +33,17 @@ namespace BusinessLogicLayer.Services
 
         public ActivityTypeDTO Get(IdType id)
         {
-            try
-            {
-                ActivityType activityType = _dataBase.ActivityTypes.Get(id);
-
-                ActivityTypeDTO resultActivityTypeDTO = ConvertToDTO(activityType);
-
-                return resultActivityTypeDTO;
-            }
-            catch (Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
+            return Get(id, _dataBase.ActivityTypes);
         }
 
         public IEnumerable<ActivityTypeDTO> GetAll()
         {
-            try
-            {
-                IEnumerable<ActivityType> activityTypesCollection = _dataBase.ActivityTypes.GetAll();
-
-                List<ActivityTypeDTO> resultActivityTypes = new List<ActivityTypeDTO> { };
-
-                foreach (var item in activityTypesCollection)
-                {
-                    ActivityTypeDTO activityType = ConvertToDTO(item);
-
-                    resultActivityTypes.Add(activityType);
-                }
-
-                return resultActivityTypes;
-            }
-            catch (Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
+            return GetAll(_dataBase.ActivityTypes);
         }
 
         public void Update(ActivityTypeDTO item)
         {
-            ActivityType activityType = ConvertToEntity(item);
-
-            try
-            {
-                _dataBase.ActivityTypes.Update(activityType);
-            }
-            catch (Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
+            Update(item, _dataBase.ActivityTypes);
         }
     }
 }
