@@ -11,9 +11,19 @@ namespace DataAccessLayer.Entities
         public IdType Id { get; set; }
 
         /// <summary>
-        /// Полное имя
+        /// Имя
         /// </summary>
-        public FullName BigName { get; set; }
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Фамилия
+        /// </summary>
+        public string Surname { get; set; }
+
+        /// <summary>
+        /// Отчество
+        /// </summary>
+        public string MiddleName { get; set; }
 
         /// <summary>
         /// Идентификатор места работы

@@ -26,9 +26,9 @@ namespace DataAccessLayer.DataContext
             {
                 new SqlParameter("@PositionId", item.PositionId.Identificator),
                 new SqlParameter("@CompanyId", item.CompanyId.Identificator),
-                new SqlParameter("@Surname", item.BigName.Surname),
-                new SqlParameter("@MiddleName", item.BigName.Middlename),
-                new SqlParameter("@Name", item.BigName.Name),
+                new SqlParameter("@Surname", item.Surname),
+                new SqlParameter("@MiddleName", item.MiddleName),
+                new SqlParameter("@Name", item.Name),
                 new SqlParameter("@DateOfEmployment", item.DateOfEmployment)
             };
 

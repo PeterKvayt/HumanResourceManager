@@ -10,7 +10,11 @@ namespace BusinessLogicLayer.DataTransferObjects
     {
         public IdType Id { get; set; }
 
-        public FullName BigName { get; set; }
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
+
+        public string MiddleName { get; set; }
 
         public CompanyDTO Company { get; set; }
 

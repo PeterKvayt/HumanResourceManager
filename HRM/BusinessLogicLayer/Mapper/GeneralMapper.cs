@@ -1,10 +1,11 @@
-﻿using System;
+﻿using BusinessLogicLayer.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace BusinessLogicLayer.Mapper
 {
-    class GeneralMapper<T>
+    class GeneralMapper<T> : IMapper
     {
         private static readonly Dictionary<Type, Dictionary<string, PropertyInfo>> _propertiesDictionaries
             = new Dictionary<Type, Dictionary<string, PropertyInfo>>();
