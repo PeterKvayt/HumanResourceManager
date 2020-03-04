@@ -1,4 +1,5 @@
-﻿using CommonClasses;
+﻿using BusinessLogicLayer.Interfaces;
+using CommonClasses;
 using DataAccessLayer.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ namespace BusinessLogicLayer.Services
 {
     abstract class GeneralService<T, TDto> 
         where T: class, new()
-        where TDto: new()
+        where TDto: IEntity, new()
     {
         protected virtual void Create(TDto item, IRepository<T> repository)
         {
@@ -26,22 +27,15 @@ namespace BusinessLogicLayer.Services
 
         protected virtual void Delete(IdType id, IRepository<T> repository)
         {
+            if ( !Exists(id, repository) )
+            {
+                // ToDo: exception for user
+                throw new Exception();
+            }
+
             try
             {
                 repository.Delete(id);
-            }
-            catch (Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
-        }
-
-        protected virtual bool Exists(IdType id, IRepository<T> repository)
-        {
-            try
-            {
-                return repository.Exists(id);
             }
             catch (Exception)
             {
@@ -93,11 +87,30 @@ namespace BusinessLogicLayer.Services
 
         protected virtual void Update(TDto item, IRepository<T> repository)
         {
+            if ( !Exists(item.Id, repository) )
+            {
+                // ToDo: exception for user
+                throw new Exception();
+            }
+
             T entity = ConvertToEntity(item);
 
             try
             {
                 repository.Update(entity);
+            }
+            catch (Exception)
+            {
+                // ToDo: exception
+                throw;
+            }
+        }
+
+        private bool Exists(IdType id, IRepository<T> repository)
+        {
+            try
+            {
+                return repository.Exists(id);
             }
             catch (Exception)
             {

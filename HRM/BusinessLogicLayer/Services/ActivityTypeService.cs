@@ -28,11 +28,6 @@ namespace BusinessLogicLayer.Services
             Delete(id, _repository);
         }
 
-        public bool Exists(IdType id)
-        {
-            return Exists(id, _repository);
-        }
-
         public ActivityTypeDTO Get(IdType id)
         {
             return Get(id, _repository);

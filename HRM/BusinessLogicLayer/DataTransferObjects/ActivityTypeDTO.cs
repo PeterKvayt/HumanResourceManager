@@ -1,11 +1,12 @@
-﻿using CommonClasses;
+﻿using BusinessLogicLayer.Interfaces;
+using CommonClasses;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BusinessLogicLayer.DataTransferObjects
 {
-    public class ActivityTypeDTO
+    public class ActivityTypeDTO : IEntity
     {
         public IdType Id { get; set; }
 
