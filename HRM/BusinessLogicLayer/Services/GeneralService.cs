@@ -9,8 +9,6 @@ namespace BusinessLogicLayer.Services
         where T: class, new()
         where TDto: new()
     {
-        protected IUnitOfWork _dataBase;
-
         protected virtual void Create(TDto item, IRepository<T> repository)
         {
             T entity = ConvertToEntity(item);

@@ -9,39 +9,41 @@ namespace BusinessLogicLayer.Services
 {
     class LegalFormService : GeneralService<LegalForm, LegalFormDTO>, IService<LegalFormDTO>
     {
+        private IRepository<LegalForm> _repository;
+
         public LegalFormService(IUnitOfWork dataBase)
         {
-            _dataBase = dataBase;
+            _repository = dataBase.LegalForms;
         }
 
         public void Create(LegalFormDTO item)
         {
-            Create(item, _dataBase.LegalForms);
+            Create(item, _repository);
         }
 
         public void Delete(IdType id)
         {
-            Delete(id, _dataBase.LegalForms);
+            Delete(id, _repository);
         }
 
         public bool Exists(IdType id)
         {
-            return Exists(id, _dataBase.LegalForms);
+            return Exists(id, _repository);
         }
 
         public LegalFormDTO Get(IdType id)
         {
-            return Get(id, _dataBase.LegalForms);
+            return Get(id, _repository);
         }
 
         public IEnumerable<LegalFormDTO> GetAll()
         {
-            return GetAll(_dataBase.LegalForms);
+            return GetAll(_repository);
         }
 
         public void Update(LegalFormDTO item)
         {
-            Update(item, _dataBase.LegalForms);
+            Update(item, _repository);
         }
     }
 }

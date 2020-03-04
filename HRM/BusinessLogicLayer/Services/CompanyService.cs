@@ -11,39 +11,41 @@ namespace BusinessLogicLayer.Services
 {
     class CompanyService : GeneralService<Company, CompanyDTO>, IService<CompanyDTO>
     {
+        private IRepository<Company> _repository;
+
         public CompanyService(IUnitOfWork dataBase)
         {
-            _dataBase = dataBase;
+            _repository = dataBase.Companies;
         }
 
         public void Create(CompanyDTO item)
         {
-            Create(item, _dataBase.Companies);
+            Create(item, _repository);
         }
 
         public void Delete(IdType id)
         {
-            Delete(id, _dataBase.Companies);
+            Delete(id, _repository);
         }
 
         public bool Exists(IdType id)
         {
-            return Exists(id, _dataBase.Companies);
+            return Exists(id, _repository);
         }
 
         public CompanyDTO Get(IdType id)
         {
-            return Get(id, _dataBase.Companies);
+            return Get(id, _repository);
         }
 
         public IEnumerable<CompanyDTO> GetAll()
         {
-            return GetAll(_dataBase.Companies);
+            return GetAll(_repository);
         }
 
         public void Update(CompanyDTO item)
         {
-            Update(item, _dataBase.Companies);
+            Update(item, _repository);
         }
     }
 }

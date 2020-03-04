@@ -11,39 +11,41 @@ namespace BusinessLogicLayer.Services
 {
     class PositionService : GeneralService<Position, PositionDTO>, IService<PositionDTO>
     {
+        private IRepository<Position> _repository;
+
         public PositionService(IUnitOfWork dataBase)
         {
-            _dataBase = dataBase;
+            _repository = dataBase.Positions;
         }
 
         public void Create(PositionDTO item)
         {
-            Create(item, _dataBase.Positions);
+            Create(item, _repository);
         }
 
         public void Delete(IdType id)
         {
-            Delete(id, _dataBase.Positions);
+            Delete(id, _repository);
         }
 
         public bool Exists(IdType id)
         {
-            return Exists(id, _dataBase.Positions);
+            return Exists(id, _repository);
         }
 
         public PositionDTO Get(IdType id)
         {
-            return Get(id, _dataBase.Positions);
+            return Get(id, _repository);
         }
 
         public IEnumerable<PositionDTO> GetAll()
         {
-            return GetAll(_dataBase.Positions);
+            return GetAll(_repository);
         }
 
         public void Update(PositionDTO item)
         {
-            Update(item, _dataBase.Positions);
+            Update(item, _repository);
         }
     }
 }

@@ -11,39 +11,41 @@ namespace BusinessLogicLayer.Services
 {
     class ActivityTypeService : GeneralService<ActivityType, ActivityTypeDTO>, IService<ActivityTypeDTO>
     {
+        private IRepository<ActivityType> _repository;
+
         public ActivityTypeService(IUnitOfWork dataBase)
         {
-            _dataBase = dataBase;
+            _repository = dataBase.ActivityTypes;
         }
 
         public void Create(ActivityTypeDTO item)
         {
-            Create(item, _dataBase.ActivityTypes);
+            Create(item, _repository);
         }
 
         public void Delete(IdType id)
         {
-            Delete(id, _dataBase.ActivityTypes);
+            Delete(id, _repository);
         }
 
         public bool Exists(IdType id)
         {
-            return Exists(id, _dataBase.ActivityTypes);
+            return Exists(id, _repository);
         }
 
         public ActivityTypeDTO Get(IdType id)
         {
-            return Get(id, _dataBase.ActivityTypes);
+            return Get(id, _repository);
         }
 
         public IEnumerable<ActivityTypeDTO> GetAll()
         {
-            return GetAll(_dataBase.ActivityTypes);
+            return GetAll(_repository);
         }
 
         public void Update(ActivityTypeDTO item)
         {
-            Update(item, _dataBase.ActivityTypes);
+            Update(item, _repository);
         }
     }
 }
