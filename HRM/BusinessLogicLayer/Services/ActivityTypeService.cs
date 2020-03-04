@@ -9,7 +9,7 @@ using DataAccessLayer.Interfaces;
 
 namespace BusinessLogicLayer.Services
 {
-    class ActivityTypeService : GeneralService<ActivityTypeDTO>, IService<ActivityTypeDTO>
+    class ActivityTypeService : GeneralService<ActivityType, ActivityTypeDTO>, IService<ActivityTypeDTO>
     {
         public ActivityTypeService(IUnitOfWork dataBase)
         {
@@ -18,7 +18,7 @@ namespace BusinessLogicLayer.Services
 
         public void Create(ActivityTypeDTO item)
         {
-            ActivityType activityType = ConvertToActivityType(item);
+            ActivityType activityType = ConvertToEntity(item);
 
             try
             {
@@ -31,30 +31,14 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        public void Delete(ActivityTypeDTO item)
+        public void Delete(IdType id)
         {
-            try
-            {
-                _dataBase.ActivityTypes.Delete(item.Id);
-            }
-            catch (Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
+            Delete(id, _dataBase.ActivityTypes);
         }
 
         public bool Exists(IdType id)
         {
-            try
-            {
-                return _dataBase.ActivityTypes.Exists(id);
-            }
-            catch (Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
+            return Exists(id, _dataBase.ActivityTypes);
         }
 
         public ActivityTypeDTO Get(IdType id)
@@ -63,7 +47,7 @@ namespace BusinessLogicLayer.Services
             {
                 ActivityType activityType = _dataBase.ActivityTypes.Get(id);
 
-                ActivityTypeDTO resultActivityTypeDTO = ConvertToActivityTypeDTO(activityType);
+                ActivityTypeDTO resultActivityTypeDTO = ConvertToDTO(activityType);
 
                 return resultActivityTypeDTO;
             }
@@ -84,7 +68,7 @@ namespace BusinessLogicLayer.Services
 
                 foreach (var item in activityTypesCollection)
                 {
-                    ActivityTypeDTO activityType = ConvertToActivityTypeDTO(item);
+                    ActivityTypeDTO activityType = ConvertToDTO(item);
 
                     resultActivityTypes.Add(activityType);
                 }
@@ -100,7 +84,7 @@ namespace BusinessLogicLayer.Services
 
         public void Update(ActivityTypeDTO item)
         {
-            ActivityType activityType = ConvertToActivityType(item);
+            ActivityType activityType = ConvertToEntity(item);
 
             try
             {
@@ -111,38 +95,6 @@ namespace BusinessLogicLayer.Services
                 // ToDo: exception
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Сопостовляет ActivityTypeDTO c ActivityType
-        /// </summary>
-        /// <param name="item">Экземпляр ActivityTypeDTO</param>
-        /// <returns>Экземпляр ActivityType</returns>
-        private ActivityType ConvertToActivityType(ActivityTypeDTO item)
-        {
-            ActivityType activityType = new ActivityType
-            {
-                Id = item.Id,
-                Name = item.Name
-            };
-
-            return activityType;
-        }
-
-        /// <summary>
-        /// Сопостовляет ActivityType c ActivityTypeDTO
-        /// </summary>
-        /// <param name="item">Экземпляр ActivityTypeDTO</param>
-        /// <returns>Экземпляр ActivityType</returns>
-        private ActivityTypeDTO ConvertToActivityTypeDTO(ActivityType item)
-        {
-            ActivityTypeDTO activityTypeDto = new ActivityTypeDTO
-            {
-                Id = item.Id,
-                Name = item.Name
-            };
-
-            return activityTypeDto;
         }
     }
 }
