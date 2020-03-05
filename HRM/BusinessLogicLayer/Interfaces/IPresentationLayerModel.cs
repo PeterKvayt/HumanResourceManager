@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BusinessLogicLayer.Interfaces
 {
-    interface IDto
+    interface IPresentationLayerModel
     {
         IdType Id { get; set; }
     }

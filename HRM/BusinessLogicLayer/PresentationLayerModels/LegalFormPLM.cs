@@ -1,8 +1,9 @@
-﻿using CommonClasses;
+﻿using BusinessLogicLayer.Interfaces;
+using CommonClasses;
 
 namespace BusinessLogicLayer.PresentationLayerModels
 {
-    class LegalFormPLM
+    class LegalFormPLM : IPresentationLayerModel
     {
         public IdType Id { get; set; }
 

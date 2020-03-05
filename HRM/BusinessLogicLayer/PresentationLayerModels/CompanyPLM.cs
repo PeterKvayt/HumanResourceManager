@@ -1,12 +1,10 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
+using BusinessLogicLayer.Interfaces;
 using CommonClasses;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogicLayer.PresentationLayerModels
 {
-    class CompanyPLM
+    class CompanyPLM : IPresentationLayerModel
     {
         public IdType Id { get; set; }
 

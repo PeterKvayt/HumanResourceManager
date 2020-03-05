@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
+using BusinessLogicLayer.PresentationLayerModels;
 using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 
 namespace BusinessLogicLayer.Services
 {
-    class ActivityTypeService : GeneralService<ActivityType, ActivityTypeDTO>, IService<ActivityTypeDTO>
+    class ActivityTypeService : GeneralService<ActivityTypePLM, ActivityTypeDTO, ActivityType>, IService<ActivityTypePLM>
     {
         private IRepository<ActivityType> _repository;
 
         public ActivityTypeService(IUnitOfWork dataBase)
         {
+            _dataBase = dataBase;
             _repository = dataBase.ActivityTypes;
         }
 
-        public void Create(ActivityTypeDTO item)
+        public void Create(ActivityTypePLM item)
         {
             Create(item, _repository);
         }

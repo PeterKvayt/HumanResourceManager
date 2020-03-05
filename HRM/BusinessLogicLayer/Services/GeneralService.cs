@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Interfaces;
+using BusinessLogicLayer.Mapper;
 using CommonClasses;
 using DataAccessLayer.Interfaces;
 using System;
@@ -6,13 +7,19 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Services
 {
-    abstract class GeneralService<T, TDto> 
+    abstract class GeneralService<PresentationLayerModel, DataTransferObject, T> 
+        where PresentationLayerModel : class, IPresentationLayerModel,  new()
+        where DataTransferObject : class, new()
         where T: class, new()
-        where TDto: IDto, new()
     {
-        protected virtual void Create(TDto item, IRepository<T> repository)
+        protected IUnitOfWork _dataBase;
+
+        protected IConverter<DataTransferObject, PresentationLayerModel> _converter;
+
+        protected virtual void Create(PresentationLayerModel item, IRepository<T> repository)
         {
-            T entity = ConvertToEntity(item);
+            DataTransferObject dtoEntity = _converter.Convert(item);
+            T entity = AutoMapper<T>.Map(dtoEntity);
 
             try
             {
@@ -44,15 +51,17 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual TDto Get(IdType id, IRepository<T> repository)
+        protected virtual PresentationLayerModel Get(IdType id, IRepository<T> repository)
         {
             try
             {
                 T entity = repository.Get(id);
 
-                TDto resultDTO = ConvertToDTO(entity);
+                DataTransferObject entityDTO = AutoMapper<DataTransferObject>.Map(entity);
 
-                return resultDTO;
+                PresentationLayerModel resultPLM = _converter.Convert(entityDTO); 
+
+                return resultPLM;
             }
             catch (Exception)
             {
@@ -61,22 +70,22 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual IEnumerable<TDto> GetAll(IRepository<T> repository)
+        protected virtual IEnumerable<PresentationLayerModel> GetAll(IRepository<T> repository)
         {
             try
             {
                 IEnumerable<T> entityCollection = repository.GetAll();
 
-                List<TDto> resultDtoCollection = new List<TDto> { };
+                List<PresentationLayerModel> resultPlmCollection = new List<PresentationLayerModel> { };
 
-                foreach (var item in entityCollection)
+                foreach (var entityItem in entityCollection)
                 {
-                    TDto dto = ConvertToDTO(item);
-
-                    resultDtoCollection.Add(dto);
+                    DataTransferObject dataTransferObject = AutoMapper<DataTransferObject>.Map(entityItem);
+                    PresentationLayerModel presentationLayerModel = _converter.Convert(dataTransferObject);
+                    resultPlmCollection.Add(presentationLayerModel);
                 }
 
-                return resultDtoCollection;
+                return resultPlmCollection;
             }
             catch (Exception)
             {
@@ -85,7 +94,7 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual void Update(TDto item, IRepository<T> repository)
+        protected virtual void Update(PresentationLayerModel item, IRepository<T> repository)
         {
             if ( !Exists(item.Id, repository) )
             {
@@ -93,7 +102,9 @@ namespace BusinessLogicLayer.Services
                 throw new Exception();
             }
 
-            T entity = ConvertToEntity(item);
+            DataTransferObject dataTransferObject = _converter.Convert(item);
+
+            T entity = AutoMapper<T>.Map(dataTransferObject);
 
             try
             {
@@ -117,38 +128,6 @@ namespace BusinessLogicLayer.Services
                 // ToDo: exception
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Сопостовляет TDto c T
-        /// </summary>
-        /// <param name="item">Экземпляр TDto</param>
-        /// <returns>Экземпляр T</returns>
-        protected T ConvertToEntity(TDto item)
-        {
-            T entity = new T
-            {
-                Id = item.Id,
-                Name = item.Name
-            };
-
-            return entity;
-        }
-
-        /// <summary>
-        /// Сопостовляет T c TDto
-        /// </summary>
-        /// <param name="item">Экземпляр TDto</param>
-        /// <returns>Экземпляр T</returns>
-        protected TDto ConvertToDTO(T item)
-        {
-            TDto entityDto = new TDto
-            {
-                Id = item.Id,
-                Name = item.Name
-            };
-
-            return entityDto;
         }
     }
 }
