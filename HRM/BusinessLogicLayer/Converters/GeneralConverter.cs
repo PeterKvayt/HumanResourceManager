@@ -5,14 +5,14 @@ using System.Text;
 
 namespace BusinessLogicLayer.Converters
 {
-    abstract class GeneralConverter<DataTransferObject, BusinessModel>
+    abstract class GeneralConverter<DataTransferObject, PresentationLayerModel>
     {
-        public virtual BusinessModel Convert(DataTransferObject item)
+        public virtual PresentationLayerModel Convert(DataTransferObject item)
         {
             throw new NotImplementedException();
         }
 
-        public virtual DataTransferObject Convert(BusinessModel item)
+        public virtual DataTransferObject Convert(PresentationLayerModel item)
         {
             throw new NotImplementedException();
         }
