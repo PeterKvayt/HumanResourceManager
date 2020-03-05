@@ -5,16 +5,16 @@ using System.Reflection;
 
 namespace BusinessLogicLayer.Mapper
 {
-    class GeneralMapper<T> : IMapper
+    static class AutoMapper<TOut> where TOut: new()
     {
         private static readonly Dictionary<Type, Dictionary<string, PropertyInfo>> _propertiesDictionaries
             = new Dictionary<Type, Dictionary<string, PropertyInfo>>();
 
-        public virtual T Map<T>(object obj) where T : new()
+        public static TOut Map(object obj)
         {
             var objProperties = GetProperties(obj.GetType());
-            var resultProperties = GetProperties(typeof(T));
-            var result = new T();
+            var resultProperties = GetProperties(typeof(TOut));
+            var result = new TOut();
             foreach (var resultProperty in resultProperties)
             {
                 if (objProperties.TryGetValue(resultProperty.Key, out var objProperty))
@@ -25,7 +25,7 @@ namespace BusinessLogicLayer.Mapper
             return result;
         }
 
-        private Dictionary<string, PropertyInfo> GetProperties(Type objType)
+        private static Dictionary<string, PropertyInfo> GetProperties(Type objType)
         {
             if (!_propertiesDictionaries.TryGetValue(objType, out var propertiesInfoDictionary))
             {

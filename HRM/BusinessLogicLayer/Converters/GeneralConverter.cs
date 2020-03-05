@@ -1,20 +1,22 @@
-﻿using BusinessLogicLayer.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BusinessLogicLayer.Mapper;
+using DataAccessLayer.Interfaces;
 
 namespace BusinessLogicLayer.Converters
 {
-    abstract class GeneralConverter<DataTransferObject, PresentationLayerModel>
+    abstract class GeneralConverter<DataTransferObject, PresentationLayerModel> 
+        where DataTransferObject: new()
+        where PresentationLayerModel: new()
     {
+        protected IUnitOfWork _dataBase;
+
         public virtual PresentationLayerModel Convert(DataTransferObject item)
         {
-            throw new NotImplementedException();
+            return AutoMapper<PresentationLayerModel>.Map(item);
         }
 
         public virtual DataTransferObject Convert(PresentationLayerModel item)
         {
-            throw new NotImplementedException();
+            return AutoMapper<DataTransferObject>.Map(item);
         }
     }
 }

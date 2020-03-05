@@ -8,9 +8,9 @@ using System.Text;
 
 namespace BusinessLogicLayer.Converters
 {
-    class ActivityTypeConverter : GeneralConverter<ActivityTypeDTO, ActivityTypePLM>, IConverter<ActivityTypeDTO, ActivityTypePLM>
+    class PositionConverter : GeneralConverter<PositionDTO, PositionPLM>, IConverter<PositionDTO, PositionPLM>
     {
-        public ActivityTypeConverter(IUnitOfWork dataBase)
+        public PositionConverter(IUnitOfWork dataBase)
         {
             _dataBase = dataBase;
         }

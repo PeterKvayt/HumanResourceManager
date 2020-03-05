@@ -8,9 +8,9 @@ using System.Text;
 
 namespace BusinessLogicLayer.Converters
 {
-    class ActivityTypeConverter : GeneralConverter<ActivityTypeDTO, ActivityTypePLM>, IConverter<ActivityTypeDTO, ActivityTypePLM>
+    class LegalFormConverter : GeneralConverter<LegalFormDTO, LegalFormPLM>, IConverter<LegalFormDTO, LegalFormPLM>
     {
-        public ActivityTypeConverter(IUnitOfWork dataBase)
+        public LegalFormConverter(IUnitOfWork dataBase)
         {
             _dataBase = dataBase;
         }
