@@ -8,7 +8,7 @@ namespace BusinessLogicLayer.Services
 {
     abstract class GeneralService<T, TDto> 
         where T: class, new()
-        where TDto: IEntity, new()
+        where TDto: IDto, new()
     {
         protected virtual void Create(TDto item, IRepository<T> repository)
         {

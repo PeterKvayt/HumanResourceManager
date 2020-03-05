@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BusinessLogicLayer.DataTransferObjects
 {
-    public class EmployeeDTO : IEntity
+    public class EmployeeDTO : IDto
     {
         public IdType Id { get; set; }
 
@@ -16,9 +16,9 @@ namespace BusinessLogicLayer.DataTransferObjects
 
         public string MiddleName { get; set; }
 
-        public CompanyDTO Company { get; set; }
+        public IdType CompanyId { get; set; }
 
-        public PositionDTO Position { get; set; }
+        public IdType PositionId { get; set; }
 
         public DateTime DateOfEmployment { get; set; }
     }
