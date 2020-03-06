@@ -5,32 +5,32 @@ using System.Text;
 
 namespace BusinessLogicLayer.Interfaces
 {
-    public interface IService<T>
+    public interface IService<DataTransferObject>
     {
         /// <summary>
         /// Возвращает все объекты 
         /// </summary>
         /// <returns></returns>
-        IEnumerable<T> GetAll();
+        IEnumerable<DataTransferObject> GetAll();
 
         /// <summary>
         /// Возвращает объект, соответствующий параметру id 
         /// </summary>
         /// <param name="id">Параметр, по которому ведется поиск</param>
         /// <returns></returns>
-        T Get(IdType id);
+        DataTransferObject Get(IdType id);
 
         /// <summary>
         /// Создает объект в базе данных
         /// </summary>
         /// <param name="item"></param>
-        void Create(T item);
+        void Create(DataTransferObject item);
 
         /// <summary>
         /// Обновляет объект в базе данных 
         /// </summary>
         /// <param name="item">Обновляемый объект</param>
-        void Update(T item);
+        void Update(DataTransferObject item);
 
         /// <summary>
         /// Удаляет объект, соответствующий параметру id

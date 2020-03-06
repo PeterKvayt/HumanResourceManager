@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BusinessLogicLayer.Services
 {
-    class CompanyService : GeneralService<Company, CompanyDTO>, IService<CompanyDTO>
+    class CompanyService : GeneralService<CompanyDTO, Company>, IService<CompanyDTO>
     {
         private IRepository<Company> _repository;
 

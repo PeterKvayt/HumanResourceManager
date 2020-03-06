@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using BusinessLogicLayer.Converters;
 using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.DataTransferObjects;
 using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 
 namespace BusinessLogicLayer.Services
 {
-    class ActivityTypeService : GeneralService<ActivityTypePLM, ActivityTypeDTO, ActivityType>, IService<ActivityTypePLM>
+    class ActivityTypeService : GeneralService<ActivityTypeDTO, ActivityType>, IService<ActivityTypeDTO>
     {
         private IRepository<ActivityType> _repository;
 
@@ -22,7 +19,7 @@ namespace BusinessLogicLayer.Services
             _converter = new ActivityTypeConverter(_dataBase);
         }
 
-        public void Create(ActivityTypePLM item)
+        public void Create(ActivityTypeDTO item)
         {
             Create(item, _repository);
         }
@@ -32,17 +29,17 @@ namespace BusinessLogicLayer.Services
             Delete(id, _repository);
         }
 
-        public ActivityTypePLM Get(IdType id)
+        public ActivityTypeDTO Get(IdType id)
         {
             return Get(id, _repository);
         }
 
-        public IEnumerable<ActivityTypePLM> GetAll()
+        public IEnumerable<ActivityTypeDTO> GetAll()
         {
             return GetAll(_repository);
         }
 
-        public void Update(ActivityTypePLM item)
+        public void Update(ActivityTypeDTO item)
         {
             Update(item, _repository);
         }

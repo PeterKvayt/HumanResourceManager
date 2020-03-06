@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Services
 {
-    class EmployeeService : GeneralService<Employee, EmployeeDTO>, IService<EmployeeDTO>
+    class EmployeeService : GeneralService<EmployeeDTO, Employee>, IService<EmployeeDTO>
     {
         private IRepository<Employee> _repository;
 

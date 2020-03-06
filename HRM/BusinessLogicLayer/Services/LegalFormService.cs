@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Services
 {
-    class LegalFormService : GeneralService<LegalForm, LegalFormDTO>, IService<LegalFormDTO>
+    class LegalFormService : GeneralService<LegalFormDTO, LegalForm>, IService<LegalFormDTO>
     {
         private IRepository<LegalForm> _repository;
 

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BusinessLogicLayer.Services
 {
-    class PositionService : GeneralService<Position, PositionDTO>, IService<PositionDTO>
+    class PositionService : GeneralService<PositionDTO, Position>, IService<PositionDTO>
     {
         private IRepository<Position> _repository;
 
