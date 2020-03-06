@@ -1,12 +1,10 @@
 ﻿using BusinessLogicLayer.Interfaces;
 using CommonClasses;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogicLayer.DataTransferObjects
 {
-    public class EmployeeDTO
+    class EmployeeDTO : IDataTransferObject
     {
         public IdType Id { get; set; }
 
@@ -16,9 +14,9 @@ namespace BusinessLogicLayer.DataTransferObjects
 
         public string MiddleName { get; set; }
 
-        public IdType CompanyId { get; set; }
+        public CompanyDTO Company { get; set; }
 
-        public IdType PositionId { get; set; }
+        public PositionDTO Position { get; set; }
 
         public DateTime DateOfEmployment { get; set; }
     }

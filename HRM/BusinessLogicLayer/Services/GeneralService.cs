@@ -7,19 +7,17 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Services
 {
-    abstract class GeneralService<PresentationLayerModel, DataTransferObject, T> 
-        where PresentationLayerModel : class, IPresentationLayerModel,  new()
-        where DataTransferObject : class, new()
-        where T: class, new()
+    abstract class GeneralService<DataTransferObject, DataBaseEntity> 
+        where DataTransferObject : class, IDataTransferObject, new()
+        where DataBaseEntity: class, new()
     {
         protected IUnitOfWork _dataBase;
 
-        protected IConverter<DataTransferObject, PresentationLayerModel> _converter;
+        protected IConverter<DataBaseEntity, DataTransferObject> _converter;
 
-        protected virtual void Create(PresentationLayerModel item, IRepository<T> repository)
+        protected virtual void Create(DataTransferObject item, IRepository<DataBaseEntity> repository)
         {
-            DataTransferObject dtoEntity = _converter.Convert(item);
-            T entity = AutoMapper<T>.Map(dtoEntity);
+            DataBaseEntity entity = _converter.Convert(item);
 
             try
             {
@@ -32,7 +30,7 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual void Delete(IdType id, IRepository<T> repository)
+        protected virtual void Delete(IdType id, IRepository<DataBaseEntity> repository)
         {
             if ( !Exists(id, repository) )
             {
@@ -51,17 +49,15 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual PresentationLayerModel Get(IdType id, IRepository<T> repository)
+        protected virtual DataTransferObject Get(IdType id, IRepository<DataBaseEntity> repository)
         {
             try
             {
-                T entity = repository.Get(id);
+                DataBaseEntity entity = repository.Get(id);
 
-                DataTransferObject entityDTO = AutoMapper<DataTransferObject>.Map(entity);
+                DataTransferObject resultEntityDTO = _converter.Convert(entity);
 
-                PresentationLayerModel resultPLM = _converter.Convert(entityDTO); 
-
-                return resultPLM;
+                return resultEntityDTO;
             }
             catch (Exception)
             {
@@ -70,22 +66,21 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual IEnumerable<PresentationLayerModel> GetAll(IRepository<T> repository)
+        protected virtual IEnumerable<DataTransferObject> GetAll(IRepository<DataBaseEntity> repository)
         {
             try
             {
-                IEnumerable<T> entityCollection = repository.GetAll();
+                IEnumerable<DataBaseEntity> entityCollection = repository.GetAll();
 
-                List<PresentationLayerModel> resultPlmCollection = new List<PresentationLayerModel> { };
+                List<DataTransferObject> resultDtoCollection = new List<DataTransferObject> { };
 
                 foreach (var entityItem in entityCollection)
                 {
-                    DataTransferObject dataTransferObject = AutoMapper<DataTransferObject>.Map(entityItem);
-                    PresentationLayerModel presentationLayerModel = _converter.Convert(dataTransferObject);
-                    resultPlmCollection.Add(presentationLayerModel);
+                    DataTransferObject dataTransferObject = _converter.Convert(entityItem);
+                    resultDtoCollection.Add(dataTransferObject);
                 }
 
-                return resultPlmCollection;
+                return resultDtoCollection;
             }
             catch (Exception)
             {
@@ -94,7 +89,7 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual void Update(PresentationLayerModel item, IRepository<T> repository)
+        protected virtual void Update(DataTransferObject item, IRepository<DataBaseEntity> repository)
         {
             if ( !Exists(item.Id, repository) )
             {
@@ -102,13 +97,11 @@ namespace BusinessLogicLayer.Services
                 throw new Exception();
             }
 
-            DataTransferObject dataTransferObject = _converter.Convert(item);
-
-            T entity = AutoMapper<T>.Map(dataTransferObject);
+            DataBaseEntity resultDataBaseEntity = _converter.Convert(item);
 
             try
             {
-                repository.Update(entity);
+                repository.Update(resultDataBaseEntity);
             }
             catch (Exception)
             {
@@ -117,7 +110,7 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        private bool Exists(IdType id, IRepository<T> repository)
+        private bool Exists(IdType id, IRepository<DataBaseEntity> repository)
         {
             try
             {

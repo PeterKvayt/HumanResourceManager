@@ -1,14 +1,11 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.PresentationLayerModels;
 using DataAccessLayer.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using DataAccessLayer.Entities;
 
 namespace BusinessLogicLayer.Converters
 {
-    class PositionConverter : GeneralConverter<PositionDTO, PositionPLM>, IConverter<PositionDTO, PositionPLM>
+    class PositionConverter : GeneralConverter<Position, PositionDTO>, IConverter<Position, PositionDTO>
     {
         public PositionConverter(IUnitOfWork dataBase)
         {

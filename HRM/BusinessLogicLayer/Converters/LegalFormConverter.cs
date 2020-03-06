@@ -1,14 +1,11 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.PresentationLayerModels;
 using DataAccessLayer.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using DataAccessLayer.Entities;
 
 namespace BusinessLogicLayer.Converters
 {
-    class LegalFormConverter : GeneralConverter<LegalFormDTO, LegalFormPLM>, IConverter<LegalFormDTO, LegalFormPLM>
+    class LegalFormConverter : GeneralConverter<LegalForm, LegalFormDTO>, IConverter<LegalForm, LegalFormDTO>
     {
         public LegalFormConverter(IUnitOfWork dataBase)
         {

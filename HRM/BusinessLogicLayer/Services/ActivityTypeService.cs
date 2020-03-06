@@ -4,7 +4,7 @@ using System.Text;
 using BusinessLogicLayer.Converters;
 using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.PresentationLayerModels;
+using BusinessLogicLayer.DataTransferObjects;
 using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;

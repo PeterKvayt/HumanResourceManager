@@ -1,56 +1,53 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Mapper;
-using BusinessLogicLayer.PresentationLayerModels;
 using DataAccessLayer.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using DataAccessLayer.Entities;
 
 namespace BusinessLogicLayer.Converters
 {
-    class EmployeeConverter : GeneralConverter<EmployeeDTO, EmployeePLM>, IConverter<EmployeeDTO, EmployeePLM>
+    class EmployeeConverter : GeneralConverter<Employee, EmployeeDTO>, IConverter<Employee, EmployeeDTO>
     {
         public EmployeeConverter(IUnitOfWork dataBase)
         {
             _dataBase = dataBase;
         }
 
-        public override EmployeeDTO Convert(EmployeePLM employeePLM)
+        public override Employee Convert(EmployeeDTO employeeDTO)
         {
-            EmployeeDTO employeeDTO = new EmployeeDTO
-            {
-                Id = employeePLM.Id,
-                Name = employeePLM.Name,
-                Surname = employeePLM.Surname,
-                MiddleName = employeePLM.MiddleName,
-                PositionId = employeePLM.Position.Id,
-                CompanyId = employeePLM.Company.Id,
-                DateOfEmployment = employeePLM.DateOfEmployment
-            };
-
-            return employeeDTO;
-        }
-
-        public override EmployeePLM Convert(EmployeeDTO employeeDTO)
-        {
-            var position = _dataBase.Positions.Get(employeeDTO.PositionId);
-            var positionDTO = AutoMapper<PositionDTO>.Map(position);
-
-            var company = _dataBase.Companies.Get(employeeDTO.CompanyId);
-            var companyDTO = AutoMapper<CompanyDTO>.Map(company);
-
-            EmployeePLM employeePLM = new EmployeePLM
+            Employee employee = new Employee
             {
                 Id = employeeDTO.Id,
                 Name = employeeDTO.Name,
                 Surname = employeeDTO.Surname,
                 MiddleName = employeeDTO.MiddleName,
+                PositionId = employeeDTO.Position.Id,
+                CompanyId = employeeDTO.Company.Id,
+                DateOfEmployment = employeeDTO.DateOfEmployment
+            };
+
+            return employee;
+        }
+
+        public override EmployeeDTO Convert(Employee employee)
+        {
+            var position = _dataBase.Positions.Get(employee.PositionId);
+            var positionDTO = AutoMapper<PositionDTO>.Map(position);
+
+            var company = _dataBase.Companies.Get(employee.CompanyId);
+            var companyDTO = AutoMapper<CompanyDTO>.Map(company);
+
+            EmployeeDTO employeeDTO = new EmployeeDTO
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                Surname = employee.Surname,
+                MiddleName = employee.MiddleName,
                 Position = positionDTO,
                 Company = companyDTO
             };
 
-            return employeePLM;
+            return employeeDTO;
         }
     }
 }
