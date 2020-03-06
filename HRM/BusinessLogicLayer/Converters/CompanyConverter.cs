@@ -29,10 +29,10 @@ namespace BusinessLogicLayer.Converters
         public override CompanyDTO Convert(Company company)
         {
             var activityType = _dataBase.ActivityTypes.Get(company.ActivityId);
-            var activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(activityType);
+            var activityTypeDTO = TryMap<ActivityTypeDTO, ActivityType>(activityType);
 
             var legalForm = _dataBase.LegalForms.Get(company.LegalFormId);
-            var legalFormDTO = AutoMapper<LegalFormDTO>.Map(legalForm);
+            var legalFormDTO = TryMap<LegalFormDTO, LegalForm>(legalForm);
 
             CompanyDTO companyDTO = new CompanyDTO
             {
@@ -44,5 +44,7 @@ namespace BusinessLogicLayer.Converters
 
             return companyDTO;
         }
+
+        
     }
 }

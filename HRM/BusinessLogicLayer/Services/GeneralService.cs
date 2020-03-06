@@ -17,7 +17,16 @@ namespace BusinessLogicLayer.Services
 
         protected virtual void Create(DataTransferObject item, IRepository<DataBaseEntity> repository)
         {
-            DataBaseEntity entity = _converter.Convert(item);
+            DataBaseEntity entity = null;
+            try
+            {
+                entity = _converter.Convert(item);
+            }
+            catch (Exception)
+            {
+                // ToDo: exception
+                throw;
+            }
 
             try
             {
@@ -51,10 +60,19 @@ namespace BusinessLogicLayer.Services
 
         protected virtual DataTransferObject Get(IdType id, IRepository<DataBaseEntity> repository)
         {
+            DataBaseEntity entity = null;
             try
             {
-                DataBaseEntity entity = repository.Get(id);
+                entity = repository.Get(id);
+            }
+            catch (Exception)
+            {
+                // ToDo: exception
+                throw;
+            }
 
+            try
+            {
                 DataTransferObject resultEntityDTO = _converter.Convert(entity);
 
                 return resultEntityDTO;
@@ -68,10 +86,19 @@ namespace BusinessLogicLayer.Services
 
         protected virtual IEnumerable<DataTransferObject> GetAll(IRepository<DataBaseEntity> repository)
         {
+            IEnumerable<DataBaseEntity> entityCollection = null;
             try
             {
-                IEnumerable<DataBaseEntity> entityCollection = repository.GetAll();
+                entityCollection = repository.GetAll();
+            }
+            catch (Exception)
+            {
+                // ToDo: exception
+                throw;
+            }
 
+            try
+            {
                 List<DataTransferObject> resultDtoCollection = new List<DataTransferObject> { };
 
                 foreach (var entityItem in entityCollection)
@@ -97,7 +124,17 @@ namespace BusinessLogicLayer.Services
                 throw new Exception();
             }
 
-            DataBaseEntity resultDataBaseEntity = _converter.Convert(item);
+            DataBaseEntity resultDataBaseEntity = null;
+            try
+            {
+                resultDataBaseEntity = _converter.Convert(item);
+            }
+            catch (Exception)
+            {
+                // ToDo: exception
+                throw;
+            }
+
 
             try
             {

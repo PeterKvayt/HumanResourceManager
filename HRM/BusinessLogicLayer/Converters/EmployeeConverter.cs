@@ -32,10 +32,10 @@ namespace BusinessLogicLayer.Converters
         public override EmployeeDTO Convert(Employee employee)
         {
             var position = _dataBase.Positions.Get(employee.PositionId);
-            var positionDTO = AutoMapper<PositionDTO>.Map(position);
+            var positionDTO = TryMap<PositionDTO, Position>(position);
 
             var company = _dataBase.Companies.Get(employee.CompanyId);
-            var companyDTO = AutoMapper<CompanyDTO>.Map(company);
+            var companyDTO = TryMap<CompanyDTO, Company>(company);
 
             EmployeeDTO employeeDTO = new EmployeeDTO
             {
