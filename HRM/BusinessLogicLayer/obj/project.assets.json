@@ -2219,6 +2219,7 @@
     ".NETCoreApp,Version=v2.2": [
       "CommonClasses >= 1.0.0",
       "DataAccessLayer >= 1.0.0",
+      "ExceptionClasses >= 1.0.0",
       "Microsoft.NETCore.App >= 2.2.0"
     ]
   },
@@ -2257,6 +2258,9 @@
             },
             "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HRM\\DataAccessLayer\\DataAccessLayer.csproj": {
               "projectPath": "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HRM\\DataAccessLayer\\DataAccessLayer.csproj"
+            },
+            "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HRM\\ExceptionClasses\\ExceptionClasses.csproj": {
+              "projectPath": "D:\\MyDirectory\\GitRepositories\\HumanResourceManager\\HRM\\ExceptionClasses\\ExceptionClasses.csproj"
             }
           }
         }

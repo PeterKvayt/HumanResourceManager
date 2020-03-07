@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer.Interfaces;
 using CommonClasses;
 using DataAccessLayer.Interfaces;
+using ExceptionClasses.Exceptions;
 using ExceptionClasses.Loggers;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,10 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка создания записи в базе данных экземпляра класса {typeof(DataBaseEntity).ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
         }
@@ -46,8 +50,11 @@ namespace BusinessLogicLayer.Services
         {
             if ( !Exists(id, repository) )
             {
-                // ToDo: exception for user
-                throw new Exception();
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogWarn(EXCEPTION_MESSAGE);
+
+                throw new ClientException();
             }
 
             try
@@ -66,6 +73,15 @@ namespace BusinessLogicLayer.Services
 
         protected virtual DataTransferObject Get(IdType id, IRepository<DataBaseEntity> repository)
         {
+            if (!Exists(id, repository))
+            {
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogWarn(EXCEPTION_MESSAGE);
+
+                throw new ClientException();
+            }
+
             DataBaseEntity entity = null;
             try
             {
@@ -137,8 +153,11 @@ namespace BusinessLogicLayer.Services
         {
             if ( !Exists(item.Id, repository) )
             {
-                // ToDo: exception for user
-                throw new Exception();
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на обновление несуществующей записи в базе данных экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogWarn(EXCEPTION_MESSAGE);
+
+                throw new ClientException();
             }
 
             DataBaseEntity resultDataBaseEntity = null;

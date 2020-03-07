@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExceptionClasses.Interfaces
 {
-    interface IException
+    public interface IException
     {
         string ExceptionMessage { get; set; }
 

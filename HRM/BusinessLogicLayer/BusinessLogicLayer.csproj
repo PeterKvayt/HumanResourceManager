@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CommonClasses\CommonClasses.csproj" />
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\ExceptionClasses\ExceptionClasses.csproj" />
   </ItemGroup>
 
 </Project>
