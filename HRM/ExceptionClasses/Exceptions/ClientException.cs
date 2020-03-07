@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ExceptionClasses.Exceptions
 {
-    public class ClientException : GeneralException<ClientException>, IException
+    class ClientException : GeneralException<ClientException>, IException
     {
         public ClientException() { }
 

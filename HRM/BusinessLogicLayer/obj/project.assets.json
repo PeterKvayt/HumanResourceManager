@@ -771,7 +771,6 @@
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
           "CommonClasses": "1.0.0",
-          "ExceptionClasses": "1.0.0",
           "Microsoft.Extensions.Configuration": "3.1.2",
           "Microsoft.Extensions.Configuration.FileExtensions": "3.1.2",
           "Microsoft.Extensions.Configuration.Json": "3.1.2",

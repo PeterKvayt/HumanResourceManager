@@ -4,7 +4,7 @@ using System;
 
 namespace ExceptionClasses.Handlers
 {
-    public static class ExceptionHandler
+    static class ExceptionHandler
     {
         public static void Debug(IException exception)
         {
