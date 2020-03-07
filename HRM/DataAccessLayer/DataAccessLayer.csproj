@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommonClasses\CommonClasses.csproj" />
+    <ProjectReference Include="..\ExceptionClasses\ExceptionClasses.csproj" />
   </ItemGroup>
 
 </Project>

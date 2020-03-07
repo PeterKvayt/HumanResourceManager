@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExceptionClasses.Exceptions
 {
-    abstract class GeneralException<TException> : Exception where TException : Exception, new()
+    public abstract class GeneralException<TException> : Exception where TException : Exception, new()
     {
         public string ExceptionMessage { get; set; }
 

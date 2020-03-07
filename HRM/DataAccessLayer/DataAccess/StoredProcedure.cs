@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
-using ExceptionClasses.Loggers;
+using ExceptionClasses.Exceptions;
+using ExceptionClasses.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,6 +28,8 @@ namespace DataAccessLayer.DataContext
         /// </summary>
         private SqlConnection _connection;
 
+        private ServerException _exception;
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -34,17 +37,17 @@ namespace DataAccessLayer.DataContext
         /// <param name="sqlParameters">Параметры хранимой процедуры</param>
         public StoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters, SqlConnection connection)
         {
+            _exception = new ServerException();
+
             if ( !(string.IsNullOrEmpty(storedProcedureName) && string.IsNullOrWhiteSpace(storedProcedureName)) )
             {
                 _name = storedProcedureName;
             }
             else
             {
-                const string EXCEPTION_MESSAGE = "Некорректное (пустое) имя хранимой процедуры!";
+                _exception.ExceptionMessage = "Некорректное (пустое) имя хранимой процедуры!";
 
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
-
-                throw new Exception();
+                ExceptionHandler.Error(_exception);
             }
 
             if (sqlParameters != null)
@@ -53,11 +56,9 @@ namespace DataAccessLayer.DataContext
             }
             else
             {
-                const string EXCEPTION_MESSAGE = "Sql параметры = null!";
+                _exception.ExceptionMessage = "Sql параметры = null!";
 
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
-
-                throw new Exception();
+                ExceptionHandler.Error(_exception);
             }
 
             if (connection != null)
@@ -66,11 +67,9 @@ namespace DataAccessLayer.DataContext
             }
             else
             {
-                const string EXCEPTION_MESSAGE = "Подключение к базе данных = null!";
+                _exception.ExceptionMessage = "Подключение к базе данных = null!";
 
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
-
-                throw new Exception();
+                ExceptionHandler.Error(_exception);
             }
         }
 
@@ -98,11 +97,9 @@ namespace DataAccessLayer.DataContext
                 }
                 catch (Exception)
                 {
-                    const string EXCEPTION_MESSAGE = "Ошибка заполнения адаптера!";
+                    _exception.ExceptionMessage = "Ошибка заполнения адаптера!";
 
-                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
-
-                    throw;
+                    ExceptionHandler.Error(_exception);
                 }
             }
         }
