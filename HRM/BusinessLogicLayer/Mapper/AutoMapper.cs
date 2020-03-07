@@ -1,4 +1,4 @@
-﻿using BusinessLogicLayer.Interfaces;
+﻿using ExceptionClasses.Loggers;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -11,15 +11,15 @@ namespace BusinessLogicLayer.Mapper
             = new Dictionary<Type, Dictionary<string, PropertyInfo>>();
 
         /// <summary>
-        /// Преобразует один тип в другой, при условии соответствия свойств
+        /// Преобразует передаваемый объект в объект типа TOut
         /// </summary>
         /// <param name="obj">Преобразуемый тип</param>
         /// <returns>Тип, который необходимо получить</returns>
         public static TOut Map(object obj)
         {
-            var objProperties = TryGetProperties(obj.GetType());
+            var objProperties = GetProperties(obj.GetType());
 
-            var resultProperties = TryGetProperties(typeof(TOut));
+            var resultProperties = GetProperties(typeof(TOut));
 
             var result = new TOut();
 
@@ -31,7 +31,11 @@ namespace BusinessLogicLayer.Mapper
                 }
                 else
                 {
-                    // ToDo: exception
+                    string EXCEPTION_MESSAGE = $"Ошибка извлечения значения при сопоставлении свойств классов {obj.GetType().ToString()} и {typeof(TOut).ToString()}, " +
+                        $"связанная со свойством {resultProperty.Value.Name} класса {typeof(TOut).ToString()}";
+
+                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                     throw new Exception();
                 }
             }
@@ -59,30 +63,8 @@ namespace BusinessLogicLayer.Mapper
 
                 _propertiesDictionaries.Add(objType, propertiesInfoDictionary);
             }
-            else
-            {
-                // ToDo: exception
-                throw new Exception();
-            }
+            
             return propertiesInfoDictionary;
-        }
-
-        /// <summary>
-        /// Безопасно создает свойства передаваемого объекта
-        /// </summary>
-        /// <param name="objType">Тип, свойства которого необходимо получить</param>
-        /// <returns>Возвращаемые свойства</returns>
-        private static Dictionary<string, PropertyInfo> TryGetProperties(Type objType)
-        {
-            try
-            {
-                return GetProperties(objType);
-            }
-            catch (Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
         }
     }
 }

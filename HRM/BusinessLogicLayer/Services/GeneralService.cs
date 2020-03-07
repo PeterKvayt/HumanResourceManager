@@ -1,7 +1,7 @@
 ﻿using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.Mapper;
 using CommonClasses;
 using DataAccessLayer.Interfaces;
+using ExceptionClasses.Loggers;
 using System;
 using System.Collections.Generic;
 
@@ -24,7 +24,10 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(DataTransferObject).ToString()} в {typeof(DataBaseEntity).ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
 
@@ -53,7 +56,10 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка удаления записи в базе данных экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
         }
@@ -67,7 +73,10 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка получения записи из базе данных экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
 
@@ -79,7 +88,10 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(DataBaseEntity).ToString()} в {typeof(DataTransferObject).ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
         }
@@ -93,14 +105,16 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка получения всех записей из базы данных класса {typeof(DataBaseEntity).ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
 
+            List<DataTransferObject> resultDtoCollection = new List<DataTransferObject> { };
             try
             {
-                List<DataTransferObject> resultDtoCollection = new List<DataTransferObject> { };
-
                 foreach (var entityItem in entityCollection)
                 {
                     DataTransferObject dataTransferObject = _converter.Convert(entityItem);
@@ -111,7 +125,10 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(DataBaseEntity).ToString()} в {typeof(DataTransferObject).ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
         }
@@ -131,7 +148,10 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(DataTransferObject).ToString()} в {typeof(DataBaseEntity).ToString()} в классе GeneralService";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
 
@@ -142,7 +162,10 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка обновления записи экземпляра класса {typeof(DataBaseEntity).ToString()} в базе данных в классе GeneralService";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
         }
@@ -155,7 +178,10 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в базе данных в классе GeneralService";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
         }

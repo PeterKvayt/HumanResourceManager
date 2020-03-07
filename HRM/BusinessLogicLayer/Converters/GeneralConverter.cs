@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.Mapper;
 using DataAccessLayer.Interfaces;
+using ExceptionClasses.Loggers;
 
 namespace BusinessLogicLayer.Converters
 {
@@ -16,15 +17,7 @@ namespace BusinessLogicLayer.Converters
         /// <returns>Объект, взаимодействующий с PresentationLayer</returns>
         public virtual DataTransferObject Convert(DataBaseEntity item)
         {
-            try
-            {
-                return AutoMapper<DataTransferObject>.Map(item);
-            }
-            catch (System.Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
+            return TryMap<DataTransferObject, DataBaseEntity> (item);
         }
 
         /// <summary>
@@ -34,25 +27,17 @@ namespace BusinessLogicLayer.Converters
         /// <returns>Объект, взаимодействующий с DataAccessLayer</returns>
         public virtual DataBaseEntity Convert(DataTransferObject item)
         {
-            try
-            {
-                return AutoMapper<DataBaseEntity>.Map(item);
-            }
-            catch (System.Exception)
-            {
-                // ToDo: exception
-                throw;
-            }
+            return TryMap<DataBaseEntity, DataTransferObject>(item);
         }
 
         /// <summary>
         /// Безопасно создает экземпляр типа TOut
         /// </summary>
         /// <typeparam name="TOut">Тип, экземпляр которого необходимо получить</typeparam>
-        /// <typeparam name="Tin">Тип, из которого необходимо получить результат</typeparam>
+        /// <typeparam name="TIn">Тип, из которого необходимо получить результат</typeparam>
         /// <param name="item">Экземпляр, преобразуемый в тип TOut</param>
         /// <returns>Результат преобразования</returns>
-        protected virtual TOut TryMap<TOut, Tin>(Tin item) where TOut : new()
+        protected virtual TOut TryMap<TOut, TIn>(TIn item) where TOut : new()
         {
             try
             {
@@ -60,7 +45,10 @@ namespace BusinessLogicLayer.Converters
             }
             catch (System.Exception)
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = $"Ошибка преобразования класса {typeof(TIn).ToString()} в {typeof(TOut).ToString()} в классе GeneralConverter";
+
+                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
                 throw;
             }
         }
