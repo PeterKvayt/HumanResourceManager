@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace BusinessLogicLayer.Mapper
+namespace CommonClasses
 {
-    static class AutoMapper<TOut> where TOut: new()
+    public static class AutoMapper<TOut> where TOut: new()
     {
         private static readonly Dictionary<Type, Dictionary<string, PropertyInfo>> _propertiesDictionaries
             = new Dictionary<Type, Dictionary<string, PropertyInfo>>();
