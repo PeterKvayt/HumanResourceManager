@@ -3,32 +3,32 @@ using System.Collections.Generic;
 
 namespace DataAccessLayer.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<EntityType> where EntityType : class
     {
         /// <summary>
         /// Возвращает все объекты 
         /// </summary>
         /// <returns></returns>
-        IEnumerable<T> GetAll();
+        IEnumerable<EntityType> GetAll();
 
         /// <summary>
         /// Возвращает объект, соответствующий параметру id 
         /// </summary>
         /// <param name="id">Параметр, по которому ведется поиск</param>
         /// <returns></returns>
-        T Get(IdType id);
+        EntityType Get(IdType id);
 
         /// <summary>
         /// Создает объект в базе данных
         /// </summary>
         /// <param name="item"></param>
-        void Create(T item);
+        void Create(EntityType item);
 
         /// <summary>
         /// Обновляет объект в базе данных 
         /// </summary>
         /// <param name="item">Обновляемый объект</param>
-        void Update(T item);
+        void Update(EntityType item);
 
         /// <summary>
         /// Удаляет объект, соответствующий параметру id

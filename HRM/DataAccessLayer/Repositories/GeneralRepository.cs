@@ -9,10 +9,10 @@ namespace DataAccessLayer.Repositories
     /// <summary>
     /// Класс отвечает за общую реализацию классов, реализующих интерфейс IRepository
     /// </summary>
-    /// <typeparam name="T">Конкретный тип реализуемого класса</typeparam>
-    abstract class GeneralRepository<T> where T: class
+    /// <typeparam name="EntityType">Конкретный тип реализуемого класса</typeparam>
+    abstract class GeneralRepository<EntityType> where EntityType: class
     {
-        public virtual void Create(T item, IDataAccessLayer<T> context)
+        public virtual void Create(EntityType item, IDataAccessLayer<EntityType> context)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка создания экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
+                string EXCEPTION_MESSAGE = $"Ошибка создания экземпляра класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -28,7 +28,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual void Delete(IdType id, IDataAccessLayer<T> context)
+        public virtual void Delete(IdType id, IDataAccessLayer<EntityType> context)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка удаления экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
+                string EXCEPTION_MESSAGE = $"Ошибка удаления экземпляра класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -44,7 +44,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual T Get(IdType id, IDataAccessLayer<T> context)
+        public virtual EntityType Get(IdType id, IDataAccessLayer<EntityType> context)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка получения экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
+                string EXCEPTION_MESSAGE = $"Ошибка получения экземпляра класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -60,7 +60,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual IEnumerable<T> GetAll(IDataAccessLayer<T> context)
+        public virtual IEnumerable<EntityType> GetAll(IDataAccessLayer<EntityType> context)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка получения всех экземпляров класса {typeof(T).ToString()} в классе GeneralRepository!";
+                string EXCEPTION_MESSAGE = $"Ошибка получения всех экземпляров класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -76,7 +76,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual void Update(T item, IDataAccessLayer<T> context)
+        public virtual void Update(EntityType item, IDataAccessLayer<EntityType> context)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка обновления экземпляра класса {typeof(T).ToString()} в классе GeneralRepository!";
+                string EXCEPTION_MESSAGE = $"Ошибка обновления экземпляра класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -92,7 +92,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual bool Exists(IdType id, IDataAccessLayer<T> context)
+        public virtual bool Exists(IdType id, IDataAccessLayer<EntityType> context)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи об экземпляре класса {typeof(T).ToString()} в классе GeneralRepository!";
+                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи об экземпляре класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 

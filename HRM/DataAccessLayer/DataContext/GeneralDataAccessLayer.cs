@@ -11,14 +11,14 @@ namespace DataAccessLayer.DataContext
     /// <summary>
     /// Общая реализация классов DataAccessLayer
     /// </summary>
-    /// <typeparam name="T">Конкретный тип класса</typeparam>
-    abstract class GeneralDataAccessLayer<T> where T : class, new()
+    /// <typeparam name="EntityType">Конкретный тип класса</typeparam>
+    abstract class GeneralDataAccessLayer<EntityType> where EntityType : class, new()
     {
         protected SqlConnection _connection;
 
-        public abstract void Create(T newItem);
+        public abstract void Create(EntityType newItem);
 
-        public abstract void Update(T item);
+        public abstract void Update(EntityType item);
 
         protected virtual void Delete(IdType id, string DELETE_STORED_PROCEDURE_NAME)
         {
@@ -32,7 +32,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка при удалении экземпляра класса {typeof(T).ToString()}!";
+                string EXCEPTION_MESSAGE = $"Ошибка при удалении экземпляра класса {typeof(EntityType).ToString()}!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -40,7 +40,7 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        protected virtual T Get(IdType id, string GET_STORED_PROCEDURE_NAME)
+        protected virtual EntityType Get(IdType id, string GET_STORED_PROCEDURE_NAME)
         {
             IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
 
@@ -54,7 +54,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка выполнения хранимой процедуры получения экземпляра класса {typeof(T).ToString()} из базы данных!";
+                string EXCEPTION_MESSAGE = $"Ошибка выполнения хранимой процедуры получения экземпляра класса {typeof(EntityType).ToString()} из базы данных!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -64,13 +64,13 @@ namespace DataAccessLayer.DataContext
             if (resultDataSet != null)
             {
                 DataTableMapper mapper = TryGetDataTableMapper(resultDataSet.Tables[0]);
-                T result = mapper.CreateObjectFromTable<T>();
+                EntityType result = mapper.CreateObjectFromTable<EntityType>();
 
                 return result;
             }
             else
             {
-                string EXCEPTION_MESSAGE = $"Ошибка получения экземпляра класса {typeof(T).ToString()} из базы данных!";
+                string EXCEPTION_MESSAGE = $"Ошибка получения экземпляра класса {typeof(EntityType).ToString()} из базы данных!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -78,7 +78,7 @@ namespace DataAccessLayer.DataContext
             }
         }
 
-        protected virtual IEnumerable<T> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
+        protected virtual IEnumerable<EntityType> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
         {
             IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { }, _connection);
 
@@ -89,7 +89,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка выполнения хранимой процедуры для получения всех записей класса {typeof(T).ToString()} из базы данных!";
+                string EXCEPTION_MESSAGE = $"Ошибка выполнения хранимой процедуры для получения всех записей класса {typeof(EntityType).ToString()} из базы данных!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -99,13 +99,13 @@ namespace DataAccessLayer.DataContext
             if (resultDataSet != null)
             {
                 DataTableMapper mapper = TryGetDataTableMapper(resultDataSet.Tables[0]);
-                IEnumerable<T> resultCollection = mapper.CreateListFromTable<T>();
+                IEnumerable<EntityType> resultCollection = mapper.CreateListFromTable<EntityType>();
 
                 return resultCollection;
             }
             else
             {
-                string EXCEPTION_MESSAGE = $"Результат выполнения хранимой процедуры для получения всех записей класса {typeof(T).ToString()} из базы данных вернул Null!";
+                string EXCEPTION_MESSAGE = $"Результат выполнения хранимой процедуры для получения всех записей класса {typeof(EntityType).ToString()} из базы данных вернул Null!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -127,7 +127,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи экземпляра класса {typeof(T).ToString()} в базе данных!";
+                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи экземпляра класса {typeof(EntityType).ToString()} в базе данных!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -149,7 +149,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка создания хранимой процедуры в классе {typeof(T).ToString()}DataAccessLayer!";
+                string EXCEPTION_MESSAGE = $"Ошибка создания хранимой процедуры в классе {typeof(EntityType).ToString()}DataAccessLayer!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -170,7 +170,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка создания экземпляра класса DataTableMapper в классе {typeof(T).ToString()}DataAccessLayer!";
+                string EXCEPTION_MESSAGE = $"Ошибка создания экземпляра класса DataTableMapper в классе {typeof(EntityType).ToString()}DataAccessLayer!";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
