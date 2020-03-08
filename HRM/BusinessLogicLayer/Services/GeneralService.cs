@@ -8,24 +8,24 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Services
 {
-    abstract class GeneralService<DataTransferObject, DataBaseEntity> 
+    abstract class GeneralService<DataTransferObject, EntityType> 
         where DataTransferObject : class, IDataTransferObject, new()
-        where DataBaseEntity: class, new()
+        where EntityType: class, new()
     {
         protected IUnitOfWork _dataBase;
 
-        protected IConverter<DataBaseEntity, DataTransferObject> _converter;
+        protected IConverter<EntityType, DataTransferObject> _converter;
 
-        protected virtual void Create(DataTransferObject item, IRepository<DataBaseEntity> repository)
+        protected virtual void Create(DataTransferObject item, IRepository<EntityType> repository)
         {
-            DataBaseEntity entity = null;
+            EntityType entity = null;
             try
             {
                 entity = _converter.Convert(item);
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(DataTransferObject).ToString()} в {typeof(DataBaseEntity).ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(DataTransferObject).ToString()} в {typeof(EntityType).ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -38,7 +38,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка создания записи в базе данных экземпляра класса {typeof(DataBaseEntity).ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Ошибка создания записи в базе данных экземпляра класса {typeof(EntityType).ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -46,11 +46,11 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual void Delete(IdType id, IRepository<DataBaseEntity> repository)
+        protected virtual void Delete(IdType id, IRepository<EntityType> repository)
         {
             if ( !Exists(id, repository) )
             {
-                string EXCEPTION_MESSAGE = $"Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogWarn(EXCEPTION_MESSAGE);
 
@@ -63,7 +63,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка удаления записи в базе данных экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Ошибка удаления записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -71,25 +71,25 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual DataTransferObject Get(IdType id, IRepository<DataBaseEntity> repository)
+        protected virtual DataTransferObject Get(IdType id, IRepository<EntityType> repository)
         {
             if (!Exists(id, repository))
             {
-                string EXCEPTION_MESSAGE = $"Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса {typeof(EntityType).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogWarn(EXCEPTION_MESSAGE);
 
                 throw new ClientException();
             }
 
-            DataBaseEntity entity = null;
+            EntityType entity = null;
             try
             {
                 entity = repository.Get(id);
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка получения записи из базе данных экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Ошибка получения записи из базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -104,7 +104,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(DataBaseEntity).ToString()} в {typeof(DataTransferObject).ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(EntityType).ToString()} в {typeof(DataTransferObject).ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -112,16 +112,16 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual IEnumerable<DataTransferObject> GetAll(IRepository<DataBaseEntity> repository)
+        protected virtual IEnumerable<DataTransferObject> GetAll(IRepository<EntityType> repository)
         {
-            IEnumerable<DataBaseEntity> entityCollection = null;
+            IEnumerable<EntityType> entityCollection = null;
             try
             {
                 entityCollection = repository.GetAll();
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка получения всех записей из базы данных класса {typeof(DataBaseEntity).ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Ошибка получения всех записей из базы данных класса {typeof(EntityType).ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -141,7 +141,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(DataBaseEntity).ToString()} в {typeof(DataTransferObject).ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(EntityType).ToString()} в {typeof(DataTransferObject).ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -149,25 +149,25 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual void Update(DataTransferObject item, IRepository<DataBaseEntity> repository)
+        protected virtual void Update(DataTransferObject item, IRepository<EntityType> repository)
         {
             if ( !Exists(item.Id, repository) )
             {
-                string EXCEPTION_MESSAGE = $"Запрос с клиента на обновление несуществующей записи в базе данных экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на обновление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogWarn(EXCEPTION_MESSAGE);
 
                 throw new ClientException();
             }
 
-            DataBaseEntity resultDataBaseEntity = null;
+            EntityType resultDataBaseEntity = null;
             try
             {
                 resultDataBaseEntity = _converter.Convert(item);
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(DataTransferObject).ToString()} в {typeof(DataBaseEntity).ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(DataTransferObject).ToString()} в {typeof(EntityType).ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -181,7 +181,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка обновления записи экземпляра класса {typeof(DataBaseEntity).ToString()} в базе данных в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Ошибка обновления записи экземпляра класса {typeof(EntityType).ToString()} в базе данных в классе GeneralService";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 
@@ -189,7 +189,7 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        private bool Exists(IdType id, IRepository<DataBaseEntity> repository)
+        private bool Exists(IdType id, IRepository<EntityType> repository)
         {
             try
             {
@@ -197,7 +197,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи экземпляра класса {typeof(DataBaseEntity).ToString()} с Id = {id.Identificator.ToString()} в базе данных в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи экземпляра класса {typeof(EntityType).ToString()} с Id = {id.Identificator.ToString()} в базе данных в классе GeneralService";
 
                 ExceptionLogger.LogError(EXCEPTION_MESSAGE);
 

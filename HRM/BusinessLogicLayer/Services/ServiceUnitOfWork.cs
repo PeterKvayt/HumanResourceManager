@@ -1,9 +1,6 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using DataAccessLayer.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogicLayer.Services
 {

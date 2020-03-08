@@ -4,10 +4,10 @@ using System.Text;
 
 namespace BusinessLogicLayer.Interfaces
 {
-    interface IConverter<DataTransferObject, PresentationLayerModel>
+    interface IConverter<EntityType, DataTransferObject>
     {
-        PresentationLayerModel Convert(DataTransferObject item);
+        DataTransferObject Convert(EntityType item);
 
-        DataTransferObject Convert(PresentationLayerModel item);
+        EntityType Convert(DataTransferObject item);
     }
 }

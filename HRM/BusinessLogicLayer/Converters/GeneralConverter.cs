@@ -4,8 +4,8 @@ using ExceptionClasses.Loggers;
 
 namespace BusinessLogicLayer.Converters
 {
-    abstract class GeneralConverter<DataBaseEntity, DataTransferObject> 
-        where DataBaseEntity: new()
+    abstract class GeneralConverter<EntityType, DataTransferObject> 
+        where EntityType: new()
         where DataTransferObject: new()
     {
         protected IUnitOfWork _dataBase;
@@ -15,9 +15,9 @@ namespace BusinessLogicLayer.Converters
         /// </summary>
         /// <param name="item">Объект, взаимодействующий с DataAccessLayer</param>
         /// <returns>Объект, взаимодействующий с PresentationLayer</returns>
-        public virtual DataTransferObject Convert(DataBaseEntity item)
+        public virtual DataTransferObject Convert(EntityType item)
         {
-            return TryMap<DataTransferObject, DataBaseEntity> (item);
+            return TryMap<DataTransferObject, EntityType> (item);
         }
 
         /// <summary>
@@ -25,9 +25,9 @@ namespace BusinessLogicLayer.Converters
         /// </summary>
         /// <param name="item">Объект, взаимодействующий с PresentationLayer</param>
         /// <returns>Объект, взаимодействующий с DataAccessLayer</returns>
-        public virtual DataBaseEntity Convert(DataTransferObject item)
+        public virtual EntityType Convert(DataTransferObject item)
         {
-            return TryMap<DataBaseEntity, DataTransferObject>(item);
+            return TryMap<EntityType, DataTransferObject>(item);
         }
 
         /// <summary>
