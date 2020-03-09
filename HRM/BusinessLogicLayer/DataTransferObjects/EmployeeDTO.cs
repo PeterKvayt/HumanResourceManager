@@ -4,7 +4,7 @@ using System;
 
 namespace BusinessLogicLayer.DataTransferObjects
 {
-    class EmployeeDTO : IDataTransferObject
+    public class EmployeeDTO : IDataTransferObject
     {
         public IdType Id { get; set; }
 

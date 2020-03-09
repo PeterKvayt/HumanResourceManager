@@ -3,7 +3,7 @@ using CommonClasses;
 
 namespace BusinessLogicLayer.DataTransferObjects
 {
-    class PositionDTO : IDataTransferObject
+    public class PositionDTO : IDataTransferObject
     {
         public IdType Id { get; set; }
 
