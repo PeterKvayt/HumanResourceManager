@@ -8,9 +8,9 @@ namespace PresentationLayer.Controllers
     {
         private readonly IService<ActivityTypeDTO> _service;
 
-        public ActivityTypeController(IService<ActivityTypeDTO> service)
+        public ActivityTypeController(IServiceUnitOfWork service)
         {
-            _service = service;
+            _service = service.AcivityTypeService;
         }
 
         public IActionResult Index()

@@ -12,9 +12,9 @@ namespace PresentationLayer.Controllers
     {
         private readonly IService<EmployeeDTO> _service;
 
-        public EmployeeController(IService<EmployeeDTO> service)
+        public EmployeeController(IServiceUnitOfWork service)
         {
-            _service = service;
+            _service = service.EmployeeService;
         }
 
         public IActionResult Index()

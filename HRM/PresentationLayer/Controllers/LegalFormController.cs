@@ -12,9 +12,9 @@ namespace PresentationLayer.Controllers
     {
         private readonly IService<LegalFormDTO> _service;
 
-        public LegalFormController(IService<LegalFormDTO> service)
+        public LegalFormController(IServiceUnitOfWork service)
         {
-            _service = service;
+            _service = service.LegalFormService;
         }
 
         public IActionResult Index()

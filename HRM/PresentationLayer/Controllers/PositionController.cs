@@ -12,9 +12,9 @@ namespace PresentationLayer.Controllers
     {
         private readonly IService<PositionDTO> _service;
 
-        public PositionController(IService<PositionDTO> service)
+        public PositionController(IServiceUnitOfWork service)
         {
-            _service = service;
+            _service = service.PositionService;
         }
 
         public IActionResult Index()

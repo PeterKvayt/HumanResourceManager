@@ -8,9 +8,9 @@ namespace PresentationLayer.Controllers
     {
         private readonly IService<CompanyDTO> _service;
 
-        public CompanyController(IService<CompanyDTO> service)
+        public CompanyController(IServiceUnitOfWork service)
         {
-            _service = service;
+            _service = service.CompanyService;
         }
 
         public IActionResult Index()
