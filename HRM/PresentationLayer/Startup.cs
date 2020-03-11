@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLogicLayer.Interfaces;
+using BusinessLogicLayer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +23,8 @@ namespace PresentationLayer
 
         public IConfiguration Configuration { get; }
 
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -31,8 +35,17 @@ namespace PresentationLayer
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddSingleton(connectionString.GetType(), connectionString);
+            services.AddSingleton<IServiceUnitOfWork, ServiceUnitOfWork>();
+            //services.Add
+
+
+
+            //IServiceUnitOfWork serviceUnitOfWork = new ServiceUnitOfWork(connectionString);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,7 +9,7 @@ namespace DataAccessLayer.Repositories
     /// <summary>
     /// Класс, инкапсулирующий взаимодействие с уровнем доступа к базе данных
     /// </summary>
-    class DataBaseUnitOfWork : IUnitOfWork
+    public class DataBaseUnitOfWork : IUnitOfWork
     {
         private readonly IHrmContext _context;
 

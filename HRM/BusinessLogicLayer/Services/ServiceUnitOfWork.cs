@@ -1,16 +1,17 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using DataAccessLayer.Interfaces;
+using DataAccessLayer.Repositories;
 
 namespace BusinessLogicLayer.Services
 {
-    class ServiceUnitOfWork : IServiceUnitOfWork
+    public class ServiceUnitOfWork : IServiceUnitOfWork
     {
         private readonly IUnitOfWork _dataBase;
 
-        public ServiceUnitOfWork(IUnitOfWork dataBase)
+        public ServiceUnitOfWork(string connectionString)
         {
-            _dataBase = dataBase;
+            _dataBase = new DataBaseUnitOfWork(connectionString);
         }
 
         private ActivityTypeService _activityTypeService;
