@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
-using ExceptionClasses.Handlers;
-using ExceptionClasses.Interfaces;
 using ExceptionClasses.Loggers;
 
 namespace CommonClasses
@@ -17,6 +15,8 @@ namespace CommonClasses
         /// Контекст данных, из которого создаются объекты
         /// </summary>
         private readonly DataTable _dataContext;
+
+        private const string ID_TYPE_CLASS = "CommonClasses.IdType";
 
         public DataTableMapper(DataTable dataTable)
         {
@@ -101,8 +101,17 @@ namespace CommonClasses
                 {
                     if (row[column] != DBNull.Value)
                     {
-                        //property.SetValue(inputItem, inputRow[column], null);
-                        property.SetValue(inputItem, row[column]);
+                        if (property.PropertyType.ToString() == ID_TYPE_CLASS)
+                        {
+                            IdType id = new IdType();
+                            id.Identificator = Convert.ToUInt32(row[column]);
+                            property.SetValue(inputItem, id);
+                        }
+                        else
+                        {
+                            property.SetValue(inputItem, row[column]);
+                        }
+                        //property.SetValue(inputItem, row[column], null);
                     }
                     else
                     {

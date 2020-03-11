@@ -1,7 +1,10 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
+using CommonClasses;
 using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Models;
+using PresentationLayer.ViewModels;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace PresentationLayer.Controllers
@@ -17,7 +20,18 @@ namespace PresentationLayer.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<ActivityTypeDTO> activityTypeDtoCollection = _service.GetAll();
+
+            List<ActivityTypeModel> activityTypeModelCollection = new List<ActivityTypeModel> { };
+            foreach (var item in activityTypeDtoCollection)
+            {
+                var activityType = AutoMapper<ActivityTypeModel>.Map(item);
+                activityTypeModelCollection.Add(activityType);
+            }
+
+            ActivityTypeViewModel model = new ActivityTypeViewModel(activityTypeModelCollection);
+
+            return View(model);
         }
 
         public IActionResult Privacy()
