@@ -22,7 +22,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Views\ActivityTypes\" />
     <Folder Include="Views\Companies\" />
     <Folder Include="Views\Employees\" />
     <Folder Include="Views\LegalForms\" />
