@@ -1,4 +1,4 @@
-﻿@model List<PresentationLayer.ViewModels.ActivityTypeViewModel>
+﻿@model PresentationLayer.ViewModels.ActivityTypeViewModel
 
 @{
     ViewData["Title"] = "Все виды деятельности";
@@ -20,19 +20,19 @@
                 </td>
                 <td></td>
             </tr>
-            @foreach (var item in Model)
+            @foreach (var item in Model.ActivityTypeCollection)
             {
                 <tr>
                     <td>
                         @item.Name
                     </td>
                     <td style="text-align:end;">
-                        <a href="~/ActivityType/Update/@item.Id" class="btn btn-info">
+                        <a href="~/ActivityType/Update/@item.Id.Identificator" class="btn btn-info">
                             Изменить
                         </a>
 
                         <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
-                        <a href="~/ActivityType/Delete/@item.Id" style="display:none;"></a>
+                        <a href="~/ActivityType/Delete/@item.Id.Identificator" style="display:none;"></a>
                     </td>
                 </tr>
             }
