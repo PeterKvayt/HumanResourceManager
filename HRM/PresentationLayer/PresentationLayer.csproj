@@ -20,4 +20,9 @@
     <ProjectReference Include="..\ExceptionClasses\ExceptionClasses.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>

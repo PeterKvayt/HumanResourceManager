@@ -153,7 +153,7 @@ namespace BusinessLogicLayer.Services
         {
             if ( !Exists(item.Id, repository) )
             {
-                string EXCEPTION_MESSAGE = $"Запрос с клиента на обновление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на обновление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {item.Id.Identificator.ToString()} в классе GeneralService";
 
                 ExceptionLogger.LogWarn(EXCEPTION_MESSAGE);
 

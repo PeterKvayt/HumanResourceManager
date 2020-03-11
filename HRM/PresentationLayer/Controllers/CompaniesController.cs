@@ -1,14 +1,16 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using PresentationLayer.Models;
+using System.Diagnostics;
 
 namespace PresentationLayer.Controllers
 {
-    public class CompanyController : Controller
+    public class CompaniesController : Controller
     {
         private readonly IService<CompanyDTO> _service;
 
-        public CompanyController(IServiceUnitOfWork service)
+        public CompaniesController(IServiceUnitOfWork service)
         {
             _service = service.CompanyService;
         }
@@ -26,7 +28,7 @@ namespace PresentationLayer.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

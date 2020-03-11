@@ -30,3 +30,9 @@ D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\De
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\PresentationLayer.RazorTargetAssemblyInfo.cache
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\PresentationLayer.RazorTargetAssemblyInfo.cs
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\PresentationLayer.csproj.CopyComplete
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\PresentationLayer.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\PresentationLayer.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\bin\Debug\netcoreapp2.2\PresentationLayer.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\bin\Debug\netcoreapp2.2\PresentationLayer.Views.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\bin\Debug\netcoreapp2.2\PresentationLayer.Views.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\PresentationLayer.Views.pdb

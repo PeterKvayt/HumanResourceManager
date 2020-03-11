@@ -1,20 +1,18 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using PresentationLayer.Models;
+using System.Diagnostics;
 
 namespace PresentationLayer.Controllers
 {
-    public class LegalFormController : Controller
+    public class ActivityTypesController : Controller
     {
-        private readonly IService<LegalFormDTO> _service;
+        private readonly IService<ActivityTypeDTO> _service;
 
-        public LegalFormController(IServiceUnitOfWork service)
+        public ActivityTypesController(IServiceUnitOfWork service)
         {
-            _service = service.LegalFormService;
+            _service = service.AcivityTypeService;
         }
 
         public IActionResult Index()
@@ -30,7 +28,7 @@ namespace PresentationLayer.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

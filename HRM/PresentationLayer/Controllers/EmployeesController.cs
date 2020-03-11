@@ -1,20 +1,22 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using PresentationLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
-    public class PositionController : Controller
+    public class EmployeesController : Controller
     {
-        private readonly IService<PositionDTO> _service;
+        private readonly IService<EmployeeDTO> _service;
 
-        public PositionController(IServiceUnitOfWork service)
+        public EmployeesController(IServiceUnitOfWork service)
         {
-            _service = service.PositionService;
+            _service = service.EmployeeService;
         }
 
         public IActionResult Index()
@@ -30,7 +32,7 @@ namespace PresentationLayer.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
