@@ -30,7 +30,10 @@ namespace PresentationLayer.Controllers
                 activityTypeModelCollection.Add(activityType);
             }
 
-            ActivityTypeViewModel model = new ActivityTypeViewModel(activityTypeModelCollection);
+            ActivityTypeViewModel model = new ActivityTypeViewModel
+            {
+                ActivityTypeCollection = activityTypeModelCollection
+            };
 
             return View(model);
         }
@@ -48,7 +51,8 @@ namespace PresentationLayer.Controllers
 
             _service.Create(activityTypeDTO);
 
-            return Redirect("/ActivityTypes");
+            //return Redirect("/ActivityTypes");
+            return Index();
         }
 
         [HttpGet]
@@ -60,9 +64,26 @@ namespace PresentationLayer.Controllers
             };
             ActivityTypeDTO activityTypeDTO = _service.Get(idType);
 
-            ActivityTypeModel model = AutoMapper<ActivityTypeModel>.Map(activityTypeDTO);
+            ActivityTypeModel activityTypeModel = AutoMapper<ActivityTypeModel>.Map(activityTypeDTO);
 
-            return View(model);
+            //ActivityTypeViewModel model = new ActivityTypeViewModel
+            //{
+            //    ActivityType = activityTypeModel
+            //};
+
+            return View(activityTypeModel);
+        }
+
+        [HttpPost]
+        public IActionResult Update([Bind]ActivityTypeModel model)
+        {
+            //ActivityTypeModel activityTypeModel = model.ActivityType;
+
+            ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(model);
+
+            _service.Update(activityTypeDTO);
+
+            return Index();
         }
 
         public IActionResult Privacy()

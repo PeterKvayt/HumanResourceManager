@@ -70,22 +70,6 @@ namespace DataAccessLayer.DataContext
                 // ToDo: exception
                 throw;
             }
-
-            //if ( !string.IsNullOrEmpty(connection.ConnectionString) &&
-            //     !string.IsNullOrWhiteSpace(connection.ConnectionString) &&
-            //     connection != null
-            //    )
-            //{
-            //    _connection = connection;
-            //}
-            //else
-            //{
-            //    const string EXCEPTION_MESSAGE = "Подключение к базе данных = null!";
-
-            //    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
-
-            //    throw new Exception();
-            //}
         }
 
         /// <summary>

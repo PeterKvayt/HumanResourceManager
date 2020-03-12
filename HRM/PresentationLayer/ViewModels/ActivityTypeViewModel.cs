@@ -1,4 +1,5 @@
-﻿using PresentationLayer.Models;
+﻿using CommonClasses;
+using PresentationLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,9 @@ namespace PresentationLayer.ViewModels
 {
     public class ActivityTypeViewModel
     {
-        public IEnumerable<ActivityTypeModel> ActivityTypeCollection { get; }
+        public ActivityTypeModel ActivityType { get; set; }
 
-        public ActivityTypeViewModel(IEnumerable<ActivityTypeModel> activityTypeCollection)
-        {
-            ActivityTypeCollection = activityTypeCollection;
-        }
+        public IEnumerable<ActivityTypeModel> ActivityTypeCollection { get; set; }
+
     }
 }
