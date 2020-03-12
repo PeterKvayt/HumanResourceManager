@@ -59,10 +59,14 @@ namespace DataAccessLayer.DataContext
         /// <returns>Список sql параметров для выполнения хранимой процедуры</returns>
         private List<SqlParameter> GetParametersForUpdate(ActivityType item)
         {
-            SqlParameter idParameter = new SqlParameter("@Id", item.Id.Identificator);
+            //SqlParameter idParameter = new SqlParameter("@Id", (int)item.Id.Identificator);
+            List<SqlParameter> idParameter = GetIdParameters(item.Id);
 
             List<SqlParameter> parameters = GetParametersForCreate(item);
-            parameters.Add(idParameter);
+            foreach (var idParam in idParameter)
+            {
+                parameters.Add(idParam);
+            }
 
             return parameters;
         }

@@ -75,7 +75,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update([Bind]ActivityTypeModel model)
+        public IActionResult Update(ActivityTypeModel model)
         {
             //ActivityTypeModel activityTypeModel = model.ActivityType;
 
@@ -83,7 +83,7 @@ namespace PresentationLayer.Controllers
 
             _service.Update(activityTypeDTO);
 
-            return Index();
+            return Redirect("/ActivityTypes");
         }
 
         public IActionResult Privacy()

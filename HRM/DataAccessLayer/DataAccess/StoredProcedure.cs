@@ -120,7 +120,7 @@ namespace DataAccessLayer.DataContext
                 {
                     storedProcedureCommand.ExecuteNonQuery();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     const string EXCEPTION_MESSAGE = "Ошибка выполнения хранимой процедуры ExecuteNonQuery!";
 
