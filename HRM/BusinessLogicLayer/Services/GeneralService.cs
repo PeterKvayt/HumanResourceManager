@@ -87,7 +87,7 @@ namespace BusinessLogicLayer.Services
             {
                 entity = repository.Get(id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка получения записи из базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
 

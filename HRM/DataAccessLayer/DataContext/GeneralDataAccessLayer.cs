@@ -125,7 +125,7 @@ namespace DataAccessLayer.DataContext
 
                 return result == 1 ? true : false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи экземпляра класса {typeof(EntityType).ToString()} в базе данных!";
 
@@ -186,7 +186,7 @@ namespace DataAccessLayer.DataContext
         {
             List<SqlParameter> idParameters = new List<SqlParameter>
             {
-                new SqlParameter("@Id", id.Identificator)
+                new SqlParameter("@Id", (int)id.Identificator)
             };
 
             return idParameters;

@@ -37,3 +37,5 @@ D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\bin\De
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\bin\Debug\netcoreapp2.2\PresentationLayer.Views.pdb
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\PresentationLayer.Views.pdb
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\ActivityTypes\Index.g.cshtml.cs
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\ActivityTypes\Create.g.cshtml.cs
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\ActivityTypes\Update.g.cshtml.cs

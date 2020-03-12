@@ -39,8 +39,12 @@ namespace PresentationLayer
 
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            services.AddSingleton(connectionString.GetType(), connectionString);
-            services.AddSingleton<IServiceUnitOfWork, ServiceUnitOfWork>();
+            //services.AddSingleton(connectionString.GetType(), connectionString);
+            //services.
+            //services.AddScoped()
+            //services.AddSingleton<IServiceUnitOfWork, ServiceUnitOfWork>();
+            //services.AddTransient<IServiceUnitOfWork, ServiceUnitOfWork>(service => new ServiceUnitOfWork(connectionString));
+            services.AddScoped<IServiceUnitOfWork, ServiceUnitOfWork>(service => new ServiceUnitOfWork(connectionString));
             //services.Add
 
 

@@ -60,7 +60,10 @@ namespace DataAccessLayer.DataContext
                 throw new Exception();
             }
 
-            if (connection != null)
+            if ( !string.IsNullOrEmpty(connection.ConnectionString) &&
+                 !string.IsNullOrWhiteSpace(connection.ConnectionString) &&
+                 connection != null
+                )
             {
                 _connection = connection;
             }

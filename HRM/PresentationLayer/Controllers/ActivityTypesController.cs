@@ -18,6 +18,7 @@ namespace PresentationLayer.Controllers
             _service = service.AcivityTypeService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             IEnumerable<ActivityTypeDTO> activityTypeDtoCollection = _service.GetAll();
@@ -30,6 +31,36 @@ namespace PresentationLayer.Controllers
             }
 
             ActivityTypeViewModel model = new ActivityTypeViewModel(activityTypeModelCollection);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(ActivityTypeModel model)
+        {
+            ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(model);
+
+            _service.Create(activityTypeDTO);
+
+            return Redirect("/ActivityTypes");
+        }
+
+        [HttpGet]
+        public IActionResult Update(uint id)
+        {
+            IdType idType = new IdType
+            {
+                Identificator = id
+            };
+            ActivityTypeDTO activityTypeDTO = _service.Get(idType);
+
+            ActivityTypeModel model = AutoMapper<ActivityTypeModel>.Map(activityTypeDTO);
 
             return View(model);
         }

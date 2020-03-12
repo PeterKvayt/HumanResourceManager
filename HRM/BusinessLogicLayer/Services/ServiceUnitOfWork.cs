@@ -11,7 +11,10 @@ namespace BusinessLogicLayer.Services
 
         public ServiceUnitOfWork(string connectionString)
         {
-            _dataBase = new DataBaseUnitOfWork(connectionString);
+            if (_dataBase == null)
+            {
+                _dataBase = new DataBaseUnitOfWork(connectionString);
+            }
         }
 
         private ActivityTypeService _activityTypeService;
