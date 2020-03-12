@@ -14,8 +14,6 @@ namespace DataAccessLayer.DataContext
     /// <typeparam name="EntityType">Конкретный тип класса</typeparam>
     abstract class GeneralDataAccessLayer<EntityType> where EntityType : class, new()
     {
-        protected SqlConnection _connection;
-
         public abstract void Create(EntityType newItem);
 
         public abstract void Update(EntityType item);
@@ -24,7 +22,7 @@ namespace DataAccessLayer.DataContext
         {
             IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(DELETE_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -44,7 +42,7 @@ namespace DataAccessLayer.DataContext
         {
             IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             DataSet resultDataSet = null;
 
@@ -80,7 +78,7 @@ namespace DataAccessLayer.DataContext
 
         protected virtual IEnumerable<EntityType> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
         {
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { }, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
 
             DataSet resultDataSet = null;
             try
@@ -117,7 +115,7 @@ namespace DataAccessLayer.DataContext
         {
             IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(EXISTS_STORED_PROCEDURE_NAME, storedProcedureParameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(EXISTS_STORED_PROCEDURE_NAME, storedProcedureParameters);
 
             try
             {
@@ -141,11 +139,11 @@ namespace DataAccessLayer.DataContext
         /// <param name="storedProcedureName">Название хранимой процедуры</param>
         /// <param name="sqlParameters">Sql параметры хранимой процедуры</param>
         /// <returns>Хранимая процедура</returns>
-        protected IDataBaseCommandExecutor TryGetStoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters, SqlConnection connection)
+        protected IDataBaseCommandExecutor TryGetStoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters)
         {
             try
             {
-                return new StoredProcedure(storedProcedureName, sqlParameters, connection);
+                return new StoredProcedure(storedProcedureName, sqlParameters);
             }
             catch (Exception)
             {

@@ -10,9 +10,8 @@ namespace DataAccessLayer.DataContext
 {
     class PositionDataAccessLayer : GeneralDataAccessLayer<Position>, IDataAccessLayer<Position>
     {
-        public PositionDataAccessLayer(SqlConnection connection)
+        public PositionDataAccessLayer()
         {
-            _connection = connection;
         }
 
         /// <summary>
@@ -36,7 +35,7 @@ namespace DataAccessLayer.DataContext
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddPosition";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {
@@ -73,7 +72,7 @@ namespace DataAccessLayer.DataContext
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdatePosition";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {

@@ -11,11 +11,8 @@ namespace DataAccessLayer.DataContext
     /// </summary>
     class HrmContext : IHrmContext
     {
-        private readonly SqlConnection _connection;
-
-        public HrmContext(string connectionString)
+        public HrmContext()
         {
-            _connection = new SqlConnection(connectionString);
         }
 
         private CompanyDataAccessLayer _companyContext;
@@ -25,7 +22,7 @@ namespace DataAccessLayer.DataContext
             {
                 if (_companyContext == null)
                 {
-                    _companyContext = new CompanyDataAccessLayer(_connection);
+                    _companyContext = new CompanyDataAccessLayer();
                 }
                 return _companyContext;
             }
@@ -38,7 +35,7 @@ namespace DataAccessLayer.DataContext
             {
                 if (_employeeContext == null)
                 {
-                    _employeeContext = new EmployeeDataAccessLayer(_connection);
+                    _employeeContext = new EmployeeDataAccessLayer();
                 }
                 return _employeeContext;
             }
@@ -51,7 +48,7 @@ namespace DataAccessLayer.DataContext
             {
                 if (_legalFormContext == null)
                 {
-                    _legalFormContext = new LegalFormDataAccessLayer(_connection);
+                    _legalFormContext = new LegalFormDataAccessLayer();
                 }
                 return _legalFormContext;
             }
@@ -64,7 +61,7 @@ namespace DataAccessLayer.DataContext
             {
                 if (_positionContext == null)
                 {
-                    _positionContext = new PositionDataAccessLayer(_connection);
+                    _positionContext = new PositionDataAccessLayer();
                 }
                 return _positionContext;
             }
@@ -77,7 +74,7 @@ namespace DataAccessLayer.DataContext
             {
                 if (_activityTypeContext == null)
                 {
-                    _activityTypeContext = new ActivityTypeDataAccessLayer(_connection);
+                    _activityTypeContext = new ActivityTypeDataAccessLayer();
                 }
                 return _activityTypeContext;
             }

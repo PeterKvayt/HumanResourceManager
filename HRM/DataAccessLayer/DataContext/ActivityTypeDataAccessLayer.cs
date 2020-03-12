@@ -10,9 +10,9 @@ namespace DataAccessLayer.DataContext
 {
     class ActivityTypeDataAccessLayer : GeneralDataAccessLayer<ActivityType>, IDataAccessLayer<ActivityType>
     {
-        public ActivityTypeDataAccessLayer(SqlConnection connection)
+        public ActivityTypeDataAccessLayer()
         {
-            _connection = connection;
+            
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace DataAccessLayer.DataContext
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddActivityType";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {
@@ -73,7 +73,7 @@ namespace DataAccessLayer.DataContext
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateActivityType";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {

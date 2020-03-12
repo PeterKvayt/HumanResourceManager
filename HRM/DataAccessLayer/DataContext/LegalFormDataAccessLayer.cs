@@ -10,9 +10,8 @@ namespace DataAccessLayer.DataContext
 {
     class LegalFormDataAccessLayer : GeneralDataAccessLayer<LegalForm>, IDataAccessLayer<LegalForm>
     {
-        public LegalFormDataAccessLayer(SqlConnection connection)
+        public LegalFormDataAccessLayer()
         {
-            _connection = connection;
         }
 
         /// <summary>
@@ -36,7 +35,7 @@ namespace DataAccessLayer.DataContext
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddLegalForm";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {
@@ -73,7 +72,7 @@ namespace DataAccessLayer.DataContext
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateLegalForm";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {

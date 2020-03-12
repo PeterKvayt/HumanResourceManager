@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Interfaces;
+﻿using DataAccessLayer.DataAccess;
+using DataAccessLayer.Interfaces;
 using ExceptionClasses.Loggers;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace DataAccessLayer.DataContext
         /// </summary>
         /// <param name="storedProcedureName">Название хранимой процедуры</param>
         /// <param name="sqlParameters">Параметры хранимой процедуры</param>
-        public StoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters, SqlConnection connection)
+        public StoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters)
         {
             if ( !(string.IsNullOrEmpty(storedProcedureName) && string.IsNullOrWhiteSpace(storedProcedureName)) )
             {
@@ -60,21 +61,31 @@ namespace DataAccessLayer.DataContext
                 throw new Exception();
             }
 
-            if ( !string.IsNullOrEmpty(connection.ConnectionString) &&
-                 !string.IsNullOrWhiteSpace(connection.ConnectionString) &&
-                 connection != null
-                )
+            try
             {
-                _connection = connection;
+                _connection = DataBaseConnection.GetConnection();
             }
-            else
+            catch (Exception ex)
             {
-                const string EXCEPTION_MESSAGE = "Подключение к базе данных = null!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
-
-                throw new Exception();
+                // ToDo: exception
+                throw;
             }
+
+            //if ( !string.IsNullOrEmpty(connection.ConnectionString) &&
+            //     !string.IsNullOrWhiteSpace(connection.ConnectionString) &&
+            //     connection != null
+            //    )
+            //{
+            //    _connection = connection;
+            //}
+            //else
+            //{
+            //    const string EXCEPTION_MESSAGE = "Подключение к базе данных = null!";
+
+            //    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+
+            //    throw new Exception();
+            //}
         }
 
         /// <summary>

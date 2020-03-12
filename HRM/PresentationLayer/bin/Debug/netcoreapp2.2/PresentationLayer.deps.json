@@ -605,6 +605,8 @@
       "DataAccessLayer/1.0.0": {
         "dependencies": {
           "CommonClasses": "1.0.0",
+          "Microsoft.Extensions.Configuration.FileExtensions": "2.2.0",
+          "Microsoft.Extensions.Configuration.Json": "2.2.0",
           "System.Data.SqlClient": "4.8.0"
         },
         "runtime": {

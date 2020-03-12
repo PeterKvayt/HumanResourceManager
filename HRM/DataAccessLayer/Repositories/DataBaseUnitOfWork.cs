@@ -13,20 +13,9 @@ namespace DataAccessLayer.Repositories
     {
         private readonly IHrmContext _context;
 
-        public DataBaseUnitOfWork(string connectionString)
+        public DataBaseUnitOfWork()
         {
-            if ( !(string.IsNullOrEmpty(connectionString) && string.IsNullOrWhiteSpace(connectionString)) ) 
-            {
-                    _context = new HrmContext(connectionString);
-            }
-            else
-            {
-                const string EXCEPTION_MESSAGE = "Пустая строка подключения к базе данных в классе DataBaseUnitOfWork";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
-
-                throw new Exception();
-            }
+            _context = new HrmContext();
         }
 
         private EmployeeRepository _employeeRepository;

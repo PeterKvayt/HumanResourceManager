@@ -119,7 +119,7 @@ namespace BusinessLogicLayer.Services
             {
                 entityCollection = repository.GetAll();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка получения всех записей из базы данных класса {typeof(EntityType).ToString()} в классе GeneralService";
 

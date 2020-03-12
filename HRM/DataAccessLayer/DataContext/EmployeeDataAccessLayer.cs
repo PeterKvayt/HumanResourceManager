@@ -10,9 +10,8 @@ namespace DataAccessLayer.DataContext
 {
     class EmployeeDataAccessLayer : GeneralDataAccessLayer<Employee>, IDataAccessLayer<Employee>
     {
-        public EmployeeDataAccessLayer(SqlConnection connection)
+        public EmployeeDataAccessLayer()
         {
-            _connection = connection;
         }
 
         /// <summary>
@@ -41,7 +40,7 @@ namespace DataAccessLayer.DataContext
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddEmployee";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {
@@ -78,7 +77,7 @@ namespace DataAccessLayer.DataContext
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateEmployee";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters, _connection);
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
 
             try
             {

@@ -42,9 +42,9 @@ namespace PresentationLayer
             //services.AddSingleton(connectionString.GetType(), connectionString);
             //services.
             //services.AddScoped()
-            //services.AddSingleton<IServiceUnitOfWork, ServiceUnitOfWork>();
+            services.AddSingleton<IServiceUnitOfWork, ServiceUnitOfWork>();
             //services.AddTransient<IServiceUnitOfWork, ServiceUnitOfWork>(service => new ServiceUnitOfWork(connectionString));
-            services.AddScoped<IServiceUnitOfWork, ServiceUnitOfWork>(service => new ServiceUnitOfWork(connectionString));
+            //services.AddScoped<IServiceUnitOfWork, ServiceUnitOfWork>();
             //services.Add
 
 
