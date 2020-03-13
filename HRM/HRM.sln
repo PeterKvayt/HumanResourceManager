@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExceptionClasses", "Excepti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonClasses", "CommonClasses\CommonClasses.csproj", "{2088D2AE-B0E1-49EB-9A95-C0F82AA79959}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{6B6B2C37-FB5D-4D2F-BEEB-2E468B4E6036}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{6B6B2C37-FB5D-4D2F-BEEB-2E468B4E6036}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{DA8E19E0-A00A-4E5A-9B53-43CD208D6B80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{6B6B2C37-FB5D-4D2F-BEEB-2E468B4E6036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B6B2C37-FB5D-4D2F-BEEB-2E468B4E6036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B6B2C37-FB5D-4D2F-BEEB-2E468B4E6036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA8E19E0-A00A-4E5A-9B53-43CD208D6B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA8E19E0-A00A-4E5A-9B53-43CD208D6B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA8E19E0-A00A-4E5A-9B53-43CD208D6B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA8E19E0-A00A-4E5A-9B53-43CD208D6B80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{DFB65610-311A-4595-86E9-1CAC399F7FB1} = {FB27C1A8-0DE3-41C1-AAB3-677A79BE5100}
 		{2088D2AE-B0E1-49EB-9A95-C0F82AA79959} = {FB27C1A8-0DE3-41C1-AAB3-677A79BE5100}
 		{6B6B2C37-FB5D-4D2F-BEEB-2E468B4E6036} = {38DF05E2-F901-4613-931E-83985F67BCA9}
+		{DA8E19E0-A00A-4E5A-9B53-43CD208D6B80} = {38DF05E2-F901-4613-931E-83985F67BCA9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E602604F-825C-4D74-9DA0-0745AA890ADB}
