@@ -4,6 +4,7 @@ using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 using System.Collections.Generic;
+using BusinessLogicLayer.Converters;
 
 namespace BusinessLogicLayer.Services
 {
@@ -13,7 +14,9 @@ namespace BusinessLogicLayer.Services
 
         public LegalFormService(IUnitOfWork dataBase)
         {
+            _dataBase = dataBase;
             _repository = dataBase.LegalForms;
+            _converter = new LegalFormConverter(_dataBase);
         }
 
         public void Create(LegalFormDTO item)

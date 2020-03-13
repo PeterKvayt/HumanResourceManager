@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
+using CommonClasses;
 using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Models;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
+    [Route("/[controller]")]
     public class PositionsController : Controller
     {
         private readonly IService<PositionDTO> _service;
@@ -19,9 +21,19 @@ namespace PresentationLayer.Controllers
             _service = service.PositionService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IEnumerable<PositionModel> Index()
         {
-            return View();
+            IEnumerable<PositionDTO> positionDTOs = _service.GetAll();
+
+            var postionResultCollection = new List<PositionModel> { };
+            foreach (var positionDTO in positionDTOs)
+            {
+                var positionModel = AutoMapper<PositionModel>.Map(positionDTO);
+                postionResultCollection.Add(positionModel);
+            }
+
+            return postionResultCollection;
         }
 
         public IActionResult Privacy()

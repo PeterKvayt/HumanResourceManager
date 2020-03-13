@@ -1,11 +1,10 @@
-﻿using BusinessLogicLayer.DataTransferObjects;
+﻿using BusinessLogicLayer.Converters;
+using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogicLayer.Services
 {
@@ -15,7 +14,9 @@ namespace BusinessLogicLayer.Services
 
         public CompanyService(IUnitOfWork dataBase)
         {
+            _dataBase = dataBase;
             _repository = dataBase.Companies;
+            _converter = new CompanyConverter(_dataBase);
         }
 
         public void Create(CompanyDTO item)

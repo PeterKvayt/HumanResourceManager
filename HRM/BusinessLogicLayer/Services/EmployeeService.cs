@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.DataTransferObjects;
+﻿using BusinessLogicLayer.Converters;
+using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using CommonClasses;
 using DataAccessLayer.Entities;
@@ -13,7 +14,9 @@ namespace BusinessLogicLayer.Services
 
         public EmployeeService(IUnitOfWork dataBase)
         {
+            _dataBase = dataBase;
             _repository = dataBase.Employees;
+            _converter = new EmployeeConverter(_dataBase);
         }
 
         public void Create(EmployeeDTO item)
