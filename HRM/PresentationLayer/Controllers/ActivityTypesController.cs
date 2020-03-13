@@ -18,7 +18,7 @@ namespace PresentationLayer.Controllers
             _service = service.AcivityTypeService;
         }
 
-        [HttpGet]
+        [HttpGet("ActivityTypes/")]
         public IActionResult Index()
         {
             IEnumerable<ActivityTypeDTO> activityTypeDtoCollection = _service.GetAll();
@@ -38,16 +38,28 @@ namespace PresentationLayer.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpDelete("ActivityTypes/{id}")]
+        public IActionResult Index(uint id)
+        {
+            IdType idType = new IdType
+            {
+                Identificator = id
+            };
+            _service.Delete(idType);
+
+            return Index();
+        }
+
+        [HttpPost("ActivityTypes/")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Create(ActivityTypeModel model)
+        [HttpPost("ActivityTypes/{newModel}")]
+        public IActionResult Create(ActivityTypeModel newModel)
         {
-            ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(model);
+            ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(newModel);
 
             _service.Create(activityTypeDTO);
 
@@ -55,7 +67,7 @@ namespace PresentationLayer.Controllers
             return Index();
         }
 
-        [HttpGet]
+        [HttpGet("ActivityTypes/{id}")]
         public IActionResult Update(uint id)
         {
             IdType idType = new IdType
@@ -66,20 +78,24 @@ namespace PresentationLayer.Controllers
 
             ActivityTypeModel activityTypeModel = AutoMapper<ActivityTypeModel>.Map(activityTypeDTO);
 
+            ActivityTypeViewModel activityTypeViewModel = new ActivityTypeViewModel
+            {
+                ActivityType = activityTypeModel
+            };
             //ActivityTypeViewModel model = new ActivityTypeViewModel
             //{
             //    ActivityType = activityTypeModel
             //};
 
-            return View(activityTypeModel);
+            return View(activityTypeViewModel);
         }
 
-        [HttpPost]
-        public IActionResult Update(ActivityTypeModel model)
+        [HttpPut("ActivityTypes/{model}")]
+        public IActionResult Update([FromBody]ActivityTypeViewModel model)
         {
-            //ActivityTypeModel activityTypeModel = model.ActivityType;
+            ActivityTypeModel activityTypeModel = model.ActivityType;
 
-            ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(model);
+            ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(activityTypeModel);
 
             _service.Update(activityTypeDTO);
 

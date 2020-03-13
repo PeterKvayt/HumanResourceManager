@@ -6,9 +6,12 @@
 
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-        <a class="btn btn-primary" asp-controller="ActivityTypes" asp-action="Create">
+        <form action="/ActivityTypes/" method="post">
+            <input class="btn btn-primary" type="submit" value="Создать вид деятельности компании" />
+        </form>
+        @*<a class="btn btn-primary" asp-controller="ActivityTypes" asp-action="Create">
             Создать вид деятельности компании
-        </a>
+        </a>*@
     </div>
     <br />
     <br />
@@ -30,12 +33,16 @@
                         @*<a href="~/ActivityTypes/Update/@item.Id" class="btn btn-info">
             Изменить
         </a>*@
-                        <a asp-controller="ActivityTypes" asp-action="Update" asp-route-id="@item.Id.Identificator" class="btn btn-info">
+                        <form action="/ActivityTypes/@item.Id.Identificator" method="get">
+                            <input class="btn btn-info" type="submit"  value="Изменить" />
+                        </form>
+                        @*<a asp-controller="ActivityTypes" asp-action="Update" asp-route-id="@item.Id.Identificator" class="btn btn-info">
                             Изменить
-                        </a>
+                        </a>*@
 
-                        <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
-                        <a href="~/ActivityTypes/Delete/@item.Id.Identificator" style="display:none;"></a>
+                        
+                          <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
+                        @*<a asp-controller="ActivityTypes" asp-action="Delete" asp-route-id="@item.Id.Identificator" style="display:none;"></a>*@
                     </td>
                 </tr>
             }
@@ -65,7 +72,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
-                <a class='btn btn-danger' href="#">Все равно удалить</a>
+                <form asp-controller="ActivityTypes" asp-action="Index" method="delete" asp-route-id="">
+                    <span type="submit" class='btn btn-danger'>Все равно удалить</span>
+                </form>
             </div>
         </div><!-- /.модал-контент -->
     </div><!-- /.модальное окно -->
