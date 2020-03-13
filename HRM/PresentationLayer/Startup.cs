@@ -38,8 +38,6 @@ namespace PresentationLayer
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
-
             //services.AddSingleton(connectionString.GetType(), connectionString);
             //services.
             //services.AddScoped()
