@@ -26,25 +26,27 @@ namespace WebAPI.Controllers
             return _service.GetAll();
         }
 
-        //[HttpGet("{id}")]
-        //public PositionDTO Update(uint id)
-        //{
-        //    IdType idEntity = new IdType
-        //    {
-        //        Identificator = id
-        //    };
-
-        //    return _service.Get(idEntity);
-        //}
-
-        [HttpPost("{model}")]
-        public void Create(PositionDTO model)
+        [HttpGet("{id}")]
+        public PositionDTO Get(uint id)
         {
-            _service.Create(model);
+            IdType idEntity = new IdType
+            {
+                Identificator = id
+            };
+
+            return _service.Get(idEntity);
         }
 
-        [HttpPut("{model}")]
-        public void Update([FromBody] PositionDTO model)
+        [HttpPost]
+        public void Create(PositionDTO model)
+        {
+            PositionDTO positionDTO = model;
+
+            _service.Create(positionDTO);
+        }
+
+        [HttpPut]
+        public void Update(PositionDTO model)
         {
             _service.Update(model);
         }

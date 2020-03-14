@@ -13,14 +13,16 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
-    [Route("/[controller]")]
     public class PositionsController : Controller
     {
         private readonly HttpClient _client;
 
+        private const string METHOD_NAME = "Positions";
+
         public PositionsController(HttpClient client)
         {
             _client = client;
+
             if (_client.BaseAddress == null)
             {
                 _client.BaseAddress = new Uri("http://localhost:65491/api/");
@@ -33,11 +35,9 @@ namespace PresentationLayer.Controllers
         public async Task<IActionResult> Index()
         {
             List<PositionModel> responsePositionCollection = new List<PositionModel> { };
-            HttpResponseMessage responseMessage = await _client.GetAsync("Positions");
+            HttpResponseMessage responseMessage = await _client.GetAsync(METHOD_NAME);
 
-            bool successResponse = responseMessage.IsSuccessStatusCode;
-
-            if (successResponse)
+            if (responseMessage.IsSuccessStatusCode)
             {
                 responsePositionCollection = await responseMessage.Content.ReadAsAsync<List<PositionModel>>();
             }
@@ -50,27 +50,66 @@ namespace PresentationLayer.Controllers
             return View(model);
         }
 
-        [HttpGet("Create")]
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost("Create")]
+        [HttpPost]
         public async Task<IActionResult> Create(PositionViewModel model)
         {
             PositionModel position = model.Position;
 
-            HttpResponseMessage responseMessage = await _client.PostAsJsonAsync("Create", position);
+            HttpResponseMessage responseMessage = await _client.PostAsJsonAsync(METHOD_NAME, position);
 
-            bool resp = responseMessage.IsSuccessStatusCode;
-
-            if (resp)
+            if (responseMessage.IsSuccessStatusCode)
             {
-                return Redirect("Index");
+                return Redirect("/" + METHOD_NAME + "/Index");
             }
 
-            return Redirect("Create");
+            return Redirect("/" + METHOD_NAME + "/Create");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(uint id)
+        {
+            HttpResponseMessage responseMessage = await _client.GetAsync(METHOD_NAME + "/" + id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                PositionModel position = await responseMessage.Content.ReadAsAsync<PositionModel>();
+
+                PositionViewModel model = new PositionViewModel
+                {
+                    Position = position
+                };
+
+                return View(model);
+            }
+
+            return Redirect("/" + METHOD_NAME + "/Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(PositionViewModel model)
+        {
+            PositionModel position = model.Position;
+
+            HttpResponseMessage responseMessage = await _client.PutAsJsonAsync(METHOD_NAME, position);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return Redirect("/" + METHOD_NAME + "/Index");
+            }
+
+            return Redirect("/" + METHOD_NAME + "/Update/" + position.Id.Identificator);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(uint id)
+        {
+            HttpResponseMessage responseMessage = await _client.DeleteAsync(METHOD_NAME + "/" + id);
+
+            return Redirect("/" + METHOD_NAME + "/Index");
         }
 
         public IActionResult Privacy()
