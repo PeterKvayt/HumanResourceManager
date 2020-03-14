@@ -1,7 +1,4 @@
-﻿using BusinessLogicLayer.DataTransferObjects;
-using BusinessLogicLayer.Interfaces;
-using CommonClasses;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Models;
 using PresentationLayer.ViewModels;
 using System;

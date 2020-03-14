@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
@@ -15,95 +17,101 @@ namespace PresentationLayer.Controllers
     {
         private readonly HttpClient _client;
 
+        private const string METHOD_NAME = "ActivityTypes";
+
         public ActivityTypesController(HttpClient client)
         {
             _client = client;
-            _client.BaseAddress = new Uri("http://localhost:65491");
+
+            if (_client.BaseAddress == null)
+            {
+                _client.BaseAddress = new Uri("http://localhost:65491/api/");
+                _client.DefaultRequestHeaders.Accept.Clear();
+                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
         }
 
-        //[HttpGet("ActivityTypes/")]
-        //public IActionResult Index()
-        //{
-        //    IEnumerable<ActivityTypeDTO> activityTypeDtoCollection = _client.GetAll();
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            List<ActivityTypeModel> responseActivityTypeCollection = new List<ActivityTypeModel> { };
+            HttpResponseMessage responseMessage = await _client.GetAsync(METHOD_NAME);
 
-        //    List<ActivityTypeModel> activityTypeModelCollection = new List<ActivityTypeModel> { };
-        //    foreach (var item in activityTypeDtoCollection)
-        //    {
-        //        var activityType = AutoMapper<ActivityTypeModel>.Map(item);
-        //        activityTypeModelCollection.Add(activityType);
-        //    }
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                responseActivityTypeCollection = await responseMessage.Content.ReadAsAsync<List<ActivityTypeModel>>();
+            }
 
-        //    ActivityTypeViewModel model = new ActivityTypeViewModel
-        //    {
-        //        ActivityTypeCollection = activityTypeModelCollection
-        //    };
+            ActivityTypeViewModel model = new ActivityTypeViewModel
+            {
+                ActivityTypeCollection = responseActivityTypeCollection
+            };
 
-        //    return View(model);
-        //}
+            return View(model);
+        }
 
-        //[HttpDelete("ActivityTypes/{id}")]
-        //public IActionResult Index(uint id)
-        //{
-        //    IdType idType = new IdType
-        //    {
-        //        Identificator = id
-        //    };
-        //    _client.Delete(idType);
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        //    return Index();
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Create(ActivityTypeViewModel model)
+        {
+            ActivityTypeModel activityType
+ = model.ActivityType;
 
-        //[HttpPost("ActivityTypes/")]
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+            HttpResponseMessage responseMessage = await _client.PostAsJsonAsync(METHOD_NAME, activityType);
 
-        //[HttpPost("ActivityTypes/{newModel}")]
-        //public IActionResult Create(ActivityTypeModel newModel)
-        //{
-        //    ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(newModel);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return Redirect("/" + METHOD_NAME + "/Index");
+            }
 
-        //    _client.Create(activityTypeDTO);
+            return Redirect("/" + METHOD_NAME + "/Create");
+        }
 
-        //    //return Redirect("/ActivityTypes");
-        //    return Index();
-        //}
+        [HttpGet]
+        public async Task<IActionResult> Update(uint id)
+        {
+            HttpResponseMessage responseMessage = await _client.GetAsync(METHOD_NAME + "/" + id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                ActivityTypeModel activityType = await responseMessage.Content.ReadAsAsync<ActivityTypeModel>();
 
-        //[HttpGet("ActivityTypes/{id}")]
-        //public IActionResult Update(uint id)
-        //{
-        //    IdType idType = new IdType
-        //    {
-        //        Identificator = id
-        //    };
-        //    ActivityTypeDTO activityTypeDTO = _client.Get(idType);
+                ActivityTypeViewModel model = new ActivityTypeViewModel
+                {
+                    ActivityType = activityType
+                };
 
-        //    ActivityTypeModel activityTypeModel = AutoMapper<ActivityTypeModel>.Map(activityTypeDTO);
+                return View(model);
+            }
 
-        //    ActivityTypeViewModel activityTypeViewModel = new ActivityTypeViewModel
-        //    {
-        //        ActivityType = activityTypeModel
-        //    };
-        //    //ActivityTypeViewModel model = new ActivityTypeViewModel
-        //    //{
-        //    //    ActivityType = activityTypeModel
-        //    //};
+            return Redirect("/" + METHOD_NAME + "/Index");
+        }
 
-        //    return View(activityTypeViewModel);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Update(ActivityTypeViewModel model)
+        {
+            ActivityTypeModel activityType = model.ActivityType;
 
-        //[HttpPut("ActivityTypes/{model}")]
-        //public IActionResult Update([FromBody]ActivityTypeViewModel model)
-        //{
-        //    ActivityTypeModel activityTypeModel = model.ActivityType;
+            HttpResponseMessage responseMessage = await _client.PutAsJsonAsync(METHOD_NAME, activityType);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return Redirect("/" + METHOD_NAME + "/Index");
+            }
 
-        //    ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(activityTypeModel);
+            return Redirect("/" + METHOD_NAME + "/Update/" + activityType.Id.Identificator);
+        }
 
-        //    _client.Update(activityTypeDTO);
+        [HttpGet]
+        public async Task<IActionResult> Delete(uint id)
+        {
+            HttpResponseMessage responseMessage = await _client.DeleteAsync(METHOD_NAME + "/" + id);
 
-        //    return Redirect("/ActivityTypes");
-        //}
+            return Redirect("/" + METHOD_NAME + "/Index");
+        }
 
         public IActionResult Privacy()
         {
