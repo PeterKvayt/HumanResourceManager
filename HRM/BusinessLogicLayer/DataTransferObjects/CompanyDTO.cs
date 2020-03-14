@@ -12,5 +12,7 @@ namespace BusinessLogicLayer.DataTransferObjects
         public ActivityTypeDTO ActivityType { get; set; }
 
         public LegalFormDTO LegalForm { get; set; }
+
+        public int Size { get; set; }
     }
 }

@@ -45,3 +45,6 @@ D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\De
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\LegalForms\Create.g.cshtml.cs
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\LegalForms\Index.g.cshtml.cs
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\LegalForms\Update.g.cshtml.cs
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\Companies\Create.g.cshtml.cs
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\Companies\Index.g.cshtml.cs
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\Companies\Update.g.cshtml.cs

@@ -10,7 +10,7 @@ namespace BusinessLogicLayer.Services
 {
     class CompanyService : GeneralService<CompanyDTO, Company>, IService<CompanyDTO>
     {
-        private IRepository<Company> _repository;
+        private ICompanyRepository<Company> _repository;
 
         public CompanyService(IUnitOfWork dataBase)
         {

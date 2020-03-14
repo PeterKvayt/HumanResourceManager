@@ -1,0 +1,61 @@
+﻿@model PresentationLayer.ViewModels.CompanyViewModel
+
+@{
+    ViewData["Title"] = "Добавить новую компанию";
+}
+
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-1"></div>
+    <div class="col-lg-6 col-md-6 col-sm-10">
+        <h5><strong>Создание новой компании</strong></h5>
+        <form method="post" asp-controller="Companies" asp-action="Create">
+            <div class="form-group">
+                <label asp-for="CompanyModel.Name" class="control-label">Название компании</label>
+                <input maxlength="50" required asp-for="CompanyModel.Name" class="form-control input-form" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyModel.ActivityType.Id.Identificator" class="control-label">Вид деятельности компании</label>
+                <select required asp-for="CompanyModel.ActivityType.Id.Identificator" class="form-control select-form">
+                    <option selected="selected" disabled="disabled" value="default">Выберите деятельность</option>
+                    @foreach (var activityTypeItem in Model.ActivityTypeCollection)
+                    {
+                        <option value="@activityTypeItem.Id.Identificator">@activityTypeItem.Name</option>
+                    }
+                </select>
+                <br />
+                <a asp-controller="ActivityTypes" asp-action="Create" class="btn btn-info">Создать новый вид деятельности</a>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyModel.LegalForm.Id.Identificator" class="control-label">Тип организации</label>
+                <select required asp-for="CompanyModel.LegalForm.Id.Identificator" class="form-control select-form">
+                    <option selected="selected" disabled="disabled" value="default">Выберите тип организации</option>
+                    @foreach (var legalFormItem in Model.LegalFormCollection)
+                    {
+                        <option value="@legalFormItem.Id.Identificator">@legalFormItem.Name</option>
+                    }
+                </select>
+                <br />
+                <a asp-controller="LegalForms" asp-action="Create" class="btn btn-info">Создать новый тип организационно-правовой деятельности</a>
+            </div>
+            <div class="form-group">
+                <input id="submit-btn" type="submit" style="display:none;" />
+            </div>
+        </form>
+
+        <button id="ok-btn" class="btn btn-primary">Создать</button>
+        <a asp-controller="Companies" asp-action="Index" class="btn btn-danger">Отмена</a>
+        <br />
+        <br />
+        <div id="warning-alert" class="alert alert-warning .alert-dismissible" role="alert" style="display: none;">
+            <button id="close-warning" type="button" class="close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Заполните все поля</strong>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/js/alerts.js"></script>
+}

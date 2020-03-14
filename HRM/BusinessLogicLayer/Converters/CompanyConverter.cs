@@ -17,7 +17,7 @@ namespace BusinessLogicLayer.Converters
             Company company = new Company
             {
                 Id = companyDTO.Id,
-                ActivityId = companyDTO.ActivityType.Id,
+                ActivityTypeId = companyDTO.ActivityType.Id,
                 LegalFormId = companyDTO.LegalForm.Id,
                 Name = companyDTO.Name
             };
@@ -27,18 +27,21 @@ namespace BusinessLogicLayer.Converters
 
         public override CompanyDTO Convert(Company company)
         {
-            var activityType = _dataBase.ActivityTypes.Get(company.ActivityId);
+            var activityType = _dataBase.ActivityTypes.Get(company.ActivityTypeId);
             var activityTypeDTO = TryMap<ActivityTypeDTO, ActivityType>(activityType);
 
             var legalForm = _dataBase.LegalForms.Get(company.LegalFormId);
             var legalFormDTO = TryMap<LegalFormDTO, LegalForm>(legalForm);
+
+            int size = _dataBase.Companies.GetSize(company);
 
             CompanyDTO companyDTO = new CompanyDTO
             {
                 Id = company.Id,
                 ActivityType = activityTypeDTO,
                 LegalForm = legalFormDTO,
-                Name = company.Name
+                Name = company.Name,
+                Size = size
             };
 
             return companyDTO;

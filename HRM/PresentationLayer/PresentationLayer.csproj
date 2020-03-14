@@ -22,8 +22,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Views\ActivityTypes - Копировать\" />
-    <Folder Include="Views\Companies\" />
     <Folder Include="Views\Employees\" />
   </ItemGroup>
 

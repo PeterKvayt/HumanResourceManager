@@ -15,5 +15,7 @@ namespace PresentationLayer.Models
         public ActivityTypeModel ActivityType { get; set; }
 
         public LegalFormModel LegalForm { get; set; }
+
+        public int Size { get; set; }
     }
 }

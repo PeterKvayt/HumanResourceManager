@@ -7,7 +7,7 @@ namespace DataAccessLayer.Interfaces
     {
         IRepository<Employee> Employees { get; }
 
-        IRepository<Company> Companies { get; }
+        ICompanyRepository<Company> Companies { get; }
 
         IRepository<Position> Positions { get; }
 

@@ -36,7 +36,7 @@ namespace BusinessLogicLayer.Services
             {
                 repository.Create(entity);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка создания записи в базе данных экземпляра класса {typeof(EntityType).ToString()} в классе GeneralService";
 

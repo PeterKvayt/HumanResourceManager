@@ -32,7 +32,7 @@ namespace DataAccessLayer.Repositories
         }
 
         private CompanyRepository _companyRepository;
-        public IRepository<Company> Companies
+        public ICompanyRepository<Company> Companies
         {
             get
             {

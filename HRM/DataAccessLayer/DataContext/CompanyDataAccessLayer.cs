@@ -23,8 +23,8 @@ namespace DataAccessLayer.DataContext
         {
             List<SqlParameter> parameters = new List<SqlParameter>
             {
-                new SqlParameter("@ActivityTypeId", item.ActivityId.Identificator),
-                new SqlParameter("@LegalFormId", item.LegalFormId.Identificator),
+                new SqlParameter("@ActivityTypeId", Convert.ToInt32(item.ActivityTypeId.Identificator)),
+                new SqlParameter("@LegalFormId",  Convert.ToInt32(item.LegalFormId.Identificator)),
                 new SqlParameter("@Name", item.Name)
             };
 
@@ -43,7 +43,7 @@ namespace DataAccessLayer.DataContext
             {
                 storedProcedure.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 const string EXCEPTION_MESSAGE = "Ошибка создания экземпляра класса Company в классе CompanyDataAccessLayer!";
 

@@ -17,7 +17,7 @@ namespace DataAccessLayer.Entities
         /// <summary>
         /// Идентификатор вида деятельности компании
         /// </summary>
-        public IdType ActivityId { get; set; }
+        public IdType ActivityTypeId { get; set; }
 
         /// <summary>
         /// Идентификатор организационно-правового вида деятельности компании
