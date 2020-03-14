@@ -1,7 +1,5 @@
 ﻿$(document).ready(function(){
 
-  
-
   let okBtn = $('#ok-btn');
   let submitBtn = $('#submit-btn');
   let warningAlert = $('#warning-alert');

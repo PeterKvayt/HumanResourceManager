@@ -4,103 +4,106 @@ using CommonClasses;
 using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Models;
 using PresentationLayer.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 
 namespace PresentationLayer.Controllers
 {
     public class ActivityTypesController : Controller
     {
-        private readonly IService<ActivityTypeDTO> _service;
+        private readonly HttpClient _client;
 
-        public ActivityTypesController(IServiceUnitOfWork service)
+        public ActivityTypesController(HttpClient client)
         {
-            _service = service.AcivityTypeService;
+            _client = client;
+            _client.BaseAddress = new Uri("http://localhost:65491");
         }
 
-        [HttpGet("ActivityTypes/")]
-        public IActionResult Index()
-        {
-            IEnumerable<ActivityTypeDTO> activityTypeDtoCollection = _service.GetAll();
+        //[HttpGet("ActivityTypes/")]
+        //public IActionResult Index()
+        //{
+        //    IEnumerable<ActivityTypeDTO> activityTypeDtoCollection = _client.GetAll();
 
-            List<ActivityTypeModel> activityTypeModelCollection = new List<ActivityTypeModel> { };
-            foreach (var item in activityTypeDtoCollection)
-            {
-                var activityType = AutoMapper<ActivityTypeModel>.Map(item);
-                activityTypeModelCollection.Add(activityType);
-            }
+        //    List<ActivityTypeModel> activityTypeModelCollection = new List<ActivityTypeModel> { };
+        //    foreach (var item in activityTypeDtoCollection)
+        //    {
+        //        var activityType = AutoMapper<ActivityTypeModel>.Map(item);
+        //        activityTypeModelCollection.Add(activityType);
+        //    }
 
-            ActivityTypeViewModel model = new ActivityTypeViewModel
-            {
-                ActivityTypeCollection = activityTypeModelCollection
-            };
+        //    ActivityTypeViewModel model = new ActivityTypeViewModel
+        //    {
+        //        ActivityTypeCollection = activityTypeModelCollection
+        //    };
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
-        [HttpDelete("ActivityTypes/{id}")]
-        public IActionResult Index(uint id)
-        {
-            IdType idType = new IdType
-            {
-                Identificator = id
-            };
-            _service.Delete(idType);
+        //[HttpDelete("ActivityTypes/{id}")]
+        //public IActionResult Index(uint id)
+        //{
+        //    IdType idType = new IdType
+        //    {
+        //        Identificator = id
+        //    };
+        //    _client.Delete(idType);
 
-            return Index();
-        }
+        //    return Index();
+        //}
 
-        [HttpPost("ActivityTypes/")]
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //[HttpPost("ActivityTypes/")]
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost("ActivityTypes/{newModel}")]
-        public IActionResult Create(ActivityTypeModel newModel)
-        {
-            ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(newModel);
+        //[HttpPost("ActivityTypes/{newModel}")]
+        //public IActionResult Create(ActivityTypeModel newModel)
+        //{
+        //    ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(newModel);
 
-            _service.Create(activityTypeDTO);
+        //    _client.Create(activityTypeDTO);
 
-            //return Redirect("/ActivityTypes");
-            return Index();
-        }
+        //    //return Redirect("/ActivityTypes");
+        //    return Index();
+        //}
 
-        [HttpGet("ActivityTypes/{id}")]
-        public IActionResult Update(uint id)
-        {
-            IdType idType = new IdType
-            {
-                Identificator = id
-            };
-            ActivityTypeDTO activityTypeDTO = _service.Get(idType);
+        //[HttpGet("ActivityTypes/{id}")]
+        //public IActionResult Update(uint id)
+        //{
+        //    IdType idType = new IdType
+        //    {
+        //        Identificator = id
+        //    };
+        //    ActivityTypeDTO activityTypeDTO = _client.Get(idType);
 
-            ActivityTypeModel activityTypeModel = AutoMapper<ActivityTypeModel>.Map(activityTypeDTO);
+        //    ActivityTypeModel activityTypeModel = AutoMapper<ActivityTypeModel>.Map(activityTypeDTO);
 
-            ActivityTypeViewModel activityTypeViewModel = new ActivityTypeViewModel
-            {
-                ActivityType = activityTypeModel
-            };
-            //ActivityTypeViewModel model = new ActivityTypeViewModel
-            //{
-            //    ActivityType = activityTypeModel
-            //};
+        //    ActivityTypeViewModel activityTypeViewModel = new ActivityTypeViewModel
+        //    {
+        //        ActivityType = activityTypeModel
+        //    };
+        //    //ActivityTypeViewModel model = new ActivityTypeViewModel
+        //    //{
+        //    //    ActivityType = activityTypeModel
+        //    //};
 
-            return View(activityTypeViewModel);
-        }
+        //    return View(activityTypeViewModel);
+        //}
 
-        [HttpPut("ActivityTypes/{model}")]
-        public IActionResult Update([FromBody]ActivityTypeViewModel model)
-        {
-            ActivityTypeModel activityTypeModel = model.ActivityType;
+        //[HttpPut("ActivityTypes/{model}")]
+        //public IActionResult Update([FromBody]ActivityTypeViewModel model)
+        //{
+        //    ActivityTypeModel activityTypeModel = model.ActivityType;
 
-            ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(activityTypeModel);
+        //    ActivityTypeDTO activityTypeDTO = AutoMapper<ActivityTypeDTO>.Map(activityTypeModel);
 
-            _service.Update(activityTypeDTO);
+        //    _client.Update(activityTypeDTO);
 
-            return Redirect("/ActivityTypes");
-        }
+        //    return Redirect("/ActivityTypes");
+        //}
 
         public IActionResult Privacy()
         {

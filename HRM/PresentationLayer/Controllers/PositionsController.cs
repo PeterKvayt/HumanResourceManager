@@ -3,10 +3,12 @@ using BusinessLogicLayer.Interfaces;
 using CommonClasses;
 using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Models;
+using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
@@ -14,26 +16,61 @@ namespace PresentationLayer.Controllers
     [Route("/[controller]")]
     public class PositionsController : Controller
     {
-        private readonly IService<PositionDTO> _service;
+        private readonly HttpClient _client;
 
-        public PositionsController(IServiceUnitOfWork service)
+        public PositionsController(HttpClient client)
         {
-            _service = service.PositionService;
+            _client = client;
+            if (_client.BaseAddress == null)
+            {
+                _client.BaseAddress = new Uri("http://localhost:65491/api/");
+                _client.DefaultRequestHeaders.Accept.Clear();
+                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
         }
 
         [HttpGet]
-        public IEnumerable<PositionModel> Index()
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<PositionDTO> positionDTOs = _service.GetAll();
+            List<PositionModel> responsePositionCollection = new List<PositionModel> { };
+            HttpResponseMessage responseMessage = await _client.GetAsync("Positions");
 
-            var postionResultCollection = new List<PositionModel> { };
-            foreach (var positionDTO in positionDTOs)
+            bool successResponse = responseMessage.IsSuccessStatusCode;
+
+            if (successResponse)
             {
-                var positionModel = AutoMapper<PositionModel>.Map(positionDTO);
-                postionResultCollection.Add(positionModel);
+                responsePositionCollection = await responseMessage.Content.ReadAsAsync<List<PositionModel>>();
             }
 
-            return postionResultCollection;
+            PositionViewModel model = new PositionViewModel
+            {
+                PositionCollection = responsePositionCollection
+            };
+
+            return View(model);
+        }
+
+        [HttpGet("Create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(PositionViewModel model)
+        {
+            PositionModel position = model.Position;
+
+            HttpResponseMessage responseMessage = await _client.PostAsJsonAsync("Create", position);
+
+            bool resp = responseMessage.IsSuccessStatusCode;
+
+            if (resp)
+            {
+                return Redirect("Index");
+            }
+
+            return Redirect("Create");
         }
 
         public IActionResult Privacy()

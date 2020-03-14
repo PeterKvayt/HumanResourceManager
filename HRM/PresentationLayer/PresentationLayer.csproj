@@ -22,10 +22,10 @@
 
 
   <ItemGroup>
+    <Folder Include="Views\ActivityTypes - Копировать\" />
     <Folder Include="Views\Companies\" />
     <Folder Include="Views\Employees\" />
     <Folder Include="Views\LegalForms\" />
-    <Folder Include="Views\Positions\" />
   </ItemGroup>
 
 </Project>

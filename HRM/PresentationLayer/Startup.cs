@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Services;
@@ -38,17 +39,7 @@ namespace PresentationLayer
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //services.AddSingleton(connectionString.GetType(), connectionString);
-            //services.
-            //services.AddScoped()
-            services.AddSingleton<IServiceUnitOfWork, ServiceUnitOfWork>();
-            //services.AddTransient<IServiceUnitOfWork, ServiceUnitOfWork>(service => new ServiceUnitOfWork(connectionString));
-            //services.AddScoped<IServiceUnitOfWork, ServiceUnitOfWork>();
-            //services.Add
-
-
-
-            //IServiceUnitOfWork serviceUnitOfWork = new ServiceUnitOfWork(connectionString);
+            services.AddSingleton<HttpClient, HttpClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
