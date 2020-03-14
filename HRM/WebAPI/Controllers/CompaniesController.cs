@@ -8,23 +8,23 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PositionsController : ControllerBase
+    public class CompaniesController : ControllerBase
     {
-        private IService<PositionDTO> _service;
+        private IService<CompanyDTO> _service;
 
-        public PositionsController(IServiceUnitOfWork serviceProvider)
+        public CompaniesController(IServiceUnitOfWork serviceProvider)
         {
-            _service = serviceProvider.PositionService;
+            _service = serviceProvider.CompanyService;
         }
 
         [HttpGet]
-        public IEnumerable<PositionDTO> GetAll()
+        public IEnumerable<CompanyDTO> GetAll()
         {
             return _service.GetAll();
         }
 
         [HttpGet("{id}")]
-        public PositionDTO Get(uint id)
+        public CompanyDTO Get(uint id)
         {
             IdType idEntity = new IdType
             {
@@ -35,15 +35,15 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public void Create(PositionDTO model)
+        public void Create(CompanyDTO model)
         {
-            PositionDTO positionDTO = model;
+            CompanyDTO positionDTO = model;
 
             _service.Create(positionDTO);
         }
 
         [HttpPut]
-        public void Update(PositionDTO model)
+        public void Update(CompanyDTO model)
         {
             _service.Update(model);
         }

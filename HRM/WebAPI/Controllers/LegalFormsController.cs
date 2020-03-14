@@ -8,23 +8,23 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PositionsController : ControllerBase
+    public class LegalFormsController : ControllerBase
     {
-        private IService<PositionDTO> _service;
+        private IService<LegalFormDTO> _service;
 
-        public PositionsController(IServiceUnitOfWork serviceProvider)
+        public LegalFormsController(IServiceUnitOfWork serviceProvider)
         {
-            _service = serviceProvider.PositionService;
+            _service = serviceProvider.LegalFormService;
         }
 
         [HttpGet]
-        public IEnumerable<PositionDTO> GetAll()
+        public IEnumerable<LegalFormDTO> GetAll()
         {
             return _service.GetAll();
         }
 
         [HttpGet("{id}")]
-        public PositionDTO Get(uint id)
+        public LegalFormDTO Get(uint id)
         {
             IdType idEntity = new IdType
             {
@@ -35,15 +35,15 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public void Create(PositionDTO model)
+        public void Create(LegalFormDTO model)
         {
-            PositionDTO positionDTO = model;
+            LegalFormDTO positionDTO = model;
 
             _service.Create(positionDTO);
         }
 
         [HttpPut]
-        public void Update(PositionDTO model)
+        public void Update(LegalFormDTO model)
         {
             _service.Update(model);
         }
