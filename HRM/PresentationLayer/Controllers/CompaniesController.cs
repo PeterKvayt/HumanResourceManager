@@ -48,23 +48,15 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            List<ActivityTypeModel> responseActivityTypeCollection = await GetResultCollectionAsync<ActivityTypeModel>(ACTIVITY_TYPES_API);
+            var model = await GetViewModelWithCollectionsAsync();
 
-            List<LegalFormModel> responseLegalFormCollection = await GetResultCollectionAsync<LegalFormModel>(LEGAL_FORMS_API);
-
-            if (responseActivityTypeCollection != null && responseLegalFormCollection != null)
+            if (model != null)
             {
-                CompanyViewModel model = new CompanyViewModel
-                {
-                    LegalFormCollection = responseLegalFormCollection,
-                    ActivityTypeCollection = responseActivityTypeCollection
-                };
-
                 return View(model);
             }
             else
             {
-                // ToDo: exception
+                //ToDo: exception
 
                 return Redirect("/" + COMPANIES_API + "/Error");
             }
@@ -90,18 +82,10 @@ namespace PresentationLayer.Controllers
             CompanyModel companyModel = await GetResultAsync(COMPANIES_API + "/" + id);
             if (companyModel != null)
             {
-                List<ActivityTypeModel> responseActivityTypeCollection = await GetResultCollectionAsync<ActivityTypeModel>(ACTIVITY_TYPES_API);
-
-                List<LegalFormModel> responseLegalFormCollection = await GetResultCollectionAsync<LegalFormModel>(LEGAL_FORMS_API);
-
-                if (responseActivityTypeCollection != null && responseLegalFormCollection != null)
+                var model = await GetViewModelWithCollectionsAsync();
+                if (model != null)
                 {
-                    CompanyViewModel model = new CompanyViewModel
-                    {
-                        CompanyModel = companyModel,
-                        LegalFormCollection = responseLegalFormCollection,
-                        ActivityTypeCollection = responseActivityTypeCollection
-                    };
+                    model.CompanyModel = companyModel;
 
                     return View(model);
                 }
@@ -146,6 +130,28 @@ namespace PresentationLayer.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private async Task<CompanyViewModel> GetViewModelWithCollectionsAsync()
+        {
+            List<ActivityTypeModel> responseActivityTypeCollection = await GetResultCollectionAsync<ActivityTypeModel>(ACTIVITY_TYPES_API);
+
+            List<LegalFormModel> responseLegalFormCollection = await GetResultCollectionAsync<LegalFormModel>(LEGAL_FORMS_API);
+
+            if (responseActivityTypeCollection != null && responseLegalFormCollection != null)
+            {
+                CompanyViewModel model = new CompanyViewModel
+                {
+                    LegalFormCollection = responseLegalFormCollection,
+                    ActivityTypeCollection = responseActivityTypeCollection
+                };
+
+                return model;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

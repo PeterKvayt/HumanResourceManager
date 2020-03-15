@@ -13,10 +13,8 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
-    public class EmployeesController : Controller
+    public class EmployeesController : GeneralController<EmployeeModel>
     {
-        private HttpClient _client;
-
         private const string EMPLOYEES_API = "Employees";
 
         private const string COMPANIES_API = "Companies";
@@ -27,59 +25,45 @@ namespace PresentationLayer.Controllers
         {
             _client = client;
 
-            if (_client.BaseAddress == null)
-            {
-                _client.BaseAddress = new Uri("http://localhost:65491/api/");
-                _client.DefaultRequestHeaders.Accept.Clear();
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
+            SetClientSettings();
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<EmployeeModel> responseEmployeeCollection = new List<EmployeeModel> { };
+            List<EmployeeModel> responseEmployeeCollection = await GetResultCollectionAsync<EmployeeModel>(EMPLOYEES_API);
 
-            HttpResponseMessage responseMessage = await _client.GetAsync(EMPLOYEES_API);
-            if (responseMessage.IsSuccessStatusCode)
+            if (responseEmployeeCollection != null)
             {
-                responseEmployeeCollection = await responseMessage.Content.ReadAsAsync<List<EmployeeModel>>();
+                EmployeeViewModel model = new EmployeeViewModel
+                {
+                    EmployeeCollection = responseEmployeeCollection
+                };
+
+                return View(model);
             }
-
-            EmployeeViewModel model = new EmployeeViewModel
+            else
             {
-                EmployeeCollection = responseEmployeeCollection
-            };
+                // ToDo: exception
 
-            return View(model);
+                return Redirect("/" + EMPLOYEES_API + "/Error");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            List<CompanyModel> responseCompanyCollection = new List<CompanyModel> { };
-
-            HttpResponseMessage responseMessage = await _client.GetAsync(COMPANIES_API);
-            if (responseMessage.IsSuccessStatusCode)
+            var model = await GetViewModelWithCollectionsAsync();
+            if (model != null)
             {
-                responseCompanyCollection = await responseMessage.Content.ReadAsAsync<List<CompanyModel>>();
+                return View(model);
             }
-
-            List<PositionModel> responsePositionCollection = new List<PositionModel> { };
-
-            responseMessage = await _client.GetAsync(POSITIONS_API);
-            if (responseMessage.IsSuccessStatusCode)
+            else
             {
-                responsePositionCollection = await responseMessage.Content.ReadAsAsync<List<PositionModel>>();
+                // ToDo: exception
+
+                return Redirect("/" + EMPLOYEES_API + "/Error");
             }
-
-            EmployeeViewModel model = new EmployeeViewModel
-            {
-                PositionCollection = responsePositionCollection,
-                CompanyCollection = responseCompanyCollection
-            };
-
-            return View(model);
         }
 
         [HttpPost]
@@ -87,8 +71,7 @@ namespace PresentationLayer.Controllers
         {
             EmployeeModel employee = model.EmployeeModel;
 
-            HttpResponseMessage responseMessage = await _client.PostAsJsonAsync(EMPLOYEES_API, employee);
-
+            var responseMessage = await PostAsync(EMPLOYEES_API, employee);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return Redirect("/" + EMPLOYEES_API + "/Index");
@@ -100,37 +83,62 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(uint id)
         {
-            HttpResponseMessage responseMessage = await _client.GetAsync(EMPLOYEES_API + "/" + id);
-            if (responseMessage.IsSuccessStatusCode)
+            EmployeeModel employeeModel = await GetResultAsync(EMPLOYEES_API + "/" + id);
+            if (employeeModel != null)
             {
-                EmployeeViewModel model = new EmployeeViewModel
+                var model = await GetViewModelWithCollectionsAsync();
+                if (model != null)
                 {
-                    EmployeeModel = await responseMessage.Content.ReadAsAsync<EmployeeModel>()
-                };
+                    model.EmployeeModel = employeeModel;
 
-                List<CompanyModel> responseCompanyCollection = new List<CompanyModel> { };
-
-                responseMessage = await _client.GetAsync(COMPANIES_API);
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    responseCompanyCollection = await responseMessage.Content.ReadAsAsync<List<CompanyModel>>();
+                    return View(model);
                 }
-
-                List<PositionModel> responsePositionCollection = new List<PositionModel> { };
-
-                responseMessage = await _client.GetAsync(POSITIONS_API);
-                if (responseMessage.IsSuccessStatusCode)
+                else
                 {
-                    responsePositionCollection = await responseMessage.Content.ReadAsAsync<List<PositionModel>>();
+                    // ToDo: exception
+
+                    return Redirect("/" + EMPLOYEES_API + "/Error");
                 }
+            }
+            else
+            {
+                // ToDo: exception
 
-                model.PositionCollection = responsePositionCollection;
-                model.CompanyCollection = responseCompanyCollection;
-
-                return View(model);
+                return Redirect("/" + EMPLOYEES_API + "/Error");
             }
 
-            return Redirect("/" + EMPLOYEES_API + "/Index");
+
+            //HttpResponseMessage responseMessage = await _client.GetAsync(EMPLOYEES_API + "/" + id);
+            //if (responseMessage.IsSuccessStatusCode)
+            //{
+            //    EmployeeViewModel model = new EmployeeViewModel
+            //    {
+            //        EmployeeModel = await responseMessage.Content.ReadAsAsync<EmployeeModel>()
+            //    };
+
+            //    List<CompanyModel> responseCompanyCollection = new List<CompanyModel> { };
+
+            //    responseMessage = await _client.GetAsync(COMPANIES_API);
+            //    if (responseMessage.IsSuccessStatusCode)
+            //    {
+            //        responseCompanyCollection = await responseMessage.Content.ReadAsAsync<List<CompanyModel>>();
+            //    }
+
+            //    List<PositionModel> responsePositionCollection = new List<PositionModel> { };
+
+            //    responseMessage = await _client.GetAsync(POSITIONS_API);
+            //    if (responseMessage.IsSuccessStatusCode)
+            //    {
+            //        responsePositionCollection = await responseMessage.Content.ReadAsAsync<List<PositionModel>>();
+            //    }
+
+            //    model.PositionCollection = responsePositionCollection;
+            //    model.CompanyCollection = responseCompanyCollection;
+
+            //    return View(model);
+            //}
+
+            //return Redirect("/" + EMPLOYEES_API + "/Index");
         }
 
         [HttpPost]
@@ -138,7 +146,7 @@ namespace PresentationLayer.Controllers
         {
             EmployeeModel employee = model.EmployeeModel;
 
-            HttpResponseMessage responseMessage = await _client.PutAsJsonAsync(EMPLOYEES_API, employee);
+            var responseMessage = await PutAsync(EMPLOYEES_API, employee);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return Redirect("/" + EMPLOYEES_API + "/Index");
@@ -150,7 +158,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(uint id)
         {
-            HttpResponseMessage responseMessage = await _client.DeleteAsync(EMPLOYEES_API + "/" + id);
+            await DeleteAsync(EMPLOYEES_API + "/" + id);
 
             return Redirect("/" + EMPLOYEES_API + "/Index");
         }
@@ -159,6 +167,28 @@ namespace PresentationLayer.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private async Task<EmployeeViewModel> GetViewModelWithCollectionsAsync()
+        {
+            List<CompanyModel> responseCompanyCollection = await GetResultCollectionAsync<CompanyModel>(COMPANIES_API);
+
+            List<PositionModel> responsePositionCollection = await GetResultCollectionAsync<PositionModel>(POSITIONS_API);
+
+            if (responseCompanyCollection != null && responsePositionCollection != null)
+            {
+                EmployeeViewModel model = new EmployeeViewModel
+                {
+                    CompanyCollection = responseCompanyCollection,
+                    PositionCollection = responsePositionCollection
+                };
+
+                return model;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
