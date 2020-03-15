@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace CommonClasses
 {
     /// <summary>
@@ -7,5 +9,14 @@ namespace CommonClasses
     public class IdType
     {
         public uint Identificator { get; set; }
+
+        /// <summary>
+        /// Преобразует идентификатор в тип, известный базе данных
+        /// </summary>
+        /// <returns>Экземпляр типа, известного базе данных</returns>
+        public int ConvertToDBTypeId()
+        {
+            return Convert.ToInt32(Identificator);
+        }
     }
 }

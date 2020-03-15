@@ -184,7 +184,7 @@ namespace DataAccessLayer.DataContext
         {
             List<SqlParameter> idParameters = new List<SqlParameter>
             {
-                new SqlParameter("@Id", Convert.ToInt32(id.Identificator))
+                new SqlParameter("@Id", id.ConvertToDBTypeId())
             };
 
             return idParameters;

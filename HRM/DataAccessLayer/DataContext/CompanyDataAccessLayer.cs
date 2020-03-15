@@ -23,8 +23,8 @@ namespace DataAccessLayer.DataContext
         {
             List<SqlParameter> parameters = new List<SqlParameter>
             {
-                new SqlParameter("@ActivityTypeId", Convert.ToInt32(item.ActivityTypeId.Identificator)),
-                new SqlParameter("@LegalFormId",  Convert.ToInt32(item.LegalFormId.Identificator)),
+                new SqlParameter("@ActivityTypeId", item.ActivityTypeId.ConvertToDBTypeId()),
+                new SqlParameter("@LegalFormId",  item.LegalFormId.ConvertToDBTypeId()),
                 new SqlParameter("@Name", item.Name)
             };
 
