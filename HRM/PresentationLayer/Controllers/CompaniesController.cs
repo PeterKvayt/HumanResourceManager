@@ -1,19 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Models;
 using PresentationLayer.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
-    public class CompaniesController : Controller
+    public class CompaniesController : GeneralController<CompanyModel>
     {
-        private HttpClient _client;
-
         private const string COMPANIES_API = "Companies";
 
         private const string ACTIVITY_TYPES_API = "ActivityTypes";
@@ -24,59 +20,54 @@ namespace PresentationLayer.Controllers
         {
             _client = client;
 
-            if (_client.BaseAddress == null)
-            {
-                _client.BaseAddress = new Uri("http://localhost:65491/api/");
-                _client.DefaultRequestHeaders.Accept.Clear();
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
+            SetClientSettings();
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<CompanyModel> responseCompanyCollection = new List<CompanyModel> { };
+            List<CompanyModel> responseCompanyCollection = await GetResultCollectionAsync<CompanyModel>(COMPANIES_API);
 
-            HttpResponseMessage responseMessage = await _client.GetAsync(COMPANIES_API);
-            if (responseMessage.IsSuccessStatusCode)
+            if (responseCompanyCollection != null)
             {
-                responseCompanyCollection = await responseMessage.Content.ReadAsAsync<List<CompanyModel>>();
+                CompanyViewModel model = new CompanyViewModel
+                {
+                    CompanyCollection = responseCompanyCollection
+                };
+
+                return View(model);
             }
-
-            CompanyViewModel model = new CompanyViewModel
+            else
             {
-                CompanyCollection = responseCompanyCollection
-            };
+                // ToDo: exception
 
-            return View(model);
+                return Redirect("/" + COMPANIES_API + "/Error");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            List<ActivityTypeModel> responseActivityTypeCollection = new List<ActivityTypeModel> { };
+            List<ActivityTypeModel> responseActivityTypeCollection = await GetResultCollectionAsync<ActivityTypeModel>(ACTIVITY_TYPES_API);
 
-            HttpResponseMessage responseMessage = await _client.GetAsync(ACTIVITY_TYPES_API);
-            if (responseMessage.IsSuccessStatusCode)
+            List<LegalFormModel> responseLegalFormCollection = await GetResultCollectionAsync<LegalFormModel>(LEGAL_FORMS_API);
+
+            if (responseActivityTypeCollection != null && responseLegalFormCollection != null)
             {
-                responseActivityTypeCollection = await responseMessage.Content.ReadAsAsync<List<ActivityTypeModel>>();
+                CompanyViewModel model = new CompanyViewModel
+                {
+                    LegalFormCollection = responseLegalFormCollection,
+                    ActivityTypeCollection = responseActivityTypeCollection
+                };
+
+                return View(model);
             }
-
-            List<LegalFormModel> responseLegalFormCollection = new List<LegalFormModel> { };
-
-            responseMessage = await _client.GetAsync(LEGAL_FORMS_API);
-            if (responseMessage.IsSuccessStatusCode)
+            else
             {
-                responseLegalFormCollection = await responseMessage.Content.ReadAsAsync<List<LegalFormModel>>();
+                // ToDo: exception
+
+                return Redirect("/" + COMPANIES_API + "/Error");
             }
-
-            CompanyViewModel model = new CompanyViewModel
-            {
-                LegalFormCollection = responseLegalFormCollection,
-                ActivityTypeCollection = responseActivityTypeCollection
-            };
-
-            return View(model);
         }
 
         [HttpPost]
@@ -84,8 +75,7 @@ namespace PresentationLayer.Controllers
         {
             CompanyModel company = model.CompanyModel;
 
-            HttpResponseMessage responseMessage = await _client.PostAsJsonAsync(COMPANIES_API, company);
-
+            var responseMessage = await PostAsync(COMPANIES_API, company);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return Redirect("/" + COMPANIES_API + "/Index");
@@ -97,37 +87,37 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(uint id)
         {
-            HttpResponseMessage responseMessage = await _client.GetAsync(COMPANIES_API + "/" + id);
-            if (responseMessage.IsSuccessStatusCode)
+            CompanyModel companyModel = await GetResultAsync(COMPANIES_API + "/" + id);
+            if (companyModel != null)
             {
-                CompanyViewModel model = new CompanyViewModel
-                {
-                    CompanyModel = await responseMessage.Content.ReadAsAsync<CompanyModel>()
-                };
+                List<ActivityTypeModel> responseActivityTypeCollection = await GetResultCollectionAsync<ActivityTypeModel>(ACTIVITY_TYPES_API);
 
-                List<ActivityTypeModel> responseActivityTypeCollection = new List<ActivityTypeModel> { };
+                List<LegalFormModel> responseLegalFormCollection = await GetResultCollectionAsync<LegalFormModel>(LEGAL_FORMS_API);
 
-                responseMessage = await _client.GetAsync(ACTIVITY_TYPES_API);
-                if (responseMessage.IsSuccessStatusCode)
+                if (responseActivityTypeCollection != null && responseLegalFormCollection != null)
                 {
-                    responseActivityTypeCollection = await responseMessage.Content.ReadAsAsync<List<ActivityTypeModel>>();
+                    CompanyViewModel model = new CompanyViewModel
+                    {
+                        CompanyModel = companyModel,
+                        LegalFormCollection = responseLegalFormCollection,
+                        ActivityTypeCollection = responseActivityTypeCollection
+                    };
+
+                    return View(model);
                 }
-
-                List<LegalFormModel> responseLegalFormCollection = new List<LegalFormModel> { };
-
-                responseMessage = await _client.GetAsync(LEGAL_FORMS_API);
-                if (responseMessage.IsSuccessStatusCode)
+                else
                 {
-                    responseLegalFormCollection = await responseMessage.Content.ReadAsAsync<List<LegalFormModel>>();
+                    // ToDo: exception
+
+                    return Redirect("/" + COMPANIES_API + "/Error");
                 }
+            }
+            else
+            {
+                // ToDo: exception
 
-                model.LegalFormCollection = responseLegalFormCollection;
-                model.ActivityTypeCollection = responseActivityTypeCollection;
-
-                return View(model);
-            }       
-
-            return Redirect("/" + COMPANIES_API + "/Index");
+                return Redirect("/" + COMPANIES_API + "/Error");
+            }
         }
 
         [HttpPost]
@@ -135,7 +125,7 @@ namespace PresentationLayer.Controllers
         {
             CompanyModel companyModel = model.CompanyModel;
 
-            HttpResponseMessage responseMessage = await _client.PutAsJsonAsync(COMPANIES_API, companyModel);
+            var responseMessage = await PutAsync(COMPANIES_API, companyModel);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return Redirect("/" + COMPANIES_API + "/Index");
@@ -147,7 +137,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(uint id)
         {
-            HttpResponseMessage responseMessage = await _client.DeleteAsync(COMPANIES_API + "/" + id);
+            await DeleteAsync(COMPANIES_API + "/" + id);
 
             return Redirect("/" + COMPANIES_API + "/Index");
         }

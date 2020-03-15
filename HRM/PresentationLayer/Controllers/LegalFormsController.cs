@@ -1,14 +1,9 @@
-﻿using BusinessLogicLayer.DataTransferObjects;
-using BusinessLogicLayer.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Models;
 using PresentationLayer.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
@@ -27,7 +22,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<LegalFormModel> responseLegalFormCollection = await GetResultCollectionAsync(LEGAL_FORMS_API);
+            List<LegalFormModel> responseLegalFormCollection = await GetResultCollectionAsync<LegalFormModel>(LEGAL_FORMS_API);
 
             if (responseLegalFormCollection != null)
             {

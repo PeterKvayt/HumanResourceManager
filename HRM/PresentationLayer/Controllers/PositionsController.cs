@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Models;
 using PresentationLayer.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
@@ -24,7 +22,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<PositionModel> responsePositionCollection = await GetResultCollectionAsync(POSITIONS_API);
+            List<PositionModel> responsePositionCollection = await GetResultCollectionAsync<PositionModel>(POSITIONS_API);
             if (responsePositionCollection != null)
             {
                 PositionViewModel model = new PositionViewModel

@@ -57,13 +57,13 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        protected async virtual Task<List<EntityModel>> GetResultCollectionAsync(string apiName)
+        protected async virtual Task<List<CommonEntityModel>> GetResultCollectionAsync<CommonEntityModel>(string apiName)
         {
             var response = await GetAsync(apiName);
 
             if (response.IsSuccessStatusCode)
             {
-                var result = await response.Content.ReadAsAsync<List<EntityModel>>();
+                var result = await response.Content.ReadAsAsync<List<CommonEntityModel>>();
 
                 return result;
             }
