@@ -63,8 +63,13 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(uint id)
+        public async Task<IActionResult> Update(uint? id)
         {
+            //if (id == null)
+            //{
+            //    return Redirect("/" + ACTIVITY_TYPES_API + "/Error");
+            //}
+
             var activityType = await GetResultAsync(ACTIVITY_TYPES_API + "/" + id);
             if (activityType != null)
             {
@@ -98,11 +103,16 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(uint id)
+        public async Task<IActionResult> Delete(uint? id)
         {
+            if (id == null)
+            {
+                return Redirect("/" + ACTIVITY_TYPES_API + "/Error");
+            }
+
             await DeleteAsync(ACTIVITY_TYPES_API + "/" + id);
 
-            return Redirect("/" + ACTIVITY_TYPES_API + "/Index");
+            return Redirect("/" + ACTIVITY_TYPES_API + "/Error");
         }
 
         public IActionResult Privacy()

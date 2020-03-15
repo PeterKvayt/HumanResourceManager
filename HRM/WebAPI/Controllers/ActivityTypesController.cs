@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using CommonClasses;
@@ -24,11 +26,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActivityTypeDTO Get(uint id)
+        public ActivityTypeDTO Get(uint? id)
         {
+            if (id == null)
+            {
+                throw new HttpListenerException(404);
+            }
+
             IdType idEntity = new IdType
             {
-                Identificator = id
+                Identificator = (uint)id
             };
 
             return _service.Get(idEntity);

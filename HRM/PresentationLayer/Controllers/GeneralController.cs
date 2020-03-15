@@ -23,7 +23,6 @@ namespace PresentationLayer.Controllers
         private async Task<HttpResponseMessage> GetAsync(string apiName)
         {
             return await _client.GetAsync(apiName);
-
         }
 
         protected async Task<HttpResponseMessage> PostAsync(string apiName, EntityModel entity)
