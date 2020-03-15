@@ -37,9 +37,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public void Create(ActivityTypeDTO model)
         {
-            ActivityTypeDTO positionDTO = model;
-
-            _service.Create(positionDTO);
+            _service.Create(model);
         }
 
         [HttpPut]
@@ -55,6 +53,7 @@ namespace WebAPI.Controllers
             {
                 Identificator = id
             };
+
             _service.Delete(idEntity);
         }
     }

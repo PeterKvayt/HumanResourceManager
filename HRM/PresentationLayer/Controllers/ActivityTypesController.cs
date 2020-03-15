@@ -13,41 +13,38 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
-    public class ActivityTypesController : Controller
+    public class ActivityTypesController : GeneralController<ActivityTypeModel>
     {
-        private readonly HttpClient _client;
-
-        private const string METHOD_NAME = "ActivityTypes";
+        private const string ACTIVITY_TYPES_API = "ActivityTypes";
 
         public ActivityTypesController(HttpClient client)
         {
             _client = client;
 
-            if (_client.BaseAddress == null)
-            {
-                _client.BaseAddress = new Uri("http://localhost:65491/api/");
-                _client.DefaultRequestHeaders.Accept.Clear();
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
+            SetClientSettings();
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<ActivityTypeModel> responseActivityTypeCollection = new List<ActivityTypeModel> { };
-            HttpResponseMessage responseMessage = await _client.GetAsync(METHOD_NAME);
+            List<ActivityTypeModel> responseActivityTypeCollection = await GetResultCollectionAsync(ACTIVITY_TYPES_API);
 
-            if (responseMessage.IsSuccessStatusCode)
+            if (responseActivityTypeCollection != null)
             {
-                responseActivityTypeCollection = await responseMessage.Content.ReadAsAsync<List<ActivityTypeModel>>();
+                ActivityTypeViewModel model = new ActivityTypeViewModel
+                {
+                    ActivityTypeCollection = responseActivityTypeCollection
+                };
+
+                return View(model);
+            }
+            else
+            {
+                // ToDo: exception
+
+                return Redirect("/"+ ACTIVITY_TYPES_API + "/Error");
             }
 
-            ActivityTypeViewModel model = new ActivityTypeViewModel
-            {
-                ActivityTypeCollection = responseActivityTypeCollection
-            };
-
-            return View(model);
         }
 
         [HttpGet]
@@ -59,27 +56,23 @@ namespace PresentationLayer.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ActivityTypeViewModel model)
         {
-            ActivityTypeModel activityType
- = model.ActivityTypeModel;
+            ActivityTypeModel activityType = model.ActivityTypeModel;
 
-            HttpResponseMessage responseMessage = await _client.PostAsJsonAsync(METHOD_NAME, activityType);
-
+            var responseMessage = await PostAsync(ACTIVITY_TYPES_API, activityType);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return Redirect("/" + METHOD_NAME + "/Index");
+                return Redirect("/" + ACTIVITY_TYPES_API + "/Index");
             }
 
-            return Redirect("/" + METHOD_NAME + "/Create");
+            return Redirect("/" + ACTIVITY_TYPES_API + "/Create");
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(uint id)
         {
-            HttpResponseMessage responseMessage = await _client.GetAsync(METHOD_NAME + "/" + id);
-            if (responseMessage.IsSuccessStatusCode)
+            var activityType = await GetResultAsync(ACTIVITY_TYPES_API + "/" + id);
+            if (activityType != null)
             {
-                ActivityTypeModel activityType = await responseMessage.Content.ReadAsAsync<ActivityTypeModel>();
-
                 ActivityTypeViewModel model = new ActivityTypeViewModel
                 {
                     ActivityTypeModel = activityType
@@ -87,8 +80,12 @@ namespace PresentationLayer.Controllers
 
                 return View(model);
             }
+            else
+            {
+                // ToDo: exception
 
-            return Redirect("/" + METHOD_NAME + "/Index");
+                return Redirect("/" + ACTIVITY_TYPES_API + "/Error");
+            }
         }
 
         [HttpPost]
@@ -96,21 +93,21 @@ namespace PresentationLayer.Controllers
         {
             ActivityTypeModel activityType = model.ActivityTypeModel;
 
-            HttpResponseMessage responseMessage = await _client.PutAsJsonAsync(METHOD_NAME, activityType);
+            var responseMessage = await PutAsync(ACTIVITY_TYPES_API, activityType);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return Redirect("/" + METHOD_NAME + "/Index");
+                return Redirect("/" + ACTIVITY_TYPES_API + "/Index");
             }
 
-            return Redirect("/" + METHOD_NAME + "/Update/" + activityType.Id.Identificator);
+            return Redirect("/" + ACTIVITY_TYPES_API + "/Update/" + activityType.Id.Identificator);
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(uint id)
         {
-            HttpResponseMessage responseMessage = await _client.DeleteAsync(METHOD_NAME + "/" + id);
+            await DeleteAsync(ACTIVITY_TYPES_API + "/" + id);
 
-            return Redirect("/" + METHOD_NAME + "/Index");
+            return Redirect("/" + ACTIVITY_TYPES_API + "/Index");
         }
 
         public IActionResult Privacy()
