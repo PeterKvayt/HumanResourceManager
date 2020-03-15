@@ -34,7 +34,8 @@ namespace BusinessLogicLayer.Converters
             var positionDTO = TryMap<PositionDTO, Position>(position);
 
             var company = _dataBase.Companies.Get(employee.CompanyId);
-            var companyDTO = TryMap<CompanyDTO, Company>(company);
+            CompanyConverter converter = new CompanyConverter(_dataBase);
+            var companyDTO = converter.Convert(company);
 
             EmployeeDTO employeeDTO = new EmployeeDTO
             {
@@ -43,7 +44,8 @@ namespace BusinessLogicLayer.Converters
                 Surname = employee.Surname,
                 MiddleName = employee.MiddleName,
                 Position = positionDTO,
-                Company = companyDTO
+                Company = companyDTO,
+                DateOfEmployment = employee.DateOfEmployment
             };
 
             return employeeDTO;

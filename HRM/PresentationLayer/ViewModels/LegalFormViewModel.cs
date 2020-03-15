@@ -10,6 +10,6 @@ namespace PresentationLayer.ViewModels
     {
         public LegalFormModel LegalFormModel { get; set; }
 
-        public List<LegalFormModel> LegalFormModelCollection { get; set; }
+        public List<LegalFormModel> LegalFormCollection { get; set; }
     }
 }

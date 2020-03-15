@@ -139,7 +139,7 @@ namespace BusinessLogicLayer.Services
 
                 return resultDtoCollection;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 string EXCEPTION_MESSAGE = $"Ошибка конвертирования класса {typeof(EntityType).ToString()} в {typeof(DataTransferObject).ToString()} в классе GeneralService";
 

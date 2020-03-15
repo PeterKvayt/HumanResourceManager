@@ -8,7 +8,7 @@ namespace PresentationLayer.ViewModels
 {
     public class PositionViewModel
     {
-        public PositionModel Position { get; set; }
+        public PositionModel PositionModel { get; set; }
 
         public IEnumerable<PositionModel> PositionCollection { get; set; }
     }

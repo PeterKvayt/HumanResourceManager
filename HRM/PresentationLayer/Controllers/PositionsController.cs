@@ -56,7 +56,7 @@ namespace PresentationLayer.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(PositionViewModel model)
         {
-            PositionModel position = model.Position;
+            PositionModel position = model.PositionModel;
 
             HttpResponseMessage responseMessage = await _client.PostAsJsonAsync(METHOD_NAME, position);
 
@@ -78,7 +78,7 @@ namespace PresentationLayer.Controllers
 
                 PositionViewModel model = new PositionViewModel
                 {
-                    Position = position
+                    PositionModel = position
                 };
 
                 return View(model);
@@ -90,7 +90,7 @@ namespace PresentationLayer.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(PositionViewModel model)
         {
-            PositionModel position = model.Position;
+            PositionModel position = model.PositionModel;
 
             HttpResponseMessage responseMessage = await _client.PutAsJsonAsync(METHOD_NAME, position);
             if (responseMessage.IsSuccessStatusCode)

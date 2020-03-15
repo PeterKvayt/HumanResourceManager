@@ -45,7 +45,7 @@ namespace PresentationLayer.Controllers
 
             CompanyViewModel model = new CompanyViewModel
             {
-                CompanyModelCollection = responseCompanyCollection
+                CompanyCollection = responseCompanyCollection
             };
 
             return View(model);

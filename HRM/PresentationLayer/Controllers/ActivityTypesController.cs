@@ -60,7 +60,7 @@ namespace PresentationLayer.Controllers
         public async Task<IActionResult> Create(ActivityTypeViewModel model)
         {
             ActivityTypeModel activityType
- = model.ActivityType;
+ = model.ActivityTypeModel;
 
             HttpResponseMessage responseMessage = await _client.PostAsJsonAsync(METHOD_NAME, activityType);
 
@@ -82,7 +82,7 @@ namespace PresentationLayer.Controllers
 
                 ActivityTypeViewModel model = new ActivityTypeViewModel
                 {
-                    ActivityType = activityType
+                    ActivityTypeModel = activityType
                 };
 
                 return View(model);
@@ -94,7 +94,7 @@ namespace PresentationLayer.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ActivityTypeViewModel model)
         {
-            ActivityTypeModel activityType = model.ActivityType;
+            ActivityTypeModel activityType = model.ActivityTypeModel;
 
             HttpResponseMessage responseMessage = await _client.PutAsJsonAsync(METHOD_NAME, activityType);
             if (responseMessage.IsSuccessStatusCode)

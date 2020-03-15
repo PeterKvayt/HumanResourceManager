@@ -10,7 +10,7 @@ namespace PresentationLayer.ViewModels
     {
         public CompanyModel CompanyModel { get; set; }
 
-        public List<CompanyModel> CompanyModelCollection { get; set; }
+        public List<CompanyModel> CompanyCollection { get; set; }
 
         public List<ActivityTypeModel> ActivityTypeCollection { get; set; }
 

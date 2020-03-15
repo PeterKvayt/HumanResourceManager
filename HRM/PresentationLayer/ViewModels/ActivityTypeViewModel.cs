@@ -9,7 +9,7 @@ namespace PresentationLayer.ViewModels
 {
     public class ActivityTypeViewModel
     {
-        public ActivityTypeModel ActivityType { get; set; }
+        public ActivityTypeModel ActivityTypeModel { get; set; }
 
         public IEnumerable<ActivityTypeModel> ActivityTypeCollection { get; set; }
 

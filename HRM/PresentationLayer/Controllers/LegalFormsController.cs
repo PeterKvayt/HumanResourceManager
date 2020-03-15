@@ -44,7 +44,7 @@ namespace PresentationLayer.Controllers
 
             LegalFormViewModel model = new LegalFormViewModel
             {
-                LegalFormModelCollection = responseLegalFormCollection
+                LegalFormCollection = responseLegalFormCollection
             };
 
             return View(model);

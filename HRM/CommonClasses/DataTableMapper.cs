@@ -103,8 +103,10 @@ namespace CommonClasses
                     {
                         if (property.PropertyType.ToString() == ID_TYPE_CLASS)
                         {
-                            IdType id = new IdType();
-                            id.Identificator = Convert.ToUInt32(row[column]);
+                            IdType id = new IdType
+                            {
+                                Identificator = Convert.ToUInt32(row[column])
+                            };
                             property.SetValue(inputItem, id);
                         }
                         else
