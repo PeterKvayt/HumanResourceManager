@@ -13,41 +13,38 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
-    public class LegalFormsController : Controller
+    public class LegalFormsController : GeneralController<LegalFormModel>
     {
-        private HttpClient _client;
-
-        private const string METHOD_NAME = "LegalForms";
+        private const string LEGAL_FORMS_API = "LegalForms";
 
         public LegalFormsController(HttpClient client)
         {
             _client = client;
 
-            if (_client.BaseAddress == null)
-            {
-                _client.BaseAddress = new Uri("http://localhost:65491/api/");
-                _client.DefaultRequestHeaders.Accept.Clear();
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
+            SetClientSettings();
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<LegalFormModel> responseLegalFormCollection = new List<LegalFormModel> { };
-            HttpResponseMessage responseMessage = await _client.GetAsync(METHOD_NAME);
+            List<LegalFormModel> responseLegalFormCollection = await GetResultCollectionAsync(LEGAL_FORMS_API);
 
-            if (responseMessage.IsSuccessStatusCode)
+            if (responseLegalFormCollection != null)
             {
-                responseLegalFormCollection = await responseMessage.Content.ReadAsAsync<List<LegalFormModel>>();
+                LegalFormViewModel model = new LegalFormViewModel
+                {
+                    LegalFormCollection = responseLegalFormCollection
+                };
+
+                return View(model);
+            }
+            else
+            {
+                // ToDo: exception
+
+                return Redirect("/" + LEGAL_FORMS_API + "/Error");
             }
 
-            LegalFormViewModel model = new LegalFormViewModel
-            {
-                LegalFormCollection = responseLegalFormCollection
-            };
-
-            return View(model);
         }
 
         [HttpGet]
@@ -61,24 +58,21 @@ namespace PresentationLayer.Controllers
         {
             LegalFormModel legalForm = model.LegalFormModel;
 
-            HttpResponseMessage responseMessage = await _client.PostAsJsonAsync(METHOD_NAME, legalForm);
-
+            var responseMessage = await PostAsync(LEGAL_FORMS_API, legalForm);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return Redirect("/" + METHOD_NAME + "/Index");
+                return Redirect("/" + LEGAL_FORMS_API + "/Index");
             }
 
-            return Redirect("/" + METHOD_NAME + "/Create");
+            return Redirect("/" + LEGAL_FORMS_API + "/Create");
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(uint id)
         {
-            HttpResponseMessage responseMessage = await _client.GetAsync(METHOD_NAME + "/" + id);
-            if (responseMessage.IsSuccessStatusCode)
+            var legalForm = await GetResultAsync(LEGAL_FORMS_API + "/" + id);
+            if (legalForm != null)
             {
-                LegalFormModel legalForm = await responseMessage.Content.ReadAsAsync<LegalFormModel>();
-
                 LegalFormViewModel model = new LegalFormViewModel
                 {
                     LegalFormModel = legalForm
@@ -86,8 +80,12 @@ namespace PresentationLayer.Controllers
 
                 return View(model);
             }
+            else
+            {
+                // ToDo: exception
 
-            return Redirect("/" + METHOD_NAME + "/Index");
+                return Redirect("/" + LEGAL_FORMS_API + "/Error");
+            }
         }
 
         [HttpPost]
@@ -95,21 +93,21 @@ namespace PresentationLayer.Controllers
         {
             LegalFormModel position = model.LegalFormModel;
 
-            HttpResponseMessage responseMessage = await _client.PutAsJsonAsync(METHOD_NAME, position);
+            var responseMessage = await PutAsync(LEGAL_FORMS_API, position);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return Redirect("/" + METHOD_NAME + "/Index");
+                return Redirect("/" + LEGAL_FORMS_API + "/Index");
             }
 
-            return Redirect("/" + METHOD_NAME + "/Update/" + position.Id.Identificator);
+            return Redirect("/" + LEGAL_FORMS_API + "/Update/" + position.Id.Identificator);
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(uint id)
         {
-            HttpResponseMessage responseMessage = await _client.DeleteAsync(METHOD_NAME + "/" + id);
+            await DeleteAsync(LEGAL_FORMS_API + "/" + id);
 
-            return Redirect("/" + METHOD_NAME + "/Index");
+            return Redirect("/" + LEGAL_FORMS_API + "/Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
