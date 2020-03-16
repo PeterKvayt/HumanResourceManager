@@ -1,42 +1,72 @@
-﻿using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace ExceptionClasses.Loggers
 {
     public static class ExceptionLogger
     {
-        private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly object _locker = new object();
 
-        public static void LogDebug(string message)
+        private static readonly string pathToLogDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+
+        private static void CreateLogDirectory()
         {
-            _logger.Debug(message);
+            if ( !Directory.Exists(pathToLogDirectory) )
+            {
+                Directory.CreateDirectory(pathToLogDirectory);
+            }
         }
 
-        public static void LogError(string message)
+        private static string GetLogFileName()
         {
-            _logger.Error(message);
+            CreateLogDirectory();
+
+            return string.Format($"{AppDomain.CurrentDomain.FriendlyName}_{DateTime.Now:dd.MM.yyy}.log");
         }
 
-        public static void LogFatal(string message)
+        private static string GetPathToLogFile()
         {
-            _logger.Fatal(message);
+            string logFileName = GetLogFileName();
+
+            return Path.Combine(pathToLogDirectory, logFileName);
         }
 
-        public static void LogInfo(string message)
+        public static void Log(Exception exception)
         {
-            _logger.Info(message);
+            string logMessage = string.Format($"[{DateTime.Now:dd.MM.yyy HH:mm:ss.fff}] Ошибка в методе [{exception.TargetSite.DeclaringType}.{exception.TargetSite.Name}](): {exception.Message}\r\n");
+
+            WriteToFile(logMessage);
         }
 
-        public static void LogTrace(string message)
+        public static void Log(string message, string exceptedClass, string exceptedMethod)
         {
-            _logger.Trace(message);
+            string logMessage = string.Format($"[{DateTime.Now:dd.MM.yyy HH:mm:ss.fff}] Ошибка в методе [{exceptedClass}.{exceptedMethod}()]: {message}\r\n");
+
+            WriteToFile(logMessage);
         }
 
-        public static void LogWarn(string message)
+        private static void WriteToFile(string logMessage)
         {
-            _logger.Warn(message);
+           string path = GetPathToLogFile();
+
+            lock (_locker)
+            {
+                File.AppendAllText(path, logMessage);
+            }
+        }
+
+        // leave
+        public static void LogError(string c)
+        {
+
+        }
+
+        //leave
+        public static void LogWarn(string c)
+        {
+
         }
     }
 }

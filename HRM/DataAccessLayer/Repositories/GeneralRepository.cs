@@ -18,11 +18,9 @@ namespace DataAccessLayer.Repositories
             {
                 context.Create(item);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка создания экземпляра класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -34,11 +32,9 @@ namespace DataAccessLayer.Repositories
             {
                 context.Delete(id);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка удаления экземпляра класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -50,11 +46,9 @@ namespace DataAccessLayer.Repositories
             {
                 return context.Get(id);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка получения экземпляра класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -66,11 +60,9 @@ namespace DataAccessLayer.Repositories
             {
                 return context.GetAll();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка получения всех экземпляров класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -82,11 +74,9 @@ namespace DataAccessLayer.Repositories
             {
                 context.Update(item);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка обновления экземпляра класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -98,11 +88,9 @@ namespace DataAccessLayer.Repositories
             {
                 return context.Exists(id);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи об экземпляре класса {typeof(EntityType).ToString()} в классе GeneralRepository!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }

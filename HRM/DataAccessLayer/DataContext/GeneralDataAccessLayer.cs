@@ -28,11 +28,9 @@ namespace DataAccessLayer.DataContext
             {
                 storedProcedure.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка при удалении экземпляра класса {typeof(EntityType).ToString()}!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -50,11 +48,9 @@ namespace DataAccessLayer.DataContext
             {
                 resultDataSet = storedProcedure.Execute();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка выполнения хранимой процедуры получения экземпляра класса {typeof(EntityType).ToString()} из базы данных!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -70,7 +66,7 @@ namespace DataAccessLayer.DataContext
             {
                 string EXCEPTION_MESSAGE = $"Ошибка получения экземпляра класса {typeof(EntityType).ToString()} из базы данных!";
 
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralDataAccessLayer<EntityType>).Name, "Get");
 
                 throw new Exception();
             }
@@ -85,11 +81,9 @@ namespace DataAccessLayer.DataContext
             {
                 resultDataSet = storedProcedure.Execute();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка выполнения хранимой процедуры для получения всех записей класса {typeof(EntityType).ToString()} из базы данных!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -105,7 +99,7 @@ namespace DataAccessLayer.DataContext
             {
                 string EXCEPTION_MESSAGE = $"Результат выполнения хранимой процедуры для получения всех записей класса {typeof(EntityType).ToString()} из базы данных вернул Null!";
 
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralDataAccessLayer<EntityType>).Name, "GetAll");
 
                 throw new Exception();
             }
@@ -123,11 +117,9 @@ namespace DataAccessLayer.DataContext
 
                 return result == 1 ? true : false;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка проверки существования записи экземпляра класса {typeof(EntityType).ToString()} в базе данных!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw new Exception();
             }
@@ -145,11 +137,9 @@ namespace DataAccessLayer.DataContext
             {
                 return new StoredProcedure(storedProcedureName, sqlParameters);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка создания хранимой процедуры в классе {typeof(EntityType).ToString()}DataAccessLayer!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -166,11 +156,9 @@ namespace DataAccessLayer.DataContext
             {
                 return new DataTableMapper(dataTable);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка создания экземпляра класса DataTableMapper в классе {typeof(EntityType).ToString()}DataAccessLayer!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }

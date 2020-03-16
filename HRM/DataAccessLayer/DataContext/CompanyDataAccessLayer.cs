@@ -43,11 +43,9 @@ namespace DataAccessLayer.DataContext
             {
                 storedProcedure.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка создания экземпляра класса Company в классе CompanyDataAccessLayer!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -83,11 +81,9 @@ namespace DataAccessLayer.DataContext
             {
                 storedProcedure.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка обновления экземпляра класса Company в классе CompanyDataAccessLayer!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -110,11 +106,9 @@ namespace DataAccessLayer.DataContext
             {
                 return Convert.ToInt32( storedProcedure.ExecuteScalar() );
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка запроса размера компании в классе CompanyDataAccessLayer!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }

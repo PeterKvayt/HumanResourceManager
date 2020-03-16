@@ -1,0 +1,9 @@
+﻿[16.03.2020 18:41:47.911] [System.RuntimeType.GetConnection()] Отсутствует строка подключения2
+[16.03.2020 18:42:45.775] [System.RuntimeType.GetConnection()] Отсутствует строка подключения
+[16.03.2020 18:59:22.081] [System.RuntimeType.GetConnection()] Отсутствует строка подключения
+[16.03.2020 19:16:11.915] [DataBaseConnection.GetConnection()] Отсутствует строка подключения
+[16.03.2020 19:19:18.733] Ошибка в методе DataBaseConnection.GetConnection(): Отсутствует строка подключения
+[16.03.2020 19:32:25.801] Ошибка в методе [DataBaseConnection.GetConnection()]: Отсутствует строка подключения
+[16.03.2020 19:48:17.727] Ошибка в методе [DataBaseConnection.GetConnection()]: Отсутствует строка подключения
+[16.03.2020 19:48:17.843] Ошибка в методе [DataAccessLayer.DataAccess.DataBaseConnection.GetConnection](): Exception of type 'System.Exception' was thrown.
+[16.03.2020 19:48:17.893] Ошибка в методе [DataAccessLayer.DataAccess.DataBaseConnection.GetConnection](): Exception of type 'System.Exception' was thrown.

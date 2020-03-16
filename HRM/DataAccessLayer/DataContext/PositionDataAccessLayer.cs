@@ -41,11 +41,9 @@ namespace DataAccessLayer.DataContext
             {
                 storedProcedure.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка создания экземпляра класса Position в классе PositionDataAccessLayer!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -81,11 +79,9 @@ namespace DataAccessLayer.DataContext
             {
                 storedProcedure.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка обновления экземпляра класса Position в классе PositionDataAccessLayer!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }

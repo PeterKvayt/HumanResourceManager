@@ -22,11 +22,9 @@ namespace DataAccessLayer.Repositories
             {
                 return _context.GetSize(item);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка получения размера компании в классе CompanyRepository!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }

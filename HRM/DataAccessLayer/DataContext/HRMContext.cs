@@ -1,8 +1,5 @@
 ﻿using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
-using ExceptionClasses.Loggers;
-using System;
-using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataContext
 {

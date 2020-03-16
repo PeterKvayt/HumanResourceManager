@@ -42,11 +42,9 @@ namespace DataAccessLayer.DataContext
             {
                 storedProcedure.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка создания ActivityType в классе ActivityTypeDataAccessLayer!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
@@ -82,11 +80,9 @@ namespace DataAccessLayer.DataContext
             {
                 storedProcedure.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                const string EXCEPTION_MESSAGE = "Ошибка обновления экземпляра ActivityType в классе ActivityTypeDataAccessLayer!";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }

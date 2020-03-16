@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using ExceptionClasses.Loggers;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -18,7 +19,10 @@ namespace DataAccessLayer.DataAccess
             }
             else
             {
-                // ToDo: exception
+                string EXCEPTION_MESSAGE = "Отсутствует строка подключения";
+
+                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(DataBaseConnection).Name, "GetConnection");
+
                 throw new Exception();
             }
         }

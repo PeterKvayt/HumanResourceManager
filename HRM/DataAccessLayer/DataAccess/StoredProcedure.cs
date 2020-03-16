@@ -41,9 +41,9 @@ namespace DataAccessLayer.DataContext
             }
             else
             {
-                const string EXCEPTION_MESSAGE = "Некорректное (пустое) имя хранимой процедуры!";
+                const string EXCEPTION_MESSAGE = "Пустое имя хранимой процедуры!";
 
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(StoredProcedure).Name, "StoredProcedure");
 
                 throw new Exception();
             }
@@ -54,9 +54,9 @@ namespace DataAccessLayer.DataContext
             }
             else
             {
-                const string EXCEPTION_MESSAGE = "Sql параметры = null!";
+                const string EXCEPTION_MESSAGE = "Sql-параметры = null!";
 
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(StoredProcedure).Name, "StoredProcedure");
 
                 throw new Exception();
             }
@@ -94,11 +94,9 @@ namespace DataAccessLayer.DataContext
 
                     return dataSet;
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
-                    const string EXCEPTION_MESSAGE = "Ошибка заполнения адаптера!";
-
-                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                    ExceptionLogger.Log(exception);
 
                     throw;
                 }
@@ -120,11 +118,9 @@ namespace DataAccessLayer.DataContext
                 {
                     storedProcedureCommand.ExecuteNonQuery();
                 }
-                catch (Exception ex)
+                catch (Exception exception)
                 {
-                    const string EXCEPTION_MESSAGE = "Ошибка выполнения хранимой процедуры ExecuteNonQuery!";
-
-                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                    ExceptionLogger.Log(exception);
 
                     throw;
                 }
@@ -147,11 +143,9 @@ namespace DataAccessLayer.DataContext
                 {
                     return storedProcedureCommand.ExecuteScalar();
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
-                    const string EXCEPTION_MESSAGE = "Ошибка выполнения скалярного запроса ExecuteScalar!";
-
-                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                    ExceptionLogger.Log(exception);
 
                     throw;
                 }
