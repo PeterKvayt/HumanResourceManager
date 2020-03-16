@@ -105,6 +105,8 @@ namespace DataAccessLayer.DataContext
             }
         }
 
+        private const int SUCCES_RESULT = 1;
+
         protected virtual bool Exists(IdType id, string EXISTS_STORED_PROCEDURE_NAME)
         {
             IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
@@ -115,7 +117,7 @@ namespace DataAccessLayer.DataContext
             {
                 int result = (int)storedProcedure.ExecuteScalar();
 
-                return result == 1 ? true : false;
+                return result == SUCCES_RESULT ? true : false;
             }
             catch (Exception exception)
             {

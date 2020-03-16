@@ -1,6 +1,7 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Interfaces;
 using ExceptionClasses.Loggers;
+using System;
 
 namespace BusinessLogicLayer.Converters
 {
@@ -43,11 +44,9 @@ namespace BusinessLogicLayer.Converters
             {
                 return AutoMapper<TOut>.Map(item);
             }
-            catch (System.Exception)
+            catch (Exception exception)
             {
-                string EXCEPTION_MESSAGE = $"Ошибка преобразования класса {typeof(TIn).ToString()} в {typeof(TOut).ToString()} в классе GeneralConverter";
-
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(exception);
 
                 throw;
             }
