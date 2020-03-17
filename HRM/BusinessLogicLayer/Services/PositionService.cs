@@ -1,7 +1,6 @@
 ﻿using BusinessLogicLayer.Converters;
 using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
-using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ namespace BusinessLogicLayer.Services
 {
     class PositionService : GeneralService<PositionDTO, Position>, IService<PositionDTO>
     {
-        private IRepository<Position> _repository;
+        private readonly IRepository<Position> _repository;
 
         public PositionService(IUnitOfWork dataBase)
         {
@@ -24,12 +23,12 @@ namespace BusinessLogicLayer.Services
             Create(item, _repository);
         }
 
-        public void Delete(IdType id)
+        public void Delete(uint? id)
         {
             Delete(id, _repository);
         }
 
-        public PositionDTO Get(IdType id)
+        public PositionDTO Get(uint? id)
         {
             return Get(id, _repository);
         }

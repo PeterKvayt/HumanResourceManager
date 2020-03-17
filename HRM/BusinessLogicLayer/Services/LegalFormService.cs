@@ -1,6 +1,5 @@
 ﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
-using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ namespace BusinessLogicLayer.Services
 {
     class LegalFormService : GeneralService<LegalFormDTO, LegalForm>, IService<LegalFormDTO>
     {
-        private IRepository<LegalForm> _repository;
+        private readonly IRepository<LegalForm> _repository;
 
         public LegalFormService(IUnitOfWork dataBase)
         {
@@ -24,12 +23,12 @@ namespace BusinessLogicLayer.Services
             Create(item, _repository);
         }
 
-        public void Delete(IdType id)
+        public void Delete(uint? id)
         {
             Delete(id, _repository);
         }
 
-        public LegalFormDTO Get(IdType id)
+        public LegalFormDTO Get(uint? id)
         {
             return Get(id, _repository);
         }

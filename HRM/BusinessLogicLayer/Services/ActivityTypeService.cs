@@ -2,7 +2,6 @@
 using BusinessLogicLayer.Converters;
 using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
-using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 
@@ -10,7 +9,7 @@ namespace BusinessLogicLayer.Services
 {
     class ActivityTypeService : GeneralService<ActivityTypeDTO, ActivityType>, IService<ActivityTypeDTO>
     {
-        private IRepository<ActivityType> _repository;
+        private readonly IRepository<ActivityType> _repository;
 
         public ActivityTypeService(IUnitOfWork dataBase)
         {
@@ -24,12 +23,12 @@ namespace BusinessLogicLayer.Services
             Create(item, _repository);
         }
 
-        public void Delete(IdType id)
+        public void Delete(uint? id)
         {
             Delete(id, _repository);
         }
 
-        public ActivityTypeDTO Get(IdType id)
+        public ActivityTypeDTO Get(uint? id)
         {
             return Get(id, _repository);
         }

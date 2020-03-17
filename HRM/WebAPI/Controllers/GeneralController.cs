@@ -4,9 +4,7 @@ using ExceptionClasses.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -28,7 +26,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                return service.Get(id);
+                return service.Get()
             }
             catch (ClientException)
             {

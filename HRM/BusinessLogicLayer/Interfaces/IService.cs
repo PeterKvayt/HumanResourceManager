@@ -18,7 +18,7 @@ namespace BusinessLogicLayer.Interfaces
         /// </summary>
         /// <param name="id">Параметр, по которому ведется поиск</param>
         /// <returns></returns>
-        DataTransferObject Get(IdType id);
+        DataTransferObject Get(uint? id);
 
         /// <summary>
         /// Создает объект в базе данных
@@ -36,6 +36,6 @@ namespace BusinessLogicLayer.Interfaces
         /// Удаляет объект, соответствующий параметру id
         /// </summary>
         /// <param name="id">Параметр, по которому ведется удаление</param>
-        void Delete(IdType id);
+        void Delete(uint? id);
     }
 }
