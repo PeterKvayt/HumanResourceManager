@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
-using CommonClasses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CompaniesController : ControllerBase
+    public class CompaniesController : GeneralController<CompanyDTO>
     {
         private IService<CompanyDTO> _service;
 
@@ -20,26 +19,19 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<CompanyDTO> GetAll()
         {
-            return _service.GetAll();
+            return GetAll(_service);
         }
 
         [HttpGet("{id}")]
-        public CompanyDTO Get(uint id)
+        public CompanyDTO Get(uint? id)
         {
-            IdType idEntity = new IdType
-            {
-                Identificator = id
-            };
-
-            return _service.Get(idEntity);
+            return Get(id, _service);
         }
 
         [HttpPost]
         public void Create(CompanyDTO model)
         {
-            CompanyDTO positionDTO = model;
-
-            _service.Create(positionDTO);
+            Create(model, _service);
         }
 
         [HttpPut]
@@ -49,13 +41,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void Delete(uint id)
+        public void Delete(uint? id)
         {
-            IdType idEntity = new IdType
-            {
-                Identificator = id
-            };
-            _service.Delete(idEntity);
+            Delete(id, _service);
         }
     }
 }

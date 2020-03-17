@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Collections.Generic;
 using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
-using CommonClasses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -28,17 +25,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public ActivityTypeDTO Get(uint? id)
         {
-            if (id == null)
-            {
-                throw new HttpListenerException(404);
-            }
-
-            IdType idEntity = new IdType
-            {
-                Identificator = (uint)id
-            };
-
-            return Get(idEntity, _service);
+            return Get(id, _service);
         }
 
         [HttpPost]
@@ -56,17 +43,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(uint? id)
         {
-            if (id == null)
-            {
-                throw new HttpListenerException(404);
-            }
-
-            IdType idEntity = new IdType
-            {
-                Identificator = (uint)id
-            };
-
-            Delete(idEntity, _service);
+            Delete(id, _service);
         }
     }
 }

@@ -22,11 +22,11 @@ namespace WebAPI.Controllers
             }
         }
 
-        protected virtual DataTransferObject Get(IdType id, IService<DataTransferObject> service)
+        protected virtual DataTransferObject Get(uint? id, IService<DataTransferObject> service)
         {
             try
             {
-                return service.Get()
+                return service.Get(id);
             }
             catch (ClientException)
             {
@@ -66,7 +66,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        protected virtual void Delete(IdType id, IService<DataTransferObject> service)
+        protected virtual void Delete(uint? id, IService<DataTransferObject> service)
         {
             try
             {
