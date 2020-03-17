@@ -9,8 +9,6 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ActivityTypesController : GeneralController<ActivityTypeDTO>
     {
-        private IService<ActivityTypeDTO> _service;
-
         public ActivityTypesController(IServiceUnitOfWork serviceProvider)
         {
             _service = serviceProvider.AcivityTypeService;
@@ -19,31 +17,31 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<ActivityTypeDTO> GetAll()
         {
-            return GetAll(_service);
+            return GetAllItems();
         }
 
         [HttpGet("{id}")]
         public ActivityTypeDTO Get(uint? id)
         {
-            return Get(id, _service);
+            return GetItem(id);
         }
 
         [HttpPost]
         public void Create(ActivityTypeDTO model)
         {
-            Create(model, _service);
+            CreateItem(model);
         }
 
         [HttpPut]
         public void Update(ActivityTypeDTO model)
         {
-            Update(model, _service);
+            UpdateItem(model);
         }
 
         [HttpDelete("{id}")]
         public void Delete(uint? id)
         {
-            Delete(id, _service);
+            DeleteItem(id);
         }
     }
 }

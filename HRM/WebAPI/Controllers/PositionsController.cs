@@ -9,8 +9,6 @@ namespace WebAPI.Controllers
     [ApiController]
     public class PositionsController : GeneralController<PositionDTO>
     {
-        private IService<PositionDTO> _service;
-
         public PositionsController(IServiceUnitOfWork serviceProvider)
         {
             _service = serviceProvider.PositionService;
@@ -19,31 +17,31 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<PositionDTO> GetAll()
         {
-            return GetAll(_service);
+            return GetAllItems();
         }
 
         [HttpGet("{id}")]
         public PositionDTO Get(uint? id)
         {
-            return Get(id, _service);
+            return GetItem(id);
         }
 
         [HttpPost]
         public void Create(PositionDTO model)
         {
-            Create(model, _service);
+            CreateItem(model);
         }
 
         [HttpPut]
         public void Update(PositionDTO model)
         {
-            Update(model, _service);
+            UpdateItem(model);
         }
 
         [HttpDelete("{id}")]
         public void Delete(uint? id)
         {
-            Delete(id, _service);
+            DeleteItem(id);
         }
     }
 }

@@ -9,8 +9,6 @@ namespace WebAPI.Controllers
     [ApiController]
     public class EmployeesController : GeneralController<EmployeeDTO>
     {
-        private IService<EmployeeDTO> _service;
-
         public EmployeesController(IServiceUnitOfWork serviceProvider)
         {
             _service = serviceProvider.EmployeeService;
@@ -19,31 +17,31 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<EmployeeDTO> GetAll()
         {
-            return GetAll(_service);
+            return GetAllItems();
         }
 
         [HttpGet("{id}")]
         public EmployeeDTO Get(uint? id)
         {
-            return Get(id, _service);
+            return GetItem(id);
         }
 
         [HttpPost]
         public void Create(EmployeeDTO model)
         {
-            Create(model, _service);
+            CreateItem(model);
         }
 
         [HttpPut]
         public void Update(EmployeeDTO model)
         {
-            Update(model, _service);
+            UpdateItem(model);
         }
 
         [HttpDelete("{id}")]
         public void Delete(uint? id)
         {
-            Delete(id, _service);
+            DeleteItem(id);
         }
     }
 }

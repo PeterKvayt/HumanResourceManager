@@ -9,8 +9,6 @@ namespace WebAPI.Controllers
     [ApiController]
     public class LegalFormsController : GeneralController<LegalFormDTO>
     {
-        private IService<LegalFormDTO> _service;
-
         public LegalFormsController(IServiceUnitOfWork serviceProvider)
         {
             _service = serviceProvider.LegalFormService;
@@ -19,31 +17,31 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<LegalFormDTO> GetAll()
         {
-            return GetAll(_service);
+            return GetAllItems();
         }
 
         [HttpGet("{id}")]
         public LegalFormDTO Get(uint? id)
         {
-            return Get(id, _service);
+            return GetItem(id);
         }
 
         [HttpPost]
         public void Create(LegalFormDTO model)
         {
-            Create(model, _service);
+            CreateItem(model);
         }
 
         [HttpPut]
         public void Update(LegalFormDTO model)
         {
-            Update(model, _service);
+            UpdateItem(model);
         }
 
         [HttpDelete("{id}")]
         public void Delete(uint? id)
         {
-            Delete(id, _service);
+            DeleteItem(id);
         }
     }
 }

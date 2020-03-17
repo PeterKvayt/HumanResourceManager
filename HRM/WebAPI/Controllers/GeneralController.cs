@@ -10,11 +10,13 @@ namespace WebAPI.Controllers
 {
     abstract public class GeneralController<DataTransferObject> : ControllerBase
     {
-        protected virtual IEnumerable<DataTransferObject> GetAll(IService<DataTransferObject> service)
+        protected IService<DataTransferObject> _service;
+
+        protected virtual IEnumerable<DataTransferObject> GetAllItems()
         {
             try
             {
-                return service.GetAll();
+                return _service.GetAll();
             }
             catch (Exception)
             {
@@ -22,11 +24,11 @@ namespace WebAPI.Controllers
             }
         }
 
-        protected virtual DataTransferObject Get(uint? id, IService<DataTransferObject> service)
+        protected virtual DataTransferObject GetItem(uint? id)
         {
             try
             {
-                return service.Get(id);
+                return _service.Get(id);
             }
             catch (ClientException)
             {
@@ -38,11 +40,11 @@ namespace WebAPI.Controllers
             }
         }
 
-        protected virtual void Create(DataTransferObject item, IService<DataTransferObject> service)
+        protected virtual void CreateItem(DataTransferObject item)
         {
             try
             {
-                service.Create(item);
+                _service.Create(item);
             }
             catch (Exception)
             {
@@ -50,11 +52,11 @@ namespace WebAPI.Controllers
             }
         }
 
-        protected virtual void Update(DataTransferObject item, IService<DataTransferObject> service)
+        protected virtual void UpdateItem(DataTransferObject item)
         {
             try
             {
-                service.Update(item);
+                _service.Update(item);
             }
             catch (ClientException)
             {
@@ -66,11 +68,11 @@ namespace WebAPI.Controllers
             }
         }
 
-        protected virtual void Delete(uint? id, IService<DataTransferObject> service)
+        protected virtual void DeleteItem(uint? id)
         {
             try
             {
-                service.Delete(id);
+                _service.Delete(id);
             }
             catch (ClientException)
             {
