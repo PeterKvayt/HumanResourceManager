@@ -158,7 +158,6 @@ namespace BusinessLogicLayer.Services
                 throw;
             }
 
-
             try
             {
                 repository.Update(resultDataBaseEntity);

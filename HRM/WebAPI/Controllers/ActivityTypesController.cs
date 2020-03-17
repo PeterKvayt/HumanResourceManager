@@ -10,7 +10,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActivityTypesController : ControllerBase
+    public class ActivityTypesController : GeneralController<ActivityTypeDTO>
     {
         private IService<ActivityTypeDTO> _service;
 
@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<ActivityTypeDTO> GetAll()
         {
-            return _service.GetAll();
+            return GetAll(_service);
         }
 
         [HttpGet("{id}")]
@@ -38,30 +38,35 @@ namespace WebAPI.Controllers
                 Identificator = (uint)id
             };
 
-            return _service.Get(idEntity);
+            return Get(idEntity, _service);
         }
 
         [HttpPost]
         public void Create(ActivityTypeDTO model)
         {
-            _service.Create(model);
+            Create(model, _service);
         }
 
         [HttpPut]
         public void Update(ActivityTypeDTO model)
         {
-            _service.Update(model);
+            Update(model, _service);
         }
 
         [HttpDelete("{id}")]
-        public void Delete(uint id)
+        public void Delete(uint? id)
         {
+            if (id == null)
+            {
+                throw new HttpListenerException(404);
+            }
+
             IdType idEntity = new IdType
             {
-                Identificator = id
+                Identificator = (uint)id
             };
 
-            _service.Delete(idEntity);
+            Delete(idEntity, _service);
         }
     }
 }
