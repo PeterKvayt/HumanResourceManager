@@ -65,9 +65,10 @@ namespace DataAccessLayer.DataContext
             {
                 _connection = DataBaseConnection.GetConnection();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                // ToDo: exception
+                ExceptionLogger.Log(exception);
+
                 throw;
             }
         }

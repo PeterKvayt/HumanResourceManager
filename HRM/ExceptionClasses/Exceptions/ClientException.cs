@@ -1,17 +1,9 @@
-﻿using ExceptionClasses.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace ExceptionClasses.Exceptions
 {
-    public class ClientException : GeneralException<ClientException>, IException
+    public class ClientException : Exception
     {
-        public ClientException() { }
-
-        public ClientException(string message)
-        {
-            ExceptionMessage = message;
-        }
+        public ClientException() : base() { }
     }
 }

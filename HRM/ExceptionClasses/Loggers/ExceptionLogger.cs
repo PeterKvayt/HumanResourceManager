@@ -56,17 +56,5 @@ namespace ExceptionClasses.Loggers
                 File.AppendAllText(path, logMessage);
             }
         }
-
-        // leave
-        public static void LogError(string c)
-        {
-
-        }
-
-        //leave
-        public static void LogWarn(string c)
-        {
-
-        }
     }
 }

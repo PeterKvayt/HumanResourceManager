@@ -28,7 +28,7 @@ namespace CommonClasses
             {
                 const string EXCEPTION_MESSAGE = "Отсутствует контекст данных DataTable (dataTable = null)!";
 
-                ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(DataTableMapper).Name, "DataTableMapper");
 
                 throw new Exception();
             }
@@ -113,22 +113,21 @@ namespace CommonClasses
                         {
                             property.SetValue(inputItem, row[column]);
                         }
-                        //property.SetValue(inputItem, row[column], null);
                     }
                     else
                     {
-                        const string EXCEPTION_MESSAGE = "Значение ячейки в строке DataTable = DBNull.Value!";
+                        string EXCEPTION_MESSAGE = $"Значение ячейки = DBNull.Value в столбце {column.ColumnName}";
 
-                        ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                        ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(DataTableMapper).Name, "SetItemFromRow<" + typeof(T).Name + ">");
 
                         throw new Exception();
                     }
                 }
                 else
                 {
-                    const string EXCEPTION_MESSAGE = "Отсутствует свойство (property = null)!";
+                    string EXCEPTION_MESSAGE = $"Отсутствует свойство {column.ColumnName} (property = null)!";
 
-                    ExceptionLogger.LogError(EXCEPTION_MESSAGE);
+                    ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(DataTableMapper).Name, "SetItemFromRow<" + typeof(T).Name + ">");
 
                     throw new Exception();
                 }
