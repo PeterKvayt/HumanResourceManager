@@ -42,11 +42,25 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual void Delete(IdType id, IRepository<EntityType> repository)
+        protected virtual void Delete(uint? id, IRepository<EntityType> repository)
         {
-            if ( !Exists(id, repository) )
+            if (id == null)
             {
-                string EXCEPTION_MESSAGE = $"Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = null";
+
+                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Delete");
+
+                throw new ClientException();
+            }
+
+            IdType idEntity = new IdType
+            {
+                Identificator = (uint)id
+            };
+
+            if ( !Exists(idEntity, repository) )
+            {
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {idEntity.Identificator.ToString()}";
 
                 ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Delete");
 
@@ -55,7 +69,7 @@ namespace BusinessLogicLayer.Services
 
             try
             {
-                repository.Delete(id);
+                repository.Delete(idEntity);
             }
             catch (Exception exception)
             {
@@ -65,11 +79,25 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        protected virtual DataTransferObject Get(IdType id, IRepository<EntityType> repository)
+        protected virtual DataTransferObject Get(uint? id, IRepository<EntityType> repository)
         {
-            if (!Exists(id, repository))
+            if (id == null)
             {
-                string EXCEPTION_MESSAGE = $"Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса {typeof(EntityType).ToString()} с Id = {id.Identificator.ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса {typeof(EntityType).ToString()} с Id = null";
+
+                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Get");
+
+                throw new ClientException();
+            }
+
+            IdType idEntity = new IdType
+            {
+                Identificator = (uint)id
+            };
+
+            if (!Exists(idEntity, repository))
+            {
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса {typeof(EntityType).ToString()} с Id = {idEntity.Identificator.ToString()}";
 
                 ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Get");
 
@@ -79,7 +107,7 @@ namespace BusinessLogicLayer.Services
             EntityType entity = null;
             try
             {
-                entity = repository.Get(id);
+                entity = repository.Get(idEntity);
             }
             catch (Exception exception)
             {
@@ -170,11 +198,11 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        private bool Exists(IdType id, IRepository<EntityType> repository)
+        private bool Exists(IdType idEntity, IRepository<EntityType> repository)
         {
             try
             {
-                return repository.Exists(id);
+                return repository.Exists(idEntity);
             }
             catch (Exception exception)
             {
