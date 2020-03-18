@@ -43,7 +43,7 @@ namespace PresentationLayer.Controllers
             return await _client.DeleteAsync(apiName);
         }
 
-        protected async virtual Task<EntityModel> GetResultAsync(string apiName)
+        protected async virtual Task<(EntityModel, HttpStatusCode)> GetResultAsync(string apiName)
         {
             var response = await GetAsync(apiName);
 
@@ -51,11 +51,11 @@ namespace PresentationLayer.Controllers
             {
                 var result = await response.Content.ReadAsAsync<EntityModel>();
 
-                return result;
+                return (result, HttpStatusCode.OK);
             }
             else
             {
-                return null;
+                return (null, response.StatusCode);
             }
         }
 

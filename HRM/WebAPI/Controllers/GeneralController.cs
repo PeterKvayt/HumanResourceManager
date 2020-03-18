@@ -19,8 +19,6 @@ namespace WebAPI.Controllers
         {
             try
             {
-                Response.StatusCode = _serverErrorResponse;
-
                 return _service.GetAll();
             }
             catch (Exception)
@@ -35,6 +33,9 @@ namespace WebAPI.Controllers
         {
             try
             {
+                Response.StatusCode = _notFoundResponse;
+
+
                 return _service.Get(id);
             }
             catch (ClientException)

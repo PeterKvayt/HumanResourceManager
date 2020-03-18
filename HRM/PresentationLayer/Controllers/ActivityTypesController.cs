@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Models;
 using PresentationLayer.ViewModels;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -64,12 +62,8 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(uint? id)
         {
-            //if (id == null)
-            //{
-            //    return Redirect("/" + ACTIVITY_TYPES_API + "/Error");
-            //}
+            var (activityType, statusCode) = await GetResultAsync(ACTIVITY_TYPES_API + "/" + id);
 
-            var activityType = await GetResultAsync(ACTIVITY_TYPES_API + "/" + id);
             if (activityType != null)
             {
                 ActivityTypeViewModel model = new ActivityTypeViewModel
@@ -81,9 +75,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                // ToDo: exception
-
-                return Redirect("/" + ACTIVITY_TYPES_API + "/Error");
+                return RedirectToAction("Error", ACTIVITY_TYPES_API, new { code = statusCode });
             }
         }
 

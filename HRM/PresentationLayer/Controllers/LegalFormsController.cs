@@ -3,6 +3,7 @@ using PresentationLayer.Models;
 using PresentationLayer.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -63,9 +64,9 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(uint id)
+        public async Task<IActionResult> Update(uint? id)
         {
-            var legalForm = await GetResultAsync(LEGAL_FORMS_API + "/" + id);
+            var (legalForm, statusCode) = await GetResultAsync(LEGAL_FORMS_API + "/" + id);
             if (legalForm != null)
             {
                 LegalFormViewModel model = new LegalFormViewModel
@@ -77,9 +78,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                // ToDo: exception
-
-                return Redirect("/" + LEGAL_FORMS_API + "/Error");
+                return RedirectToAction("Error", LEGAL_FORMS_API, new { code = statusCode });
             }
         }
 
@@ -98,17 +97,22 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(uint id)
+        public async Task<IActionResult> Delete(uint? id)
         {
             await DeleteAsync(LEGAL_FORMS_API + "/" + id);
 
             return Redirect("/" + LEGAL_FORMS_API + "/Index");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        public IActionResult Error(HttpStatusCode code)
         {
-            return View(new ErrorViewModel());
+            ErrorViewModel model = new ErrorViewModel
+            {
+                StausCode = code
+            };
+
+            return View(model);
         }
     }
 }

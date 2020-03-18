@@ -3,6 +3,7 @@ using PresentationLayer.Models;
 using PresentationLayer.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -61,9 +62,9 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(uint id)
+        public async Task<IActionResult> Update(uint? id)
         {
-            var position = await GetResultAsync(POSITIONS_API + "/" + id);
+            var (position, statusCode) = await GetResultAsync(POSITIONS_API + "/" + id);
             if (position != null)
             {
                 PositionViewModel model = new PositionViewModel
@@ -75,9 +76,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                // ToDo: exception
-
-                return Redirect("/" + POSITIONS_API + "/Error");
+                return RedirectToAction("Error", POSITIONS_API, new { code = statusCode });
             }
         }
 
@@ -96,17 +95,22 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(uint id)
+        public async Task<IActionResult> Delete(uint? id)
         {
             await DeleteAsync(POSITIONS_API + "/" + id);
 
             return Redirect("/" + POSITIONS_API + "/Index");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        public IActionResult Error(HttpStatusCode code)
         {
-            return View(new ErrorViewModel());
+            ErrorViewModel model = new ErrorViewModel
+            {
+                StausCode = code
+            };
+
+            return View(model);
         }
     }
 }

@@ -85,10 +85,11 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(uint id)
         {
-            EmployeeModel employeeModel = await GetResultAsync(EMPLOYEES_API + "/" + id);
+            var (employeeModel, emolyeeStatusCode) = await GetResultAsync(EMPLOYEES_API + "/" + id);
+
             if (employeeModel != null)
             {
-                var (model, statusCode) = await GetViewModelWithCollectionsAsync();
+                var (model, collectionsStatusCode) = await GetViewModelWithCollectionsAsync();
                 if (model != null)
                 {
                     model.EmployeeModel = employeeModel;
@@ -97,16 +98,12 @@ namespace PresentationLayer.Controllers
                 }
                 else
                 {
-                    // ToDo: exception
-
-                    return Redirect("/" + EMPLOYEES_API + "/Error");
+                    return RedirectToAction("Error", EMPLOYEES_API, new { code = collectionsStatusCode });
                 }
             }
             else
             {
-                // ToDo: exception
-
-                return Redirect("/" + EMPLOYEES_API + "/Error");
+                return RedirectToAction("Error", EMPLOYEES_API, new { code = emolyeeStatusCode });
             }
         }
 
@@ -132,10 +129,15 @@ namespace PresentationLayer.Controllers
             return Redirect("/" + EMPLOYEES_API + "/Index");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        public IActionResult Error(HttpStatusCode code)
         {
-            return View(new ErrorViewModel());
+            ErrorViewModel model = new ErrorViewModel
+            {
+                StausCode = code
+            };
+
+            return View(model);
         }
 
         private async Task<(EmployeeViewModel, HttpStatusCode)> GetViewModelWithCollectionsAsync()
