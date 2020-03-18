@@ -12,6 +12,8 @@ namespace PresentationLayer.Controllers
     {
         protected HttpClient _client;
 
+        protected HttpStatusCode _statusCode;
+
         protected void SetClientSettings()
         {
             if (_client.BaseAddress == null)

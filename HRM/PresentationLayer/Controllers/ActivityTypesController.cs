@@ -36,9 +36,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                // ToDo: exception
-
-                return Redirect("/"+ ACTIVITY_TYPES_API + "/Error");
+                return RedirectToAction("Error", ACTIVITY_TYPES_API, new { code = statusCode });
             }
 
         }
@@ -116,15 +114,15 @@ namespace PresentationLayer.Controllers
             return Redirect("/" + ACTIVITY_TYPES_API + "/Error");
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Error(HttpStatusCode code)
         {
-            return View();
-        }
+            ErrorViewModel model = new ErrorViewModel
+            {
+                StausCode = code
+            };
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(model);
         }
     }
 }

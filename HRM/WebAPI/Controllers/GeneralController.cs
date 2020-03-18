@@ -19,6 +19,8 @@ namespace WebAPI.Controllers
         {
             try
             {
+                Response.StatusCode = _serverErrorResponse;
+
                 return _service.GetAll();
             }
             catch (Exception)
