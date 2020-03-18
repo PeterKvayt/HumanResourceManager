@@ -55,7 +55,7 @@ namespace PresentationLayer.Controllers
             var responseMessage = await PostAsync(POSITIONS_API, position);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return Redirect("/" + POSITIONS_API + "/Index");
+                return Redirect("/" + POSITIONS_API);
             }
 
             return Redirect("/" + POSITIONS_API + "/Create");
@@ -76,7 +76,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                return RedirectToAction("Error", POSITIONS_API, new { code = statusCode });
+                return RedirectToAction("Error", new { code = statusCode });
             }
         }
 
@@ -85,21 +85,31 @@ namespace PresentationLayer.Controllers
         {
             PositionModel position = model.PositionModel;
 
-            var responseMessage = await PutAsync(POSITIONS_API, position);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return Redirect("/" + POSITIONS_API + "/Index");
-            }
+            var statusCode = await PutAsync(POSITIONS_API, position);
 
-            return Redirect("/" + POSITIONS_API + "/Update/" + position.Id.Identificator);
+            if (statusCode == HttpStatusCode.OK)
+            {
+                return Redirect("/" + POSITIONS_API);
+            }
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(uint? id)
         {
-            await DeleteAsync(POSITIONS_API + "/" + id);
+            var statusCode = await DeleteAsync(POSITIONS_API + "/" + id);
 
-            return Redirect("/" + POSITIONS_API + "/Index");
+            if (statusCode == HttpStatusCode.OK)
+            {
+                return Redirect("/" + POSITIONS_API);
+            }
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]

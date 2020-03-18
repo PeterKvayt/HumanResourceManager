@@ -33,14 +33,18 @@ namespace PresentationLayer.Controllers
             return await _client.PostAsJsonAsync(apiName, entity);
         }
 
-        protected async Task<HttpResponseMessage> PutAsync(string apiName, EntityModel entity)
+        protected async Task<HttpStatusCode> PutAsync(string apiName, EntityModel entity)
         {
-            return await _client.PutAsJsonAsync(apiName, entity);
+            var response = await _client.PutAsJsonAsync(apiName, entity);
+
+            return response.StatusCode;
         }
 
-        protected async Task<HttpResponseMessage> DeleteAsync(string apiName)
+        protected async Task<HttpStatusCode> DeleteAsync(string apiName)
         {
-            return await _client.DeleteAsync(apiName);
+            var response = await _client.DeleteAsync(apiName);
+
+            return response.StatusCode;
         }
 
         protected async virtual Task<(EntityModel, HttpStatusCode)> GetResultAsync(string apiName)

@@ -34,7 +34,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                return RedirectToAction("Error", ACTIVITY_TYPES_API, new { code = statusCode });
+                return RedirectToAction("Error", new { code = statusCode });
             }
 
         }
@@ -53,7 +53,7 @@ namespace PresentationLayer.Controllers
             var responseMessage = await PostAsync(ACTIVITY_TYPES_API, activityType);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return Redirect("/" + ACTIVITY_TYPES_API + "/Index");
+                return Redirect("/" + ACTIVITY_TYPES_API);
             }
 
             return Redirect("/" + ACTIVITY_TYPES_API + "/Create");
@@ -75,7 +75,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                return RedirectToAction("Error", ACTIVITY_TYPES_API, new { code = statusCode });
+                return RedirectToAction("Error", new { code = statusCode });
             }
         }
 
@@ -84,26 +84,31 @@ namespace PresentationLayer.Controllers
         {
             ActivityTypeModel activityType = model.ActivityTypeModel;
 
-            var responseMessage = await PutAsync(ACTIVITY_TYPES_API, activityType);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return Redirect("/" + ACTIVITY_TYPES_API + "/Index");
-            }
+            var statusCode = await PutAsync(ACTIVITY_TYPES_API, activityType);
 
-            return Redirect("/" + ACTIVITY_TYPES_API + "/Update/" + activityType.Id.Identificator);
+            if (statusCode == HttpStatusCode.OK)
+            {
+                return Redirect("/" + ACTIVITY_TYPES_API);
+            }
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(uint? id)
         {
-            if (id == null)
+            var statusCode = await DeleteAsync(ACTIVITY_TYPES_API + "/" + id);
+
+            if (statusCode == HttpStatusCode.OK)
             {
-                return Redirect("/" + ACTIVITY_TYPES_API + "/Error");
+                return Redirect("/" + ACTIVITY_TYPES_API);
             }
-
-            await DeleteAsync(ACTIVITY_TYPES_API + "/" + id);
-
-            return Redirect("/" + ACTIVITY_TYPES_API + "/Error");
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]

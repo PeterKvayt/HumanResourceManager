@@ -3,7 +3,6 @@ using ExceptionClasses.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Net;
 
 namespace WebAPI.Controllers
 {
@@ -33,9 +32,6 @@ namespace WebAPI.Controllers
         {
             try
             {
-                Response.StatusCode = _notFoundResponse;
-
-
                 return _service.Get(id);
             }
             catch (ClientException)
@@ -95,6 +91,5 @@ namespace WebAPI.Controllers
                 Response.StatusCode = _serverErrorResponse;
             }
         }
-
     }
 }

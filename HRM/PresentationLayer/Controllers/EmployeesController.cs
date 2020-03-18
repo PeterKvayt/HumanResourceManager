@@ -76,7 +76,7 @@ namespace PresentationLayer.Controllers
             var responseMessage = await PostAsync(EMPLOYEES_API, employee);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return Redirect("/" + EMPLOYEES_API + "/Index");
+                return Redirect("/" + EMPLOYEES_API);
             }
 
             return Redirect("/" + EMPLOYEES_API + "/Create");
@@ -98,12 +98,12 @@ namespace PresentationLayer.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Error", EMPLOYEES_API, new { code = collectionsStatusCode });
+                    return RedirectToAction("Error", new { code = collectionsStatusCode });
                 }
             }
             else
             {
-                return RedirectToAction("Error", EMPLOYEES_API, new { code = emolyeeStatusCode });
+                return RedirectToAction("Error", new { code = emolyeeStatusCode });
             }
         }
 
@@ -112,21 +112,31 @@ namespace PresentationLayer.Controllers
         {
             EmployeeModel employee = model.EmployeeModel;
 
-            var responseMessage = await PutAsync(EMPLOYEES_API, employee);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return Redirect("/" + EMPLOYEES_API + "/Index");
-            }
+            var statusCode = await PutAsync(EMPLOYEES_API, employee);
 
-            return Redirect("/" + EMPLOYEES_API + "/Update/" + employee.Id.Identificator);
+            if (statusCode == HttpStatusCode.OK)
+            {
+                return Redirect("/" + EMPLOYEES_API);
+            }
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(uint id)
         {
-            await DeleteAsync(EMPLOYEES_API + "/" + id);
+            var statusCode = await DeleteAsync(EMPLOYEES_API + "/" + id);
 
-            return Redirect("/" + EMPLOYEES_API + "/Index");
+            if (statusCode == HttpStatusCode.OK)
+            {
+                return Redirect("/" + EMPLOYEES_API);
+            }
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]

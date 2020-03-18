@@ -71,7 +71,7 @@ namespace PresentationLayer.Controllers
             var responseMessage = await PostAsync(COMPANIES_API, company);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return Redirect("/" + COMPANIES_API + "/Index");
+                return Redirect("/" + COMPANIES_API);
             }
 
             return Redirect("/" + COMPANIES_API + "/Create");
@@ -93,12 +93,12 @@ namespace PresentationLayer.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Error", COMPANIES_API, new { code = collectionsStatusCode });
+                    return RedirectToAction("Error", new { code = collectionsStatusCode });
                 }
             }
             else
             {
-                return RedirectToAction("Error", COMPANIES_API, new { code = companyStatusCode });
+                return RedirectToAction("Error", new { code = companyStatusCode });
             }
         }
 
@@ -107,21 +107,31 @@ namespace PresentationLayer.Controllers
         {
             CompanyModel companyModel = model.CompanyModel;
 
-            var responseMessage = await PutAsync(COMPANIES_API, companyModel);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return Redirect("/" + COMPANIES_API + "/Index");
-            }
+            var statusCode = await PutAsync(COMPANIES_API, companyModel);
 
-            return Redirect("/" + COMPANIES_API + "/Update/" + companyModel.Id.Identificator);
+            if (statusCode == HttpStatusCode.OK)
+            {
+                return Redirect("/" + COMPANIES_API);
+            }
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(uint id)
         {
-            await DeleteAsync(COMPANIES_API + "/" + id);
+            var statusCode = await DeleteAsync(COMPANIES_API + "/" + id);
 
-            return Redirect("/" + COMPANIES_API + "/Index");
+            if (statusCode == HttpStatusCode.OK)
+            {
+                return Redirect("/" + COMPANIES_API);
+            }
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]

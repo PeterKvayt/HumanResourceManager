@@ -57,7 +57,7 @@ namespace PresentationLayer.Controllers
             var responseMessage = await PostAsync(LEGAL_FORMS_API, legalForm);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return Redirect("/" + LEGAL_FORMS_API + "/Index");
+                return Redirect("/" + LEGAL_FORMS_API + "/");
             }
 
             return Redirect("/" + LEGAL_FORMS_API + "/Create");
@@ -78,7 +78,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                return RedirectToAction("Error", LEGAL_FORMS_API, new { code = statusCode });
+                return RedirectToAction("Error", new { code = statusCode });
             }
         }
 
@@ -87,21 +87,31 @@ namespace PresentationLayer.Controllers
         {
             LegalFormModel position = model.LegalFormModel;
 
-            var responseMessage = await PutAsync(LEGAL_FORMS_API, position);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return Redirect("/" + LEGAL_FORMS_API + "/Index");
-            }
+            var statusCode = await PutAsync(LEGAL_FORMS_API, position);
 
-            return Redirect("/" + LEGAL_FORMS_API + "/Update/" + position.Id.Identificator);
+            if (statusCode == HttpStatusCode.OK)
+            {
+                return Redirect("/" + LEGAL_FORMS_API);
+            }
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(uint? id)
         {
-            await DeleteAsync(LEGAL_FORMS_API + "/" + id);
+            var statusCode = await DeleteAsync(LEGAL_FORMS_API + "/" + id);
 
-            return Redirect("/" + LEGAL_FORMS_API + "/Index");
+            if (statusCode == HttpStatusCode.OK)
+            {
+                return Redirect("/" + LEGAL_FORMS_API + "/");
+            }
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]
