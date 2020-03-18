@@ -1,5 +1,4 @@
 ﻿using BusinessLogicLayer.Interfaces;
-using CommonClasses;
 using ExceptionClasses.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,9 +7,13 @@ using System.Net;
 
 namespace WebAPI.Controllers
 {
-    abstract public class GeneralController<DataTransferObject> : ControllerBase
+    abstract public class GeneralController<DataTransferObject> : ControllerBase where DataTransferObject: class
     {
         protected IService<DataTransferObject> _service;
+
+        private readonly int _notFoundResponse = 404;
+
+        private readonly int _serverErrorResponse = 500;
 
         protected virtual IEnumerable<DataTransferObject> GetAllItems()
         {
@@ -20,7 +23,9 @@ namespace WebAPI.Controllers
             }
             catch (Exception)
             {
-                throw new HttpListenerException(501);
+                Response.StatusCode = _serverErrorResponse;
+
+                return null;
             }
         }
 
@@ -32,11 +37,15 @@ namespace WebAPI.Controllers
             }
             catch (ClientException)
             {
-                throw new HttpListenerException(404);
+                Response.StatusCode = _notFoundResponse;
+
+                return null;
             }
             catch (Exception)
             {
-                throw new HttpListenerException(501);
+                Response.StatusCode = _serverErrorResponse;
+
+                return null;
             }
         }
 
@@ -48,7 +57,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception)
             {
-                throw new HttpListenerException(501);
+                Response.StatusCode = _serverErrorResponse;
             }
         }
 
@@ -60,11 +69,11 @@ namespace WebAPI.Controllers
             }
             catch (ClientException)
             {
-                throw new HttpListenerException(404);
+                Response.StatusCode = _notFoundResponse;
             }
             catch (Exception)
             {
-                throw new HttpListenerException(501);
+                Response.StatusCode = _serverErrorResponse;
             }
         }
 
@@ -76,12 +85,13 @@ namespace WebAPI.Controllers
             }
             catch (ClientException)
             {
-                throw new HttpListenerException(404);
+                Response.StatusCode = _notFoundResponse;
             }
             catch (Exception)
             {
-                throw new HttpListenerException(501);
+                Response.StatusCode = _serverErrorResponse;
             }
         }
+
     }
 }
