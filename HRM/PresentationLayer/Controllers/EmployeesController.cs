@@ -86,7 +86,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(uint id)
+        public async Task<IActionResult> Update(uint? id)
         {
             var (employeeModel, emolyeeStatusCode) = await GetResultAsync(EMPLOYEES_API + "/" + id);
 
@@ -128,7 +128,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(uint id)
+        public async Task<IActionResult> Delete(uint? id)
         {
             var statusCode = await DeleteAsync(EMPLOYEES_API + "/" + id);
 

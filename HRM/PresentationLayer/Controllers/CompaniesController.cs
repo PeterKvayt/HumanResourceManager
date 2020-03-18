@@ -81,7 +81,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(uint id)
+        public async Task<IActionResult> Update(uint? id)
         {
             var (companyModel, companyStatusCode) = await GetResultAsync(COMPANIES_API + "/" + id);
 
@@ -123,7 +123,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(uint id)
+        public async Task<IActionResult> Delete(uint? id)
         {
             var statusCode = await DeleteAsync(COMPANIES_API + "/" + id);
 
