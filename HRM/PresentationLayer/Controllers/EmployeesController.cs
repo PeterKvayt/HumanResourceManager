@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<EmployeeModel> responseEmployeeCollection = await GetResultCollectionAsync<EmployeeModel>(EMPLOYEES_API);
+            var (responseEmployeeCollection, statusCode) = await GetResultCollectionAsync<EmployeeModel>(EMPLOYEES_API);
 
             if (responseEmployeeCollection != null)
             {
@@ -53,7 +54,8 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = await GetViewModelWithCollectionsAsync();
+            var (model, statusCode) = await GetViewModelWithCollectionsAsync();
+
             if (model != null)
             {
                 return View(model);
@@ -86,7 +88,7 @@ namespace PresentationLayer.Controllers
             EmployeeModel employeeModel = await GetResultAsync(EMPLOYEES_API + "/" + id);
             if (employeeModel != null)
             {
-                var model = await GetViewModelWithCollectionsAsync();
+                var (model, statusCode) = await GetViewModelWithCollectionsAsync();
                 if (model != null)
                 {
                     model.EmployeeModel = employeeModel;
@@ -106,39 +108,6 @@ namespace PresentationLayer.Controllers
 
                 return Redirect("/" + EMPLOYEES_API + "/Error");
             }
-
-
-            //HttpResponseMessage responseMessage = await _client.GetAsync(EMPLOYEES_API + "/" + id);
-            //if (responseMessage.IsSuccessStatusCode)
-            //{
-            //    EmployeeViewModel model = new EmployeeViewModel
-            //    {
-            //        EmployeeModel = await responseMessage.Content.ReadAsAsync<EmployeeModel>()
-            //    };
-
-            //    List<CompanyModel> responseCompanyCollection = new List<CompanyModel> { };
-
-            //    responseMessage = await _client.GetAsync(COMPANIES_API);
-            //    if (responseMessage.IsSuccessStatusCode)
-            //    {
-            //        responseCompanyCollection = await responseMessage.Content.ReadAsAsync<List<CompanyModel>>();
-            //    }
-
-            //    List<PositionModel> responsePositionCollection = new List<PositionModel> { };
-
-            //    responseMessage = await _client.GetAsync(POSITIONS_API);
-            //    if (responseMessage.IsSuccessStatusCode)
-            //    {
-            //        responsePositionCollection = await responseMessage.Content.ReadAsAsync<List<PositionModel>>();
-            //    }
-
-            //    model.PositionCollection = responsePositionCollection;
-            //    model.CompanyCollection = responseCompanyCollection;
-
-            //    return View(model);
-            //}
-
-            //return Redirect("/" + EMPLOYEES_API + "/Index");
         }
 
         [HttpPost]
@@ -169,25 +138,34 @@ namespace PresentationLayer.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private async Task<EmployeeViewModel> GetViewModelWithCollectionsAsync()
+        private async Task<(EmployeeViewModel, HttpStatusCode)> GetViewModelWithCollectionsAsync()
         {
-            List<CompanyModel> responseCompanyCollection = await GetResultCollectionAsync<CompanyModel>(COMPANIES_API);
+            var companyResponse = await GetResultCollectionAsync<CompanyModel>(COMPANIES_API);
 
-            List<PositionModel> responsePositionCollection = await GetResultCollectionAsync<PositionModel>(POSITIONS_API);
+            var positionRespnse = await GetResultCollectionAsync<PositionModel>(POSITIONS_API);
 
-            if (responseCompanyCollection != null && responsePositionCollection != null)
+            if (companyResponse.Item1 != null && positionRespnse.Item1 != null)
             {
                 EmployeeViewModel model = new EmployeeViewModel
                 {
-                    CompanyCollection = responseCompanyCollection,
-                    PositionCollection = responsePositionCollection
+                    CompanyCollection = companyResponse.Item1,
+                    PositionCollection = positionRespnse.Item1
                 };
 
-                return model;
+                return (model, HttpStatusCode.OK);
             }
             else
             {
-                return null;
+                var notFoundStatus = HttpStatusCode.NotFound;
+
+                if (companyResponse.Item2 == notFoundStatus && positionRespnse.Item2 == notFoundStatus)
+                {
+                    return (null, notFoundStatus);
+                }
+                else
+                {
+                    return (null, HttpStatusCode.InternalServerError);
+                }
             }
         }
     }

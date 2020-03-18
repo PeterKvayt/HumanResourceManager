@@ -22,7 +22,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<LegalFormModel> responseLegalFormCollection = await GetResultCollectionAsync<LegalFormModel>(LEGAL_FORMS_API);
+            var (responseLegalFormCollection, statusCode) = await GetResultCollectionAsync<LegalFormModel>(LEGAL_FORMS_API);
 
             if (responseLegalFormCollection != null)
             {

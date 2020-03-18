@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -56,19 +57,21 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        protected async virtual Task<List<CommonEntityModel>> GetResultCollectionAsync<CommonEntityModel>(string apiName)
+        protected async virtual Task<(List<CommonEntityModel>, HttpStatusCode)> GetResultCollectionAsync<CommonEntityModel>(string apiName)
         {
             var response = await GetAsync(apiName);
 
             if (response.IsSuccessStatusCode)
             {
-                var result = await response.Content.ReadAsAsync<List<CommonEntityModel>>();
+                var resultCollection = await response.Content.ReadAsAsync<List<CommonEntityModel>>();
+
+                var result = (resultCollection, HttpStatusCode.OK);
 
                 return result;
             }
             else
             {
-                return null;
+                return (null, response.StatusCode);
             }
         }
     }

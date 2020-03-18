@@ -3,6 +3,7 @@ using PresentationLayer.Models;
 using PresentationLayer.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -26,7 +27,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<CompanyModel> responseCompanyCollection = await GetResultCollectionAsync<CompanyModel>(COMPANIES_API);
+            var (responseCompanyCollection, statusCode) = await GetResultCollectionAsync<CompanyModel>(COMPANIES_API);
 
             if (responseCompanyCollection != null)
             {
@@ -48,7 +49,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = await GetViewModelWithCollectionsAsync();
+            var (model, statusCode) = await GetViewModelWithCollectionsAsync();
 
             if (model != null)
             {
@@ -82,7 +83,7 @@ namespace PresentationLayer.Controllers
             CompanyModel companyModel = await GetResultAsync(COMPANIES_API + "/" + id);
             if (companyModel != null)
             {
-                var model = await GetViewModelWithCollectionsAsync();
+                var (model, statusCode) = await GetViewModelWithCollectionsAsync();
                 if (model != null)
                 {
                     model.CompanyModel = companyModel;
@@ -132,25 +133,34 @@ namespace PresentationLayer.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private async Task<CompanyViewModel> GetViewModelWithCollectionsAsync()
+        private async Task<(CompanyViewModel, HttpStatusCode)> GetViewModelWithCollectionsAsync()
         {
-            List<ActivityTypeModel> responseActivityTypeCollection = await GetResultCollectionAsync<ActivityTypeModel>(ACTIVITY_TYPES_API);
+            var activityTypeResponse  = await GetResultCollectionAsync<ActivityTypeModel>(ACTIVITY_TYPES_API);
 
-            List<LegalFormModel> responseLegalFormCollection = await GetResultCollectionAsync<LegalFormModel>(LEGAL_FORMS_API);
+            var legalFormResponse = await GetResultCollectionAsync<LegalFormModel>(LEGAL_FORMS_API);
 
-            if (responseActivityTypeCollection != null && responseLegalFormCollection != null)
+            if (legalFormResponse.Item1 != null && activityTypeResponse.Item1 != null)
             {
                 CompanyViewModel model = new CompanyViewModel
                 {
-                    LegalFormCollection = responseLegalFormCollection,
-                    ActivityTypeCollection = responseActivityTypeCollection
+                    LegalFormCollection = legalFormResponse.Item1,
+                    ActivityTypeCollection = activityTypeResponse.Item1
                 };
 
-                return model;
+                return (model, HttpStatusCode.OK);
             }
             else
             {
-                return null;
+                var notFoundStatus = HttpStatusCode.NotFound;
+
+                if (legalFormResponse.Item2 == notFoundStatus && activityTypeResponse.Item2 == notFoundStatus)
+                {
+                    return (null, notFoundStatus);
+                }
+                else
+                {
+                    return (null, HttpStatusCode.InternalServerError);
+                }
             }
         }
     }

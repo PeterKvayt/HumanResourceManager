@@ -22,7 +22,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<PositionModel> responsePositionCollection = await GetResultCollectionAsync<PositionModel>(POSITIONS_API);
+            var (responsePositionCollection, statusCode) = await GetResultCollectionAsync<PositionModel>(POSITIONS_API);
             if (responsePositionCollection != null)
             {
                 PositionViewModel model = new PositionViewModel

@@ -3,6 +3,7 @@ using PresentationLayer.Models;
 using PresentationLayer.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -22,7 +23,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<ActivityTypeModel> responseActivityTypeCollection = await GetResultCollectionAsync<ActivityTypeModel>(ACTIVITY_TYPES_API);
+            var (responseActivityTypeCollection, statusCode) = await GetResultCollectionAsync<ActivityTypeModel>(ACTIVITY_TYPES_API);
 
             if (responseActivityTypeCollection != null)
             {
