@@ -54,13 +54,16 @@ namespace PresentationLayer.Controllers
         {
             LegalFormModel legalForm = model.LegalFormModel;
 
-            var responseMessage = await PostAsync(LEGAL_FORMS_API, legalForm);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return Redirect("/" + LEGAL_FORMS_API + "/");
-            }
+            var statusCode = await PostAsync(LEGAL_FORMS_API, legalForm);
 
-            return Redirect("/" + LEGAL_FORMS_API + "/Create");
+            if (statusCode == HttpStatusCode.OK)
+            {
+                return Redirect("/" + LEGAL_FORMS_API);
+            }
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]

@@ -52,13 +52,16 @@ namespace PresentationLayer.Controllers
         {
             PositionModel position = model.PositionModel;
 
-            var responseMessage = await PostAsync(POSITIONS_API, position);
-            if (responseMessage.IsSuccessStatusCode)
+            var statusCode = await PostAsync(POSITIONS_API, position);
+
+            if (statusCode == HttpStatusCode.OK)
             {
                 return Redirect("/" + POSITIONS_API);
             }
-
-            return Redirect("/" + POSITIONS_API + "/Create");
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]

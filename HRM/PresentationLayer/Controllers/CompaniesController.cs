@@ -68,13 +68,16 @@ namespace PresentationLayer.Controllers
         {
             CompanyModel company = model.CompanyModel;
 
-            var responseMessage = await PostAsync(COMPANIES_API, company);
-            if (responseMessage.IsSuccessStatusCode)
+            var statusCode = await PostAsync(COMPANIES_API, company);
+
+            if (statusCode == HttpStatusCode.OK)
             {
                 return Redirect("/" + COMPANIES_API);
             }
-
-            return Redirect("/" + COMPANIES_API + "/Create");
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]

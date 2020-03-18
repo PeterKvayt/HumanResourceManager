@@ -50,13 +50,16 @@ namespace PresentationLayer.Controllers
         {
             ActivityTypeModel activityType = model.ActivityTypeModel;
 
-            var responseMessage = await PostAsync(ACTIVITY_TYPES_API, activityType);
-            if (responseMessage.IsSuccessStatusCode)
+            var statusCode = await PostAsync(ACTIVITY_TYPES_API, activityType);
+
+            if (statusCode == HttpStatusCode.OK)
             {
                 return Redirect("/" + ACTIVITY_TYPES_API);
             }
-
-            return Redirect("/" + ACTIVITY_TYPES_API + "/Create");
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]

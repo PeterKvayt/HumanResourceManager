@@ -73,13 +73,16 @@ namespace PresentationLayer.Controllers
         {
             EmployeeModel employee = model.EmployeeModel;
 
-            var responseMessage = await PostAsync(EMPLOYEES_API, employee);
-            if (responseMessage.IsSuccessStatusCode)
+            var statusCode = await PostAsync(EMPLOYEES_API, employee);
+
+            if (statusCode == HttpStatusCode.OK)
             {
                 return Redirect("/" + EMPLOYEES_API);
             }
-
-            return Redirect("/" + EMPLOYEES_API + "/Create");
+            else
+            {
+                return RedirectToAction("Error", new { code = statusCode });
+            }
         }
 
         [HttpGet]

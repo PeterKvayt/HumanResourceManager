@@ -28,9 +28,11 @@ namespace PresentationLayer.Controllers
             return await _client.GetAsync(apiName);
         }
 
-        protected async Task<HttpResponseMessage> PostAsync(string apiName, EntityModel entity)
+        protected async Task<HttpStatusCode> PostAsync(string apiName, EntityModel entity)
         {
-            return await _client.PostAsJsonAsync(apiName, entity);
+            var response = await _client.PostAsJsonAsync(apiName, entity);
+
+            return response.StatusCode;
         }
 
         protected async Task<HttpStatusCode> PutAsync(string apiName, EntityModel entity)
