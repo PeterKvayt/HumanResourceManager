@@ -24,6 +24,7 @@ namespace PresentationLayer.Controllers
         public async Task<IActionResult> Index()
         {
             var (responsePositionCollection, statusCode) = await GetResultCollectionAsync<PositionModel>(POSITIONS_API);
+
             if (responsePositionCollection != null)
             {
                 PositionViewModel model = new PositionViewModel
@@ -35,9 +36,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                // ToDo: exception
-
-                return Redirect("/" + POSITIONS_API + "/Error");
+                return RedirectToAction("Error", new { code = statusCode });
             }
         }
 

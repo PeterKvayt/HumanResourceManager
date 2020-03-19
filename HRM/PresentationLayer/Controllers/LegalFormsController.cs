@@ -36,11 +36,8 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                // ToDo: exception
-
-                return Redirect("/" + LEGAL_FORMS_API + "/Error");
+                return RedirectToAction("Error", new { code = statusCode });
             }
-
         }
 
         [HttpGet]

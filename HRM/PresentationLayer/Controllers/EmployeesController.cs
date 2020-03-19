@@ -45,9 +45,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                // ToDo: exception
-
-                return Redirect("/" + EMPLOYEES_API + "/Error");
+                return RedirectToAction("Error", new { code = statusCode });
             }
         }
 
@@ -62,9 +60,7 @@ namespace PresentationLayer.Controllers
             }
             else
             {
-                // ToDo: exception
-
-                return Redirect("/" + EMPLOYEES_API + "/Error");
+                return RedirectToAction("Error", new { code = statusCode });
             }
         }
 
