@@ -1,8 +1,6 @@
 ﻿using DataAccessLayer.DataContext;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
-using ExceptionClasses.Loggers;
-using System;
 
 namespace DataAccessLayer.Repositories
 {

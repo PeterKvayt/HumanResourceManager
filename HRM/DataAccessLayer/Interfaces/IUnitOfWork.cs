@@ -1,5 +1,4 @@
 ﻿using DataAccessLayer.Entities;
-using System;
 
 namespace DataAccessLayer.Interfaces
 {
