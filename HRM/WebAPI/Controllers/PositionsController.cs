@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class PositionsController : GeneralController<PositionDTO>
     {
-        public PositionsController(IServiceUnitOfWork serviceProvider)
+        public PositionsController(IServiceProvider serviceProvider)
         {
             _service = serviceProvider.PositionService;
         }

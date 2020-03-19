@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ActivityTypesController : GeneralController<ActivityTypeDTO>
     {
-        public ActivityTypesController(IServiceUnitOfWork serviceProvider)
+        public ActivityTypesController(IServiceProvider serviceProvider)
         {
             _service = serviceProvider.AcivityTypeService;
         }

@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class LegalFormsController : GeneralController<LegalFormDTO>
     {
-        public LegalFormsController(IServiceUnitOfWork serviceProvider)
+        public LegalFormsController(IServiceProvider serviceProvider)
         {
             _service = serviceProvider.LegalFormService;
         }

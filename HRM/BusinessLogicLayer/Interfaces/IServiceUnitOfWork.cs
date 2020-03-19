@@ -2,7 +2,7 @@
 
 namespace BusinessLogicLayer.Interfaces
 {
-    public interface IServiceUnitOfWork
+    public interface IServiceProvider
     {
         IService<ActivityTypeDTO> AcivityTypeService { get; }
 

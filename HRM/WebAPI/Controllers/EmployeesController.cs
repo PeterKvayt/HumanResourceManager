@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class EmployeesController : GeneralController<EmployeeDTO>
     {
-        public EmployeesController(IServiceUnitOfWork serviceProvider)
+        public EmployeesController(IServiceProvider serviceProvider)
         {
             _service = serviceProvider.EmployeeService;
         }

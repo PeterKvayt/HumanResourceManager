@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CompaniesController : GeneralController<CompanyDTO>
     {
-        public CompaniesController(IServiceUnitOfWork serviceProvider)
+        public CompaniesController(IServiceProvider serviceProvider)
         {
             _service = serviceProvider.CompanyService;
         }

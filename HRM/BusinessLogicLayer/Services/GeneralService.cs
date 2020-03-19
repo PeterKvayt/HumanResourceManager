@@ -8,12 +8,23 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Services
 {
+    /// <summary>
+    /// Класс отвечает за общую реализацию классов, реализующих интерфейс IService
+    /// </summary>
+    /// <typeparam name="DataTransferObject">Буферный тип, с которым взаимодействует WebAPI</typeparam>
+    /// <typeparam name="EntityType">Сущность базы данных</typeparam>
     abstract class GeneralService<DataTransferObject, EntityType> 
         where DataTransferObject : class, IDataTransferObject, new()
         where EntityType: class, new()
     {
+        /// <summary>
+        /// Предоставляет доступ к данным для сервисов
+        /// </summary>
         protected IUnitOfWork _dataBase;
 
+        /// <summary>
+        /// Конвертер, для преобразования сущности базы данных в буферный тип и наоборот
+        /// </summary>
         protected IConverter<EntityType, DataTransferObject> _converter;
 
         protected virtual void Create(DataTransferObject item, IRepository<EntityType> repository)

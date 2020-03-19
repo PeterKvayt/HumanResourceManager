@@ -5,11 +5,17 @@ using DataAccessLayer.Repositories;
 
 namespace BusinessLogicLayer.Services
 {
-    public class ServiceUnitOfWork : IServiceUnitOfWork
+    /// <summary>
+    /// Поставляет сервисы для WebAPI
+    /// </summary>
+    public class ServiceProvider : IServiceProvider
     {
+        /// <summary>
+        /// Предоставляет доступ к данным для сервисов
+        /// </summary>
         private readonly IUnitOfWork _dataBase;
 
-        public ServiceUnitOfWork()
+        public ServiceProvider()
         {
             _dataBase = new DataBaseUnitOfWork();
         }

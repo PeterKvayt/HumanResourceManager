@@ -30,7 +30,7 @@ namespace WebAPI
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSingleton<IServiceUnitOfWork, ServiceUnitOfWork>();
+            services.AddSingleton<BusinessLogicLayer.Interfaces.IServiceProvider, BusinessLogicLayer.Services.ServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

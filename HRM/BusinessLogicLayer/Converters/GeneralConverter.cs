@@ -5,10 +5,18 @@ using System;
 
 namespace BusinessLogicLayer.Converters
 {
+    /// <summary>
+    /// Класс отвечает за общую реализацию классов, реализующих интерфейс IConverter
+    /// </summary>
+    /// <typeparam name="DataTransferObject">Буферный тип, с которым взаимодействует WebAPI</typeparam>
+    /// <typeparam name="EntityType">Сущность базы данных</typeparam>
     abstract class GeneralConverter<EntityType, DataTransferObject> 
         where EntityType: new()
         where DataTransferObject: new()
     {
+        /// <summary>
+        /// Предоставляет доступ к данным для конвертеров
+        /// </summary>
         protected IUnitOfWork _dataBase;
 
         /// <summary>
@@ -32,7 +40,7 @@ namespace BusinessLogicLayer.Converters
         }
 
         /// <summary>
-        /// Безопасно создает экземпляр типа TOut
+        /// Безопасно преобразует экземпляр в тип TOut
         /// </summary>
         /// <typeparam name="TOut">Тип, экземпляр которого необходимо получить</typeparam>
         /// <typeparam name="TIn">Тип, из которого необходимо получить результат</typeparam>

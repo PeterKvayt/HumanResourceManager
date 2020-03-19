@@ -46,7 +46,5 @@ namespace BusinessLogicLayer.Converters
 
             return companyDTO;
         }
-
-        
     }
 }
