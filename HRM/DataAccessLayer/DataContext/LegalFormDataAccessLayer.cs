@@ -10,10 +10,6 @@ namespace DataAccessLayer.DataContext
 {
     class LegalFormDataAccessLayer : GeneralDataAccessLayer<LegalForm>, IDataAccessLayer<LegalForm>
     {
-        public LegalFormDataAccessLayer()
-        {
-        }
-
         /// <summary>
         /// Инициализирует параметры для создания записи в базе данных
         /// </summary>
@@ -29,6 +25,10 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
+        /// <summary>
+        /// Создает новую запись в базе данных
+        /// </summary>
+        /// <param name="item">Новый экземпляр класса</param>
         public override void Create(LegalForm newLegalForm)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForCreate(newLegalForm);
@@ -67,6 +67,10 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
+        /// <summary>
+        /// Обновляет запись в базе данных
+        /// </summary>
+        /// <param name="item">Экземпляр класса, который необходимо обновить</param>
         public override void Update(LegalForm legalForm)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForUpdate(legalForm);

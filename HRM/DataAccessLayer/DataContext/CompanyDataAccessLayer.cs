@@ -10,10 +10,6 @@ namespace DataAccessLayer.DataContext
 {
     class CompanyDataAccessLayer : GeneralDataAccessLayer<Company>, ICompanyDataAccessLayer<Company>
     {
-        public CompanyDataAccessLayer()
-        {
-        }
-
         /// <summary>
         /// Инициализирует параметры для создания записи в базе данных
         /// </summary>
@@ -31,6 +27,10 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
+        /// <summary>
+        /// Создает новую запись в базе данных
+        /// </summary>
+        /// <param name="item">Новый экземпляр класса</param>
         public override void Create(Company newCompany)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForCreate(newCompany);
@@ -69,6 +69,10 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
+        /// <summary>
+        /// Обновляет запись в базе данных
+        /// </summary>
+        /// <param name="item">Экземпляр класса, который необходимо обновить</param>
         public override void Update(Company company)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForUpdate(company);

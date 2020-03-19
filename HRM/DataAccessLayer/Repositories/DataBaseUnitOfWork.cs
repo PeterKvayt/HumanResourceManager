@@ -82,39 +82,5 @@ namespace DataAccessLayer.Repositories
                 return _activityTypeRepository;
             }
         }
-
-        public void Save()
-        {
-            // ToDo: context.SaveChanges()
-        }
-
-        #region IDisposable Support
-        private bool disposedValue = false; // Для определения избыточных вызовов
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // ToDo: context.Dispose()
-                }
-
-                disposedValue = true;
-            }
-        }
-
-        // TODO: переопределить метод завершения, только если Dispose(bool disposing) выше включает код для освобождения неуправляемых ресурсов.
-        // ~DataBaseUnitOfWork() {
-        //   // Не изменяйте этот код. Разместите код очистки выше, в методе Dispose(bool disposing).
-        //   Dispose(false);
-        // }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
     }
 }

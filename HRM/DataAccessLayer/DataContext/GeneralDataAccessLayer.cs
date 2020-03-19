@@ -14,10 +14,23 @@ namespace DataAccessLayer.DataContext
     /// <typeparam name="EntityType">Конкретный тип класса</typeparam>
     abstract class GeneralDataAccessLayer<EntityType> where EntityType : class, new()
     {
-        public abstract void Create(EntityType newItem);
+        /// <summary>
+        /// Создает новую запись в базе данных
+        /// </summary>
+        /// <param name="item">Новый экземпляр класса</param>
+        public abstract void Create(EntityType item);
 
+        /// <summary>
+        /// Обновляет запись в базе данных
+        /// </summary>
+        /// <param name="item">Экземпляр класса, который необходимо обновить</param>
         public abstract void Update(EntityType item);
 
+        /// <summary>
+        /// Удаляет запись из базы данных
+        /// </summary>
+        /// <param name="id">Идентификатор удаляемой записи</param>
+        /// <param name="DELETE_STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
         protected virtual void Delete(IdType id, string DELETE_STORED_PROCEDURE_NAME)
         {
             IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
@@ -36,6 +49,12 @@ namespace DataAccessLayer.DataContext
             }
         }
 
+        /// <summary>
+        /// Возвращает конкретную запись в базе данных
+        /// </summary>
+        /// <param name="id">Идентификатор записи</param>
+        /// <param name="GET_STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
+        /// <returns>Запрашиваемая запись</returns>
         protected virtual EntityType Get(IdType id, string GET_STORED_PROCEDURE_NAME)
         {
             IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
@@ -58,13 +77,14 @@ namespace DataAccessLayer.DataContext
             if (resultDataSet != null)
             {
                 DataTableMapper mapper = TryGetDataTableMapper(resultDataSet.Tables[0]);
+
                 EntityType result = mapper.CreateObjectFromTable<EntityType>();
 
                 return result;
             }
             else
             {
-                string EXCEPTION_MESSAGE = $"Ошибка получения экземпляра класса {typeof(EntityType).ToString()} из базы данных!";
+                const string EXCEPTION_MESSAGE = "Ошибка получения экземпляра класса из базы данных!";
 
                 ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralDataAccessLayer<EntityType>).Name, "Get");
 
@@ -72,6 +92,11 @@ namespace DataAccessLayer.DataContext
             }
         }
 
+        /// <summary>
+        /// Возвращает все записи таблицы базы данных
+        /// </summary>
+        /// <param name="GET_ALL_STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
+        /// <returns>Список всех записей в таблице</returns>
         protected virtual IEnumerable<EntityType> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
         {
             IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
@@ -91,6 +116,7 @@ namespace DataAccessLayer.DataContext
             if (resultDataSet != null)
             {
                 DataTableMapper mapper = TryGetDataTableMapper(resultDataSet.Tables[0]);
+
                 IEnumerable<EntityType> resultCollection = mapper.CreateListFromTable<EntityType>();
 
                 return resultCollection;
@@ -105,8 +131,17 @@ namespace DataAccessLayer.DataContext
             }
         }
 
+        /// <summary>
+        /// Успешный ответ базы данных
+        /// </summary>
         private const int SUCCES_RESULT = 1;
 
+        /// <summary>
+        /// Проверяет существование записи в базе данных
+        /// </summary>
+        /// <param name="id">Идентификатор проверяемой записи</param>
+        /// <param name="EXISTS_STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
+        /// <returns>Результат проверки</returns>
         protected virtual bool Exists(IdType id, string EXISTS_STORED_PROCEDURE_NAME)
         {
             IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);

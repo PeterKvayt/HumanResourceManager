@@ -10,10 +10,6 @@ namespace DataAccessLayer.DataContext
 {
     class PositionDataAccessLayer : GeneralDataAccessLayer<Position>, IDataAccessLayer<Position>
     {
-        public PositionDataAccessLayer()
-        {
-        }
-
         /// <summary>
         /// Инициализирует параметры для создания записи в базе данных
         /// </summary>
@@ -29,6 +25,10 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
+        /// <summary>
+        /// Создает новую запись в базе данных
+        /// </summary>
+        /// <param name="item">Новый экземпляр класса</param>
         public override void Create(Position newPosition)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForCreate(newPosition);
@@ -67,6 +67,10 @@ namespace DataAccessLayer.DataContext
             return parameters;
         }
 
+        /// <summary>
+        /// Обновляет запись в базе данных
+        /// </summary>
+        /// <param name="item">Экземпляр класса, который необходимо обновить</param>
         public override void Update(Position position)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForUpdate(position);

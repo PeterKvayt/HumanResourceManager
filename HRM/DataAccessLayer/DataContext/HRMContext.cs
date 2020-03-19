@@ -8,10 +8,6 @@ namespace DataAccessLayer.DataContext
     /// </summary>
     class HrmContext : IHrmContext
     {
-        public HrmContext()
-        {
-        }
-
         private CompanyDataAccessLayer _companyContext;
         public ICompanyDataAccessLayer<Company> CompanyContext
         {

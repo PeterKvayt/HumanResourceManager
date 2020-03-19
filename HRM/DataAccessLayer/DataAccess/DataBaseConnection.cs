@@ -7,15 +7,22 @@ using System.Text;
 
 namespace DataAccessLayer.DataAccess
 {
+    /// <summary>
+    /// Отвечает за подключение к базе данных
+    /// </summary>
     static class DataBaseConnection
     {
-        private static readonly string _connectionString = GetConnectionString();
-
+        /// <summary>
+        /// Возвращает подключение к базе данных
+        /// </summary>
+        /// <returns>Подключение к базе данных</returns>
         public static SqlConnection GetConnection()
         {
-            if ( !(string.IsNullOrEmpty(_connectionString) && string.IsNullOrWhiteSpace(_connectionString)) )
+            string connectionString = GetConnectionString();
+
+            if ( !(string.IsNullOrEmpty(connectionString) && string.IsNullOrWhiteSpace(connectionString)) )
             {
-                return new SqlConnection(_connectionString);
+                return new SqlConnection(connectionString);
             }
             else
             {
@@ -27,8 +34,15 @@ namespace DataAccessLayer.DataAccess
             }
         }
 
+        /// <summary>
+        /// Название файла со строками подключения к базе данных
+        /// </summary>
         private const string CONNECTION_FILE_NAME = "connectionStrings.json";
 
+        /// <summary>
+        /// Достает строку подключения к базе данных из конфигурационного файла
+        /// </summary>
+        /// <returns>Строка подключения к базе данных</returns>
         private static string GetConnectionString()
         {
             string basePath = AppDomain.CurrentDomain.BaseDirectory;

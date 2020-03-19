@@ -154,9 +154,8 @@ namespace DataAccessLayer.DataContext
         }
 
         /// <summary>
-        /// Получает хранимую процедуру и преобразует ее в sql-команду
+        /// Преобразует хранимую процедуру в sql-команду
         /// </summary>
-        /// <param name="inputStoredProcedure">Хранимая процедура для преобразования в sql-команду</param>
         /// <returns>Возвращает sql-команду</returns>
         private SqlCommand GetSqlCommand()
         {
