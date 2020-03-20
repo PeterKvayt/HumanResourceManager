@@ -51,7 +51,7 @@ namespace ExceptionClasses.Loggers
         /// <param name="exception">Исключение</param>
         public static void Log(Exception exception)
         {
-            string logMessage = string.Format($"[{DateTime.Now:dd.MM.yyy HH:mm:ss.fff}] Ошибка в методе [{exception.TargetSite.DeclaringType}.{exception.TargetSite.Name}](): {exception.Message}\r\n");
+            string logMessage = $"[{DateTime.Now:dd.MM.yyy HH:mm:ss.fff}] Ошибка в методе [{exception.TargetSite.DeclaringType}.{exception.TargetSite.Name}()]: {exception.Message}\r\n";
 
             WriteToFile(logMessage);
         }
@@ -64,7 +64,7 @@ namespace ExceptionClasses.Loggers
         /// <param name="exceptedMethod">Метод, в котором произошло исключение</param>
         public static void Log(string message, string exceptedClass, string exceptedMethod)
         {
-            string logMessage = string.Format($"[{DateTime.Now:dd.MM.yyy HH:mm:ss.fff}] Ошибка в методе [{exceptedClass}.{exceptedMethod}()]: {message}\r\n");
+            string logMessage = $"[{DateTime.Now:dd.MM.yyy HH:mm:ss.fff}] Ошибка в методе [{exceptedClass}.{exceptedMethod}()]: {message}\r\n";
 
             WriteToFile(logMessage);
         }
