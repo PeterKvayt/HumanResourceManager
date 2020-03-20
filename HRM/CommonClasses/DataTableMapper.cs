@@ -16,8 +16,6 @@ namespace CommonClasses
         /// </summary>
         private readonly DataTable _dataContext;
 
-        private const string ID_TYPE_CLASS = "CommonClasses.IdType";
-
         public DataTableMapper(DataTable dataTable)
         {
             if (dataTable != null)
@@ -26,7 +24,7 @@ namespace CommonClasses
             }
             else
             {
-                const string EXCEPTION_MESSAGE = "Отсутствует контекст данных DataTable (dataTable = null)!";
+                const string EXCEPTION_MESSAGE = "Отсутствует контекст данных DataTable (параметр dataTable = null)!";
 
                 ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(DataTableMapper).Name, "DataTableMapper");
 
@@ -101,7 +99,7 @@ namespace CommonClasses
                 {
                     if (row[column] != DBNull.Value)
                     {
-                        if (property.PropertyType.ToString() == ID_TYPE_CLASS)
+                        if (property.PropertyType.ToString() == typeof(IdType).ToString())
                         {
                             IdType id = new IdType
                             {

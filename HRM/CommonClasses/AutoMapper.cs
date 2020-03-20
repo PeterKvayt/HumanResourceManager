@@ -5,6 +5,10 @@ using System.Reflection;
 
 namespace CommonClasses
 {
+    /// <summary>
+    /// Класс, автоматизирующий создание объектов типа TOut 
+    /// </summary>
+    /// <typeparam name="TOut">Тип, в который необходимо преобразовать объект</typeparam>
     public static class AutoMapper<TOut> where TOut: new()
     {
         private static readonly Dictionary<Type, Dictionary<string, PropertyInfo>> _propertiesDictionaries
@@ -44,7 +48,7 @@ namespace CommonClasses
         }
 
         /// <summary>
-        /// Создает свойства передаваемого объекта
+        /// Возвращает свойства передаваемого объекта
         /// </summary>
         /// <param name="objType">Тип, свойства которого необходимо получить</param>
         /// <returns>Возвращаемые свойства</returns>
