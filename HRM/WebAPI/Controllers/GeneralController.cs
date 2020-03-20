@@ -6,13 +6,26 @@ using System.Collections.Generic;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// Класс отвечает за общую реализацию классов Controller
+    /// </summary>
+    /// <typeparam name="DataTransferObject">Буферный тип данных</typeparam>
     abstract public class GeneralController<DataTransferObject> : ControllerBase where DataTransferObject: class
     {
+        /// <summary>
+        /// Сервис, предоставляющий доступ к данным
+        /// </summary>
         protected IService<DataTransferObject> _service;
 
-        private readonly int _notFoundResponse = 404;
+        /// <summary>
+        /// Статусный код ошибки поиска несуществующего ресурса
+        /// </summary>
+        private const int NOT_FOUND_RESPONSE = 404;
 
-        private readonly int _serverErrorResponse = 500;
+        /// <summary>
+        /// Статусный код ошибки выполнения операции на сервере
+        /// </summary>
+        private const int SERVER_ERROR_RESPONSE = 500;
 
         protected virtual IEnumerable<DataTransferObject> GetAllItems()
         {
@@ -22,7 +35,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception)
             {
-                Response.StatusCode = _serverErrorResponse;
+                Response.StatusCode = SERVER_ERROR_RESPONSE;
 
                 return null;
             }
@@ -36,13 +49,13 @@ namespace WebAPI.Controllers
             }
             catch (ClientException)
             {
-                Response.StatusCode = _notFoundResponse;
+                Response.StatusCode = NOT_FOUND_RESPONSE;
 
                 return null;
             }
             catch (Exception)
             {
-                Response.StatusCode = _serverErrorResponse;
+                Response.StatusCode = SERVER_ERROR_RESPONSE;
 
                 return null;
             }
@@ -56,7 +69,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception)
             {
-                Response.StatusCode = _serverErrorResponse;
+                Response.StatusCode = SERVER_ERROR_RESPONSE;
             }
         }
 
@@ -68,11 +81,11 @@ namespace WebAPI.Controllers
             }
             catch (ClientException)
             {
-                Response.StatusCode = _notFoundResponse;
+                Response.StatusCode = NOT_FOUND_RESPONSE;
             }
             catch (Exception)
             {
-                Response.StatusCode = _serverErrorResponse;
+                Response.StatusCode = SERVER_ERROR_RESPONSE;
             }
         }
 
@@ -84,11 +97,11 @@ namespace WebAPI.Controllers
             }
             catch (ClientException)
             {
-                Response.StatusCode = _notFoundResponse;
+                Response.StatusCode = NOT_FOUND_RESPONSE;
             }
             catch (Exception)
             {
-                Response.StatusCode = _serverErrorResponse;
+                Response.StatusCode = SERVER_ERROR_RESPONSE;
             }
         }
     }
