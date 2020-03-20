@@ -22,56 +22,33 @@
     <header>
         <nav class="navbar navbar-expand-xl navbar-toggleable-xl navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span class="fa fa-address-book"></span> HRM</a>
-                @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>*@
-                <div class="dropdown">
-                    <a class="btn btn-light" id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Разделы
-                        <span class="fa fa-caret-down"></span>
-                    </a>
-                    <ul class="dropdown-menu " aria-labelledby="dLabel">
-                        <li>
-                            <a class="nav-link btn btn-light text-left" asp-controller="Employees" asp-action="Index"><span class="fa fa-id-card"></span> Сотрудники</a>
-                        </li>
-                        <li>
-                            <a class="nav-link btn btn-light text-left" asp-controller="Companies" asp-action="Index"><span class="fa fa-bank"></span> Компании</a>
-                        </li>
-                        <li>
-                            <a class="nav-link btn btn-light text-left" asp-controller="Positions" asp-action="Index"><span class="fa fa-briefcase"></span> Должности</a>
-                        </li>
-                        <li>
-                            <a class="nav-link btn btn-light text-left" asp-controller="LegalForms" asp-action="Index"><span class="fa fa-book"></span> Оргформы</a>
-                        </li>
-                        <li>
-                            <a class="nav-link btn btn-light text-left" asp-controller="ActivityTypes" asp-action="Index"><span class="fa fa-flash"></span> Деятельность</a>
-                        </li>
-                    </ul>
-                </div>
-                @*<div class="navbar-collapse collapse ">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index"><span class="fa fa-home"></span> Главная</a>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Index"><span class="fa fa-address-book"></span> Главная</a>
+                <div class="btn-group">
+                    <a class="btn btn-info" asp-controller="Home" asp-action="Api"><span class="fa fa-code"></span> API Docs</a>
+                    <div class="dropdown">
+                        <a class="btn btn-light" id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Разделы
+                            <span class="fa fa-caret-down"></span>
+                        </a>
+                        <ul class="dropdown-menu " aria-labelledby="dLabel">
+                            <li>
+                                <a class="nav-link btn btn-light text-left" asp-controller="Employees" asp-action="Index"><span class="fa fa-id-card"></span> Сотрудники</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Employee" asp-action="Employees"><span class="fa fa-id-card"></span> Сотрудники</a>
+                            <li>
+                                <a class="nav-link btn btn-light text-left" asp-controller="Companies" asp-action="Index"><span class="fa fa-bank"></span> Компании</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Company" asp-action="Companies"><span class="fa fa-bank"></span> Компании</a>
+                            <li>
+                                <a class="nav-link btn btn-light text-left" asp-controller="Positions" asp-action="Index"><span class="fa fa-briefcase"></span> Должности</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Position" asp-action="Positions"><span class="fa fa-briefcase"></span> Должности</a>
+                            <li>
+                                <a class="nav-link btn btn-light text-left" asp-controller="LegalForms" asp-action="Index"><span class="fa fa-book"></span> Оргформы</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="OrganizationalType" asp-action="OrganizationalTypes"><span class="fa fa-book"></span> Организационно-правовые формы</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="ActivityType" asp-action="ActivityTypes"><span class="fa fa-flash"></span> Деятельность</a>
+                            <li>
+                                <a class="nav-link btn btn-light text-left" asp-controller="ActivityTypes" asp-action="Index"><span class="fa fa-flash"></span> Деятельность</a>
                             </li>
                         </ul>
-                    </div>*@
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
@@ -84,7 +61,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - HumanResourceManager - <a asp-area="" asp-controller="Home" asp-action="Index">HRM</a>
+            &copy; 2020 - HumanResourceManager - <a asp-controller="Home" asp-action="Index">HRM</a>
         </div>
     </footer>
 

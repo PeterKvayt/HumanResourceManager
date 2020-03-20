@@ -51,3 +51,4 @@ D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\De
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\Employees\Create.g.cshtml.cs
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\Employees\Index.g.cshtml.cs
 D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\Employees\Update.g.cshtml.cs
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\PresentationLayer\obj\Debug\netcoreapp2.2\Razor\Views\Home\Api.g.cshtml.cs

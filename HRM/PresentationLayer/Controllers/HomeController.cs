@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Models;
 
 namespace PresentationLayer.Controllers
@@ -11,7 +10,7 @@ namespace PresentationLayer.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Api()
         {
             return View();
         }
