@@ -2,7 +2,7 @@
 using CommonClasses;
 using DataAccessLayer.Interfaces;
 using ExceptionClasses.Exceptions;
-using ExceptionClasses.Loggers;
+using ExceptionClasses.Logers;
 using System;
 using System.Collections.Generic;
 
@@ -36,7 +36,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -47,7 +47,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -59,7 +59,7 @@ namespace BusinessLogicLayer.Services
             {
                 string EXCEPTION_MESSAGE = $"Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = null";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Delete");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Delete");
 
                 throw new ClientException();
             }
@@ -73,7 +73,7 @@ namespace BusinessLogicLayer.Services
             {
                 string EXCEPTION_MESSAGE = $"Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {idEntity.Identificator.ToString()}";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Delete");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Delete");
 
                 throw new ClientException();
             }
@@ -84,7 +84,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -96,7 +96,7 @@ namespace BusinessLogicLayer.Services
             {
                 string EXCEPTION_MESSAGE = $"Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса {typeof(EntityType).ToString()} с Id = null";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Get");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Get");
 
                 throw new ClientException();
             }
@@ -110,7 +110,7 @@ namespace BusinessLogicLayer.Services
             {
                 string EXCEPTION_MESSAGE = $"Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса {typeof(EntityType).ToString()} с Id = {idEntity.Identificator.ToString()}";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Get");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Get");
 
                 throw new ClientException();
             }
@@ -122,7 +122,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -135,7 +135,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -150,7 +150,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -168,7 +168,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -180,7 +180,7 @@ namespace BusinessLogicLayer.Services
             {
                 string EXCEPTION_MESSAGE = $"Запрос с клиента на обновление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {item.Id.Identificator.ToString()} в классе GeneralService";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Update");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Update");
 
                 throw new ClientException();
             }
@@ -192,7 +192,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -203,7 +203,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -217,7 +217,7 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }

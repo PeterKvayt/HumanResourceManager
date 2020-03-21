@@ -1,6 +1,6 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Interfaces;
-using ExceptionClasses.Loggers;
+using ExceptionClasses.Logers;
 using System.Collections.Generic;
 using System;
 
@@ -20,7 +20,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -34,7 +34,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -48,7 +48,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -62,7 +62,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -76,7 +76,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -90,7 +90,7 @@ namespace DataAccessLayer.Repositories
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }

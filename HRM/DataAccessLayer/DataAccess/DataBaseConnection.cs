@@ -1,4 +1,4 @@
-﻿using ExceptionClasses.Loggers;
+﻿using ExceptionClasses.Logers;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data.SqlClient;
@@ -26,16 +26,11 @@ namespace DataAccessLayer.DataAccess
             {
                 string EXCEPTION_MESSAGE = "Отсутствует строка подключения";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(DataBaseConnection).Name, "GetConnection");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(DataBaseConnection).Name, "GetConnection");
 
                 throw new Exception();
             }
         }
-
-        /// <summary>
-        /// Название файла со строками подключения к базе данных
-        /// </summary>
-        private const string CONNECTION_FILE_NAME = "connectionStrings.json";
 
         /// <summary>
         /// Достает строку подключения к базе данных из конфигурационного файла
@@ -43,6 +38,8 @@ namespace DataAccessLayer.DataAccess
         /// <returns>Строка подключения к базе данных</returns>
         private static string GetConnectionString()
         {
+            string CONNECTION_FILE_NAME = "connectionStrings.json";
+
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
 
             IConfigurationRoot configurationRoot = new ConfigurationBuilder()

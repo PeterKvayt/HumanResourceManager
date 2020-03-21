@@ -1,6 +1,6 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Interfaces;
-using ExceptionClasses.Loggers;
+using ExceptionClasses.Logers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,7 +43,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -69,7 +69,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -86,7 +86,7 @@ namespace DataAccessLayer.DataContext
             {
                 const string EXCEPTION_MESSAGE = "Ошибка получения экземпляра класса из базы данных!";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralDataAccessLayer<EntityType>).Name, "Get");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralDataAccessLayer<EntityType>).Name, "Get");
 
                 throw new Exception();
             }
@@ -108,7 +108,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -125,7 +125,7 @@ namespace DataAccessLayer.DataContext
             {
                 string EXCEPTION_MESSAGE = $"Результат выполнения хранимой процедуры для получения всех записей класса {typeof(EntityType).ToString()} из базы данных вернул Null!";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(GeneralDataAccessLayer<EntityType>).Name, "GetAll");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralDataAccessLayer<EntityType>).Name, "GetAll");
 
                 throw new Exception();
             }
@@ -156,7 +156,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw new Exception();
             }
@@ -176,7 +176,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -195,7 +195,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }

@@ -1,6 +1,6 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Interfaces;
-using ExceptionClasses.Loggers;
+using ExceptionClasses.Logers;
 using System;
 
 namespace BusinessLogicLayer.Converters
@@ -54,7 +54,7 @@ namespace BusinessLogicLayer.Converters
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }

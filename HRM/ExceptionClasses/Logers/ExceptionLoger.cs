@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
-namespace ExceptionClasses.Loggers
+namespace ExceptionClasses.Logers
 {
-    public static class ExceptionLogger
+    /// <summary>
+    /// Класс отвечает за логирование ошибок
+    /// </summary>
+    public static class ExceptionLoger
     {
         /// <summary>
         /// Путь к файлу, в котором хранятся логи

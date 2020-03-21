@@ -1,7 +1,7 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
-using ExceptionClasses.Loggers;
+using ExceptionClasses.Logers;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -48,7 +48,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -90,7 +90,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }

@@ -1,4 +1,4 @@
-﻿using ExceptionClasses.Loggers;
+﻿using ExceptionClasses.Logers;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -38,7 +38,7 @@ namespace CommonClasses
                     string EXCEPTION_MESSAGE = $"Ошибка извлечения значения при сопоставлении свойств классов {obj.GetType().ToString()} и {typeof(TOut).ToString()}, " +
                         $"связанная со свойством {resultProperty.Value.Name}";
 
-                    ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(AutoMapper<TOut>).Name, "Map");
+                    ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(AutoMapper<TOut>).Name, "Map");
 
                     throw new Exception();
                 }

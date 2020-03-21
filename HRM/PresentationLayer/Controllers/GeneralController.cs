@@ -1,4 +1,4 @@
-﻿using ExceptionClasses.Loggers;
+﻿using ExceptionClasses.Logers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -50,7 +50,7 @@ namespace PresentationLayer.Controllers
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
                 
                 return HttpStatusCode.NotFound;
             }
@@ -73,7 +73,7 @@ namespace PresentationLayer.Controllers
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 return HttpStatusCode.NotFound;
             }
@@ -95,7 +95,7 @@ namespace PresentationLayer.Controllers
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 return HttpStatusCode.NotFound;
             }
@@ -121,7 +121,7 @@ namespace PresentationLayer.Controllers
                 }
                 catch (Exception exception)
                 {
-                    ExceptionLogger.Log(exception);
+                    ExceptionLoger.Log(exception);
 
                     return (null, HttpStatusCode.NotFound);
                 }
@@ -155,7 +155,7 @@ namespace PresentationLayer.Controllers
                 }
                 catch (Exception exception)
                 {
-                    ExceptionLogger.Log(exception);
+                    ExceptionLoger.Log(exception);
 
                     return (null, HttpStatusCode.NotFound);
                 }

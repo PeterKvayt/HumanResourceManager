@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.DataAccess;
 using DataAccessLayer.Interfaces;
-using ExceptionClasses.Loggers;
+using ExceptionClasses.Logers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,7 +43,7 @@ namespace DataAccessLayer.DataContext
             {
                 const string EXCEPTION_MESSAGE = "Пустое имя хранимой процедуры!";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(StoredProcedure).Name, "StoredProcedure");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(StoredProcedure).Name, "StoredProcedure");
 
                 throw new Exception();
             }
@@ -56,7 +56,7 @@ namespace DataAccessLayer.DataContext
             {
                 const string EXCEPTION_MESSAGE = "Sql-параметры = null!";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(StoredProcedure).Name, "StoredProcedure");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(StoredProcedure).Name, "StoredProcedure");
 
                 throw new Exception();
             }
@@ -67,7 +67,7 @@ namespace DataAccessLayer.DataContext
             }
             catch (Exception exception)
             {
-                ExceptionLogger.Log(exception);
+                ExceptionLoger.Log(exception);
 
                 throw;
             }
@@ -97,7 +97,7 @@ namespace DataAccessLayer.DataContext
                 }
                 catch (Exception exception)
                 {
-                    ExceptionLogger.Log(exception);
+                    ExceptionLoger.Log(exception);
 
                     throw;
                 }
@@ -121,7 +121,7 @@ namespace DataAccessLayer.DataContext
                 }
                 catch (Exception exception)
                 {
-                    ExceptionLogger.Log(exception);
+                    ExceptionLoger.Log(exception);
 
                     throw;
                 }
@@ -146,7 +146,7 @@ namespace DataAccessLayer.DataContext
                 }
                 catch (Exception exception)
                 {
-                    ExceptionLogger.Log(exception);
+                    ExceptionLoger.Log(exception);
 
                     throw;
                 }

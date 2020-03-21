@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
-using ExceptionClasses.Loggers;
+using ExceptionClasses.Logers;
 
 namespace CommonClasses
 {
@@ -26,7 +26,7 @@ namespace CommonClasses
             {
                 const string EXCEPTION_MESSAGE = "Отсутствует контекст данных DataTable (параметр dataTable = null)!";
 
-                ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(DataTableMapper).Name, "DataTableMapper");
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(DataTableMapper).Name, "DataTableMapper");
 
                 throw new Exception();
             }
@@ -116,7 +116,7 @@ namespace CommonClasses
                     {
                         string EXCEPTION_MESSAGE = $"Значение ячейки = DBNull.Value в столбце {column.ColumnName}";
 
-                        ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(DataTableMapper).Name, "SetItemFromRow<" + typeof(T).Name + ">");
+                        ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(DataTableMapper).Name, "SetItemFromRow<" + typeof(T).Name + ">");
 
                         throw new Exception();
                     }
@@ -125,7 +125,7 @@ namespace CommonClasses
                 {
                     string EXCEPTION_MESSAGE = $"Отсутствует свойство {column.ColumnName} (property = null)!";
 
-                    ExceptionLogger.Log(EXCEPTION_MESSAGE, typeof(DataTableMapper).Name, "SetItemFromRow<" + typeof(T).Name + ">");
+                    ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(DataTableMapper).Name, "SetItemFromRow<" + typeof(T).Name + ">");
 
                     throw new Exception();
                 }
