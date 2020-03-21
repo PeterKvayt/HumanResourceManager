@@ -10,7 +10,7 @@
         <h5><strong>Изменение должности:</strong> @Model.PositionModel.Name</h5>
         <form method="post" asp-controller="Positions" asp-action="Update">
             <div class="form-group">
-                <label asp-for="PositionModel.Name" class="control-label">Должность</label>
+                <label asp-for="PositionModel.Name" class="control-label">Название</label>
                 <input maxlength="50" required asp-for="PositionModel.Name" value="@Model.PositionModel.Name" class="form-control input-form select-form" />
                 <input asp-for="PositionModel.Id.Identificator" value="@Model.PositionModel.Id.Identificator" style="display:none;" />
             </div>
@@ -19,7 +19,7 @@
             </div>
         </form>
 
-        <button id="ok-btn" class="btn btn-primary">Изменить</button>
+        <button id="ok-btn" class="btn btn-primary">Сохранить изменения</button>
         <a asp-controller="Positions" asp-action="Index" class="btn btn-danger">Отмена</a>
         <br />
         <br />

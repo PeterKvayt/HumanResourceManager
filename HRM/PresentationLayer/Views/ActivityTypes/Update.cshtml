@@ -1,16 +1,16 @@
 ﻿@model PresentationLayer.ViewModels.ActivityTypeViewModel
 
 @{
-    ViewData["Title"] = "Изменение вида деятельности компании";
+    ViewData["Title"] = "Изменение вида деятельности";
 }
 
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-1"></div>
     <div class="col-lg-6 col-md-6 col-sm-10">
-        <h5><strong>Изменение вида деятельности компании:</strong> @Model.ActivityTypeModel.Name</h5>
+        <h5><strong>Изменение вида деятельности:</strong> @Model.ActivityTypeModel.Name</h5>
         <form method="post" asp-controller="ActivityTypes" asp-action="Update">
             <div class="form-group">
-                <label asp-for="ActivityTypeModel.Name" class="control-label">Вид деятельности</label>
+                <label asp-for="ActivityTypeModel.Name" class="control-label">Название вида деятельности</label>
                 <input maxlength="50" required asp-for="ActivityTypeModel.Name" value="@Model.ActivityTypeModel.Name" class="form-control input-form select-form" />
                 <input asp-for="ActivityTypeModel.Id.Identificator" value="@Model.ActivityTypeModel.Id.Identificator" style="display:none;" />
             </div>
@@ -19,7 +19,7 @@
             </div>
         </form>
 
-        <button id="ok-btn" class="btn btn-primary">Изменить</button>
+        <button id="ok-btn" class="btn btn-primary">Сохранить изменения</button>
         <a asp-controller="ActivityTypes" asp-action="Index" class="btn btn-danger">Отмена</a>
         <br />
         <br />

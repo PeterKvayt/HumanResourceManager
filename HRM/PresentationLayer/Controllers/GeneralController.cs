@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
@@ -24,18 +23,6 @@ namespace PresentationLayer.Controllers
         /// Код выполнения запроса Http-клиента
         /// </summary>
         protected HttpStatusCode _statusCode;
-
-        /// <summary>
-        /// Задает настройки Http-клиента
-        /// </summary>
-        protected void SetClientSettings()
-        {
-            if (_client.BaseAddress == null)
-            {
-                _client.BaseAddress = new Uri("http://localhost:65491/api/");
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
-        }
 
         /// <summary>
         /// Выполняет GET запрос

@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -25,9 +23,6 @@ namespace PresentationLayer
 
         public IConfiguration Configuration { get; }
 
-
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -39,10 +34,22 @@ namespace PresentationLayer
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSingleton<HttpClient, HttpClient>();
+            #region HttpClientSettings
+            string connectionUri = Configuration.GetValue<string>("ApiSettings:ConnectionUri");
+            HttpClient httpClient = new HttpClient()
+            {
+                BaseAddress = new Uri(connectionUri)
+            };
+
+            string headerValue = Configuration.GetValue<string>("ApiSettings:HeaderValue");
+            var mediaHeadder = new MediaTypeWithQualityHeaderValue(headerValue);
+
+            httpClient.DefaultRequestHeaders.Accept.Add(mediaHeadder);
+            #endregion
+
+            services.AddSingleton(typeof(HttpClient), httpClient);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -52,7 +59,6 @@ namespace PresentationLayer
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

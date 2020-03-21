@@ -1,7 +1,7 @@
 ﻿@model PresentationLayer.ViewModels.EmployeeViewModel
 
 @{
-    ViewData["Title"] = "Изменить сотрудника";
+    ViewData["Title"] = "Изменение сотрудника";
 
     string[] dateParts = System.DateTime.Now.ToShortDateString().Replace(".", "-").Split('-');
 
@@ -54,7 +54,7 @@
                     }
                 </select>
                 <br />
-                <a asp-controller="Positions" asp-action="Create" class="btn btn-info">Создать новую должность</a>
+                <a asp-controller="Positions" asp-action="Create" class="btn btn-info">Создать должность</a>
             </div>
             <div class="form-group">
                 <label asp-for="EmployeeModel.Company.Id.Identificator" class="control-label">Место работы</label>
@@ -73,7 +73,7 @@
                     }
                 </select>
                 <br />
-                <a asp-controller="Companies" asp-action="Create" class="btn btn-info">Создать новую компанию</a>
+                <a asp-controller="Companies" asp-action="Create" class="btn btn-info">Создать компанию</a>
             </div>
             <div class="form-group">
                 <label asp-for="EmployeeModel.DateOfEmployment" class="control-label">Дата найма сотрудника</label>
@@ -84,7 +84,7 @@
             </div>
         </form>
 
-        <button id="ok-btn" class="btn btn-primary">Изменить</button>
+        <button id="ok-btn" class="btn btn-primary">Сохранить изменения</button>
         <a asp-controller="Employees" asp-action="Index" class="btn btn-danger">Отмена</a>
         <br />
         <br />

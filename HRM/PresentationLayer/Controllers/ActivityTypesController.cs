@@ -14,8 +14,6 @@ namespace PresentationLayer.Controllers
         public ActivityTypesController(HttpClient client)
         {
             _client = client;
-
-            SetClientSettings();
         }
 
         [HttpGet]

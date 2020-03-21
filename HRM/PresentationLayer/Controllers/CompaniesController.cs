@@ -18,8 +18,6 @@ namespace PresentationLayer.Controllers
         public CompaniesController(HttpClient client)
         {
             _client = client;
-
-            SetClientSettings();
         }
 
         [HttpGet]

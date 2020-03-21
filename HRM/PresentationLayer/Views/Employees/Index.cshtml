@@ -1,17 +1,15 @@
 ﻿@model PresentationLayer.ViewModels.EmployeeViewModel
 
 @{
-    ViewData["Title"] = "Все сотрудники";
+    ViewData["Title"] = "Сотрудники";
 }
 
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
+    <p class="col-lg-12 col-md-12 col-sm-12">
         <a class="btn btn-primary" asp-controller="Employees" asp-action="Create">
-            Добавить нового сотрудника
+            Создать сотрудника
         </a>
-    </div>
-    <br />
-    <br />
+    </p>
     <div class="col-lg-12 col-md-12 col-sm-12">
         <table class="table table-striped">
             <tr class="bg-info">
