@@ -32,12 +32,12 @@
                 <input maxlength="20" required asp-for="EmployeeModel.MiddleName" class="form-control input-form select-form" />
             </div>
             <div class="form-group">
-                <label asp-for="EmployeeModel.Position.Id.Identificator" class="control-label">Должность</label>
-                <select required asp-for="EmployeeModel.Position.Id.Identificator" class="form-control select-form">
+                <label asp-for="EmployeeModel.Position.Id.Identifier" class="control-label">Должность</label>
+                <select required asp-for="EmployeeModel.Position.Id.Identifier" class="form-control select-form">
                     <option selected="selected" disabled="disabled" value="default">Выберите должность</option>
                     @foreach (var positionItem in Model.PositionCollection)
                     {
-                        <option value="@positionItem.Id.Identificator">@positionItem.Name</option>
+                        <option value="@positionItem.Id.Identifier">@positionItem.Name</option>
                     }
                 </select>
                 <br />
@@ -45,12 +45,12 @@
                 <span asp-validation-for="EmployeeModel.Position" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmployeeModel.Company.Id.Identificator" class="control-label">Место работы</label>
-                <select required asp-for="EmployeeModel.Company.Id.Identificator" class="form-control select-form">
+                <label asp-for="EmployeeModel.Company.Id.Identifier" class="control-label">Место работы</label>
+                <select required asp-for="EmployeeModel.Company.Id.Identifier" class="form-control select-form">
                     <option selected="selected" disabled="disabled" value="default">Выберите место работы</option>
                     @foreach (var companyItem in Model.CompanyCollection)
                     {
-                        <option value="@companyItem.Id.Identificator">@companyItem.Name</option>
+                        <option value="@companyItem.Id.Identifier">@companyItem.Name</option>
                     }
                 </select>
                 <br />

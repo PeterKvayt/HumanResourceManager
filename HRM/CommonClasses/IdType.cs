@@ -8,7 +8,7 @@ namespace CommonClasses
     /// </summary>
     public class IdType
     {
-        public uint Identificator { get; set; }
+        public uint Identifier { get; set; }
 
         /// <summary>
         /// Преобразует идентификатор в тип, поддерживаемый базой данных
@@ -16,7 +16,7 @@ namespace CommonClasses
         /// <returns>Экземпляр типа, известного базе данных</returns>
         public int ConvertToDBTypeId()
         {
-            return Convert.ToInt32(Identificator);
+            return Convert.ToInt32(Identifier);
         }
     }
 }

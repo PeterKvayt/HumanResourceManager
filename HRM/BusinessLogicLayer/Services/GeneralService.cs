@@ -66,12 +66,12 @@ namespace BusinessLogicLayer.Services
 
             IdType idEntity = new IdType
             {
-                Identificator = (uint)id
+                Identifier = (uint)id
             };
 
             if ( !Exists(idEntity, repository) )
             {
-                string EXCEPTION_MESSAGE = $"Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {idEntity.Identificator.ToString()}";
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {idEntity.Identifier.ToString()}";
 
                 ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Delete");
 
@@ -103,12 +103,12 @@ namespace BusinessLogicLayer.Services
 
             IdType idEntity = new IdType
             {
-                Identificator = (uint)id
+                Identifier = (uint)id
             };
 
             if (!Exists(idEntity, repository))
             {
-                string EXCEPTION_MESSAGE = $"Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса {typeof(EntityType).ToString()} с Id = {idEntity.Identificator.ToString()}";
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса {typeof(EntityType).ToString()} с Id = {idEntity.Identifier.ToString()}";
 
                 ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Get");
 
@@ -178,7 +178,7 @@ namespace BusinessLogicLayer.Services
         {
             if ( !Exists(item.Id, repository) )
             {
-                string EXCEPTION_MESSAGE = $"Запрос с клиента на обновление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {item.Id.Identificator.ToString()} в классе GeneralService";
+                string EXCEPTION_MESSAGE = $"Запрос с клиента на обновление несуществующей записи в базе данных экземпляра класса {typeof(EntityType).ToString()} с Id = {item.Id.Identifier.ToString()} в классе GeneralService";
 
                 ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralService<DataTransferObject, EntityType>).Name, "Update");
 

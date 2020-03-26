@@ -103,7 +103,7 @@ namespace CommonClasses
                         {
                             IdType id = new IdType
                             {
-                                Identificator = Convert.ToUInt32(row[column])
+                                Identifier = Convert.ToUInt32(row[column])
                             };
                             property.SetValue(inputItem, id);
                         }
