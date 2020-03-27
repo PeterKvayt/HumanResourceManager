@@ -31,24 +31,13 @@ namespace DataAccessLayer.DataContext
         /// Создает новую запись в базе данных
         /// </summary>
         /// <param name="item">Новый экземпляр класса</param>
-        public override void Create(Company newCompany)
+        public void Create(Company newCompany)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForCreate(newCompany);
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddCompany";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
-
-            try
-            {
-                storedProcedure.ExecuteNonQuery();
-            }
-            catch (Exception exception)
-            {
-                ExceptionLoger.Log(exception);
-
-                throw;
-            }
+            Create(parameters, CREATE_STORED_PROCEDURE_NAME);
         }
 
         /// <summary>
@@ -73,24 +62,13 @@ namespace DataAccessLayer.DataContext
         /// Обновляет запись в базе данных
         /// </summary>
         /// <param name="item">Экземпляр класса, который необходимо обновить</param>
-        public override void Update(Company company)
+        public void Update(Company company)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForUpdate(company);
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateCompany";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
-
-            try
-            {
-                storedProcedure.ExecuteNonQuery();
-            }
-            catch (Exception exception)
-            {
-                ExceptionLoger.Log(exception);
-
-                throw;
-            }
+            Update(parameters, UPDATE_STORED_PROCEDURE_NAME);
         }
 
         /// <summary>

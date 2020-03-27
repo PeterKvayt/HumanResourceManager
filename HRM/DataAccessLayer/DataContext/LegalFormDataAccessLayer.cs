@@ -1,8 +1,6 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
-using ExceptionClasses.Logers;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -29,24 +27,13 @@ namespace DataAccessLayer.DataContext
         /// Создает новую запись в базе данных
         /// </summary>
         /// <param name="item">Новый экземпляр класса</param>
-        public override void Create(LegalForm newLegalForm)
+        public void Create(LegalForm newLegalForm)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForCreate(newLegalForm);
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddLegalForm";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
-
-            try
-            {
-                storedProcedure.ExecuteNonQuery();
-            }
-            catch (Exception exception)
-            {
-                ExceptionLoger.Log(exception);
-
-                throw;
-            }
+            Create(parameters, CREATE_STORED_PROCEDURE_NAME);
         }
 
         /// <summary>
@@ -71,24 +58,13 @@ namespace DataAccessLayer.DataContext
         /// Обновляет запись в базе данных
         /// </summary>
         /// <param name="item">Экземпляр класса, который необходимо обновить</param>
-        public override void Update(LegalForm legalForm)
+        public void Update(LegalForm legalForm)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForUpdate(legalForm);
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateLegalForm";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
-
-            try
-            {
-                storedProcedure.ExecuteNonQuery();
-            }
-            catch (Exception exception)
-            {
-                ExceptionLoger.Log(exception);
-
-                throw;
-            }
+            Update(parameters, UPDATE_STORED_PROCEDURE_NAME);
         }
 
         public void Delete(IdType id)

@@ -1,8 +1,6 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
-using ExceptionClasses.Logers;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -34,24 +32,13 @@ namespace DataAccessLayer.DataContext
         /// Создает новую запись в базе данных
         /// </summary>
         /// <param name="item">Новый экземпляр класса</param>
-        public override void Create(Employee newEmployee)
+        public void Create(Employee newEmployee)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForCreate(newEmployee);
 
             const string CREATE_STORED_PROCEDURE_NAME = "spAddEmployee";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
-
-            try
-            {
-                storedProcedure.ExecuteNonQuery();
-            }
-            catch (Exception exception)
-            {
-                ExceptionLoger.Log(exception);
-
-                throw;
-            }
+            Create(parameters, CREATE_STORED_PROCEDURE_NAME);
         }
 
         /// <summary>
@@ -76,24 +63,14 @@ namespace DataAccessLayer.DataContext
         /// Обновляет запись в базе данных
         /// </summary>
         /// <param name="item">Экземпляр класса, который необходимо обновить</param>
-        public override void Update(Employee employee)
+        public void Update(Employee employee)
         {
             IEnumerable<SqlParameter> parameters = GetParametersForUpdate(employee);
 
             const string UPDATE_STORED_PROCEDURE_NAME = "spUpdateEmployee";
 
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
+            Update(parameters, UPDATE_STORED_PROCEDURE_NAME);
 
-            try
-            {
-                storedProcedure.ExecuteNonQuery();
-            }
-            catch (Exception exception)
-            {
-                ExceptionLoger.Log(exception);
-
-                throw;
-            }
         }
 
         public void Delete(IdType id)

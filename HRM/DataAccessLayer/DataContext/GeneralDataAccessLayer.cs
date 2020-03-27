@@ -17,14 +17,44 @@ namespace DataAccessLayer.DataContext
         /// <summary>
         /// Создает новую запись в базе данных
         /// </summary>
-        /// <param name="item">Новый экземпляр класса</param>
-        public abstract void Create(EntityType item);
+        /// <param name="parameters">Sql-параметры для создания новой записи</param>
+        /// <param name="CREATE_STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
+        public virtual void Create(IEnumerable<SqlParameter> parameters, string CREATE_STORED_PROCEDURE_NAME)
+        {
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
+
+            try
+            {
+                storedProcedure.ExecuteNonQuery();
+            }
+            catch (Exception exception)
+            {
+                ExceptionLoger.Log(exception);
+
+                throw;
+            }
+        }
 
         /// <summary>
         /// Обновляет запись в базе данных
         /// </summary>
-        /// <param name="item">Экземпляр класса, который необходимо обновить</param>
-        public abstract void Update(EntityType item);
+        /// <param name="parameters">Sql-параметры для обновления записи</param>
+        /// <param name="UPDATE_STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
+        public virtual void Update(IEnumerable<SqlParameter> parameters, string UPDATE_STORED_PROCEDURE_NAME)
+        {
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
+
+            try
+            {
+                storedProcedure.ExecuteNonQuery();
+            }
+            catch (Exception exception)
+            {
+                ExceptionLoger.Log(exception);
+
+                throw;
+            }
+        }
 
         /// <summary>
         /// Удаляет запись из базы данных
