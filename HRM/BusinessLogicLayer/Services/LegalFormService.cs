@@ -3,7 +3,6 @@ using BusinessLogicLayer.Interfaces;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 using System.Collections.Generic;
-using BusinessLogicLayer.Converters;
 
 namespace BusinessLogicLayer.Services
 {
@@ -11,11 +10,11 @@ namespace BusinessLogicLayer.Services
     {
         private readonly IRepository<LegalForm> _repository;
 
-        public LegalFormService(IUnitOfWork dataBase)
+        public LegalFormService(IUnitOfWork dataBase, IConverter<LegalForm, LegalFormDTO> converter)
         {
             _dataBase = dataBase;
             _repository = dataBase.LegalForms;
-            _converter = new LegalFormConverter(_dataBase);
+            _converter = converter;
         }
 
         public void Create(LegalFormDTO item)

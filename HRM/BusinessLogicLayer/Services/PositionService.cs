@@ -1,5 +1,4 @@
-﻿using BusinessLogicLayer.Converters;
-using BusinessLogicLayer.DataTransferObjects;
+﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
@@ -11,11 +10,11 @@ namespace BusinessLogicLayer.Services
     {
         private readonly IRepository<Position> _repository;
 
-        public PositionService(IUnitOfWork dataBase)
+        public PositionService(IUnitOfWork dataBase, IConverter<Position, PositionDTO> converter)
         {
             _dataBase = dataBase;
             _repository = dataBase.Positions;
-            _converter = new PositionConverter(_dataBase);
+            _converter = converter;
         }
 
         public void Create(PositionDTO item)

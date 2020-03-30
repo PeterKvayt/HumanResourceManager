@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BusinessLogicLayer.Converters;
 using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using DataAccessLayer.Entities;
@@ -11,11 +10,11 @@ namespace BusinessLogicLayer.Services
     {
         private readonly IRepository<ActivityType> _repository;
 
-        public ActivityTypeService(IUnitOfWork dataBase)
+        public ActivityTypeService(IUnitOfWork dataBase, IConverter<ActivityType, ActivityTypeDTO> converter)
         {
             _dataBase = dataBase;
             _repository = dataBase.ActivityTypes;
-            _converter = new ActivityTypeConverter(_dataBase);
+            _converter = converter;
         }
 
         public void Create(ActivityTypeDTO item)

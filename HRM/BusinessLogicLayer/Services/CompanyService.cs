@@ -1,5 +1,4 @@
-﻿using BusinessLogicLayer.Converters;
-using BusinessLogicLayer.DataTransferObjects;
+﻿using BusinessLogicLayer.DataTransferObjects;
 using BusinessLogicLayer.Interfaces;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
@@ -11,11 +10,11 @@ namespace BusinessLogicLayer.Services
     {
         private readonly ICompanyRepository<Company> _repository;
 
-        public CompanyService(IUnitOfWork dataBase)
+        public CompanyService(IUnitOfWork dataBase, IConverter<Company, CompanyDTO> converter)
         {
             _dataBase = dataBase;
             _repository = dataBase.Companies;
-            _converter = new CompanyConverter(_dataBase);
+            _converter = converter;
         }
 
         public void Create(CompanyDTO item)

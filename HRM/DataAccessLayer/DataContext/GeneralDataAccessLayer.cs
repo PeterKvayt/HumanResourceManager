@@ -19,7 +19,7 @@ namespace DataAccessLayer.DataContext
         /// </summary>
         /// <param name="parameters">Sql-параметры для создания новой записи</param>
         /// <param name="CREATE_STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
-        public virtual void Create(IEnumerable<SqlParameter> parameters, string CREATE_STORED_PROCEDURE_NAME)
+        protected virtual void Create(IEnumerable<SqlParameter> parameters, string CREATE_STORED_PROCEDURE_NAME)
         {
             IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(CREATE_STORED_PROCEDURE_NAME, parameters);
 
@@ -40,7 +40,7 @@ namespace DataAccessLayer.DataContext
         /// </summary>
         /// <param name="parameters">Sql-параметры для обновления записи</param>
         /// <param name="UPDATE_STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
-        public virtual void Update(IEnumerable<SqlParameter> parameters, string UPDATE_STORED_PROCEDURE_NAME)
+        protected virtual void Update(IEnumerable<SqlParameter> parameters, string UPDATE_STORED_PROCEDURE_NAME)
         {
             IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(UPDATE_STORED_PROCEDURE_NAME, parameters);
 
@@ -217,7 +217,7 @@ namespace DataAccessLayer.DataContext
         /// </summary>
         /// <param name="dataTable">Контекст данных</param>
         /// <returns>Экземпляр класса DataTableMapper</returns>
-        protected DataTableMapper TryGetDataTableMapper(DataTable dataTable)
+        private DataTableMapper TryGetDataTableMapper(DataTable dataTable)
         {
             try
             {
