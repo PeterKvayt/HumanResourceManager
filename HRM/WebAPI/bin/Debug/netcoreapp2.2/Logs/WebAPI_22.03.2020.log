@@ -1,8 +1,0 @@
-[22.03.2020 15:32:52.654] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Нарушено "uniqueOrganizationalTypeName" ограничения UNIQUE KEY. Не удается вставить повторяющийся ключ в объект "dbo.LegalForm". Повторяющееся значение ключа: (ЗАО).
-Выполнение данной инструкции было прервано.
-[22.03.2020 15:32:52.712] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Нарушено "uniqueOrganizationalTypeName" ограничения UNIQUE KEY. Не удается вставить повторяющийся ключ в объект "dbo.LegalForm". Повторяющееся значение ключа: (ЗАО).
-Выполнение данной инструкции было прервано.
-[22.03.2020 15:32:52.752] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Нарушено "uniqueOrganizationalTypeName" ограничения UNIQUE KEY. Не удается вставить повторяющийся ключ в объект "dbo.LegalForm". Повторяющееся значение ключа: (ЗАО).
-Выполнение данной инструкции было прервано.
-[22.03.2020 15:32:52.790] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Нарушено "uniqueOrganizationalTypeName" ограничения UNIQUE KEY. Не удается вставить повторяющийся ключ в объект "dbo.LegalForm". Повторяющееся значение ключа: (ЗАО).
-Выполнение данной инструкции было прервано.

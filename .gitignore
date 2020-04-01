@@ -1,4 +1,4 @@
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 # Ignore logs
-/HRM/WebAPI/bin/Debug/netcoreapp2.2/Logs/*.log
+/HRM/WebAPI/bin/Debug/netcoreapp2.2/Logs/*
