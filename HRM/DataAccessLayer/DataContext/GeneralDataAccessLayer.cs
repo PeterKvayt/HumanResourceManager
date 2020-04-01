@@ -3,7 +3,6 @@ using DataAccessLayer.Interfaces;
 using ExceptionClasses.Logers;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace DataAccessLayer.DataContext
@@ -80,84 +79,30 @@ namespace DataAccessLayer.DataContext
         }
 
         /// <summary>
-        /// Возвращает конкретную запись в базе данных
+        /// Делегат для маппинга сущностей из базы данных
         /// </summary>
-        /// <param name="id">Идентификатор записи</param>
-        /// <param name="GET_STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
-        /// <returns>Запрашиваемая запись</returns>
-        protected virtual EntityType Get(IdType id, string GET_STORED_PROCEDURE_NAME)
-        {
-            IEnumerable<SqlParameter> storedProcedureParameters = GetIdParameters(id);
-
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_STORED_PROCEDURE_NAME, storedProcedureParameters);
-
-            DataSet resultDataSet = null;
-
-            try
-            {
-                resultDataSet = storedProcedure.Execute();
-            }
-            catch (Exception exception)
-            {
-                ExceptionLoger.Log(exception);
-
-                throw;
-            }
-
-            if (resultDataSet != null)
-            {
-                DataTableMapper mapper = TryGetDataTableMapper(resultDataSet.Tables[0]);
-
-                EntityType result = mapper.CreateObjectFromTable<EntityType>();
-
-                return result;
-            }
-            else
-            {
-                const string EXCEPTION_MESSAGE = "Ошибка получения экземпляра класса из базы данных!";
-
-                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralDataAccessLayer<EntityType>).Name, "Get");
-
-                throw new Exception();
-            }
-        }
+        /// <param name="reader">Reader с данными</param>
+        /// <returns>Результирующий набор экземпляров класса EntityType</returns>
+        protected delegate List<EntityType> Mapper(SqlDataReader reader);
 
         /// <summary>
-        /// Возвращает все записи таблицы базы данных
+        /// Возвращает набор экземпляров из базы данных
         /// </summary>
-        /// <param name="GET_ALL_STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
-        /// <returns>Список всех записей в таблице</returns>
-        protected virtual IEnumerable<EntityType> GetAll(string GET_ALL_STORED_PROCEDURE_NAME)
+        /// <param name="STORED_PROCEDURE_NAME">Название хранимой процедуры</param>
+        /// <param name="parameters">Параметры хранимой процедуры</param>
+        /// <param name="MapMethod">Метод для маппинга данных в экземпляры класса EntityType</param>
+        /// <returns></returns>
+        protected List<EntityType> GetResultCollection(string STORED_PROCEDURE_NAME, IEnumerable<SqlParameter> parameters, Mapper MapMethod)
         {
-            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { });
+            IDataBaseCommandExecutor storedProcedure = TryGetStoredProcedure(STORED_PROCEDURE_NAME, parameters);
 
-            DataSet resultDataSet = null;
-            try
+            using (SqlConnection connection = storedProcedure.Connection)
             {
-                resultDataSet = storedProcedure.Execute();
-            }
-            catch (Exception exception)
-            {
-                ExceptionLoger.Log(exception);
+                connection.Open();
 
-                throw;
-            }
+                SqlDataReader reader = storedProcedure.ExecuteReader();
 
-            if (resultDataSet != null)
-            {
-                DataTableMapper mapper = TryGetDataTableMapper(resultDataSet.Tables[0]);
-
-                IEnumerable<EntityType> resultCollection = mapper.CreateListFromTable<EntityType>();
-
-                return resultCollection;
-            }
-            else
-            {
-                string EXCEPTION_MESSAGE = $"Результат выполнения хранимой процедуры для получения всех записей класса {typeof(EntityType).ToString()} из базы данных вернул Null!";
-
-                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(GeneralDataAccessLayer<EntityType>).Name, "GetAll");
-
-                throw new Exception();
+                return MapMethod(reader);
             }
         }
 
@@ -213,25 +158,6 @@ namespace DataAccessLayer.DataContext
         }
 
         /// <summary>
-        /// Безопасно создает экземпляр класса DataTableMapper
-        /// </summary>
-        /// <param name="dataTable">Контекст данных</param>
-        /// <returns>Экземпляр класса DataTableMapper</returns>
-        private DataTableMapper TryGetDataTableMapper(DataTable dataTable)
-        {
-            try
-            {
-                return new DataTableMapper(dataTable);
-            }
-            catch (Exception exception)
-            {
-                ExceptionLoger.Log(exception);
-
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Создает идентифицирующие sql параметры
         /// </summary>
         /// <returns>Идентифицирующие параметры</returns>
@@ -243,6 +169,21 @@ namespace DataAccessLayer.DataContext
             };
 
             return idParameters;
+        }
+
+        /// <summary>
+        /// Создает экземпляр класса IdType
+        /// </summary>
+        /// <param name="idObject">Id параметр SqlDataReader-а</param>
+        /// <returns>Экземпляр класса IdType</returns>
+        protected virtual IdType MapIdType(object idObject)
+        {
+            IdType id = new IdType
+            {
+                Identifier = Convert.ToUInt32(idObject)
+            };
+
+            return id;
         }
     }
 }

@@ -105,13 +105,42 @@ namespace DataAccessLayer.DataContext
         public Company Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetCompany";
-            return Get(id, GET_STORED_PROCEDURE_NAME);
+
+            IEnumerable<SqlParameter> parameters = GetIdParameters(id);
+
+            return GetResultCollection(GET_STORED_PROCEDURE_NAME, parameters, MapCollection)[0];
         }
 
         public IEnumerable<Company> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllCompanies";
-            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+
+            return GetResultCollection(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { }, MapCollection);
+        }
+
+        /// <summary>
+        /// Создает все сущности из базы данных
+        /// </summary>
+        /// <param name="reader">Ридер, содержащий все записи из базы данных</param>
+        /// <returns>Все сущности из базы данных</returns>
+        private List<Company> MapCollection(SqlDataReader reader)
+        {
+            var resultCollection = new List<Company> { };
+
+            while (reader.Read())
+            {
+                var company = new Company
+                {
+                    Id = MapIdType(reader["Id"]),
+                    LegalFormId = MapIdType(reader["LegalFormId"]),
+                    ActivityTypeId = MapIdType(reader["ActivityTypeId"]),
+                    Name = reader["Name"].ToString()
+                };
+
+                resultCollection.Add(company);
+            }
+
+            return resultCollection;
         }
 
         public bool Exists(IdType id)

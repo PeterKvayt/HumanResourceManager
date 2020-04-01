@@ -76,13 +76,40 @@ namespace DataAccessLayer.DataContext
         public LegalForm Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetLegalForm";
-            return Get(id, GET_STORED_PROCEDURE_NAME);
+
+            IEnumerable<SqlParameter> parameters = GetIdParameters(id);
+
+            return GetResultCollection(GET_STORED_PROCEDURE_NAME, parameters, MapCollection)[0];
         }
 
         public IEnumerable<LegalForm> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllLegalForms";
-            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+
+            return GetResultCollection(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { }, MapCollection);
+        }
+
+        /// <summary>
+        /// Создает все сущности из базы данных
+        /// </summary>
+        /// <param name="reader">Ридер, содержащий все записи из базы данных</param>
+        /// <returns>Все сущности из базы данных</returns>
+        private List<LegalForm> MapCollection(SqlDataReader reader)
+        {
+            var resultCollection = new List<LegalForm> { };
+
+            while (reader.Read())
+            {
+                var legalForm = new LegalForm
+                {
+                    Id = MapIdType(reader["Id"]),
+                    Name = reader["Name"].ToString()
+                };
+
+                resultCollection.Add(legalForm);
+            }
+
+            return resultCollection;
         }
 
         public bool Exists(IdType id)

@@ -1,0 +1,18 @@
+﻿[01.04.2020 21:42:29.555] Ошибка в методе [System.Data.SqlClient.SqlCommand.ValidateCommand()]: ExecuteReader requires an open and available Connection. The connection's current state is closed.
+[01.04.2020 21:42:29.595] Ошибка в методе [System.Data.SqlClient.SqlCommand.ValidateCommand()]: ExecuteReader requires an open and available Connection. The connection's current state is closed.
+[01.04.2020 21:42:29.630] Ошибка в методе [System.Data.SqlClient.SqlCommand.ValidateCommand()]: ExecuteReader requires an open and available Connection. The connection's current state is closed.
+[01.04.2020 21:42:38.512] Ошибка в методе [System.Data.SqlClient.SqlCommand.ValidateCommand()]: ExecuteReader requires an open and available Connection. The connection's current state is closed.
+[01.04.2020 21:42:38.556] Ошибка в методе [System.Data.SqlClient.SqlCommand.ValidateCommand()]: ExecuteReader requires an open and available Connection. The connection's current state is closed.
+[01.04.2020 21:42:38.607] Ошибка в методе [System.Data.SqlClient.SqlCommand.ValidateCommand()]: ExecuteReader requires an open and available Connection. The connection's current state is closed.
+[01.04.2020 22:18:21.441] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetPosition" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:21.483] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetPosition" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:21.522] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetPosition" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:24.778] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetLegalForm" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:24.821] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetLegalForm" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:24.870] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetLegalForm" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:28.513] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetPosition" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:28.555] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetPosition" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:28.595] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetPosition" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:30.989] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetPosition" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:31.027] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetPosition" ожидает параметр "@Id", который не был указан.
+[01.04.2020 22:18:31.063] Ошибка в методе [System.Data.SqlClient.SqlConnection.OnError()]: Процедура или функция "spGetPosition" ожидает параметр "@Id", который не был указан.

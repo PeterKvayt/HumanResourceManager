@@ -1,6 +1,7 @@
 ﻿using CommonClasses;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -82,13 +83,45 @@ namespace DataAccessLayer.DataContext
         public Employee Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetEmployee";
-            return Get(id, GET_STORED_PROCEDURE_NAME);
+
+            IEnumerable<SqlParameter> parameters = GetIdParameters(id);
+
+            return GetResultCollection(GET_STORED_PROCEDURE_NAME, parameters, MapCollection)[0];
         }
 
         public IEnumerable<Employee> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllEmployees";
-            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+
+            return GetResultCollection(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { }, MapCollection);
+        }
+
+        /// <summary>
+        /// Создает все сущности из базы данных
+        /// </summary>
+        /// <param name="reader">Ридер, содержащий все записи из базы данных</param>
+        /// <returns>Все сущности из базы данных</returns>
+        private List<Employee> MapCollection(SqlDataReader reader)
+        {
+            var resultCollection = new List<Employee> { };
+
+            while (reader.Read())
+            {
+                var employee = new Employee
+                {
+                    Id = MapIdType(reader["Id"]),
+                    PositionId = MapIdType(reader["PositionId"]),
+                    CompanyId = MapIdType(reader["CompanyId"]),
+                    Name = reader["Name"].ToString(),
+                    Surname = reader["Surname"].ToString(),
+                    MiddleName = reader["MiddleName"].ToString(),
+                    DateOfEmployment = Convert.ToDateTime(reader["DateOfEmployment"])
+                };
+
+                resultCollection.Add(employee);
+            }
+
+            return resultCollection;
         }
 
         public bool Exists(IdType id)

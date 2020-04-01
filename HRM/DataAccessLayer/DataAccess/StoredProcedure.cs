@@ -26,7 +26,7 @@ namespace DataAccessLayer.DataContext
         /// <summary>
         /// Подключение к базе данных
         /// </summary>
-        private SqlConnection _connection;
+        public SqlConnection Connection { get; }
 
         /// <summary>
         /// Конструктор
@@ -63,7 +63,7 @@ namespace DataAccessLayer.DataContext
 
             try
             {
-                _connection = DataBaseConnection.GetConnection();
+                Connection = DataBaseConnection.GetConnection();
             }
             catch (Exception exception)
             {
@@ -76,31 +76,20 @@ namespace DataAccessLayer.DataContext
         /// <summary>
         /// Выполняет хранимую процедуру
         /// </summary>
-        /// <returns>Возвращает данные из базы данных</returns>
-        public DataSet Execute()
+        /// <returns>Возвращает reader с данными</returns>
+        public SqlDataReader ExecuteReader()
         {
-            using (SqlConnection sqlDataBaseConnection = _connection)
+            SqlCommand storedProcedureCommand = GetSqlCommand();
+
+            try
             {
-                sqlDataBaseConnection.Open();
+                return storedProcedureCommand.ExecuteReader();
+            }
+            catch (Exception exception)
+            {
+                ExceptionLoger.Log(exception);
 
-                SqlCommand storedProcedureCommand = GetSqlCommand();
-
-                SqlDataAdapter adapter = new SqlDataAdapter(storedProcedureCommand);
-
-                DataSet dataSet = new DataSet();
-
-                try
-                {
-                    adapter.Fill(dataSet);
-
-                    return dataSet;
-                }
-                catch (Exception exception)
-                {
-                    ExceptionLoger.Log(exception);
-
-                    throw;
-                }
+                throw;
             }
         }
 
@@ -109,7 +98,7 @@ namespace DataAccessLayer.DataContext
         /// </summary>
         public void ExecuteNonQuery()
         {
-            using (SqlConnection sqlDataBaseConnection = _connection)
+            using (SqlConnection sqlDataBaseConnection = Connection)
             {
                 sqlDataBaseConnection.Open();
 
@@ -134,7 +123,7 @@ namespace DataAccessLayer.DataContext
         /// <returns>Результат выполнения запроса</returns>
         public object ExecuteScalar()
         {
-            using (SqlConnection sqlDataBaseConnection = _connection)
+            using (SqlConnection sqlDataBaseConnection = Connection)
             {
                 sqlDataBaseConnection.Open();
 
@@ -163,7 +152,7 @@ namespace DataAccessLayer.DataContext
             {
                 CommandText = _name,
                 CommandType = CommandType.StoredProcedure,
-                Connection = _connection
+                Connection = Connection
             };
 
             foreach (var sqlParameter in _sqlParameters)

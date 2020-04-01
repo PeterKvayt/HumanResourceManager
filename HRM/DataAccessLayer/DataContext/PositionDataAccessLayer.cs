@@ -76,13 +76,35 @@ namespace DataAccessLayer.DataContext
         public Position Get(IdType id)
         {
             const string GET_STORED_PROCEDURE_NAME = "spGetPosition";
-            return Get(id, GET_STORED_PROCEDURE_NAME);
+
+            IEnumerable<SqlParameter> parameters = GetIdParameters(id);
+
+            return GetResultCollection(GET_STORED_PROCEDURE_NAME, parameters, MapCollection)[0];
         }
 
         public IEnumerable<Position> GetAll()
         {
             const string GET_ALL_STORED_PROCEDURE_NAME = "spGetAllPositions";
-            return GetAll(GET_ALL_STORED_PROCEDURE_NAME);
+
+            return GetResultCollection(GET_ALL_STORED_PROCEDURE_NAME, new List<SqlParameter> { }, MapCollection);
+        }
+
+        private List<Position> MapCollection(SqlDataReader reader)
+        {
+            var resultCollection = new List<Position> { };
+
+            while (reader.Read())
+            {
+                var position = new Position
+                {
+                    Id = MapIdType(reader["Id"]),
+                    Name = reader["Name"].ToString()
+                };
+
+                resultCollection.Add(position);
+            }
+
+            return resultCollection;
         }
 
         public bool Exists(IdType id)
