@@ -11,13 +11,13 @@ namespace BusinessLogicLayer.Converters
 
         private readonly IConverter<Company, CompanyDTO> _companyConverter;
 
-        public EmployeeConverter(IUnitOfWork dataBase)
+        public EmployeeConverter(IUnitOfWork dataBase, IConverter<Position, PositionDTO> positionConverter, IConverter<Company, CompanyDTO> companyConverter)
         {
             _dataBase = dataBase;
 
-            _positionConverter = new PositionConverter(_dataBase);
+            _positionConverter = positionConverter;
 
-            _companyConverter = new CompanyConverter(_dataBase);
+            _companyConverter = companyConverter;
         }
 
         public Employee Convert(EmployeeDTO employeeDTO)

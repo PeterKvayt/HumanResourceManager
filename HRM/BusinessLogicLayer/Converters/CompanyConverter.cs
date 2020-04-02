@@ -11,13 +11,13 @@ namespace BusinessLogicLayer.Converters
 
         private readonly IConverter<LegalForm, LegalFormDTO> _legalFormConverter;
 
-        public CompanyConverter(IUnitOfWork dataBase)
+        public CompanyConverter(IUnitOfWork dataBase, IConverter<ActivityType, ActivityTypeDTO> activityTypeConverter, IConverter<LegalForm, LegalFormDTO> legalFormConverter)
         {
             _dataBase = dataBase;
 
-            _activityTypeConverter = new ActivityTypeConverter(_dataBase);
+            _activityTypeConverter = activityTypeConverter;
 
-            _legalFormConverter = new LegalFormConverter(_dataBase);
+            _legalFormConverter = legalFormConverter;
         }
 
         public Company Convert(CompanyDTO companyDTO)
