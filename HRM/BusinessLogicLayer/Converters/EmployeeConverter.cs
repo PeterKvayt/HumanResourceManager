@@ -7,14 +7,22 @@ namespace BusinessLogicLayer.Converters
 {
     class EmployeeConverter : GeneralConverter<Employee, EmployeeDTO>, IConverter<Employee, EmployeeDTO>
     {
+        private readonly IConverter<Position, PositionDTO> _positionConverter;
+
+        private readonly IConverter<Company, CompanyDTO> _companyConverter;
+
         public EmployeeConverter(IUnitOfWork dataBase)
         {
             _dataBase = dataBase;
+
+            _positionConverter = new PositionConverter(_dataBase);
+
+            _companyConverter = new CompanyConverter(_dataBase);
         }
 
-        public override Employee Convert(EmployeeDTO employeeDTO)
+        public Employee Convert(EmployeeDTO employeeDTO)
         {
-            Employee employee = new Employee
+            var employee = new Employee
             {
                 Id = employeeDTO.Id,
                 Name = employeeDTO.Name,
@@ -28,16 +36,15 @@ namespace BusinessLogicLayer.Converters
             return employee;
         }
 
-        public override EmployeeDTO Convert(Employee employee)
+        public EmployeeDTO Convert(Employee employee)
         {
-            var position = _dataBase.Positions.Get(employee.PositionId);
-            var positionDTO = TryMap<PositionDTO, Position>(position);
+            Position position = _dataBase.Positions.Get(employee.PositionId);
+            PositionDTO positionDTO = _positionConverter.Convert(position);
 
-            var company = _dataBase.Companies.Get(employee.CompanyId);
-            CompanyConverter converter = new CompanyConverter(_dataBase);
-            var companyDTO = converter.Convert(company);
+            Company company = _dataBase.Companies.Get(employee.CompanyId);
+            CompanyDTO companyDTO = _companyConverter.Convert(company);
 
-            EmployeeDTO employeeDTO = new EmployeeDTO
+            var employeeDTO = new EmployeeDTO
             {
                 Id = employee.Id,
                 Name = employee.Name,

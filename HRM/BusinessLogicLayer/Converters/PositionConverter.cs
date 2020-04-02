@@ -11,5 +11,27 @@ namespace BusinessLogicLayer.Converters
         {
             _dataBase = dataBase;
         }
+
+        public Position Convert(PositionDTO dtoItem)
+        {
+            var resultEntityItem = new Position
+            {
+                Id = dtoItem.Id,
+                Name = dtoItem.Name
+            };
+
+            return resultEntityItem;
+        }
+
+        public PositionDTO Convert(Position entityItem)
+        {
+            var resultDTO = new PositionDTO
+            {
+                Id = entityItem.Id,
+                Name = entityItem.Name
+            };
+
+            return resultDTO;
+        }
     }
 }

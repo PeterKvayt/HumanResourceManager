@@ -11,5 +11,27 @@ namespace BusinessLogicLayer.Converters
         {
             _dataBase = dataBase;
         }
+
+        public ActivityType Convert(ActivityTypeDTO dtoItem)
+        {
+            var resultEntityItem = new ActivityType
+            {
+                Id = dtoItem.Id,
+                Name = dtoItem.Name
+            };
+
+            return resultEntityItem;
+        }
+
+        public ActivityTypeDTO Convert(ActivityType entityItem)
+        {
+            var resultDTO = new ActivityTypeDTO
+            {
+                Id = entityItem.Id,
+                Name = entityItem.Name
+            };
+
+            return resultDTO;
+        }
     }
 }

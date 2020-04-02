@@ -7,12 +7,20 @@ namespace BusinessLogicLayer.Converters
 {
     class CompanyConverter : GeneralConverter<Company, CompanyDTO>, IConverter<Company, CompanyDTO>
     {
+        private readonly IConverter<ActivityType, ActivityTypeDTO> _activityTypeConverter;
+
+        private readonly IConverter<LegalForm, LegalFormDTO> _legalFormConverter;
+
         public CompanyConverter(IUnitOfWork dataBase)
         {
             _dataBase = dataBase;
+
+            _activityTypeConverter = new ActivityTypeConverter(_dataBase);
+
+            _legalFormConverter = new LegalFormConverter(_dataBase);
         }
 
-        public override Company Convert(CompanyDTO companyDTO)
+        public Company Convert(CompanyDTO companyDTO)
         {
             Company company = new Company
             {
@@ -25,13 +33,13 @@ namespace BusinessLogicLayer.Converters
             return company;
         }
 
-        public override CompanyDTO Convert(Company company)
+        public CompanyDTO Convert(Company company)
         {
             var activityType = _dataBase.ActivityTypes.Get(company.ActivityTypeId);
-            var activityTypeDTO = TryMap<ActivityTypeDTO, ActivityType>(activityType);
+            var activityTypeDTO = _activityTypeConverter.Convert(activityType);
 
             var legalForm = _dataBase.LegalForms.Get(company.LegalFormId);
-            var legalFormDTO = TryMap<LegalFormDTO, LegalForm>(legalForm);
+            var legalFormDTO = _legalFormConverter.Convert(legalForm);
 
             int size = _dataBase.Companies.GetSize(company);
 

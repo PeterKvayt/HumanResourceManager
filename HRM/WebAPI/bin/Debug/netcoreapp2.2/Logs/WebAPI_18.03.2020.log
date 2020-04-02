@@ -1,4 +1,4 @@
-[18.03.2020 17:43:14.948] Ошибка в методе [GeneralService`2.Get()]: Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса DataAccessLayer.Entities.ActivityType с Id = 1
+﻿[18.03.2020 17:43:14.948] Ошибка в методе [GeneralService`2.Get()]: Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса DataAccessLayer.Entities.ActivityType с Id = 1
 [18.03.2020 17:47:47.631] Ошибка в методе [GeneralService`2.Get()]: Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса DataAccessLayer.Entities.ActivityType с Id = 1
 [18.03.2020 17:53:28.548] Ошибка в методе [GeneralService`2.Get()]: Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса DataAccessLayer.Entities.ActivityType с Id = 1
 [18.03.2020 17:53:55.999] Ошибка в методе [GeneralService`2.Get()]: Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса DataAccessLayer.Entities.ActivityType с Id = 1
@@ -8,3 +8,4 @@
 [18.03.2020 18:34:35.412] Ошибка в методе [GeneralService`2.Get()]: Запрос с клиента на получение несуществующей записи из базы данных экземпляра класса DataAccessLayer.Entities.ActivityType с Id = 1
 [18.03.2020 18:35:35.267] Ошибка в методе [GeneralService`2.Delete()]: Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса DataAccessLayer.Entities.ActivityType с Id = 1
 [18.03.2020 18:35:40.157] Ошибка в методе [GeneralService`2.Delete()]: Запрос с клиента на удаление несуществующей записи в базе данных экземпляра класса DataAccessLayer.Entities.ActivityType с Id = 1
+sdasd
