@@ -38,9 +38,10 @@ namespace DataAccessLayer.DataAccess
         /// <returns>Строка подключения к базе данных</returns>
         private static string GetConnectionString()
         {
-            string CONNECTION_FILE_NAME = "connectionStrings.json";
+            //string CONNECTION_FILE_NAME = "connectionStrings.json";
+            string CONNECTION_FILE_NAME = "appsettings.json";
 
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string basePath = AppDomain.CurrentDomain.BaseDirectory.Replace("\\bin\\Debug\\netcoreapp2.2", "");
 
             IConfigurationRoot configurationRoot = new ConfigurationBuilder()
                 .SetBasePath(basePath)
