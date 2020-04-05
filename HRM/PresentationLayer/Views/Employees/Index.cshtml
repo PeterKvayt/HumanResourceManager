@@ -52,12 +52,12 @@
             @item.DateOfEmployment.ToShortDateString()
         </td>
         <td style="text-align:end;">
-            <a href="~/Employees/Update/@item.Id.Identifier" class="btn btn-info">
+            <a href="~/@ViewBag.Controller/Update/@item.Id.Identifier" class="btn btn-info">
                 Изменить
             </a>
 
             <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
-            <a href="~/Employees/Delete/@item.Id.Identifier" style="display:none;">
+            <a href="~/@ViewBag.Controller/Delete/@item.Id.Identifier" style="display:none;">
                 Удалить
             </a>
         </td>

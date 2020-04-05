@@ -41,13 +41,13 @@
             @companyItem.ActivityType.Name
         </td>
         <td style="text-align:end;">
-            <a href="~/Companies/Update/@companyItem.Id.Identifier" class="btn btn-info">
+            <a href="~/@ViewBag.Controller/Update/@companyItem.Id.Identifier" class="btn btn-info">
                 Изменить
             </a>
         </td>
         <td style="text-align:end;">
             <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
-            <a href="~/Companies/Delete/@companyItem.Id.Identifier" style="display:none;">
+            <a href="~/@ViewBag.Controller/Delete/@companyItem.Id.Identifier" style="display:none;">
                 Удалить
             </a>
         </td>
