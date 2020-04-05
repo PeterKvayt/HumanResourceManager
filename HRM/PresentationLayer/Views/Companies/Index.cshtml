@@ -1,87 +1,55 @@
 ﻿@model PresentationLayer.ViewModels.CompanyViewModel
 
 @{
-    ViewData["Title"] = "Компании";
+    Layout = "_IndexPartial";
+    ViewBag.Title = "Компании";
+    ViewBag.Controller = "Companies";
+    ViewBag.CreateButtonName = "Создать компанию";
+    ViewBag.DeleteAlert = "При удалении компании удаляются связанные с этой компанией сотрудники!";
+    ViewBag.Scripts = new string[] { "/lib/js/deletion.js" };
 }
 
-<div class="row">
-    <p class="col-lg-12 col-md-12 col-sm-12">
-        <a class="btn btn-primary" asp-controller="Companies" asp-action="Create">
-            Создать компанию
-        </a>
-    </p>
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <table class="table table-striped">
-            <tr class="bg-info">
-                <td>
-                    <strong style="color:#fff">Название</strong>
-                </td>
-                <td>
-                    <strong style="color:#fff">Количество сотрудников</strong>
-                </td>
-                <td>
-                    <strong style="color:#fff">Организационно-правовая форма</strong>
-                </td>
-                <td>
-                    <strong style="color:#fff">Вид деятельности</strong>
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
-            @foreach (var companyItem in Model.CompanyCollection)
-            {
-                <tr>
-                    <td>
-                        @companyItem.Name
-                    </td>
-                    <td>
-                        @companyItem.Size
-                    </td>
-                    <td>
-                        @companyItem.LegalForm.Name
-                    </td>
-                    <td>
-                        @companyItem.ActivityType.Name
-                    </td>
-                    <td style="text-align:end;">
-                        <a href="~/Companies/Update/@companyItem.Id.Identifier" class="btn btn-info">
-                            Изменить
-                        </a>
-                    </td>
-                    <td style="text-align:end;">
-                        <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
-                        <a href="~/Companies/Delete/@companyItem.Id.Identifier" style="display:none;">
-                            Удалить
-                        </a>
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
-</div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="deletion-modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content bg-warning">
-            <div class="modal-header">
-                <h4 class="modal-title">Удаление</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <h5><strong>При удалении компании удаляются связанные с этой компанией сотрудники!</strong></h5>
-                <br />
-                <h5><small>Все данные будут безвозвратно утеряны!</small></h5>
-                <br />
-                <h5><strong>Вы уверены?</strong></h5>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
-                <a class='btn btn-danger' href="#">Все равно удалить</a>
-            </div>
-        </div><!-- /.модал-контент -->
-    </div><!-- /.модальное окно -->
-</div><!-- /.модальные -->
-
-@section Scripts{
-    <script src="~/lib/js/deletion.js"></script>
+<tr class="bg-info">
+    <td>
+        <strong style="color:#fff">Название</strong>
+    </td>
+    <td>
+        <strong style="color:#fff">Количество сотрудников</strong>
+    </td>
+    <td>
+        <strong style="color:#fff">Организационно-правовая форма</strong>
+    </td>
+    <td>
+        <strong style="color:#fff">Вид деятельности</strong>
+    </td>
+    <td></td>
+    <td></td>
+</tr>
+@foreach (var companyItem in Model.CompanyCollection)
+{
+    <tr>
+        <td>
+            @companyItem.Name
+        </td>
+        <td>
+            @companyItem.Size
+        </td>
+        <td>
+            @companyItem.LegalForm.Name
+        </td>
+        <td>
+            @companyItem.ActivityType.Name
+        </td>
+        <td style="text-align:end;">
+            <a href="~/Companies/Update/@companyItem.Id.Identifier" class="btn btn-info">
+                Изменить
+            </a>
+        </td>
+        <td style="text-align:end;">
+            <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
+            <a href="~/Companies/Delete/@companyItem.Id.Identifier" style="display:none;">
+                Удалить
+            </a>
+        </td>
+    </tr>
 }
