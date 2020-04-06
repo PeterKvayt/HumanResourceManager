@@ -1,38 +1,24 @@
 ﻿@model PresentationLayer.ViewModels.ActivityTypeViewModel
 
 @{
-    ViewData["Title"] = "Изменение вида деятельности";
+    Layout = "_CreateUpdateLayout";
+    string title = "Изменение вида деятельности";
+    ViewBag.Title = title;
+    ViewBag.ActionName = title + ":";
+    ViewBag.ItemName = Model.ActivityTypeModel.Name;
+    ViewBag.AspController = "ActivityTypes";
+    ViewBag.AspAction = "Update";
+    ViewBag.AcceptButtonName = "Сохранить изменения";
+    ViewBag.AlertMessage = "Введите название вида деятельности компании!";
+    ViewBag.Scripts = new string[]
+    {
+        "/lib/js/alerts.js"
+    };
 }
 
-<div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-1"></div>
-    <div class="col-lg-6 col-md-6 col-sm-10">
-        <h5><strong>Изменение вида деятельности:</strong> @Model.ActivityTypeModel.Name</h5>
-        <form method="post" asp-controller="ActivityTypes" asp-action="Update">
-            <div class="form-group">
-                <label asp-for="ActivityTypeModel.Name" class="control-label">Название вида деятельности</label>
-                <input maxlength="50" required asp-for="ActivityTypeModel.Name" value="@Model.ActivityTypeModel.Name" class="form-control input-form select-form" />
-                <input asp-for="ActivityTypeModel.Id.Identifier" value="@Model.ActivityTypeModel.Id.Identifier" style="display:none;" />
-            </div>
-            <div class="form-group">
-                <input id="submit-btn" type="submit" style="display:none;" />
-            </div>
-        </form>
-
-        <button id="ok-btn" class="btn btn-primary">Сохранить изменения</button>
-        <a asp-controller="ActivityTypes" asp-action="Index" class="btn btn-danger">Отмена</a>
-        <br />
-        <br />
-        <div id="warning-alert" class="alert alert-warning .alert-dismissible" role="alert" style="display: none;">
-            <button id="close-warning" type="button" class="close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>Введите название вида деятельности компании!</strong>
-        </div>
-
-    </div>
+<div class="form-group">
+    <label asp-for="ActivityTypeModel.Name" class="control-label">Название вида деятельности</label>
+    <input maxlength="50" required asp-for="ActivityTypeModel.Name" value="@Model.ActivityTypeModel.Name" class="form-control input-form select-form" />
+    <input asp-for="ActivityTypeModel.Id.Identifier" value="@Model.ActivityTypeModel.Id.Identifier" style="display:none;" />
 </div>
 
-@section Scripts{
-    <script src="~/lib/js/alerts.js"></script>
-}
