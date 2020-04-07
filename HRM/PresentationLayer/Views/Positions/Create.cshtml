@@ -1,7 +1,7 @@
 ﻿@model PresentationLayer.ViewModels.PositionViewModel
 
 @{
-    Layout = "_CreateUpdateLayout";
+    Layout = "_CreateUpdateTemplate";
     string title = "Создание должности";
     ViewBag.Title = title;
     ViewBag.ActionName = title;
@@ -15,7 +15,4 @@
     };
 }
 
-<div class="form-group">
-    <label asp-for="PositionModel.Name" class="control-label">Название</label>
-    <input maxlength="50" required asp-for="PositionModel.Name" class="form-control input-form select-form" />
-</div>
+<input maxlength="50" required asp-for="PositionModel.Name" class="form-control input-form select-form" />

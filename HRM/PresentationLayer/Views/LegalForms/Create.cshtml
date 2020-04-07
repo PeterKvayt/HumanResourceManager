@@ -1,7 +1,7 @@
 ﻿@model PresentationLayer.ViewModels.LegalFormViewModel
 
 @{
-    Layout = "_CreateUpdateLayout";
+    Layout = "_CreateUpdateTemplate";
     string title = "Создание организационной-правовой формы";
     ViewBag.Title = title;
     ViewBag.ActionName = title;
@@ -11,11 +11,8 @@
     ViewBag.AlertMessage = "Введите название организационной-правовой формы!";
     ViewBag.Scripts = new string[]
     {
-        "/lib/js/alerts.js"
+"/lib/js/alerts.js"
     };
 }
 
-<div class="form-group">
-    <label asp-for="LegalFormModel.Name" class="control-label">Название</label>
-    <input maxlength="50" required asp-for="LegalFormModel.Name" class="form-control input-form select-form" />
-</div>
+<input maxlength="50" required asp-for="LegalFormModel.Name" class="form-control input-form select-form" />
