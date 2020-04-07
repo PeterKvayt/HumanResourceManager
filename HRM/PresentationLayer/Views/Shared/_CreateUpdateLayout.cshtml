@@ -7,28 +7,28 @@
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-1"></div>
     <div class="col-lg-6 col-md-6 col-sm-10">
-        <h5><strong>@ViewBag.ActionName</strong> @ViewBag.ItemName</h5>
-        <form method="post" asp-controller="@ViewBag.AspController" asp-action="@ViewBag.AspAction">
+        <h5><strong>@ViewBag.LayoutActionName</strong> @ViewBag.LayoutItemName</h5>
+        <form method="post" asp-controller="@ViewBag.LayoutAspController" asp-action="@ViewBag.LayoutAspAction">
             @RenderBody()
             <div class="form-group">
                 <input id="submit-btn" type="submit" style="display:none;" />
             </div>
         </form>
-        <button id="ok-btn" class="btn btn-primary">@ViewBag.AcceptButtonName</button>
-        <a asp-controller="@ViewBag.AspController" asp-action="Index" class="btn btn-danger">Отмена</a>
+        <button id="ok-btn" class="btn btn-primary">@ViewBag.LayoutAcceptButtonName</button>
+        <a asp-controller="@ViewBag.LayoutAspController" asp-action="Index" class="btn btn-danger">Отмена</a>
         <br />
         <br />
         <div id="warning-alert" class="alert alert-warning .alert-dismissible" role="alert" style="display: none;">
             <button id="close-warning" type="button" class="close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <strong>@ViewBag.AlertMessage</strong>
+            <strong>@ViewBag.LayoutAlertMessage</strong>
         </div>
     </div>
 </div>
 
 @section Scripts{
-    @foreach (var item in @ViewBag.Scripts)
+    @foreach (var item in @ViewBag.LayoutScripts)
     {
         <script src="@item"></script>
     }

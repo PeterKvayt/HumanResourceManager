@@ -1,7 +1,7 @@
 ﻿@model PresentationLayer.ViewModels.EmployeeViewModel
 
 @{
-    Layout = "_CreateUpdateLayout";
+    Layout = "_CreateUpdateTemplate";
     string title = "Создание сотрудника";
     ViewBag.Title = title;
     ViewBag.ActionName = title;
@@ -14,55 +14,34 @@
         "/lib/js/alerts.js"
     };
 
-    string[] dateParts = System.DateTime.Now.ToShortDateString().Replace(".", "-").Split('-');
-
-    const int MAX_TERM = 99;
-
-    string minYear = (Convert.ToInt32(dateParts[2]) - MAX_TERM).ToString();
-
-    string maxDate = $"{dateParts[2]}-{dateParts[1]}-{dateParts[0]}";
-
-    string minDate = $"{minYear}-{dateParts[1]}-{dateParts[0]}";
 }
 
-<div class="form-group">
-    <label asp-for="EmployeeModel.Surname" class="control-label">Фамилия</label>
+@section SurnameFormGroup{
     <input maxlength="50" required asp-for="EmployeeModel.Surname" class="form-control input-form select-form" />
-</div>
-<div class="form-group">
-    <label asp-for="EmployeeModel.Name" class="control-label">Имя</label>
+}
+
+@section NameFormGroup{
     <input maxlength="20" required asp-for="EmployeeModel.Name" class="form-control input-form select-form" />
-</div>
-<div class="form-group">
-    <label asp-for="EmployeeModel.MiddleName" class="control-label">Отчество</label>
+
+}
+
+@section MiddleNameFormGroup{
     <input maxlength="20" required asp-for="EmployeeModel.MiddleName" class="form-control input-form select-form" />
-</div>
-<div class="form-group">
-    <label asp-for="EmployeeModel.Position.Id.Identifier" class="control-label">Должность</label>
-    <select required asp-for="EmployeeModel.Position.Id.Identifier" class="form-control select-form">
-        <option selected="selected" disabled="disabled" value="default">Выберите должность</option>
-        @foreach (var positionItem in Model.PositionCollection)
-        {
-            <option value="@positionItem.Id.Identifier">@positionItem.Name</option>
-        }
-    </select>
-    <br />
-    <a asp-controller="Positions" asp-action="Create" class="btn btn-info">Создать должность</a>
-    <span asp-validation-for="EmployeeModel.Position" class="text-danger"></span>
-</div>
-<div class="form-group">
-    <label asp-for="EmployeeModel.Company.Id.Identifier" class="control-label">Место работы</label>
-    <select required asp-for="EmployeeModel.Company.Id.Identifier" class="form-control select-form">
-        <option selected="selected" disabled="disabled" value="default">Выберите место работы</option>
-        @foreach (var companyItem in Model.CompanyCollection)
-        {
-            <option value="@companyItem.Id.Identifier">@companyItem.Name</option>
-        }
-    </select>
-    <br />
-    <a asp-controller="Companies" asp-action="Create" class="btn btn-info">Создать компанию</a>
-</div>
-<div class="form-group">
-    <label asp-for="EmployeeModel.DateOfEmployment" class="control-label">Дата найма сотрудника</label>
-    <input asp-for="EmployeeModel.DateOfEmployment" type="date" max="@maxDate" min="@minDate" value="@maxDate" class="form-control select-form" />
-</div>
+}
+
+@section PositionsSection{
+    <option selected="selected" disabled="disabled" value="default">Выберите должность</option>
+    @foreach (var positionItem in Model.PositionCollection)
+    {
+        <option value="@positionItem.Id.Identifier">@positionItem.Name</option>
+    }
+}
+
+@section CompaniesSection{
+    <option selected="selected" disabled="disabled" value="default">Выберите место работы</option>
+    @foreach (var companyItem in Model.CompanyCollection)
+    {
+        <option value="@companyItem.Id.Identifier">@companyItem.Name</option>
+    }
+}
+

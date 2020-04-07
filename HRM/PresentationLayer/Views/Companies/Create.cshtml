@@ -1,7 +1,7 @@
 ﻿@model PresentationLayer.ViewModels.CompanyViewModel
 
 @{
-    Layout = "_CreateUpdateLayout";
+    Layout = "_CreateUpdateTemplate";
     string title = "Создание компании";
     ViewBag.Title = title;
     ViewBag.ActionName = title;
@@ -14,33 +14,3 @@
         "/lib/js/alerts.js"
     };
 }
-
-<div class="form-group">
-    <label asp-for="CompanyModel.Name" class="control-label">Название компании</label>
-    <input maxlength="50" required asp-for="CompanyModel.Name" class="form-control input-form" />
-</div>
-<div class="form-group">
-    <label asp-for="CompanyModel.ActivityType.Id.Identifier" class="control-label">Вид деятельности компании</label>
-    <select required asp-for="CompanyModel.ActivityType.Id.Identifier" class="form-control select-form">
-        <option selected="selected" disabled="disabled" value="default">Выберите деятельность</option>
-        @foreach (var activityTypeItem in Model.ActivityTypeCollection)
-        {
-            <option value="@activityTypeItem.Id.Identifier">@activityTypeItem.Name</option>
-        }
-    </select>
-    <br />
-    <a asp-controller="ActivityTypes" asp-action="Create" class="btn btn-info">Создать вид деятельности</a>
-</div>
-<div class="form-group">
-    <label asp-for="CompanyModel.LegalForm.Id.Identifier" class="control-label">Тип организационно-правовой формы</label>
-    <select required asp-for="CompanyModel.LegalForm.Id.Identifier" class="form-control select-form">
-        <option selected="selected" disabled="disabled" value="default">Выберите тип</option>
-        @foreach (var legalFormItem in Model.LegalFormCollection)
-        {
-            <option value="@legalFormItem.Id.Identifier">@legalFormItem.Name</option>
-        }
-    </select>
-    <br />
-    <a asp-controller="LegalForms" asp-action="Create" class="btn btn-info">Создать тип организационно-правовой формы</a>
-</div>
-

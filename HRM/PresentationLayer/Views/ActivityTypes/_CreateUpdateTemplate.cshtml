@@ -1,0 +1,19 @@
+﻿@model PresentationLayer.ViewModels.ActivityTypeViewModel
+
+@{
+    Layout = "_CreateUpdateLayout";
+    ViewBag.LayoutTitle = ViewBag.Title;
+    ViewBag.LayoutActionName = ViewBag.Title + ":";
+    ViewBag.LayoutItemName = ViewBag.ItemName;
+    ViewBag.LayoutAspController = ViewBag.AspController;
+    ViewBag.LayoutAspAction = ViewBag.AspAction;
+    ViewBag.LayoutAcceptButtonName = ViewBag.AcceptButtonName;
+    ViewBag.LayoutAlertMessage = ViewBag.AlertMessage;
+    ViewBag.LayoutScripts = ViewBag.Scripts;
+}
+
+<div class="form-group">
+    <label asp-for="ActivityTypeModel.Name" class="control-label">Название вида деятельности</label>
+    @RenderBody()
+</div>
+
