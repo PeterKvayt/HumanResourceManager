@@ -14,43 +14,19 @@ namespace DataAccessLayer.DataContext
     class StoredProcedure : IDataBaseCommandExecutor
     {
         /// <summary>
-        /// Название хранимой процедуры
-        /// </summary>
-        private string _name;
-
-        /// <summary>
         /// Список параметров хранимой процедуры
         /// </summary>
         private IEnumerable<SqlParameter> _sqlParameters;
 
         /// <summary>
-        /// Подключение к базе данных
+        /// Задает параметры для хранимой процедуры
         /// </summary>
-        public SqlConnection Connection { get; }
-
-        /// <summary>
-        /// Конструктор
-        /// </summary>
-        /// <param name="storedProcedureName">Название хранимой процедуры</param>
-        /// <param name="sqlParameters">Параметры хранимой процедуры</param>
-        public StoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters)
+        /// <param name="parameters">Параметры процедуры</param>
+        private void SetSqlParameters(IEnumerable<SqlParameter> parameters)
         {
-            if ( !(string.IsNullOrEmpty(storedProcedureName) && string.IsNullOrWhiteSpace(storedProcedureName)) )
+            if (parameters != null)
             {
-                _name = storedProcedureName;
-            }
-            else
-            {
-                const string EXCEPTION_MESSAGE = "Пустое имя хранимой процедуры!";
-
-                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(StoredProcedure).Name, "StoredProcedure");
-
-                throw new Exception();
-            }
-
-            if (sqlParameters != null)
-            {
-                _sqlParameters = sqlParameters;
+                _sqlParameters = parameters;
             }
             else
             {
@@ -60,6 +36,48 @@ namespace DataAccessLayer.DataContext
 
                 throw new Exception();
             }
+        }
+
+        /// <summary>
+        /// Подключение к базе данных
+        /// </summary>
+        public SqlConnection Connection { get; }
+
+        /// <summary>
+        /// Название хранимой процедуры
+        /// </summary>
+        private string _name;
+
+        /// <summary>
+        /// Задает имя хранимой процедуры
+        /// </summary>
+        /// <param name="name">Имя хранимой процедуры</param>
+        private void SetName(string name)
+        {
+            if (!(string.IsNullOrEmpty(name) && string.IsNullOrWhiteSpace(name)))
+            {
+                _name = name;
+            }
+            else
+            {
+                const string EXCEPTION_MESSAGE = "Пустое имя хранимой процедуры!";
+
+                ExceptionLoger.Log(EXCEPTION_MESSAGE, typeof(StoredProcedure).Name, "StoredProcedure");
+
+                throw new Exception();
+            }
+        }
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="storedProcedureName">Название хранимой процедуры</param>
+        /// <param name="sqlParameters">Параметры хранимой процедуры</param>
+        public StoredProcedure(string storedProcedureName, IEnumerable<SqlParameter> sqlParameters)
+        {
+            SetName(storedProcedureName);
+
+            SetSqlParameters(sqlParameters);
 
             try
             {
