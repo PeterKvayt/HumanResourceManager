@@ -1,0 +1,22 @@
+<!-- <nav class="navbar navbar-expand-sm navbar-toggleable-xl navbar-light bg-white border-bottom box-shadow mb-3"> -->
+        <nav class="navbar bg-light fixed-top">
+    <div class="container">
+        <a class="btn btn-primary" routerLink=''><span class="fa fa-address-book"></span> Главная</a>
+        <div class="btn-group">
+            <button class="btn btn-info" routerLink='/api'><span class="fa fa-code"></span> API Docs</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                    Разделы
+                </button>
+                <div class="dropdown-menu">
+
+                    <a *ngFor='let iterLink of links' [routerLink]='iterLink.link' class='dropdown-item text-left'>
+                        <span [class]="iterLink.pictClass"></span>
+                        {{iterLink.text}}
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

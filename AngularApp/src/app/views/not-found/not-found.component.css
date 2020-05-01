@@ -1,0 +1,30 @@
+.wrapper{
+  text-align: center;
+  position: relative;
+  top: 8rem;
+}
+
+.not-found-img{
+  width: 100%;
+  max-width: 612px;
+}
+
+.btn{
+  margin-top: 2rem; 
+  cursor: pointer;
+}
+
+.progress-bar{
+  margin-top: 2rem;
+  height: 3px;
+  width: 0%;
+  color: blue;
+  animation-name: progress;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+}
+
+@keyframes progress{
+  from{width: 0%;}
+  to{width: 100%;}
+}
