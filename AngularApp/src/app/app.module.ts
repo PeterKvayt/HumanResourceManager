@@ -11,11 +11,14 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
 //components
 import { HomeCardComponent } from './components/home-card/home-card.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ApiComponent } from './views/api/api.component';
+import { ApiCardComponent } from './components/api-card/api-card.component';
 
 //routes
 const appRoutes: Routes =[
   { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent},
+  { path: 'api', component: ApiComponent},
   { path: 'employees', redirectTo: '/notFound'},
   { path: 'companies', redirectTo: '/notFound'},
   { path: 'positions', redirectTo: '/notFound'},
@@ -31,7 +34,9 @@ const appRoutes: Routes =[
     HomeComponent,
     NotFoundComponent,
     HomeCardComponent,
-    HeaderComponent
+    HeaderComponent,
+    ApiComponent,
+    ApiCardComponent
   ],
   imports: [
     BrowserModule,
