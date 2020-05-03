@@ -11,8 +11,6 @@ export class ApiCardComponent implements OnInit {
 
   @Input() card: ApiCard
 
-  // apiTypeClass = 'badge '+setApiTypeClass();
-
   setApiTypeClass(value: string): string{
 
     let apiTypeClass = 'badge ';

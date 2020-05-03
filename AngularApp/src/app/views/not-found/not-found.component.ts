@@ -16,7 +16,7 @@ export class NotFoundComponent implements OnInit {
      let btn = document.getElementById('toHomeBtn');
      btn.click();
 
-    }, delay)
+    }, delay);
   }
 
 }

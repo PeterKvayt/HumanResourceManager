@@ -1,7 +1,8 @@
 .wrapper{
   text-align: center;
-  position: relative;
-  top: 8rem;
+  margin-top: 52px;
+  /* position: relative;
+  top: 8rem; */
 }
 
 .not-found-img{
@@ -15,10 +16,11 @@
 }
 
 .progress-bar{
+  border-radius: 3px;
   margin-top: 2rem;
   height: 3px;
   width: 0%;
-  color: blue;
+  color: var(--primary);
   animation-name: progress;
   animation-duration: 5s;
   animation-timing-function: linear;

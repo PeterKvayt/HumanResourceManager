@@ -4,18 +4,19 @@ import {Routes, RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 
-//views
+// views
 import { HomeComponent } from './views/home/home.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
+import { ApiComponent } from './views/api/api.component';
 
-//components
+// components
 import { HomeCardComponent } from './components/home-card/home-card.component';
 import { HeaderComponent } from './components/header/header.component';
-import { ApiComponent } from './views/api/api.component';
 import { ApiCardComponent } from './components/api-card/api-card.component';
+import { FooterComponent } from './components/footer/footer.component';
 
-//routes
-const appRoutes: Routes =[
+// routes
+const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'api', component: ApiComponent},
@@ -36,7 +37,8 @@ const appRoutes: Routes =[
     HomeCardComponent,
     HeaderComponent,
     ApiComponent,
-    ApiCardComponent
+    ApiCardComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

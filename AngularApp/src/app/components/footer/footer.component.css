@@ -1,0 +1,15 @@
+.footer-wrapper{
+  margin-top: 1rem;
+  padding: 3rem 0;
+  background-color: var(--light);
+  /* background-color: red; */
+}
+.favicon-ico{
+  width: 30px;
+  margin: 0 1rem;
+  position: relative;
+  bottom: 2px;
+}
+a:hover{
+  text-decoration: none;
+}

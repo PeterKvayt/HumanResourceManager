@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 export interface HomeCard{
-  link : string
-  title: string
-  description : string
-  buttonText : string
+  link: string;
+  title: string;
+  description: string;
+  buttonText: string;
 }
 
 @Component({
@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
       description : ' Для просмотра, удаления, изменения и создания новых компаний, нажмите',
       buttonText : 'Просмотреть компании'
     }
-  ]
+  ];
 
   constructor() { }
 
