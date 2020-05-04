@@ -13,7 +13,7 @@ export class NotFoundComponent implements OnInit {
     const delay = 5000;
 
     setTimeout(() => {
-     let btn = document.getElementById('toHomeBtn');
+     const btn = document.getElementById('toHomeBtn');
      btn.click();
 
     }, delay);

@@ -1,0 +1,14 @@
+body{
+  position: relative;
+}
+.sub-nav{
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  background-color: var(--light);
+  z-index: 2;
+  width: 100%;
+  margin: 0rem 15px;
+  margin-bottom: 1rem;
+  border-radius: 3px;
+}

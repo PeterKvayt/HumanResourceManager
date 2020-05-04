@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 export interface ApiCardInner{
-  apiType: string
-  apiPath: string
-  apiDescription: string
+  apiType: string;
+  apiPath: string;
+  apiDescription: string;
 }
 
 export interface ApiCard{
-  header: string
-  inners: ApiCardInner[]
+  header: string;
+  inners: ApiCardInner[];
 }
 
 @Component({
@@ -169,11 +169,19 @@ export class ApiComponent implements OnInit {
         }
       ]
     }
-  ]
+  ];
 
   constructor() { }
 
   ngOnInit(): void {
+    const scrollApi = document.getElementsByTagName('app-api');
+    scrollApi[0].setAttribute('data-spy', 'scroll');
+    scrollApi[0].setAttribute('data-target', '.navbar');
+    scrollApi[0].setAttribute('data-offset', '50');
+    document.body.style.position = 'relative';
+    // document.body.setAttribute('data-spy', 'scroll');
+    // document.body.setAttribute('data-target', '.navbar');
+    // document.body.setAttribute('data-offset', '50');
   }
 
 }
