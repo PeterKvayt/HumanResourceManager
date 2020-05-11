@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { ApiComponent } from './views/api/api.component';
+import { ActivityTypesComponent } from './views/activity-types/activity-types.component';
 
 // components
 import { HomeCardComponent } from './components/home-card/home-card.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ApiCardComponent } from './components/api-card/api-card.component';
 import { FooterComponent } from './components/footer/footer.component';
+
 
 // routes
 const appRoutes: Routes = [
@@ -23,7 +25,7 @@ const appRoutes: Routes = [
   { path: 'employees', redirectTo: '/notFound'},
   { path: 'companies', redirectTo: '/notFound'},
   { path: 'positions', redirectTo: '/notFound'},
-  { path: 'activityTypes', redirectTo: '/notFound'},
+  { path: 'activityTypes', component: ActivityTypesComponent},
   { path: 'legalForms', redirectTo: '/notFound'},
   { path: 'notFound', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     ApiComponent,
     ApiCardComponent,
-    FooterComponent
+    FooterComponent,
+    ActivityTypesComponent
   ],
   imports: [
     BrowserModule,

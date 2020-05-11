@@ -179,9 +179,6 @@ export class ApiComponent implements OnInit {
     scrollApi[0].setAttribute('data-target', '.navbar');
     scrollApi[0].setAttribute('data-offset', '50');
     document.body.style.position = 'relative';
-    // document.body.setAttribute('data-spy', 'scroll');
-    // document.body.setAttribute('data-target', '.navbar');
-    // document.body.setAttribute('data-offset', '50');
   }
 
 }

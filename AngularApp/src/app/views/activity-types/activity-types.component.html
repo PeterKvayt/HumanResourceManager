@@ -1,0 +1,24 @@
+  <table class="col-lg-12 col-md-12 col-sm-12 table table-striped">
+    <tr class="bg-info">
+      <td>
+        <strong style="color:#fff">Название вида деятельности</strong>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+
+    <tr *ngFor='let type of types'>
+      <td>
+        {{type.Name}}
+      </td>
+      <td style="text-align:end;">
+        <a routerLink='/activityTypes/update/{{type.Id}}' class="btn btn-info">
+          Изменить
+        </a>
+      </td>
+      <td style="text-align:end;">
+        <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
+        <a routerLink='/activityTypes/delete/{{type.Id}}' style="display:none;"></a>
+      </td>
+    </tr>
+  </table>

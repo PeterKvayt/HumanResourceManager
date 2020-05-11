@@ -9,25 +9,25 @@ import { ApiCard } from '../../views/api/api.component';
 })
 export class ApiCardComponent implements OnInit {
 
-  @Input() card: ApiCard
+  @Input() card: ApiCard;
 
   setApiTypeClass(value: string): string{
 
     let apiTypeClass = 'badge ';
     value = value.toLowerCase();
-    if(value === 'get'){
+    if (value === 'get'){
       apiTypeClass += 'badge-primary';
       return apiTypeClass;
     }
-    if(value === 'post'){
+    if (value === 'post'){
       apiTypeClass += 'badge-success';
       return apiTypeClass;
     }
-    if(value === 'put'){
+    if (value === 'put'){
       apiTypeClass += 'badge-warning';
       return apiTypeClass;
     }
-    if(value === 'delete'){
+    if (value === 'delete'){
       apiTypeClass += 'badge-danger';
       return apiTypeClass;
     }
