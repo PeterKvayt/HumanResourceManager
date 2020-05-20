@@ -33,6 +33,7 @@ namespace WebAPI
                 app.UseHsts();
             }
 
+            app.UseCors(s => s.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

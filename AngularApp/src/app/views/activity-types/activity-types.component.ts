@@ -1,31 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService} from '../../services/http.service';
+
+interface IdType{
+  identifier: number;
+}
 
 interface ActivityType{
-  Name: string;
-  Id: number;
+  name: string;
+  id: IdType;
 }
 
 @Component({
   selector: 'app-activity-types',
   templateUrl: './activity-types.component.html',
-  styleUrls: ['./activity-types.component.css']
+  styleUrls: ['./activity-types.component.css'],
+  providers: [HttpService]
 })
 export class ActivityTypesComponent implements OnInit {
 
-  types: ActivityType[] = [
-    {
-      Name: 'Gambling',
-      Id: 0
-    },
-    {
-      Name: 'Development',
-      Id: 1
-    }
-  ];
+  types: ActivityType[];
 
-  constructor() { }
+  constructor(private httpService: HttpService) { }
+  ngOnInit(){
 
-  ngOnInit(): void {
+    this.httpService.get('http://localhost:65491/api/ActivityTypes').subscribe((data: ActivityType[]) => this.types = data);
   }
 
 }

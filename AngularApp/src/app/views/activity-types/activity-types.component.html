@@ -9,16 +9,16 @@
 
     <tr *ngFor='let type of types'>
       <td>
-        {{type.Name}}
+        {{type.name}}
       </td>
       <td style="text-align:end;">
-        <a routerLink='/activityTypes/update/{{type.Id}}' class="btn btn-info">
+        <a routerLink='/activityTypes/update/{{type.id.identifier}}' class="btn btn-info">
           Изменить
         </a>
       </td>
       <td style="text-align:end;">
         <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
-        <a routerLink='/activityTypes/delete/{{type.Id}}' style="display:none;"></a>
+        <a routerLink='/activityTypes/delete/{{type.id.identifier}}' style="display:none;"></a>
       </td>
     </tr>
   </table>

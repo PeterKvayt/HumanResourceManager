@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -15,7 +16,6 @@ import { HomeCardComponent } from './components/home-card/home-card.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ApiCardComponent } from './components/api-card/api-card.component';
 import { FooterComponent } from './components/footer/footer.component';
-
 
 // routes
 const appRoutes: Routes = [
@@ -41,10 +41,11 @@ const appRoutes: Routes = [
     ApiComponent,
     ApiCardComponent,
     FooterComponent,
-    ActivityTypesComponent
+    ActivityTypesComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
