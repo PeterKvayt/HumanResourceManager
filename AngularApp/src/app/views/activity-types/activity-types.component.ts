@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService} from '../../services/http.service';
+import { ApiConfig } from 'src/assets/configure/api-config';
 
 interface IdType{
   identifier: number;
@@ -20,10 +21,13 @@ export class ActivityTypesComponent implements OnInit {
 
   types: ActivityType[];
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private apiConfig: ApiConfig ) {
+    this.url = this.apiConfig.url + this.apiConfig.activityTypes;
+   }
+
+   url: string;
   ngOnInit(){
-
-    this.httpService.get('http://localhost:65491/api/ActivityTypes').subscribe((data: ActivityType[]) => this.types = data);
+    console.log(this.apiConfig.url + this.apiConfig.activityTypes);
+    this.httpService.get(this.apiConfig.url + this.apiConfig.activityTypes).subscribe((data: ActivityType[]) => this.types = data);
   }
-
 }
