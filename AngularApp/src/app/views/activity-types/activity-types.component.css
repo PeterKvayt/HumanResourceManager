@@ -1,0 +1,20 @@
+.neibor-btn{
+  margin-left: 5px;
+}
+.show-img-wrapper, .hide-img-wrapper{
+  text-align: center;
+  display: none;
+}
+
+.show-img-wrapper{
+  display: block;
+}
+
+.empty-img{
+  max-height: 500px;
+}
+
+.table-wrapper{
+  border-radius: 5px;
+  overflow: hidden;
+}
