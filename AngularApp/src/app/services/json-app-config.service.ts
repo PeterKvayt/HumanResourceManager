@@ -18,6 +18,9 @@ export class JsonAppConfigService extends ApiConfig{
       this.url = data.url;
       this.activityTypes = data.activityTypes;
       this.positions = data.positions;
+      this.companies = data.companies;
+      this.employees = data.employees;
+      this.legalForms = data.legalForms;
     })
     .catch(() => {
       console.error('Could not load api configuration.');

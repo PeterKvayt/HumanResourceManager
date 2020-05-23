@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiConfig } from 'src/assets/configure/api-config';
 
 export interface ApiCardInner{
   apiType: string;
@@ -18,33 +19,40 @@ export interface ApiCard{
 })
 export class ApiComponent implements OnInit {
 
+  private apiUrl = this.apiConfig.url;
+  private apiActivityTypes = this.apiUrl + this.apiConfig.activityTypes;
+  private apiPositions = this.apiUrl + this.apiConfig.positions;
+  private apiLegalforms = this.apiUrl + this.apiConfig.legalForms;
+  private apiCompanies  = this.apiUrl + this.apiConfig.companies;
+  private apiEmployees = this.apiUrl + this.apiConfig.employees;
+
   apiCards: ApiCard[] = [
     {
       header: 'Работа с видами деятельности',
       inners: [
         {
           apiType: 'GET',
-          apiPath: 'api/ActivityTypes',
+          apiPath: this.apiActivityTypes,
           apiDescription: 'возвращает все виды деятельности'
         },
         {
           apiType: 'GET',
-          apiPath: 'api/ActivityTypes/id',
+          apiPath: this.apiActivityTypes + '/id',
           apiDescription: 'возвращает конкретный вид деятельности по параметру id'
         },
         {
           apiType: 'POST',
-          apiPath: 'api/ActivityTypes/model',
+          apiPath: this.apiActivityTypes + '/model',
           apiDescription: 'запрос на создание нового вида деятельности с параметром model'
         },
         {
           apiType: 'PUT',
-          apiPath: 'api/ActivityTypes/model',
+          apiPath: this.apiActivityTypes + '/model',
           apiDescription: 'запрос на обновление вида деятельности с параметром model'
         },
         {
           apiType: 'DELETE',
-          apiPath: 'api/ActivityTypes/id',
+          apiPath: this.apiActivityTypes + '/id',
           apiDescription: 'запрос на удаление вида деятельности по параметру id'
         }
       ]
@@ -54,27 +62,27 @@ export class ApiComponent implements OnInit {
       inners: [
         {
           apiType: 'GET',
-          apiPath: 'api/Companies',
+          apiPath: this.apiCompanies,
           apiDescription: 'возвращает все компании'
         },
         {
           apiType: 'GET',
-          apiPath: 'api/Companies/id',
+          apiPath: this.apiCompanies + '/id',
           apiDescription: 'возвращает конкретную компанию по параметру id'
         },
         {
           apiType: 'POST',
-          apiPath: 'api/Companies/model',
+          apiPath: this.apiCompanies + '/model',
           apiDescription: 'запрос на создание новой компании с параметром model'
         },
         {
           apiType: 'PUT',
-          apiPath: 'api/Companies/model',
+          apiPath: this.apiCompanies + '/model',
           apiDescription: 'запрос на обновление компании с параметром model'
         },
         {
           apiType: 'DELETE',
-          apiPath: 'api/Companies/id',
+          apiPath: this.apiCompanies + '/id',
           apiDescription: 'запрос на удаление компании по параметру id'
         }
       ]
@@ -84,27 +92,27 @@ export class ApiComponent implements OnInit {
       inners: [
         {
           apiType: 'GET',
-          apiPath: 'api/Positions',
+          apiPath: this.apiPositions,
           apiDescription: 'возвращает все должности'
         },
         {
           apiType: 'GET',
-          apiPath: 'api/Positions/id',
+          apiPath: this.apiPositions + '/id',
           apiDescription: 'возвращает конкретную должность по параметру id'
         },
         {
           apiType: 'POST',
-          apiPath: 'api/Positions/model',
+          apiPath: this.apiPositions + '/model',
           apiDescription: 'запрос на создание новой должности с параметром model'
         },
         {
           apiType: 'PUT',
-          apiPath: 'api/Positions/model',
+          apiPath: this.apiPositions + '/model',
           apiDescription: 'запрос на обновление должности с параметром model'
         },
         {
           apiType: 'DELETE',
-          apiPath: 'api/Positions/id',
+          apiPath: this.apiPositions + '/id',
           apiDescription: 'запрос на удаление должности по параметру id'
         }
       ]
@@ -114,27 +122,27 @@ export class ApiComponent implements OnInit {
       inners: [
         {
           apiType: 'GET',
-          apiPath: 'api/LegalForms',
+          apiPath: this.apiLegalforms,
           apiDescription: 'возвращает все организационно-правовые формы деятельности компаний'
         },
         {
           apiType: 'GET',
-          apiPath: 'api/LegalForms/id',
+          apiPath: this.apiLegalforms + '/id',
           apiDescription: 'возвращает конкретную организационно-правовую форму деятельности компании по параметру id'
         },
         {
           apiType: 'POST',
-          apiPath: 'api/LegalForms/model',
+          apiPath: this.apiLegalforms + '/model',
           apiDescription: 'запрос на создание новой организационно-правовой формы деятельности компаний с параметром model'
         },
         {
           apiType: 'PUT',
-          apiPath: 'api/LegalForms/model',
+          apiPath: this.apiLegalforms + '/model',
           apiDescription: 'запрос на обновление организационно-правовой формы деятельности компаний с параметром model'
         },
         {
           apiType: 'DELETE',
-          apiPath: 'api/LegalForms/id',
+          apiPath: this.apiLegalforms + '/id',
           apiDescription: 'запрос на удаление организационно-правовой формы деятельности компаний по параметру id'
         }
       ]
@@ -144,34 +152,34 @@ export class ApiComponent implements OnInit {
       inners: [
         {
           apiType: 'GET',
-          apiPath: 'api/Employees',
+          apiPath: this.apiEmployees,
           apiDescription: 'возвращает всех сотрудников'
         },
         {
           apiType: 'GET',
-          apiPath: 'api/Employees/id',
+          apiPath: this.apiEmployees + '/id',
           apiDescription: 'возвращает конкретного сотрудника по параметру id'
         },
         {
           apiType: 'POST',
-          apiPath: 'api/Employees/model',
+          apiPath: this.apiEmployees + '/model',
           apiDescription: 'запрос на создание нового сотрудника с параметром model'
         },
         {
           apiType: 'PUT',
-          apiPath: 'api/Employees/model',
+          apiPath: this.apiEmployees + '/model',
           apiDescription: 'запрос на обновление сотрудника с параметром model'
         },
         {
           apiType: 'DELETE',
-          apiPath: 'api/Employees/id',
+          apiPath: this.apiEmployees + '/id',
           apiDescription: 'запрос на удаление сотрудника по параметру id'
         }
       ]
     }
   ];
 
-  constructor() { }
+  constructor(private apiConfig: ApiConfig) { }
 
   ngOnInit(): void {
     const scrollApi = document.getElementsByTagName('app-api');
