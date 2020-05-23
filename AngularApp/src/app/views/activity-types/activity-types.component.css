@@ -3,11 +3,20 @@
 }
 .show-img-wrapper, .hide-img-wrapper{
   text-align: center;
+}
+
+.hide-img-wrapper{
   display: none;
 }
 
+
 .show-img-wrapper{
-  display: block;
+  /* display: block; */
+  animation: show 2s;
+}
+
+@keyframes show{
+  from {opacity: 0;} to {opacity: 1;}
 }
 
 .empty-img{
