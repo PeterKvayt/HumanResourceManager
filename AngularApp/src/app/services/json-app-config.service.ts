@@ -12,7 +12,7 @@ export class JsonAppConfigService extends ApiConfig{
   }
 
   load(){
-    return this.httpClient.get<ApiConfig>('../assets/configure/api.config.json')
+    return this.httpClient.get<ApiConfig>('./assets/configure/api.config.json')
     .toPromise()
     .then(data => {
       this.url = data.url;

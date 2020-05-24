@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
@@ -7,15 +8,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class NotFoundComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   private timer: any;
 
   ngOnInit() {
     const delay = 5000;
     this.timer = setTimeout(() => {
-      const btn = document.getElementById('toHomeBtn');
-      btn.click();
+      this.router.navigate(['']);
      }, delay);
   }
 
