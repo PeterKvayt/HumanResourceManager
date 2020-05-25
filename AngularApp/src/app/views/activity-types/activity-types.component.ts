@@ -2,6 +2,7 @@ import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { HttpService} from '../../services/http.service';
 import { ApiConfig } from 'src/assets/configure/api-config';
 import { Subscription } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 interface IdType{
   identifier: number;
@@ -20,7 +21,7 @@ interface ActivityType{
 })
 export class ActivityTypesComponent implements OnInit, DoCheck, OnDestroy {
 
-  constructor(private httpService: HttpService, private apiConfig: ApiConfig ) {
+  constructor(private httpService: HttpService, private apiConfig: ApiConfig, private titleService: Title ) {
     this.url = this.apiConfig.url + this.apiConfig.activityTypes;
    }
 
@@ -42,5 +43,9 @@ export class ActivityTypesComponent implements OnInit, DoCheck, OnDestroy {
 
   ngOnDestroy(){
     this.subscription.unsubscribe();
+  }
+
+  setTitle(title: string){
+    this.titleService.setTitle(title);
   }
 }

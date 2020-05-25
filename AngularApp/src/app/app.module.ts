@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -61,6 +61,7 @@ export function initializerFn(jsonAppConfigService: JsonAppConfigService){
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
+    Title,
     {
       provide: ApiConfig,
       deps: [HttpClient],
