@@ -33,6 +33,7 @@ export class ActivityTypesComponent implements OnInit, DoCheck, OnDestroy {
   subscription: Subscription;
 
   ngOnInit(){
+    this.titleService.setTitle('Виды деятельности');
     const url = this.apiConfig.url + this.apiConfig.activityTypes;
     this.subscription =  this.httpService.get(url)
       .subscribe((data: ActivityType[]) => this.types = data);

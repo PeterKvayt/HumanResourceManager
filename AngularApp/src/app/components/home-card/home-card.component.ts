@@ -9,7 +9,7 @@ import { HomeCard } from '../../views/home/home.component';
 })
 export class HomeCardComponent implements OnInit {
 
-  @Input() homeCard: HomeCard
+  @Input() homeCard: HomeCard;
 
   constructor() { }
 

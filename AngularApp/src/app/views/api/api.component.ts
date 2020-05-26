@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiConfig } from 'src/assets/configure/api-config';
+import { Title } from '@angular/platform-browser';
 
 export interface ApiCardInner{
   apiType: string;
@@ -179,9 +180,11 @@ export class ApiComponent implements OnInit {
     }
   ];
 
-  constructor(private apiConfig: ApiConfig) { }
+  constructor(private apiConfig: ApiConfig, private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Документация по API');
+
     const scrollApi = document.getElementsByTagName('app-api');
     scrollApi[0].setAttribute('data-spy', 'scroll');
     scrollApi[0].setAttribute('data-target', '.navbar');

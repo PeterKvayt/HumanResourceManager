@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 export interface HomeCard{
   link: string;
@@ -48,9 +49,10 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('HRM | Human Resource Manager');
   }
 
 }

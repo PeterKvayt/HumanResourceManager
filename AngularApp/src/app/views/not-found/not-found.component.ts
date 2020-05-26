@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-not-found',
@@ -8,11 +9,12 @@ import { Router } from '@angular/router';
 })
 export class NotFoundComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private titleService: Title) { }
 
   private timer: any;
 
   ngOnInit() {
+    this.titleService.setTitle('Страница не найдена');
     const delay = 5000;
     this.timer = setTimeout(() => {
       this.router.navigate(['']);
