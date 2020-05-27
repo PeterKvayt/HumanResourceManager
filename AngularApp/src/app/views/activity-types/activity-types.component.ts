@@ -29,6 +29,7 @@ export class ActivityTypesComponent implements OnInit, DoCheck, OnDestroy {
 
   url: string;
 
+  controllerName = 'activityTypes';
   wrapperClass = 'hide-img-wrapper';
   subscription: Subscription;
 

@@ -9,9 +9,7 @@
   display: none;
 }
 
-
 .show-img-wrapper{
-  /* display: block; */
   animation: show 2s;
 }
 
@@ -26,4 +24,8 @@
 .table-wrapper{
   border-radius: 5px;
   overflow: hidden;
+}
+
+.create-btn{
+  margin-bottom: 10px;
 }
