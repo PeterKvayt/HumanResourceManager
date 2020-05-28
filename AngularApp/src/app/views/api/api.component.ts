@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiConfig } from 'src/assets/configure/api-config';
 import { Title } from '@angular/platform-browser';
+import apiSettings from '../../../assets/configure/api.config.json';
 
 export interface ApiCardInner{
   apiType: string;
@@ -19,7 +20,7 @@ export interface ApiCard{
   styleUrls: ['./api.component.css']
 })
 export class ApiComponent implements OnInit {
-
+  apiConfig: ApiConfig = apiSettings;
   private apiUrl = this.apiConfig.url;
   private apiActivityTypes = this.apiUrl + this.apiConfig.activityTypes;
   private apiPositions = this.apiUrl + this.apiConfig.positions;
@@ -180,16 +181,10 @@ export class ApiComponent implements OnInit {
     }
   ];
 
-  constructor(private apiConfig: ApiConfig, private titleService: Title) { }
+  constructor(
+    private titleService: Title) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('Документация по API');
-
-    const scrollApi = document.getElementsByTagName('app-api');
-    scrollApi[0].setAttribute('data-spy', 'scroll');
-    scrollApi[0].setAttribute('data-target', '.navbar');
-    scrollApi[0].setAttribute('data-offset', '50');
-    document.body.style.position = 'relative';
   }
-
 }

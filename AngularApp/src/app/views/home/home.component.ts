@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import homeCards from '../../../assets/data/homecards.json';
 
 export interface HomeCard{
   link: string;
@@ -15,39 +16,7 @@ export interface HomeCard{
 })
 export class HomeComponent implements OnInit {
 
-  //
-  homeCards: HomeCard[] = [
-    {
-      link : '/employees',
-      title: 'Управление сотрудниками',
-      description : 'Для просмотра, удаления, изменения и создания новых сотрудников, нажмите',
-      buttonText : 'Просмотреть сотрудников'
-    },
-    {
-      link : '/positions',
-      title: 'Управление должностями',
-      description : 'Для просмотра, удаления, изменения и создания новых должностей, нажмите',
-      buttonText : 'Просмотреть должности'
-    },
-    {
-      link : '/activityTypes',
-      title: 'Управление видами деятельности компаний',
-      description : 'Для просмотра, удаления, изменения и создания новых видов деятельности, нажмите',
-      buttonText : 'Просмотреть виды деятельности компаний'
-    },
-    {
-      link : '/legalForms',
-      title: 'Управление организационно-правовыми формами',
-      description : 'Для просмотра, удаления, изменения и создания новых организационно-правовых форм, нажмите',
-      buttonText : 'Просмотреть организационно-правовые формы'
-    },
-    {
-      link : '/companies',
-      title: 'Управление компаниями',
-      description : ' Для просмотра, удаления, изменения и создания новых компаний, нажмите',
-      buttonText : 'Просмотреть компании'
-    }
-  ];
+  homeCards: HomeCard[] = homeCards;
 
   constructor(private titleService: Title) { }
 

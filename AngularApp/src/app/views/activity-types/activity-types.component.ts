@@ -1,8 +1,8 @@
 import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { HttpService} from '../../services/http.service';
-import { ApiConfig } from 'src/assets/configure/api-config';
 import { Subscription } from 'rxjs';
 import { Title } from '@angular/platform-browser';
+import apiSettings from '../../../assets/configure/api.config.json';
 
 interface IdType{
   identifier: number;
@@ -21,22 +21,16 @@ interface ActivityType{
 })
 export class ActivityTypesComponent implements OnInit, DoCheck, OnDestroy {
 
-  constructor(private httpService: HttpService, private apiConfig: ApiConfig, private titleService: Title ) {
-    this.url = this.apiConfig.url + this.apiConfig.activityTypes;
-   }
+  constructor(private httpService: HttpService, private titleService: Title ) {}
 
   types: ActivityType[] = [];
-
-  url: string;
-
-  controllerName = 'activityTypes';
+  controllerName = apiSettings.activityTypes;
   wrapperClass = 'hide-img-wrapper';
-  subscription: Subscription;
+  private subscription: Subscription;
 
   ngOnInit(){
     this.titleService.setTitle('Виды деятельности');
-    const url = this.apiConfig.url + this.apiConfig.activityTypes;
-    this.subscription =  this.httpService.get(url)
+    this.subscription =  this.httpService.get(apiSettings.url + apiSettings.activityTypes)
       .subscribe((data: ActivityType[]) => this.types = data);
   }
   ngDoCheck(){
@@ -45,9 +39,5 @@ export class ActivityTypesComponent implements OnInit, DoCheck, OnDestroy {
 
   ngOnDestroy(){
     this.subscription.unsubscribe();
-  }
-
-  setTitle(title: string){
-    this.titleService.setTitle(title);
   }
 }

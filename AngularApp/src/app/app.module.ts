@@ -1,7 +1,7 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -17,12 +17,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { ApiCardComponent } from './components/api-card/api-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 
-// services
-import { JsonAppConfigService } from './services/json-app-config.service';
-
-// configures
-import { ApiConfig } from 'src/assets/configure/api-config';
-
 // routes
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -36,12 +30,6 @@ const appRoutes: Routes = [
   { path: 'notFound', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
 ];
-
-export function initializerFn(jsonAppConfigService: JsonAppConfigService){
-  return () => {
-    return jsonAppConfigService.load();
-  };
-}
 
 @NgModule({
   declarations: [
@@ -60,20 +48,7 @@ export function initializerFn(jsonAppConfigService: JsonAppConfigService){
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [
-    Title,
-    {
-      provide: ApiConfig,
-      deps: [HttpClient],
-      useExisting: JsonAppConfigService
-    },
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [JsonAppConfigService],
-      useFactory: initializerFn
-    }
-  ],
+  providers: [Title],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
