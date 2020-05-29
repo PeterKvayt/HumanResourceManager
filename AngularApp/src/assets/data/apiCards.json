@@ -1,0 +1,152 @@
+[
+  {
+    "header": "Работа с видами деятельности",
+    "inners": [
+      {
+        "apiType": "GET",
+        "apiPath": "http://localhost:65491/api/ActivityTypes",
+        "apiDescription": "возвращает все виды деятельности"
+      },
+      {
+        "apiType": "GET",
+        "apiPath": "http://localhost:65491/api/ActivityTypes/id",
+        "apiDescription": "возвращает конкретный вид деятельности по параметру id"
+      },
+      {
+        "apiType": "POST",
+        "apiPath": "http://localhost:65491/api/ActivityTypes/model",
+        "apiDescription": "запрос на создание нового вида деятельности с параметром model"
+      },
+      {
+        "apiType": "PUT",
+        "apiPath": "http://localhost:65491/api/ActivityTypes/model",
+        "apiDescription": "запрос на обновление вида деятельности с параметром model"
+      },
+      {
+        "apiType": "DELETE",
+        "apiPath": "http://localhost:65491/api/ActivityTypes/id",
+        "apiDescription": "запрос на удаление вида деятельности по параметру id"
+      }
+    ]
+  },
+  {
+    "header": "Работа с компаниями",
+    "inners": [
+      {
+        "apiType": "GET",
+        "apiPath": "http://localhost:65491/api/Companies",
+        "apiDescription": "возвращает все компании"
+      },
+      {
+        "apiType": "GET",
+        "apiPath": "http://localhost:65491/api/Companies/id",
+        "apiDescription": "возвращает конкретную компанию по параметру id"
+      },
+      {
+        "apiType": "POST",
+        "apiPath": "http://localhost:65491/api/Companies/model",
+        "apiDescription": "запрос на создание новой компании с параметром model"
+      },
+      {
+        "apiType": "PUT",
+        "apiPath": "http://localhost:65491/api/Companies/model",
+        "apiDescription": "запрос на обновление компании с параметром model"
+      },
+      {
+        "apiType": "DELETE",
+        "apiPath": "http://localhost:65491/api/Companies/id",
+        "apiDescription": "запрос на удаление компании по параметру id"
+      }
+    ]
+  },
+  {
+    "header": "Работа с должностями сотрудников",
+    "inners": [
+      {
+        "apiType": "GET",
+        "apiPath": "http://localhost:65491/api/Positions",
+        "apiDescription": "возвращает все должности"
+      },
+      {
+        "apiType": "GET",
+        "apiPath": "http://localhost:65491/api/Positions/id",
+        "apiDescription": "возвращает конкретную должность по параметру id"
+      },
+      {
+        "apiType": "POST",
+        "apiPath": "http://localhost:65491/api/Positions/model",
+        "apiDescription": "запрос на создание новой должности с параметром model"
+      },
+      {
+        "apiType": "PUT",
+        "apiPath": "http://localhost:65491/api/Positions/model",
+        "apiDescription": "запрос на обновление должности с параметром model"
+      },
+      {
+        "apiType": "DELETE",
+        "apiPath": "http://localhost:65491/api/Positions/id",
+        "apiDescription": "запрос на удаление должности по параметру id"
+      }
+    ]
+  },
+  {
+    "header": "Работа с организационно-правовыми формами",
+    "inners": [
+      {
+        "apiType": "GET",
+        "apiPath": "http://localhost:65491/api/LegalForms",
+        "apiDescription": "возвращает все организационно-правовые формы деятельности компаний"
+      },
+      {
+        "apiType": "GET",
+        "apiPath": "http://localhost:65491/api/LegalForms/id",
+        "apiDescription": "возвращает конкретную организационно-правовую форму деятельности компании по параметру id"
+      },
+      {
+        "apiType": "POST",
+        "apiPath": "http://localhost:65491/api/LegalForms/model",
+        "apiDescription": "запрос на создание новой организационно-правовой формы деятельности компаний с параметром model"
+      },
+      {
+        "apiType": "PUT",
+        "apiPath": "http://localhost:65491/api/LegalForms/model",
+        "apiDescription": "запрос на обновление организационно-правовой формы деятельности компаний с параметром model"
+      },
+      {
+        "apiType": "DELETE",
+        "apiPath": "http://localhost:65491/api/LegalForms/id",
+        "apiDescription": "запрос на удаление организационно-правовой формы деятельности компаний по параметру id"
+      }
+    ]
+  },
+  {
+    "header": "Работа с сотрудниками",
+    "inners": [
+      {
+        "apiType": "GET",
+        "apiPath": "http://localhost:65491/api/Employees",
+        "apiDescription": "возвращает всех сотрудников"
+      },
+      {
+        "apiType": "GET",
+        "apiPath": "http://localhost:65491/api/Employees/id",
+        "apiDescription": "возвращает конкретного сотрудника по параметру id"
+      },
+      {
+        "apiType": "POST",
+        "apiPath": "http://localhost:65491/api/Employees/model",
+        "apiDescription": "запрос на создание нового сотрудника с параметром model"
+      },
+      {
+        "apiType": "PUT",
+        "apiPath": "http://localhost:65491/api/Employees/model",
+        "apiDescription": "запрос на обновление сотрудника с параметром model"
+      },
+      {
+        "apiType": "DELETE",
+        "apiPath": "http://localhost:65491/api/Employees/id",
+        "apiDescription": "запрос на удаление сотрудника по параметру id"
+      }
+    ]
+  }
+]
