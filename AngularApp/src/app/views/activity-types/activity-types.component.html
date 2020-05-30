@@ -1,4 +1,4 @@
-<a routerLink='/{{controllerName}}/create' class="btn btn-primary create-btn">
+<a routerLink='/{{controllerName}}/Create' class="btn btn-primary create-btn">
   Создать вид деятельности
 </a>
 <div class="table-wrapper">
@@ -15,12 +15,12 @@
         {{type.name}}
       </td>
       <td style="text-align:end;">
-        <a routerLink='/{{controllerName}}/update/{{type.id.identifier}}' class="btn btn-info">
+        <a routerLink='/{{controllerName}}/Update/{{type.id.identifier}}' class="btn btn-info">
           Изменить
         </a>
 
         <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
-        <a routerLink='/{{controllerName}}/delete/{{type.id.identifier}}' style="display:none;"></a>
+        <a routerLink='/{{controllerName}}/Delete/{{type.id.identifier}}' style="display:none;"></a>
       </td>
     </tr>
   </table>

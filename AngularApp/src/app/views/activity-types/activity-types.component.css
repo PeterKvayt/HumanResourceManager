@@ -10,7 +10,9 @@
 }
 
 .show-img-wrapper{
+  opacity: 0;
   animation: show 2s;
+  animation-delay: 1s;
 }
 
 @keyframes show{

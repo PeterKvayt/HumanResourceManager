@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-lg-3 col-md-3 col-sm-1"></div>
+  <div class="col-lg-6 col-md-6 col-sm-10">
+
+    <h5><strong>Создание вида деятельности</strong></h5>
+
+    <div class="form-group">
+      <label class="control-label">Название вида деятельности</label>
+      <input maxlength="50" required class="form-control input-form select-form" (change)='changeHandler($event)' />
+    </div>
+
+    <button (click)='accept()' class="btn btn-primary">Создать</button>
+    <button (click)='redirect()' class="btn btn-danger">Отмена</button>
+
+    <div class="alert-wrapper" *ngIf="alert">
+      {{alertMessage}}
+    </div>
+  </div>
+</div>

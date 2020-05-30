@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 interface LinkListItem{
-  link: string
-  text: string
-  pictClass: string
+  link: string;
+  text: string;
+  pictClass: string;
 }
 
 @Component({
@@ -13,33 +13,33 @@ interface LinkListItem{
 })
 export class HeaderComponent implements OnInit {
 
-  links: LinkListItem[] =[
+  links: LinkListItem[] = [
     {
-      link: '/employees',
+      link: '/Employees',
       text: 'Сотрудники',
       pictClass: 'fa fa-id-card'
     },
     {
-      link: '/companies',
+      link: '/Companies',
       text: 'Компании',
       pictClass: 'fa fa-bank'
     },
     {
-      link: '/positions',
+      link: '/Positions',
       text: 'Должности',
       pictClass: 'fa fa-briefcase'
     },
     {
-      link: '/legalForms',
+      link: '/LegalForms',
       text: 'Оргформы',
       pictClass: 'fa fa-book'
     },
     {
-      link: '/activityTypes',
+      link: '/ActivityTypes',
       text: 'Деятельность',
       pictClass: 'fa fa-flash'
     }
-  ]
+  ];
 
   constructor() { }
 

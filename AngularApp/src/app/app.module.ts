@@ -16,18 +16,20 @@ import { HomeCardComponent } from './components/home-card/home-card.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ApiCardComponent } from './components/api-card/api-card.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CreateActivityTypeComponent } from './views/activity-types/create/create-activity-type.component';
 
 // routes
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'home', component: HomeComponent},
-  { path: 'api', component: ApiComponent},
+  { path: 'Home', component: HomeComponent},
+  { path: 'Api', component: ApiComponent},
   // { path: 'employees', redirectTo: '/notFound'},
   // { path: 'companies', redirectTo: '/notFound'},
   // { path: 'positions', redirectTo: '/notFound'},
   // { path: 'legalForms', redirectTo: '/notFound'},
-  { path: 'activityTypes', component: ActivityTypesComponent},
-  { path: 'notFound', component: NotFoundComponent },
+  { path: 'ActivityTypes', component: ActivityTypesComponent},
+  { path: 'ActivityTypes/Create', component: CreateActivityTypeComponent, pathMatch: 'full'},
+  { path: 'NotFound', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -42,6 +44,7 @@ const appRoutes: Routes = [
     ApiCardComponent,
     FooterComponent,
     ActivityTypesComponent,
+    CreateActivityTypeComponent
   ],
   imports: [
     BrowserModule,

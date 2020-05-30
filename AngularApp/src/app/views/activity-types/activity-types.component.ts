@@ -3,15 +3,7 @@ import { HttpService} from '../../services/http.service';
 import { Subscription } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import apiSettings from '../../../assets/configure/api.config.json';
-
-interface IdType{
-  identifier: number;
-}
-
-interface ActivityType{
-  name: string;
-  id: IdType;
-}
+import { ActivityType } from './activityType';
 
 @Component({
   selector: 'app-activity-types',
