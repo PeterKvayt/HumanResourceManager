@@ -1,32 +1,42 @@
 [
   {
-  "link" : "/employees",
-  "title": "Управление сотрудниками",
-  "description" : "Для просмотра, удаления, изменения и создания новых сотрудников, нажмите",
-  "buttonText" : "Просмотреть сотрудников"
+    "link": "/employees",
+    "title": "Управление сотрудниками",
+    "description": "Для просмотра, удаления, изменения и создания новых сотрудников, нажмите",
+    "buttonText": "Просмотреть сотрудников",
+    "backgroundImage": "assets/img/employee.svg",
+    "altImgText": "employee image"
   },
   {
-  "link" : "/positions",
-  "title": "Управление должностями",
-  "description" : "Для просмотра, удаления, изменения и создания новых должностей, нажмите",
-  "buttonText" : "Просмотреть должности"
+    "link": "/positions",
+    "title": "Управление должностями",
+    "description": "Для просмотра, удаления, изменения и создания новых должностей, нажмите",
+    "buttonText": "Просмотреть должности",
+    "backgroundImage": "assets/img/position.svg",
+    "altImgText": "position image"
   },
   {
-  "link" : "/activityTypes",
-  "title": "Управление видами деятельности компаний",
-  "description" : "Для просмотра, удаления, изменения и создания новых видов деятельности, нажмите",
-  "buttonText" : "Просмотреть виды деятельности компаний"
+    "link": "/activityTypes",
+    "title": "Управление видами деятельности компаний",
+    "description": "Для просмотра, удаления, изменения и создания новых видов деятельности, нажмите",
+    "buttonText": "Просмотреть виды деятельности компаний",
+    "backgroundImage": "assets/img/activityTypes.svg",
+    "altImgText": "activity type image"
   },
   {
-  "link" : "/legalForms",
-  "title": "Управление организационно-правовыми формами",
-  "description" : "Для просмотра, удаления, изменения и создания новых организационно-правовых форм, нажмите",
-  "buttonText" : "Просмотреть организационно-правовые формы"
+    "link": "/legalForms",
+    "title": "Управление организационно-правовыми формами",
+    "description": "Для просмотра, удаления, изменения и создания новых организационно-правовых форм, нажмите",
+    "buttonText": "Просмотреть организационно-правовые формы",
+    "backgroundImage": "assets/img/legalForms.svg",
+    "altImgText": "legal forms image"
   },
   {
-  "link" : "/companies",
-  "title": "Управление компаниями",
-  "description" : " Для просмотра, удаления, изменения и создания новых компаний, нажмите",
-  "buttonText" : "Просмотреть компании"
+    "link": "/companies",
+    "title": "Управление компаниями",
+    "description": " Для просмотра, удаления, изменения и создания новых компаний, нажмите",
+    "buttonText": "Просмотреть компании",
+    "backgroundImage": "assets/img/company.svg",
+    "altImgText": "companies image"
   }
 ]

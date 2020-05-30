@@ -7,6 +7,8 @@ export interface HomeCard{
   title: string;
   description: string;
   buttonText: string;
+  backgroundImage: string;
+  altImgText: string;
 }
 
 @Component({

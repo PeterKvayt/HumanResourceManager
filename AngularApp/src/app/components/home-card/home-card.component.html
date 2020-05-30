@@ -1,9 +1,14 @@
-  <div class="jumbotron">
-      <h1>{{homeCard.title}}</h1>
-      <p>
-          {{homeCard.description}}
-          <a class="btn btn-primary" [routerLink]='homeCard.link'>
-              {{homeCard.buttonText}}
-          </a>
-      </p>
-  </div>
+<div class="wrapper">
+            <img class="back-img" src="{{homeCard.backgroundImage}}" alt="{{homeCard.altImgText}}">
+    <div class="card">
+        <div class="inner-card">
+            <h1>{{homeCard.title}}</h1>
+            <p>
+                {{homeCard.description}}
+            </p>
+            <a class="btn btn-primary" [routerLink]='homeCard.link'>
+                {{homeCard.buttonText}}
+            </a>
+        </div>
+    </div>
+</div>

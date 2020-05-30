@@ -1,0 +1,22 @@
+.wrapper{
+  overflow: hidden;
+  border-radius: 5px;
+  height: 500px;
+  
+}
+.card{
+  padding: 10rem 5rem;
+  background-color: rgba(0, 0, 0, 0.85);
+  height: 100%;
+  text-align: center;
+}
+.inner-card{
+  color: white;
+}
+.back-img{
+  width: 100%;
+  position: absolute;
+}
+.btn{
+  margin-top: 1rem;
+}
