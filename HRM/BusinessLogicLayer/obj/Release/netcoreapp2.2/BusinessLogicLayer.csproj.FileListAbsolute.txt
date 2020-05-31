@@ -1,0 +1,16 @@
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\bin\Release\netcoreapp2.2\BusinessLogicLayer.deps.json
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\bin\Release\netcoreapp2.2\BusinessLogicLayer.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\bin\Release\netcoreapp2.2\BusinessLogicLayer.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\bin\Release\netcoreapp2.2\CommonClasses.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\bin\Release\netcoreapp2.2\DataAccessLayer.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\bin\Release\netcoreapp2.2\ExceptionClasses.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\bin\Release\netcoreapp2.2\CommonClasses.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\bin\Release\netcoreapp2.2\DataAccessLayer.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\bin\Release\netcoreapp2.2\ExceptionClasses.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\obj\Release\netcoreapp2.2\BusinessLogicLayer.csprojAssemblyReference.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\obj\Release\netcoreapp2.2\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\obj\Release\netcoreapp2.2\BusinessLogicLayer.AssemblyInfoInputs.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\obj\Release\netcoreapp2.2\BusinessLogicLayer.AssemblyInfo.cs
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\obj\Release\netcoreapp2.2\BusinessLogicLayer.csproj.CopyComplete
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\obj\Release\netcoreapp2.2\BusinessLogicLayer.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\BusinessLogicLayer\obj\Release\netcoreapp2.2\BusinessLogicLayer.pdb

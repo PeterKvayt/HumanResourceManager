@@ -10,13 +10,15 @@
 }
 
 .show-img-wrapper{
-  opacity: 0;
-  animation: show 2s;
-  animation-delay: 1s;
+  /* opacity: 1; */
+  animation: show 1s;
+  
+  position: relative;
 }
 
 @keyframes show{
-  from {opacity: 0;} to {opacity: 1;}
+  from {opacity: 0; top: 20px;} 
+  to {opacity: 1; top: 0;}
 }
 
 .empty-img{

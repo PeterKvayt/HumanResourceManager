@@ -3,7 +3,7 @@ import apiSettings from '../../../../assets/configure/api.config.json';
 import { Title } from '@angular/platform-browser';
 import { HttpService } from '../../../services/http.service';
 import { ActivityType } from '../activityType';
-import { Subscription, timer } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({

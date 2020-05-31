@@ -14,4 +14,9 @@ export class HttpService {
      const headers = { 'content-type': 'application/json'};
      return this.httpClient.post(url, model, {headers});
   }
+
+  public delete(url: string, id: number){
+    const action = url + '/' + id;
+    return this.httpClient.delete(action);
+  }
 }

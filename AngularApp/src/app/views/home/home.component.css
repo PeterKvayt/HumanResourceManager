@@ -1,8 +1,6 @@
 .wrapper{
   overflow: hidden;
-  border-radius: 5px;
   height: 80vh;
-  
 }
 .card{
   padding: 10rem 5rem;
@@ -17,4 +15,8 @@
 .back-img{
   width: 100%;
   position: absolute;
+}
+.carousel-inner{
+  overflow: hidden;
+  border-radius: 4px;
 }

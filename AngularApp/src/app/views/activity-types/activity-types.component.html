@@ -19,12 +19,15 @@
           Изменить
         </a>
 
-        <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#deletion-modal">Удалить</span>
-        <a routerLink='/{{controllerName}}/Delete/{{type.id.identifier}}' style="display:none;"></a>
+        <span class="btn btn-danger neibor-btn" data-toggle="modal" data-target="#myModal" (click)='onDeleteClick(type.id.identifier)'>Удалить</span> 
       </td>
     </tr>
   </table>
 </div>
 <div [class]="this.wrapperClass">
   <img class="empty-img" src="./assets/img/empty.svg" alt="empty image">
+</div>
+
+<div *ngIf='showModal'>
+  <app-modal [modal]='modalInfo' (action)='deletionHandler($event)'></app-modal>
 </div>

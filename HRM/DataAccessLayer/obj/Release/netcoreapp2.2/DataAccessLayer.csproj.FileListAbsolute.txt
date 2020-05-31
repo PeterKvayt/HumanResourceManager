@@ -1,0 +1,14 @@
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Release\netcoreapp2.2\DataAccessLayer.deps.json
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Release\netcoreapp2.2\DataAccessLayer.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Release\netcoreapp2.2\DataAccessLayer.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Release\netcoreapp2.2\CommonClasses.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Release\netcoreapp2.2\ExceptionClasses.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Release\netcoreapp2.2\CommonClasses.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\bin\Release\netcoreapp2.2\ExceptionClasses.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Release\netcoreapp2.2\DataAccessLayer.csprojAssemblyReference.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Release\netcoreapp2.2\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Release\netcoreapp2.2\DataAccessLayer.AssemblyInfoInputs.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Release\netcoreapp2.2\DataAccessLayer.AssemblyInfo.cs
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Release\netcoreapp2.2\DataAccessLayer.csproj.CopyComplete
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Release\netcoreapp2.2\DataAccessLayer.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\DataAccessLayer\obj\Release\netcoreapp2.2\DataAccessLayer.pdb

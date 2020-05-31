@@ -1,8 +1,6 @@
 .wrapper{
   overflow: hidden;
-  border-radius: 5px;
   height: 80vh;
-  
 }
 .card{
   padding: 10rem 5rem;

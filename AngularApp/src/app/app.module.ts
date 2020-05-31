@@ -17,6 +17,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ApiCardComponent } from './components/api-card/api-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CreateActivityTypeComponent } from './views/activity-types/create/create-activity-type.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 // routes
 const appRoutes: Routes = [
@@ -44,7 +45,8 @@ const appRoutes: Routes = [
     ApiCardComponent,
     FooterComponent,
     ActivityTypesComponent,
-    CreateActivityTypeComponent
+    CreateActivityTypeComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

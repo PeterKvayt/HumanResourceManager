@@ -1,0 +1,25 @@
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3 class="modal-title">{{modal.header}}</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          {{modal.body}}
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)='clickHandler(true)'>{{modal.acceptBtnText}}</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)='clickHandler(false)'>{{modal.cancelBtnText}}</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>

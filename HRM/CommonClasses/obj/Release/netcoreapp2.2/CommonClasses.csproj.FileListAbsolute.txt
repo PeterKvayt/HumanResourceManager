@@ -1,0 +1,12 @@
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\bin\Release\netcoreapp2.2\CommonClasses.deps.json
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\bin\Release\netcoreapp2.2\CommonClasses.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\bin\Release\netcoreapp2.2\CommonClasses.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\bin\Release\netcoreapp2.2\ExceptionClasses.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\bin\Release\netcoreapp2.2\ExceptionClasses.pdb
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\obj\Release\netcoreapp2.2\CommonClasses.csprojAssemblyReference.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\obj\Release\netcoreapp2.2\CommonClasses.csproj.CoreCompileInputs.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\obj\Release\netcoreapp2.2\CommonClasses.AssemblyInfoInputs.cache
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\obj\Release\netcoreapp2.2\CommonClasses.AssemblyInfo.cs
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\obj\Release\netcoreapp2.2\CommonClasses.csproj.CopyComplete
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\obj\Release\netcoreapp2.2\CommonClasses.dll
+D:\MyDirectory\GitRepositories\HumanResourceManager\HRM\CommonClasses\obj\Release\netcoreapp2.2\CommonClasses.pdb

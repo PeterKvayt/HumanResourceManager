@@ -1,0 +1,6 @@
+.modal-title{
+  font-weight: 700;
+}
+.modal-header, .modal-footer{
+  border: none;
+}
