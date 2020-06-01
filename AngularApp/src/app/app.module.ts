@@ -10,13 +10,15 @@ import { HomeComponent } from './views/home/home.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { ApiComponent } from './views/api/api.component';
 import { ActivityTypesComponent } from './views/activity-types/activity-types.component';
+import { UpdateActivityTypeComponent } from './views/activity-types/update/update-activity-type.component';
+import { CreateActivityTypeComponent } from './views/activity-types/create/create-activity-type.component';
+
 
 // components
 import { HomeCardComponent } from './components/home-card/home-card.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ApiCardComponent } from './components/api-card/api-card.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CreateActivityTypeComponent } from './views/activity-types/create/create-activity-type.component';
 import { ModalComponent } from './components/modal/modal.component';
 
 // routes
@@ -30,6 +32,7 @@ const appRoutes: Routes = [
   // { path: 'legalForms', redirectTo: '/notFound'},
   { path: 'ActivityTypes', component: ActivityTypesComponent},
   { path: 'ActivityTypes/Create', component: CreateActivityTypeComponent, pathMatch: 'full'},
+  { path: 'ActivityTypes/Update/:id', component: UpdateActivityTypeComponent, pathMatch: 'full'},
   { path: 'NotFound', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
 ];
@@ -46,7 +49,8 @@ const appRoutes: Routes = [
     FooterComponent,
     ActivityTypesComponent,
     CreateActivityTypeComponent,
-    ModalComponent
+    ModalComponent,
+    UpdateActivityTypeComponent
   ],
   imports: [
     BrowserModule,

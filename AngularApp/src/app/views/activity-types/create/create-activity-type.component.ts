@@ -29,7 +29,6 @@ export class CreateActivityTypeComponent implements OnInit, OnDestroy {
   controllerName = apiSettings.activityTypes;
   alertMessage = 'Для создания вида деятельности необходимо заполнить все поля!';
   private subscription: Subscription;
-  private timer: any;
   ngOnInit(): void {
     this.titleService.setTitle('Создание вида деятельности');
   }
@@ -38,12 +37,16 @@ export class CreateActivityTypeComponent implements OnInit, OnDestroy {
     if (this.model.name.length > 0) {
       const url = apiSettings.url + apiSettings.activityTypes;
       this.subscription = this.httpService.post<ActivityType>(url, this.model)
-        .subscribe();
-      this.timer = setTimeout(() => {
+        .subscribe(() => {
           this.redirect();
-        }, 50);
+        },
+        () => {
+          this.alertMessage = 'Что-то пошло не так!';
+          this.alert = true;
+        });
     }
     else{
+      this.alertMessage = 'Для создания вида деятельности необходимо заполнить все поля!';
       this.alert = true;
     }
   }
@@ -51,7 +54,6 @@ export class CreateActivityTypeComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     if (this.subscription !== undefined) {
       this.subscription.unsubscribe();
-      clearTimeout(this.timer);
     }
   }
 
@@ -60,6 +62,7 @@ export class CreateActivityTypeComponent implements OnInit, OnDestroy {
     if (this.model.name.length > 0) {
       this.alert = false;
     } else {
+      this.alertMessage = 'Для создания вида деятельности необходимо заполнить все поля!';
       this.alert = true;
     }
   }

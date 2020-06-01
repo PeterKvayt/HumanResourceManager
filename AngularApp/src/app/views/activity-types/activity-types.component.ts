@@ -23,6 +23,7 @@ export class ActivityTypesComponent implements OnInit, DoCheck, OnDestroy {
   controllerName = apiSettings.activityTypes;
   wrapperClass = 'hide-img-wrapper';
   private getSubscription: Subscription;
+  private deleteSubscription: Subscription;
   dataTarget = '#delete-modal';
   modalInfo: Modal = {
     header: 'Удаление вида деятельности',
@@ -42,6 +43,9 @@ export class ActivityTypesComponent implements OnInit, DoCheck, OnDestroy {
 
   ngOnDestroy(){
     this.getSubscription.unsubscribe();
+    if (this.deleteSubscription !== undefined) {
+      this.deleteSubscription.unsubscribe();
+    }
   }
   onDeleteClick(id: number){
     this.modalInfo.id = id;
@@ -51,7 +55,7 @@ export class ActivityTypesComponent implements OnInit, DoCheck, OnDestroy {
   deletionHandler(id: number){
     if (id !== null) {
       const url = apiSettings.url + apiSettings.activityTypes;
-      this.httpService.delete(url, id).subscribe(() => {
+      this.deleteSubscription = this.httpService.delete(url, id).subscribe(() => {
         this.getActivityTypes();
       });
     }

@@ -10,6 +10,11 @@ export class HttpService {
     return this.httpClient.get(url);
   }
 
+  public getById(url: string, id: number){
+    const query = url + '/' + id.toString();
+    return this.httpClient.get(query);
+  }
+
   public post<ModelType>(url: string, model: ModelType){
      const headers = { 'content-type': 'application/json'};
      return this.httpClient.post(url, model, {headers});
@@ -18,5 +23,10 @@ export class HttpService {
   public delete(url: string, id: number){
     const action = url + '/' + id;
     return this.httpClient.delete(action);
+  }
+
+  public put<ModelType>(url: string, model: ModelType){
+    const headers = { 'content-type': 'application/json'};
+    return this.httpClient.put(url, model, {headers});
   }
 }
